@@ -78,6 +78,7 @@ module.exports = {
       },
     ],
     'unused-imports/no-unused-imports': 'error',
+    'react/jsx-props-no-spreading': 'off',
   },
   // settings: {
   //   'import/resolver': {

@@ -2,6 +2,7 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
+import AppInput from '@/components/app-input';
 
 export const Login = () => {
   const supabase = createClientComponentClient();
@@ -13,11 +14,15 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <button type="button" onClick={handleLogin}>
-        Log in
-      </button>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex flex-col gap-4">
+        <AppInput label="Login" />
+        <AppInput label="Password" />
+        <button type="button" onClick={handleLogin}>
+          Log in
+        </button>
+      </div>
+    </main>
   );
 };
 export default Login;
