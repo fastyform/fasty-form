@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src", ".eslintrc.js", "postcss.config.mjs", "tailwind.config.ts", "reset.d.ts", "next.config.mjs"]
+  "include": ["src", ".eslintrc.js", "postcss.config.js", "tailwind.config.ts", "reset.d.ts", "next.config.mjs"]
 }
