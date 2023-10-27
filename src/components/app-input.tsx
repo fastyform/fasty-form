@@ -3,6 +3,6 @@
 import { TextField, TextFieldProps } from '@mui/material';
 
 // eslint-disable-next-line react/jsx-props-no-spreading
-const StyledMuiTextInput = (props: TextFieldProps) => <TextField {...props} />;
+const AppInput = (props: TextFieldProps) => <TextField {...props} />;
 
-export default StyledMuiTextInput;
+export default AppInput;
