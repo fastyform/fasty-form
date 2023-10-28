@@ -39,7 +39,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['builtin'],
       },
     ],
-    // 'import/prefer-default-export': 'off',
+    'import/prefer-default-export': 'off',
     'newline-before-return': 'error',
     // 'no-restricted-syntax': 'off',
     'no-relative-import-paths/no-relative-import-paths': [
