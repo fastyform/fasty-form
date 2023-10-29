@@ -2,7 +2,7 @@
 
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import { TextFieldProps } from '@mui/material';
-import AppInput from './app-input';
+import AppInput from '@/components/app-input/app-input';
 
 interface Props<T extends FieldValues> extends Omit<TextFieldProps, 'name' | 'onChange' | 'onBlur' | 'inputRef'> {
   fieldName: keyof T;
