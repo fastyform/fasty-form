@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
-export const Profile = async () => {
+const Profile = async () => {
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { user },
@@ -13,4 +13,5 @@ export const Profile = async () => {
 
   return <div>{JSON.stringify(data)}</div>;
 };
+
 export default Profile;

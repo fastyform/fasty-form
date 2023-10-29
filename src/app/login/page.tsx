@@ -20,7 +20,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [isInvalidCredentialsError, setIsInvalidCredentialsError] = useState(false);
@@ -50,4 +50,5 @@ export const LoginPage = () => {
     </main>
   );
 };
+
 export default LoginPage;
