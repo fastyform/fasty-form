@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormHelperText } from '@mui/material';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createBrowserClient } from '@supabase/ssr';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
-import AppInputForm from '@/components/inputs/app-input-form';
+import AppInputForm from '@/components/app-input/app-input-form';
 
 const formSchema = z.object({
   email: z
@@ -21,7 +21,10 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const LoginPage = () => {
-  const supabase = createClientComponentClient();
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
   const router = useRouter();
   const [isInvalidCredentialsError, setIsInvalidCredentialsError] = useState(false);
   const { handleSubmit, control } = useForm<FormValues>({
@@ -33,7 +36,7 @@ const LoginPage = () => {
     try {
       const res = await supabase.auth.signInWithPassword({ email: data.email, password: data.password });
       if (res.error) throw new Error(res.error.message);
-      router.push('/profile');
+      router.push('/orders');
     } catch {
       setIsInvalidCredentialsError(true);
     }
