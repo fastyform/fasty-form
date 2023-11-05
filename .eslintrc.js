@@ -26,8 +26,8 @@ module.exports = {
     ],
     // '@typescript-eslint/ban-ts-comment': 'off',
     // '@typescript-eslint/naming-convention': 'off',
-    // '@typescript-eslint/no-explicit-any': 'off',
-    // 'consistent-return': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'consistent-return': 'off',
     'import/order': [
       'error',
       {

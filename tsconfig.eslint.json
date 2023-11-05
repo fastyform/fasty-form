@@ -4,7 +4,7 @@
     "src",
     ".eslintrc.js",
     "postcss.config.js",
-    "tailwind.config.ts",
+    "tailwind.config.mjs",
     "reset.d.ts",
     "next.config.mjs",
     "next-env.d.ts"
