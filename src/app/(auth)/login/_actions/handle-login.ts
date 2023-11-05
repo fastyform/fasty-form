@@ -1,35 +1,30 @@
 'use server';
 
-import { CookieOptions, createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import { FormValues } from '@/app/(auth)/login/_components/utils';
+import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
+import { formSchema } from '@/app/(auth)/login/_components/utils';
+import getSupabase from '@/utils/get-supabase';
 
-const handleLogin = async (data: FormValues) => {
-  const cookieStore = cookies();
-  const { email, password } = data;
+const handleLogin = async (prevState: any, data: FormData) => {
+  const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
-        },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.delete({ name, ...options });
-        },
-      },
-    },
-  );
+  if (!formSchemaParsed.success) {
+    return NextResponse.json({ status: 400 });
+  }
 
-  await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const supabase = getSupabase();
+  const { email, password } = formSchemaParsed.data;
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (!error) {
+    return redirect('/orders');
+  }
+
+  if (error.status === 400) {
+    return { message: error.message };
+  }
+
+  return { message: 'Something went wrong, try again' };
 };
 
 export default handleLogin;
