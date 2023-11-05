@@ -7,7 +7,7 @@ const AppButton = <C extends ElementType>(props: LoadingButtonProps<C, { compone
   <LoadingButton
     color="inherit"
     classes={{
-      root: 'bg-yellow-400 text-red-[#0D1116] py-[18px] text-base font-bold rounded-full tracking-normal normal-case',
+      root: 'bg-yellow-400 text-[#0D1116] py-[18px] text-base font-bold rounded-full tracking-normal normal-case',
     }}
     {...props}
     disableElevation
