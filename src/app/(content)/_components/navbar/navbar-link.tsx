@@ -4,12 +4,14 @@ import { Button, ButtonProps } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import ProfileIcon from './assets/profile-icon';
 import SettingsIcon from './assets/setting-icon';
 import SubmissionsIcon from './assets/submissions-icon';
 
 const NavbarIcons = {
   settings: SettingsIcon,
   submissions: SubmissionsIcon,
+  profile: ProfileIcon,
 };
 
 interface Props extends ButtonProps {
