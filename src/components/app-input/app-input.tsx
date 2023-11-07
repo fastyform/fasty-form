@@ -2,13 +2,11 @@
 
 import { TextField, TextFieldProps } from '@mui/material';
 
-// TODO: If autofill hide label?
-// TODO: Fix form input field focus when autofill
 const AppInput = (props: TextFieldProps) => (
   <TextField
     FormHelperTextProps={{
       classes: {
-        root: 'text-red-400',
+        root: 'text-red-400 inline-flex gap-2 mt-1 items-center',
       },
     }}
     InputLabelProps={{
