@@ -1,7 +1,7 @@
 import AppLogo from '@/components/app-logo';
-import NavbarLink from './navbar-link';
+import DesktopNavbarLink from './desktop-navbar-link';
 
-const Navbar = () => {
+const DesktopNavbar = () => {
   // TODO CONNECT WITH AUTH SERVICE TO CHECK ACCOUNT TYPE
   const isTrainerAccount = true;
 
@@ -9,20 +9,20 @@ const Navbar = () => {
     <header className=" invisible fixed left-1/2 top-10 z-10 flex h-[86px] w-full max-w-screen-2xl -translate-x-1/2 transform items-center justify-between rounded-full border border-gray-600 bg-[#1E2226] px-10 lg:visible">
       <AppLogo />
       <div className="flex h-full items-center gap-10">
-        <NavbarLink href="/submissions" icon="submissions">
+        <DesktopNavbarLink href="/submissions" icon="submissions">
           Zgłoszenia
-        </NavbarLink>
-        <NavbarLink href="/settings" icon="settings">
+        </DesktopNavbarLink>
+        <DesktopNavbarLink href="/settings" icon="settings">
           Ustawienia
-        </NavbarLink>
+        </DesktopNavbarLink>
         {isTrainerAccount && (
-          <NavbarLink href="/profile" icon="profile">
+          <DesktopNavbarLink href="/profile" icon="profile">
             Profil
-          </NavbarLink>
+          </DesktopNavbarLink>
         )}
       </div>
     </header>
   );
 };
 
-export default Navbar;
+export default DesktopNavbar;

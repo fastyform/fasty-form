@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import LayoutHeader from './_components/layout-header';
-import Navbar from './_components/navbar/navbar';
+import DesktopNavbar from './_components/navbar/desktop-navbar/desktop-navbar';
 
 const ContentLayout = ({ children }: { children: ReactNode }) => (
   <div className="ml-auto mr-auto flex h-full max-w-screen-2xl flex-col px-10">
-    <Navbar />
+    <DesktopNavbar />
     <LayoutHeader />
     <main className="flex grow">{children}</main>
     <footer>

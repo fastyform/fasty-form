@@ -4,27 +4,20 @@ import { Button, ButtonProps } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import ProfileIcon from './assets/profile-icon';
-import SettingsIcon from './assets/setting-icon';
-import SubmissionsIcon from './assets/submissions-icon';
-
-const NavbarIcons = {
-  settings: SettingsIcon,
-  submissions: SubmissionsIcon,
-  profile: ProfileIcon,
-};
+import NavbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
 
 interface Props extends ButtonProps {
   icon: keyof typeof NavbarIcons;
 }
 
-const NavbarLink = ({ children, icon, ...props }: Props) => {
+const DesktopNavbarLink = ({ children, icon, ...props }: Props) => {
   const path = usePathname();
   const isActive = path === props.href;
   const NavbarIcon = NavbarIcons[icon];
 
   return (
     <Button
+      disableElevation
       color="inherit"
       LinkComponent={Link}
       className={twMerge(
@@ -45,4 +38,4 @@ const NavbarLink = ({ children, icon, ...props }: Props) => {
   );
 };
 
-export default NavbarLink;
+export default DesktopNavbarLink;
