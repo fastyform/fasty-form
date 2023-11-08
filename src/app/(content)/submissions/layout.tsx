@@ -7,8 +7,8 @@ const SubmissionLayout = ({ children }: { children: ReactNode }) => {
   const isTrainerAccount = true;
 
   return (
-    <section>
-      <div className="align-center my-5 flex w-full justify-between lg:invisible">
+    <section className="my-5 flex w-full flex-col gap-10">
+      <div className="align-center flex w-full justify-between lg:invisible">
         <AppLogo />
         <div className="flex gap-5">
           <MobileNavbarLink aria-label="Ustawienia" href="/settings" icon="settings" />
