@@ -3,7 +3,7 @@ import AppLogo from '@/components/app-logo';
 
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => (
   <section className="w-full">
-    <div className="align-center relative my-5 flex w-full justify-center lg:invisible">
+    <div className="align-center relative my-5 flex w-full justify-center lg:hidden">
       <MobileNavbarLink
         aria-label="Zgłoszenia"
         className="absolute left-0 top-1/2 -translate-y-1/2"

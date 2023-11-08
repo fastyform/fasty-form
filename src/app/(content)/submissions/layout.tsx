@@ -8,7 +8,7 @@ const SubmissionLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <section className="my-5 flex w-full flex-col gap-10">
-      <div className="align-center flex w-full justify-between lg:invisible">
+      <div className="align-center flex w-full justify-between lg:hidden">
         <AppLogo />
         <div className="flex gap-5">
           <MobileNavbarLink aria-label="Ustawienia" href="/settings" icon="settings" />

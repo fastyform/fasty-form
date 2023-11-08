@@ -1,18 +1,27 @@
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import Link from 'next/link';
+import AppButton from '@/components/app-button';
 
-const OrdersCard = () => (
+const OrdersCard = async ({
+  submissionId,
+  trainerProfileName,
+}: {
+  submissionId: number;
+  trainerProfileName: string | undefined;
+}) => (
   <Card>
     <div className="flex h-40 items-center justify-center">photo here</div>
     <CardContent>
-      <Typography gutterBottom component="div" variant="h5">
-        Some content here
-      </Typography>
+      {trainerProfileName && (
+        <Typography gutterBottom component="div" variant="h5">
+          {trainerProfileName}
+        </Typography>
+      )}
     </CardContent>
     <CardActions>
-      <Button component={Link} href="/orders/order-id" size="small">
+      <AppButton component={Link} href={`/submissions/${submissionId}`} size="small">
         View
-      </Button>
+      </AppButton>
     </CardActions>
   </Card>
 );
