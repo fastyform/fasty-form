@@ -4,6 +4,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import { usePrevious } from '@uidotdev/usehooks';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import ProviderButton from '@/app/(auth)/_components/provider-button';
@@ -26,21 +27,33 @@ const SubmitButton = ({ isValid }: { isValid: boolean }) => {
 };
 
 const RegisterFormClient = () => {
-  const [state, formAction] = useFormState<any, FormData>(actionRegisterClient, { message: null });
-  const { control, handleSubmit, formState } = useForm<FormValues>({
+  const [state, formAction] = useFormState(actionRegisterClient, { message: '', isSuccess: false });
+  const { control, handleSubmit, formState, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '', policy: false },
     mode: 'onTouched',
   });
+
+  const previousState = usePrevious(state);
+  if (previousState !== state) {
+    if (state?.isSuccess) {
+      reset();
+    }
+  }
 
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
 
   return (
     <form action={handleFormAction} className="flex flex-col">
       <div className="flex flex-col gap-5">
-        {state?.message && (
-          <span className="inline-flex items-center gap-2 text-sm text-red-400">
-            <ErrorIcon className="min-w-[17px]" />
+        {state.message && (
+          <span
+            className={twMerge(
+              'inline-flex items-center gap-2 text-sm text-red-400',
+              state.isSuccess && 'text-green-400',
+            )}
+          >
+            {!state.isSuccess && <ErrorIcon className="min-w-[17px]" />}
             {state.message}
           </span>
         )}
@@ -65,6 +78,8 @@ const RegisterFormClient = () => {
                   <Checkbox
                     checked={field.value}
                     classes={{ root: twMerge('text-zinc-200', fieldState.invalid && 'text-red-400') }}
+                    name="policy"
+                    value={field.value}
                     onChange={(_, checked) => field.onChange(checked)}
                   />
                 }
