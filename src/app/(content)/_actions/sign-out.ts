@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getSupabase from '@/utils/get-supabase';
+import getSupabase from '@/utils/supabase/get-supabase';
 
 const signOut = async () => {
   const supabase = getSupabase();
