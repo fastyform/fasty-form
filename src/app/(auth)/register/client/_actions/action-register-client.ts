@@ -1,33 +1,39 @@
 'use server';
 
-// import { redirect } from 'next/navigation';
-// import { NextResponse } from 'next/server';
-// import { formSchema } from '@/app/(auth)/login/_utils';
-// import getSupabase from '@/utils/get-supabase';
+import { formSchema } from '@/app/(auth)/register/client/_utils';
+import getSupabase from '@/utils/supabase/get-supabase';
 
-const actionRegisterClient = async (prevState: any, data: FormData) => {
-  console.log(data.get('email'));
+const actionRegisterClient = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
+  const formSchemaParsed = formSchema.safeParse({
+    email: data.get('email'),
+    password: data.get('password'),
+    policy: data.get('policy') === 'true',
+  });
 
-  return { message: 'Register client' };
-  // const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
+  if (!formSchemaParsed.success) {
+    return { message: 'Bad request.', isSuccess: false };
+  }
 
-  // if (!formSchemaParsed.success) {
-  //   return NextResponse.json({ status: 400 });
-  // }
+  const supabase = getSupabase();
 
-  // const supabase = getSupabase();
-  // const { email, password } = formSchemaParsed.data;
-  // const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { email, password } = formSchemaParsed.data;
 
-  // if (!error) {
-  //   return redirect('/orders');
-  // }
+  // TODO: Add user redirectLink to verify email
+  const response = await supabase.auth.signUp({ email, password, options: { data: { role: 'client' } } });
 
-  // if (error.status === 400) {
-  //   return { message: error.message };
-  // }
+  if (response.data.user?.identities?.length === 0) {
+    return { message: 'Istnieje już konto o podanym adresie email.', isSuccess: false };
+  }
 
-  // return { message: 'Something went wrong, try again' };
+  if (response.error?.status === 429) {
+    return { message: 'Zbyt wiele prób rejestracji w krótkim czasie.', isSuccess: false };
+  }
+
+  if (response.error) {
+    return { message: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.', isSuccess: false };
+  }
+
+  return { message: 'Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', isSuccess: true };
 };
 
 export default actionRegisterClient;

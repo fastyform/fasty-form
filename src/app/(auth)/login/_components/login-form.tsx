@@ -25,7 +25,7 @@ const SubmitButton = ({ isValid }: { isValid: boolean }) => {
 };
 
 const LoginForm = () => {
-  const [state, formAction] = useFormState<any, FormData>(actionSignIn, { message: null });
+  const [state, formAction] = useFormState(actionSignIn, { message: '' });
   const { control, handleSubmit, formState } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '' },

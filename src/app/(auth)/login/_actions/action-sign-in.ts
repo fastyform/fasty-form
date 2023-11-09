@@ -1,15 +1,14 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { NextResponse } from 'next/server';
 import { formSchema } from '@/app/(auth)/login/_utils';
 import getSupabase from '@/utils/supabase/get-supabase';
 
-const actionSignIn = async (prevState: any, data: FormData) => {
+const actionSignIn = async (prevState: { message: string }, data: FormData) => {
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
 
   if (!formSchemaParsed.success) {
-    return NextResponse.json({ status: 400 });
+    return { message: 'Bad request.' };
   }
 
   const supabase = getSupabase();
