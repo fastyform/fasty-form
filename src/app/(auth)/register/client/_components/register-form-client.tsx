@@ -1,10 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { usePrevious } from '@uidotdev/usehooks';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import ProviderButton from '@/app/(auth)/_components/provider-button';
@@ -34,12 +34,11 @@ const RegisterFormClient = () => {
     mode: 'onTouched',
   });
 
-  const previousState = usePrevious(state);
-  if (previousState !== state) {
+  useEffect(() => {
     if (state?.isSuccess) {
       reset();
     }
-  }
+  }, [state, reset]);
 
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
 

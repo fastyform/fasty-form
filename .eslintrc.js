@@ -24,6 +24,7 @@ module.exports = {
         case: 'kebabCase',
       },
     ],
+
     // '@typescript-eslint/ban-ts-comment': 'off',
     // '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -39,7 +40,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['builtin'],
       },
     ],
-    // 'import/prefer-default-export': 'off',
+    'import/prefer-default-export': 'off',
     'newline-before-return': 'error',
     // 'no-restricted-syntax': 'off',
     'no-relative-import-paths/no-relative-import-paths': [
