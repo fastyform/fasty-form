@@ -1,36 +1,20 @@
-import getSupabase from '@/utils/supabase/get-supabase';
+import { Suspense } from 'react';
 import FilterTabs from './_components/filter-tabs';
-import OrdersCard from './_components/orders-card';
+import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
+import Submissions from './_components/submissions';
 
-const SubmissionsPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const supabase = getSupabase();
-
-  let query = supabase.from('submissions').select('id, trainer_review, trainers_details (profile_name)');
-
-  if (searchParams?.filter === 'reviewed') {
-    query = query.not('trainer_review', 'is', null);
-  }
-
-  if (searchParams?.filter === 'unreviewed') {
-    query = query.is('trainer_review', null);
-  }
-
-  const { data: submissions } = await query;
+const SubmissionsPage = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+  const key = JSON.stringify(searchParams);
 
   return (
     <>
       <h1 className="text-2xl text-white">Twoje zgłoszenia</h1>
       <div className="flex flex-col gap-5">
         <FilterTabs defaultFilter={searchParams?.filter} />
-        <div className="grid grid-cols-3 gap-4">
-          {submissions &&
-            submissions.map(({ id, trainers_details }) => (
-              <OrdersCard key={id} submissionId={id} trainerProfileName={trainers_details?.profile_name} />
-            ))}
+        <div className="grid grid-cols-1 gap-5 min-[450px]:grid-cols-2 md:grid-cols-3 md:gap-10 xl:grid-cols-4">
+          <Suspense key={key} fallback={<SubmissionCardSkeleton />}>
+            <Submissions searchParams={searchParams} />
+          </Suspense>
         </div>
       </div>
     </>

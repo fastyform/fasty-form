@@ -13,7 +13,7 @@ type Filter = (typeof FILTER_VALUES)[number];
 const CustomTab = (props: TabProps) => (
   <Tab
     classes={{ selected: '!text-black !font-bold !bg-yellow-400' }}
-    className="rounded-full bg-[#1E2226] px-10 py-2.5 text-xs font-normal normal-case text-zinc-400 min-[400px]:text-sm min-[500px]:text-base md:w-auto lg:transition-colors lg:hover:bg-yellow-400 lg:hover:text-black"
+    className="rounded-full bg-[#1E2226] px-5 py-2.5 text-xs font-normal normal-case text-zinc-400 min-[400px]:text-sm min-[500px]:text-base sm:px-10 md:w-auto lg:transition-colors lg:hover:bg-yellow-400 lg:hover:text-black"
     {...props}
   />
 );
@@ -43,8 +43,8 @@ const FilterTabs = ({ defaultFilter }: { defaultFilter: string | string[] | unde
         onChange={handleChange}
       >
         <CustomTab label="Wszystkie" value="all" />
-        <CustomTab label="Ocenione" value="reviewed" />
-        <CustomTab label="Nieocenione" value="unreviewed" />
+        <CustomTab label="Sprawdzone" value="reviewed" />
+        <CustomTab label="Oczekujące" value="unreviewed" />
       </TabList>
     </TabContext>
   );

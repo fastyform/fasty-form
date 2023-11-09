@@ -47,6 +47,8 @@ export interface Database {
           guest_mail: string | null;
           id: number;
           order_id: string;
+          status: Database['public']['Enums']['status'];
+          thumbnail_url: string | null;
           trainer_id: string;
           trainer_review: string | null;
           updated_at: string | null;
@@ -59,6 +61,8 @@ export interface Database {
           guest_mail?: string | null;
           id?: number;
           order_id: string;
+          status?: Database['public']['Enums']['status'];
+          thumbnail_url?: string | null;
           trainer_id: string;
           trainer_review?: string | null;
           updated_at?: string | null;
@@ -71,6 +75,8 @@ export interface Database {
           guest_mail?: string | null;
           id?: number;
           order_id?: string;
+          status?: Database['public']['Enums']['status'];
+          thumbnail_url?: string | null;
           trainer_id?: string;
           trainer_review?: string | null;
           updated_at?: string | null;
