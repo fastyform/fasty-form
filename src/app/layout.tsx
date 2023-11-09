@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body className={plusJakartaSans.className} id="body">
-      <div className="h-full w-full bg-[#0D1116]">{children}</div>
+      <div className="min-h-screen w-full bg-[#0D1116]">{children}</div>
     </body>
   </html>
 );

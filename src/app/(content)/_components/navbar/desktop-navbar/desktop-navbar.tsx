@@ -6,7 +6,7 @@ const DesktopNavbar = () => {
   const isTrainerAccount = true;
 
   return (
-    <header className=" fixed left-1/2 top-10 z-10 flex hidden h-[86px] w-full max-w-screen-2xl -translate-x-1/2 transform items-center justify-between rounded-full border border-gray-600 bg-[#1E2226] px-10 lg:visible">
+    <header className=" fixed left-1/2 top-10 z-10 hidden h-[86px] w-full max-w-screen-2xl -translate-x-1/2 transform items-center justify-between rounded-full border border-gray-600 bg-[#1E2226] px-10 lg:flex">
       <AppLogo />
       <div className="flex h-full items-center gap-10">
         <DesktopNavbarLink href="/submissions" icon="submissions">

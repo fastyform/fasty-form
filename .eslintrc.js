@@ -68,7 +68,7 @@ module.exports = {
       },
     ],
     // 'react/no-danger': 'off',
-    // 'react/require-default-props': 'off',
+    'react/require-default-props': 'off',
     'react-hooks/exhaustive-deps': 'error',
     'sort-imports': [
       'error',
