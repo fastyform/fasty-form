@@ -27,7 +27,7 @@ const Submissions = async ({ searchParams }: { searchParams: { [key: string]: st
       </h2>
     );
 
-  if (!submissions) return <h2 className="text-base text-white">Tutaj pojawią się twoje zgłoszenia.</h2>;
+  if (!submissions?.length) return <h2 className="text-base text-white">Tutaj pojawią się twoje zgłoszenia.</h2>;
 
   return (
     <>
