@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppLogo from '@/components/app-logo';
+import getUserRoleFromSession from '@/utils/supabase/get-user-role-from-session';
 
-const SubmissionLayout = ({ children }: { children: ReactNode }) => {
-  // TODO CHECK ACCOUNT TYPE
-  const isTrainerAccount = true;
+const SubmissionLayout = async ({ children }: { children: ReactNode }) => {
+  const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
 
   return (
     <section className="my-5 flex w-full flex-col gap-10">
