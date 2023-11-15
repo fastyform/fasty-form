@@ -48,7 +48,7 @@ const LoginForm = () => {
       </div>
       <Link
         className="mb-7 w-fit self-end px-1 py-2.5 text-xs text-zinc-200 transition-opacity hover:opacity-80"
-        href="/"
+        href="/forgot-password"
       >
         Zapomniałem hasła
       </Link>

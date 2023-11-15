@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { formSchema } from '@/app/(auth)/login/_utils';
-import getSupabase from '@/utils/supabase/get-supabase';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionSignIn = async (prevState: { message: string }, data: FormData) => {
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
@@ -11,7 +11,7 @@ const actionSignIn = async (prevState: { message: string }, data: FormData) => {
     return { message: 'Bad request.' };
   }
 
-  const supabase = getSupabase();
+  const supabase = getSupabaseServerClient();
   const { email, password } = formSchemaParsed.data;
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -19,7 +19,11 @@ const actionSignIn = async (prevState: { message: string }, data: FormData) => {
     return redirect('/submissions');
   }
 
-  if (error.status === 400) {
+  if (error.message === 'Email not confirmed') {
+    return { message: 'Konto nie zostało jeszcze aktywowane. Sprawdź swój email, aby aktywować konto.' };
+  }
+
+  if (error.message === 'Invalid login credentials') {
     return { message: 'Nieprawidłowe dane logowania, spróbuj ponownie.' };
   }
 

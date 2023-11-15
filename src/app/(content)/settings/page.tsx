@@ -1,7 +1,7 @@
-import getSupabase from '@/utils/supabase/get-supabase';
+import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 
 const SettingsPage = async () => {
-  const supabase = getSupabase();
+  const supabase = getSupabaseServerComponentClient();
 
   const {
     data: { user },

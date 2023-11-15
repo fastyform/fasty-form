@@ -1,7 +1,9 @@
-import getSupabase from './get-supabase';
+import { getSupabaseServerComponentClient } from './client';
 
-const supabase = getSupabase();
+const getUserRoleFromSession = async () => {
+  const supabase = getSupabaseServerComponentClient();
 
-const getUserRoleFromSession = async () => (await supabase.auth.getSession()).data.session?.user.user_metadata?.role;
+  return (await supabase.auth.getSession()).data.session?.user.user_metadata?.role;
+};
 
 export default getUserRoleFromSession;
