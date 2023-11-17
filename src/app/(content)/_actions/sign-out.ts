@@ -1,13 +1,13 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getSupabase from '@/utils/supabase/get-supabase';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const signOut = async () => {
-  const supabase = getSupabase();
+  const supabase = getSupabaseServerClient();
 
   await supabase.auth.signOut();
-  console.log('here');
+
   redirect('/login');
 };
 

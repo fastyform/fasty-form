@@ -1,8 +1,8 @@
-import getSupabase from '@/utils/supabase/get-supabase';
+import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionCard from './submission-card/submission-card';
 
 const Submissions = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-  const supabase = getSupabase();
+  const supabase = getSupabaseServerComponentClient();
 
   let query = supabase.from('submissions').select('id, status, thumbnail_url, trainers_details (profile_name)');
 

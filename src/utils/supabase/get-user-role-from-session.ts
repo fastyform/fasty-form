@@ -1,10 +1,7 @@
-'use server';
+import { getSupabaseServerComponentClient } from './client';
 
-import getSupabase from './get-supabase';
-import { Database } from './supabase';
-
-const getUserRoleFromSession = async (): Promise<Database['public']['Enums']['user_type']> => {
-  const supabase = getSupabase();
+const getUserRoleFromSession = async () => {
+  const supabase = getSupabaseServerComponentClient();
 
   return (await supabase.auth.getSession()).data.session?.user.user_metadata?.role;
 };
