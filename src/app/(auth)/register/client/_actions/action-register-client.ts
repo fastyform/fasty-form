@@ -1,9 +1,14 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { formSchema } from '@/app/(auth)/register/client/_utils';
-import getSupabase from '@/utils/supabase/get-supabase';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
+
+const getResponse = (message: string, isSuccess = false) => ({ message, isSuccess });
 
 const actionRegisterClient = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
+  const headersList = headers();
+
   const formSchemaParsed = formSchema.safeParse({
     email: data.get('email'),
     password: data.get('password'),
@@ -14,26 +19,29 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
     return { message: 'Bad request.', isSuccess: false };
   }
 
-  const supabase = getSupabase();
+  const supabase = getSupabaseServerClient();
 
   const { email, password } = formSchemaParsed.data;
 
-  // TODO: Add user redirectLink to verify email
-  const response = await supabase.auth.signUp({ email, password, options: { data: { role: 'client' } } });
+  const response = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback`, data: { role: 'client' } },
+  });
 
   if (response.data.user?.identities?.length === 0) {
-    return { message: 'Istnieje już konto o podanym adresie email.', isSuccess: false };
+    return getResponse('Istnieje już konto o podanym adresie email.');
   }
 
   if (response.error?.status === 429) {
-    return { message: 'Zbyt wiele prób rejestracji w krótkim czasie.', isSuccess: false };
+    return getResponse('Zbyt wiele prób rejestracji w krótkim czasie.');
   }
 
   if (response.error) {
-    return { message: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.', isSuccess: false };
+    return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
   }
 
-  return { message: 'Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', isSuccess: true };
+  return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
 };
 
 export default actionRegisterClient;
