@@ -51,7 +51,7 @@ export interface Database {
           thumbnail_url: string | null;
           trainer_id: string;
           trainer_review: string | null;
-          updated_at: string | null;
+          updated_at: string;
           video_url: string;
         };
         Insert: {
@@ -65,7 +65,7 @@ export interface Database {
           thumbnail_url?: string | null;
           trainer_id: string;
           trainer_review?: string | null;
-          updated_at?: string | null;
+          updated_at?: string;
           video_url: string;
         };
         Update: {
@@ -79,7 +79,7 @@ export interface Database {
           thumbnail_url?: string | null;
           trainer_id?: string;
           trainer_review?: string | null;
-          updated_at?: string | null;
+          updated_at?: string;
           video_url?: string;
         };
         Relationships: [
