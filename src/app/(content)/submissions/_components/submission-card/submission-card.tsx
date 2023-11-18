@@ -44,7 +44,7 @@ const SubmissionCard = async ({
         className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
         href={`/submissions/${submissionId}`}
       >
-        Szczegóły
+        {isClientAccount ? 'Szczegóły' : 'Oceń technikę'}
       </Link>
     </SubmissionCardContainer>
   );

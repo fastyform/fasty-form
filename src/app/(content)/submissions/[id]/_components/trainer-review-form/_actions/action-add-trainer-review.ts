@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/_components/trainer-review-form/_utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionUpdateTrainerReview = async (
+const actionAddTrainerReview = async (
   prevState: { message: string },
   payload: { data: FormData; submissionId: string },
 ) => {
@@ -30,4 +30,4 @@ const actionUpdateTrainerReview = async (
   return { message: 'Wystąpił błąd podczas zapisywania oceny, spróbuj ponownie, lub skontaktuj się z nami.' };
 };
 
-export default actionUpdateTrainerReview;
+export default actionAddTrainerReview;

@@ -6,7 +6,7 @@ import 'dayjs/locale/pl';
 import getUserRoleFromSession from '@/utils/get-user-role-from-session';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
-import TrainerReviewForm from './_components/trainer-review-form/trainer-review-form';
+import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
@@ -40,18 +40,18 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         src={submission.video_url}
       />
       <SubmissionPartWithIcon verticalLine icon="submission">
-        <Typography className="text-lg font-bold leading-5 text-white" variant="h2">
+        <h2 className="text-lg font-bold leading-5 text-white">
           {isTrainerAccount ? 'Zgłoszenie klienta' : 'Twoje zgłoszenie'}
-        </Typography>
+        </h2>
         <Typography className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</Typography>
       </SubmissionPartWithIcon>
 
       {submission.status === 'reviewed' && (
         <>
           <SubmissionPartWithIcon verticalLine icon="description">
-            <Typography className="text-lg font-bold leading-5 text-white" variant="h2">
+            <h2 className="text-lg font-bold leading-5 text-white">
               {isTrainerAccount ? 'Twoja odpowiedź' : 'Odpowiedź trenera'}
-            </Typography>
+            </h2>
             <Typography className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</Typography>
           </SubmissionPartWithIcon>
           <SubmissionPartWithIcon icon="finished">
@@ -65,12 +65,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
 
       {submission.status === 'unreviewed' &&
         (isTrainerAccount ? (
-          <TrainerReviewForm submissionId={params.id} />
+          <AddTrainerReviewForm submissionId={params.id} />
         ) : (
           <SubmissionPartWithIcon containerStyles="opacity-50" icon="submission">
-            <Typography className="text-lg font-bold leading-5 text-white" variant="h2">
-              Oczekiwanie na odpowiedź trenera...
-            </Typography>
+            <h2 className="text-lg font-bold leading-5 text-white">Oczekiwanie na odpowiedź trenera...</h2>
             <Typography className="text-sm text-white">
               Po ocenie twojego filmiku przez trenera, w tym miejscu pojawi się jego odpowiedź.
             </Typography>

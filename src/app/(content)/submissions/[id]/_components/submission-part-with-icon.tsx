@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
-import SubmissionIcons from '@/app/(content)/submissions/[id]/_assets/submission-icons';
+import submissionIcons from '@/app/(content)/submissions/[id]/_assets/submission-icons';
 
 const SubmissionPartWithIcon = ({
   children,
@@ -9,11 +9,11 @@ const SubmissionPartWithIcon = ({
   containerStyles,
 }: {
   children: ReactNode;
-  icon: keyof typeof SubmissionIcons;
+  icon: keyof typeof submissionIcons;
   verticalLine?: boolean;
   containerStyles?: ClassNameValue;
 }) => {
-  const SubmissionPartIcon = SubmissionIcons[icon];
+  const SubmissionPartIcon = submissionIcons[icon];
 
   return (
     <div className={twMerge('flex gap-2.5', containerStyles)}>

@@ -9,26 +9,24 @@ import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/_components
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
-import actionUpdateTrainerReview from './_actions/action-update-trainer-review';
+import actionAddTrainerReview from './_actions/action-add-trainer-review';
 import QuestionMarkIcon from './_assets/question-mark-icon';
 import { trainerReviewFormSchema, TrainerReviewValues } from './_utils';
 
 const SubmitButton = ({ isValid, onClick }: { isValid: boolean; onClick: () => void }) => {
   const { pending } = useFormStatus();
 
-  const isLoading = pending && isValid;
-
   return (
-    <AppButton disabled={isLoading} loading={isLoading} onClick={onClick}>
+    <AppButton loading={pending && isValid} onClick={onClick}>
       Dodaj ocenę filmiku
     </AppButton>
   );
 };
 
-const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
-  const [isEditOpen, setIsEditOpen] = useState(false);
+const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
+  const [isReviewInputVisible, setIsReviewInputVisible] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [state, formAction] = useFormState(actionUpdateTrainerReview, { message: '' });
+  const [state, formAction] = useFormState(actionAddTrainerReview, { message: '' });
   const formRef = useRef<HTMLFormElement>(null);
   const { control, handleSubmit, formState } = useForm<TrainerReviewValues>({
     resolver: zodResolver(trainerReviewFormSchema),
@@ -39,18 +37,16 @@ const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, submissionId }))();
 
   const handleReviewAddConfirmation = () => {
-    if (formRef?.current === null) return;
+    if (formRef.current === null) return;
     formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     setIsConfirmModalOpen(false);
   };
 
-  if (isEditOpen) {
+  if (isReviewInputVisible) {
     return (
       <>
         <SubmissionPartWithIcon icon="description">
-          <Typography className="text-lg font-bold leading-5 text-white" variant="h2">
-            Twoja odpowiedź
-          </Typography>
+          <h2 className="text-lg font-bold leading-5 text-white">Twoja odpowiedź</h2>
           <form ref={formRef} action={handleFormAction} className="flex flex-col gap-5">
             {state?.message && (
               <span className="inline-flex items-center gap-2 text-red-400">
@@ -82,9 +78,7 @@ const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
           <div className="flex flex-col items-center gap-5">
             <QuestionMarkIcon />
             <div>
-              <Typography className="text-center text-base font-bold text-white" variant="h4">
-                Czy chcesz dodać swoją ocenę?
-              </Typography>
+              <h4 className="text-center text-base font-bold text-white">Czy chcesz dodać swoją ocenę?</h4>
               <Typography className="text-center text-sm text-white">
                 Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.
               </Typography>
@@ -109,13 +103,11 @@ const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
 
   return (
     <SubmissionPartWithIcon containerStyles="opacity-50" icon="description">
-      <Button className=" flex p-0 text-left normal-case" color="inherit" onClick={() => setIsEditOpen(true)}>
-        <Typography className="text-lg font-bold leading-5 text-white" variant="h2">
-          Kliknij tutaj, aby dodać odpowiedź
-        </Typography>
+      <Button className=" flex p-0 text-left normal-case" color="inherit" onClick={() => setIsReviewInputVisible(true)}>
+        <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać odpowiedź</h2>
       </Button>
     </SubmissionPartWithIcon>
   );
 };
 
-export default TrainerReviewForm;
+export default AddTrainerReviewForm;
