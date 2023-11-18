@@ -1,11 +1,11 @@
-import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import DescriptionIcon from './description-icon';
+import FinishedIcon from './finished-icon';
+import SubmissionIcon from './submission-icon';
 
 const submissionIcons = {
-  submission: DescriptionOutlinedIcon,
-  description: ContentPasteSearchOutlinedIcon,
-  finished: CheckCircleOutlineOutlinedIcon,
+  submission: SubmissionIcon,
+  description: DescriptionIcon,
+  finished: FinishedIcon,
 };
 
 export default submissionIcons;
