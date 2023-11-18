@@ -71,7 +71,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
           </form>
         </SubmissionPartWithIcon>
         <Dialog
-          classes={{ paper: 'rounded-xl border border-gray-600 bg-[#1e2226] py-10 px-5' }}
+          classes={{ paper: 'rounded-xl border border-gray-600 bg-[#1e2226] py-10 px-5 lg:px-10' }}
           open={isConfirmModalOpen}
           onClose={() => setIsConfirmModalOpen(false)}
         >
@@ -103,7 +103,11 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
 
   return (
     <SubmissionPartWithIcon containerStyles="opacity-50" icon="description">
-      <Button className=" flex p-0 text-left normal-case" color="inherit" onClick={() => setIsReviewInputVisible(true)}>
+      <Button
+        className=" flex justify-start p-0 text-left normal-case"
+        color="inherit"
+        onClick={() => setIsReviewInputVisible(true)}
+      >
         <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać odpowiedź</h2>
       </Button>
     </SubmissionPartWithIcon>
