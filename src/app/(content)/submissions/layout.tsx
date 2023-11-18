@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppLogo from '@/components/app-logo';
-import getUserRoleFromSession from '@/utils/supabase/get-user-role-from-session';
+import getUserRoleFromSession from '@/utils/get-user-role-from-session';
 
 const SubmissionLayout = async ({ children }: { children: ReactNode }) => {
   const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
