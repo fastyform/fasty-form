@@ -11,3 +11,8 @@ body {
 #body * {
   font-family: var(---font-plus-jakarta-sans);
 }
+
+.bg-custom-radial {
+  background-image: radial-gradient(ellipse at center top, rgba(255, 255, 255, 0.15) 0%, transparent 70%),
+    radial-gradient(ellipse at center bottom, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+}

@@ -1,4 +1,4 @@
-import { getSupabaseServerComponentClient } from './client';
+import { getSupabaseServerComponentClient } from './supabase/client';
 
 const getUserRoleFromSession = async () => {
   const supabase = getSupabaseServerComponentClient();

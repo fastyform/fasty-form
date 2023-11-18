@@ -17,10 +17,8 @@ import AppInputForm from '@/components/app-input/app-input-form';
 const SubmitButton = ({ isValid }: { isValid: boolean }) => {
   const { pending } = useFormStatus();
 
-  const isLoading = pending && isValid;
-
   return (
-    <AppButton disabled={isLoading} loading={isLoading} type="submit">
+    <AppButton loading={pending && isValid} type="submit">
       Zarejestruj się
     </AppButton>
   );
