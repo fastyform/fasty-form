@@ -24,28 +24,27 @@ const SubmissionCard = async ({
 
   return (
     <SubmissionCardContainer>
-      <div className="flex w-full flex-col items-start gap-5 rounded-xl">
-        <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
-          <Image
-            fill
-            className="rounded-xl object-contain"
-            src={thumbnailUrl || '/image-placeholder.png'}
-            alt={
-              thumbnailUrl ? `Zdjęcie zgłoszenia o id: ${submissionId}` : `Placeholder zgłoszenia o id: ${submissionId}`
-            }
-          />
-          <StatusBadge className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5" type={submissionStatus} />
+      <Link className=" lg:transition-opacity lg:hover:opacity-80" href={`/submissions/${submissionId}`}>
+        <div className="flex w-full flex-col items-start gap-5 rounded-xl">
+          <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
+            <Image
+              fill
+              alt={`${thumbnailUrl ? 'Zdjęcie' : 'Placeholder'} zgłoszenia o id ${submissionId}`}
+              className="rounded-xl object-contain"
+              src={thumbnailUrl || '/image-placeholder.png'}
+            />
+            <StatusBadge className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5" type={submissionStatus} />
+          </div>
+          {isClientAccount && trainerProfileName && (
+            <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
+          )}
         </div>
-        {isClientAccount && trainerProfileName && (
-          <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
-        )}
-      </div>
-      {/* TODO ADD ID TO GO TO SUBMISSION PAGE */}
+      </Link>
       <Link
-        className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base"
-        href="/submissions"
+        className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
+        href={`/submissions/${submissionId}`}
       >
-        Szczegóły
+        {isClientAccount ? 'Szczegóły' : 'Oceń technikę'}
       </Link>
     </SubmissionCardContainer>
   );
