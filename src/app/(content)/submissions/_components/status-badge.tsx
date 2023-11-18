@@ -12,11 +12,11 @@ const StatusBadge = ({ type, className }: { className?: ClassNameValue; type: ke
     <div
       className={twMerge(
         className,
-        'flex items-center justify-center rounded-full p-2.5 backdrop-blur lg:px-5',
+        `flex items-center justify-center rounded-full px-5 py-2.5 backdrop-blur`,
         containerColor,
       )}
     >
-      <p className={twMerge('lg:font-semi-bold text-xs font-medium lg:text-base', textColor)}>{badgeText}</p>
+      <p className={twMerge(`lg:font-semi-bold text-xs font-medium lg:text-base`, textColor)}>{badgeText}</p>
     </div>
   );
 };

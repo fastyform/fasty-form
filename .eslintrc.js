@@ -18,6 +18,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'jsx-a11y/media-has-caption': 'off',
     'unicorn/filename-case': [
       'error',
       {
