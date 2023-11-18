@@ -60,10 +60,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
               <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
             </SubmissionPartWithIcon>
             <SubmissionPartWithIcon icon="finished">
-              <p className="text-lg font-bold text-yellow-400">Zamówienie zakończone</p>
-              <p className="whitespace-pre-wrap text-sm text-white">
+              <h2 className="text-lg font-bold text-yellow-400">Zamówienie zakończone</h2>
+              <span className="whitespace-pre-wrap text-sm text-white">
                 Data wykonania <span className="font-bold capitalize">{formattedFinishDate}</span>
-              </p>
+              </span>
             </SubmissionPartWithIcon>
           </>
         )}
