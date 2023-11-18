@@ -1,13 +1,13 @@
-import BackIcon from './back-icon';
-import ProfileIcon from './profile-icon';
-import SettingsIcon from './setting-icon';
-import SubmissionsIcon from './submissions-icon';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
-const NavbarIcons = {
-  settings: SettingsIcon,
-  submissions: SubmissionsIcon,
-  profile: ProfileIcon,
-  back: BackIcon,
+const navbarIcons = {
+  settings: SettingsOutlinedIcon,
+  submissions: DescriptionOutlinedIcon,
+  profile: PermIdentityOutlinedIcon,
+  back: ArrowBackIcon,
 };
 
-export default NavbarIcons;
+export default navbarIcons;

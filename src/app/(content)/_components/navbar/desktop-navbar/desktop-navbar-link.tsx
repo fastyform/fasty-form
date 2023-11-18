@@ -4,16 +4,16 @@ import { Button, ButtonProps } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import NavbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
+import navbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
 
 interface Props extends ButtonProps {
-  icon: keyof typeof NavbarIcons;
+  icon: keyof typeof navbarIcons;
 }
 
 const DesktopNavbarLink = ({ children, icon, ...props }: Props) => {
   const path = usePathname();
   const isActive = path === props.href;
-  const NavbarIcon = NavbarIcons[icon];
+  const NavbarIcon = navbarIcons[icon];
 
   return (
     <Button

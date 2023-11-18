@@ -3,14 +3,14 @@
 import { ButtonProps, IconButton } from '@mui/material';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import NavbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
+import navbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
 
 interface Props extends ButtonProps {
-  icon: Exclude<keyof typeof NavbarIcons, 'submissions'>;
+  icon: Exclude<keyof typeof navbarIcons, 'submissions'>;
 }
 
 const MobileNavbarLink = ({ icon, className, ...props }: Props) => {
-  const NavbarIcon = NavbarIcons[icon];
+  const NavbarIcon = navbarIcons[icon];
 
   return (
     <IconButton
