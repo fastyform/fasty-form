@@ -6,7 +6,7 @@ import 'dayjs/locale/pl';
 import getUserRoleFromSession from '@/utils/get-user-role-from-session';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
-import TrainerDescriptionUnreviewed from './_components/trainer-review-form/trainer-review-form';
+import TrainerReviewForm from './_components/trainer-review-form/trainer-review-form';
 
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
@@ -65,7 +65,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
 
       {submission.status === 'unreviewed' &&
         (isTrainerAccount ? (
-          <TrainerDescriptionUnreviewed submissionId={params.id} />
+          <TrainerReviewForm submissionId={params.id} />
         ) : (
           <SubmissionPartWithIcon containerStyles="opacity-50" icon="submission">
             <Typography className="text-lg font-bold leading-5 text-white" variant="h2">

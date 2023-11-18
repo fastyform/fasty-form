@@ -19,7 +19,7 @@ const SubmitButton = ({ isValid, onClick }: { isValid: boolean; onClick: () => v
   const isLoading = pending && isValid;
 
   return (
-    <AppButton className="!py-2.5 text-sm" disabled={isLoading} loading={isLoading} onClick={onClick}>
+    <AppButton disabled={isLoading} loading={isLoading} onClick={onClick}>
       Dodaj ocenę filmiku
     </AppButton>
   );
@@ -77,6 +77,7 @@ const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
         <Dialog
           classes={{ paper: 'rounded-xl border border-gray-600 bg-[#1e2226] py-10 px-5' }}
           open={isConfirmModalOpen}
+          onClose={() => setIsConfirmModalOpen(false)}
         >
           <div className="flex flex-col items-center gap-5">
             <QuestionMarkIcon />
@@ -88,11 +89,15 @@ const TrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
                 Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.
               </Typography>
             </div>
-            <div className="flex flex-col gap-2.5">
-              <AppButton className=" !py-2.5 text-sm" onClick={handleReviewAddConfirmation}>
-                Dodaj ocenę filmiku
+            <div className="flex flex-wrap gap-5">
+              <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handleReviewAddConfirmation}>
+                Dodaj
               </AppButton>
-              <AppButton className="bg-inherit !py-2.5 text-sm text-white" onClick={() => setIsConfirmModalOpen(false)}>
+              <AppButton
+                classes={{ root: 'py-2.5 bg-inherit' }}
+                className="text-sm text-white"
+                onClick={() => setIsConfirmModalOpen(false)}
+              >
                 Anuluj
               </AppButton>
             </div>
