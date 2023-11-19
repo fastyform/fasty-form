@@ -8,12 +8,13 @@ import { Checkbox, FormControlLabel } from '@mui/material';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import ProviderButton from '@/app/(auth)/_components/provider-button';
-import actionRegisterClient from '@/app/(auth)/register/client/_actions/action-register-client';
-import { formSchema, FormValues } from '@/app/(auth)/register/client/_utils';
+import actionRegisterTrainer from '@/app/(auth)/register/trainer/_actions/action-register-trainer';
+import { formSchema, FormValues } from '@/app/(auth)/register/trainer/_utils';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
+import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
 
 const SubmitButton = ({ isValid }: { isValid: boolean }) => {
@@ -26,11 +27,11 @@ const SubmitButton = ({ isValid }: { isValid: boolean }) => {
   );
 };
 
-const RegisterFormClient = () => {
-  const [state, formAction] = useFormState(actionRegisterClient, formDefaultState);
+const RegisterFormTrainer = () => {
+  const [state, formAction] = useFormState(actionRegisterTrainer, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', password: '', policy: false },
+    defaultValues: { email: '', password: '', policy: false, profile_name: '', service_cost: 20 },
     mode: 'onTouched',
   });
 
@@ -46,6 +47,19 @@ const RegisterFormClient = () => {
     <form action={handleFormAction} className="flex flex-col">
       <div className="flex flex-col gap-5">
         <AppFormState state={state} />
+        <div className="flex flex-col gap-2.5 ">
+          <span className="text-white">
+            Cena za analizę techniki jednego wideo <span className="text-yellow-400">(PLN)</span>
+          </span>
+          <Controller
+            control={control}
+            name="service_cost"
+            render={({ field }) => (
+              <AppInputPrice name="service_cost" value={field.value} onChange={(_, value) => field.onChange(value)} />
+            )}
+          />
+        </div>
+        <AppInputForm<FormValues> control={control} fieldName="profile_name" label="Nazwa profilu" />
         <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
         <AppInputForm<FormValues>
           autoComplete="new-password"
@@ -91,18 +105,20 @@ const RegisterFormClient = () => {
           )}
         />
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-7">
         <SubmitButton isValid={formState.isValid} />
-        <span className="text-center text-zinc-200">Lub</span>
-        <ProviderButton icon={<Image alt="google" height={19} src="/google.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Google</span>
-        </ProviderButton>
-        <ProviderButton icon={<Image alt="apple" height={19} src="/apple.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Apple</span>
-        </ProviderButton>
+        <span className="self-center text-center text-zinc-200">Lub</span>
+        <div className="flex grow basis-0 flex-col gap-5">
+          <ProviderButton icon={<Image alt="google" height={19} src="/google.svg" width={19} />}>
+            Kontynuuj z&nbsp;<span className="font-bold">Google</span>
+          </ProviderButton>
+          <ProviderButton icon={<Image alt="apple" height={19} src="/apple.svg" width={19} />}>
+            Kontynuuj z&nbsp;<span className="font-bold">Apple</span>
+          </ProviderButton>
+        </div>
       </div>
     </form>
   );
 };
 
-export default RegisterFormClient;
+export default RegisterFormTrainer;

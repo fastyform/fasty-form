@@ -5,3 +5,9 @@ export const emailValidator = z
     required_error: 'Proszę wprowadzić email.',
   })
   .email({ message: 'Proszę wprowadzić poprawny adres email.' });
+
+export const passwordValidator = z
+  .string({ required_error: 'Proszę wprowadzić hasło.' })
+  .min(1, 'Proszę wprowadzić hasło.');
+
+export const checkboxCheckedValidator = z.literal<boolean>(true);

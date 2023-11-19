@@ -1,14 +1,16 @@
 'use server';
 
 import { headers } from 'next/headers';
-import { formSchema } from '@/app/(auth)/register/client/_utils';
+import { formSchema } from '@/app/(auth)/register/trainer/_utils';
 import { getResponse } from '@/utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionRegisterClient = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
+const actionRegisterTrainer = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
   const headersList = headers();
 
   const formSchemaParsed = formSchema.safeParse({
+    service_cost: parseInt(`${data.get('service_cost')}`, 10),
+    profile_name: data.get('profile_name'),
     email: data.get('email'),
     password: data.get('password'),
     policy: data.get('policy') === 'true',
@@ -25,7 +27,7 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
   const response = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback`, data: { role: 'client' } },
+    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback`, data: { role: 'trainer' } },
   });
 
   if (response.data.user?.identities?.length === 0) {
@@ -43,4 +45,4 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
   return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
 };
 
-export default actionRegisterClient;
+export default actionRegisterTrainer;
