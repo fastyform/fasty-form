@@ -2,13 +2,15 @@
 
 import { redirect } from 'next/navigation';
 import { formSchema } from '@/app/(auth)/login/_utils';
+import { getResponse } from '@/utils';
+import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionSignIn = async (prevState: { message: string }, data: FormData) => {
+const actionSignIn = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
 
   if (!formSchemaParsed.success) {
-    return { message: 'Bad request.' };
+    return getResponse('Bad request.');
   }
 
   const supabase = getSupabaseServerClient();
@@ -20,14 +22,14 @@ const actionSignIn = async (prevState: { message: string }, data: FormData) => {
   }
 
   if (error.message === 'Email not confirmed') {
-    return { message: 'Konto nie zostało jeszcze aktywowane. Sprawdź swój email, aby aktywować konto.' };
+    return getResponse('Konto nie zostało jeszcze aktywowane. Sprawdź swój email, aby aktywować konto.');
   }
 
   if (error.message === 'Invalid login credentials') {
-    return { message: 'Nieprawidłowe dane logowania, spróbuj ponownie.' };
+    return getResponse('Nieprawidłowe dane logowania, spróbuj ponownie.');
   }
 
-  return { message: 'Wystąpił błąd podczas logowania, spróbuj ponownie, lub skontaktuj się z nami.' };
+  return getResponse('Wystąpił błąd podczas logowania, spróbuj ponownie, lub skontaktuj się z nami.');
 };
 
 export default actionSignIn;

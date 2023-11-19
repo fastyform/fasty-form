@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = getSupabaseServerClient();
     await supabase.auth.exchangeCodeForSession(code);
-
-    return redirect('/email-verification/success');
   } catch {
     return redirect('/email-verification/error');
   }
+
+  return redirect('/email-verification/success');
 }

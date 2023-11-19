@@ -8,9 +8,10 @@ import Link from 'next/link';
 import ProviderButton from '@/app/(auth)/_components/provider-button';
 import actionSignIn from '@/app/(auth)/login/_actions/action-sign-in';
 import { formSchema, FormValues } from '@/app/(auth)/login/_utils';
-import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
+import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
+import { formDefaultState } from '@/utils/form';
 
 const SubmitButton = ({ isValid }: { isValid: boolean }) => {
   const { pending } = useFormStatus();
@@ -23,7 +24,7 @@ const SubmitButton = ({ isValid }: { isValid: boolean }) => {
 };
 
 const LoginForm = () => {
-  const [state, formAction] = useFormState(actionSignIn, { message: '' });
+  const [state, formAction] = useFormState(actionSignIn, formDefaultState);
   const { control, handleSubmit, formState } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '' },
@@ -35,12 +36,7 @@ const LoginForm = () => {
   return (
     <form action={handleFormAction} className="flex flex-col">
       <div className="flex flex-col gap-5 text-sm">
-        {state?.message && (
-          <span className="inline-flex items-center gap-2 text-red-400">
-            <ErrorIcon className="min-w-[17px]" />
-            {state.message}
-          </span>
-        )}
+        <AppFormState state={state} />
         <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
         <AppInputForm<FormValues> control={control} fieldName="password" label="Hasło" type="password" />
       </div>
