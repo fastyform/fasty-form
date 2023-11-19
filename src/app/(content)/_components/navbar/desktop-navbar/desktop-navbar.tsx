@@ -6,13 +6,13 @@ const DesktopNavbar = async () => {
   const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
 
   return (
-    <header className=" fixed left-1/2 top-10 z-10 hidden h-[86px] w-full max-w-screen-2xl -translate-x-1/2 transform items-center justify-between rounded-full border border-gray-600 bg-[#1E2226] px-10 lg:flex">
+    <header className="mt-10 hidden h-[86px] w-full max-w-screen-2xl items-center justify-between rounded-full border border-gray-600 bg-[#1E2226] px-10 lg:flex">
       <AppLogo />
       <div className="flex h-full items-center gap-10">
         <DesktopNavbarLink href="/submissions" icon="submissions">
           Zgłoszenia
         </DesktopNavbarLink>
-        <DesktopNavbarLink href="/settings" icon="settings">
+        <DesktopNavbarLink href="/settings/reset-email" icon="settings">
           Ustawienia
         </DesktopNavbarLink>
         {isTrainerAccount && (
