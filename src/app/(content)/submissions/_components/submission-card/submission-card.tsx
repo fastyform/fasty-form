@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
-import getUserRoleFromSession from '@/utils/get-user-role-from-session';
+import { getUserRoleFromSession } from '@/utils/get-data-from-session';
 import { Database } from '@/utils/supabase/supabase';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (

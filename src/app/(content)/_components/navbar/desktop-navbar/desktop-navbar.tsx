@@ -1,5 +1,5 @@
 import AppLogo from '@/components/app-logo';
-import getUserRoleFromSession from '@/utils/get-user-role-from-session';
+import { getUserRoleFromSession } from '@/utils/get-data-from-session';
 import DesktopNavbarLink from './desktop-navbar-link';
 
 const DesktopNavbar = async () => {

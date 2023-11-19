@@ -2,9 +2,7 @@
 
 import { SvgIconComponent } from '@mui/icons-material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import EmailIcon from '@mui/icons-material/Email';
 import GavelIcon from '@mui/icons-material/Gavel';
-import LockIcon from '@mui/icons-material/Lock';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
@@ -15,8 +13,6 @@ import SignOutButton from './sign-out-button';
 type MenuItem = [string, string, SvgIconComponent, string];
 
 const settingsMenuData: MenuItem[] = [
-  ['Email', 'Zresetuj adres email', EmailIcon, 'reset-email'],
-  ['Hasło', 'Zresetuj swoje hasło', LockIcon, 'reset-password'],
   ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgentIcon, 'support'],
   ['Regulamin', 'Przeczytaj nasze warunki użytkowania', GavelIcon, 'terms-of-service'],
 ];

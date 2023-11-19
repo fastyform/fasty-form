@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
-import getUserRoleFromSession from '@/utils/get-user-role-from-session';
+import { getUserRoleFromSession } from '@/utils/get-data-from-session';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';

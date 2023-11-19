@@ -19,7 +19,7 @@ const SettingPagesLayout = ({ children }: { children: ReactNode }) => (
         <h1 className="text-2xl text-white">Ustawienia</h1>
         <SettingsMenu />
       </div>
-      <div className="lg border-none lg:grow">{children}</div>
+      <div className="flex grow flex-col gap-5">{children}</div>
     </div>
   </>
 );

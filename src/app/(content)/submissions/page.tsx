@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppLogo from '@/components/app-logo';
-import getUserRoleFromSession from '@/utils/get-user-role-from-session';
+import { getUserRoleFromSession } from '@/utils/get-data-from-session';
 import FilterTabs from './_components/filter-tabs';
 import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
 import Submissions from './_components/submissions';
