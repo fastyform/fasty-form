@@ -12,7 +12,7 @@ const DesktopNavbar = async () => {
         <DesktopNavbarLink href="/submissions" icon="submissions">
           Zgłoszenia
         </DesktopNavbarLink>
-        <DesktopNavbarLink href="/settings" icon="settings">
+        <DesktopNavbarLink href="/settings/reset-email" icon="settings">
           Ustawienia
         </DesktopNavbarLink>
         {isTrainerAccount && (

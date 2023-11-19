@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
@@ -34,17 +33,17 @@ const SubmissionLayout = async ({ children, params }: { children: ReactNode; par
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-5">
           <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
-          <Typography className="hidden text-xl text-white lg:block">
+          <span className="hidden text-xl text-white lg:block">
             <span className="font-bold">Ostatnia zmiana: </span>
             <span className="capitalize">{formattedUpdateDate}</span>
-          </Typography>
+          </span>
         </div>
 
         <div className="flex items-center gap-5">
-          <Typography className="hidden text-xl text-white lg:block">
+          <span className="hidden text-xl text-white lg:block">
             <span>Trener: </span>
             <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
-          </Typography>
+          </span>
           <StatusBadge type={submission.status} />
         </div>
       </div>

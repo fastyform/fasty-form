@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Dialog, Typography } from '@mui/material';
+import { Button, Dialog } from '@mui/material';
 import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/_components/submission-part-with-icon';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
@@ -54,9 +54,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
                 {state.message}
               </span>
             )}
-            <Typography className="text-sm text-white">
-              Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.
-            </Typography>
+            <p className="text-sm text-white">Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.</p>
             <AppInputForm<TrainerReviewValues>
               multiline
               className="w-full"
@@ -79,9 +77,9 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             <QuestionMarkIcon />
             <div>
               <h4 className="text-center text-base font-bold text-white">Czy chcesz dodać swoją ocenę?</h4>
-              <Typography className="text-center text-sm text-white">
+              <p className="text-center text-sm text-white">
                 Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.
-              </Typography>
+              </p>
             </div>
             <div className="flex flex-wrap gap-5">
               <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handleReviewAddConfirmation}>

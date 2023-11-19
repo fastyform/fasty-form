@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from '@mui/material';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import navbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
 
@@ -11,8 +11,9 @@ interface Props extends ButtonProps {
 }
 
 const DesktopNavbarLink = ({ children, icon, ...props }: Props) => {
-  const path = usePathname();
-  const isActive = path === props.href;
+  const active = useSelectedLayoutSegment();
+  const isActive = props.href?.includes(active || '');
+
   const NavbarIcon = navbarIcons[icon];
 
   return (
