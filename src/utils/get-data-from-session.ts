@@ -11,3 +11,9 @@ export const getUserProviderFromSession = async () => {
 
   return (await supabase.auth.getSession()).data.session?.user.app_metadata.provider;
 };
+
+export const getUserMailFromSession = async () => {
+  const supabase = getSupabaseServerComponentClient();
+
+  return (await supabase.auth.getSession()).data.session?.user.email;
+};
