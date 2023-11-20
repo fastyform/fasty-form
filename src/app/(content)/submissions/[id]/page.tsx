@@ -43,6 +43,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         poster={submission?.thumbnail_url || undefined}
         src={submission.video_url}
       />
+      <span className="text-xl text-white lg:hidden">
+        <span>Trener: </span>
+        <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
+      </span>
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         <SubmissionPartWithIcon verticalLine icon="submission">
           <h2 className="text-lg font-bold leading-5 text-white">
@@ -92,7 +96,5 @@ export async function generateStaticParams() {
 
   if (!submissions || error) return;
 
-  return submissions.map((submission) => ({
-    id: submission.id,
-  }));
+  return submissions;
 }

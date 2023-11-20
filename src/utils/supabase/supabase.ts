@@ -3,42 +3,6 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
-      orders: {
-        Row: {
-          client_id: string | null;
-          created_at: string;
-          id: string;
-          trainer_id: string | null;
-        };
-        Insert: {
-          client_id?: string | null;
-          created_at?: string;
-          id?: string;
-          trainer_id?: string | null;
-        };
-        Update: {
-          client_id?: string | null;
-          created_at?: string;
-          id?: string;
-          trainer_id?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'orders_client_id_fkey';
-            columns: ['client_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'orders_trainer_id_fkey';
-            columns: ['trainer_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       submissions: {
         Row: {
           client_description: string | null;
@@ -103,82 +67,33 @@ export interface Database {
         Row: {
           created_at: string;
           id: number;
-          profile_name: string;
+          isOnboarded: boolean;
+          profile_image_url: string | null;
+          profile_name: string | null;
+          service_price: number | null;
           user_id: string;
         };
         Insert: {
           created_at?: string;
           id?: number;
-          profile_name: string;
+          isOnboarded?: boolean;
+          profile_image_url?: string | null;
+          profile_name?: string | null;
+          service_price?: number | null;
           user_id?: string;
         };
         Update: {
           created_at?: string;
           id?: number;
-          profile_name?: string;
+          isOnboarded?: boolean;
+          profile_image_url?: string | null;
+          profile_name?: string | null;
+          service_price?: number | null;
           user_id?: string;
         };
         Relationships: [
           {
             foreignKeyName: 'trainers_details_user_id_fkey';
-            columns: ['user_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      users: {
-        Row: {
-          created_at: string;
-          first_name: string | null;
-          id: string;
-          last_name: string | null;
-          type: Database['public']['Enums']['user_type'];
-        };
-        Insert: {
-          created_at?: string;
-          first_name?: string | null;
-          id: string;
-          last_name?: string | null;
-          type?: Database['public']['Enums']['user_type'];
-        };
-        Update: {
-          created_at?: string;
-          first_name?: string | null;
-          id?: string;
-          last_name?: string | null;
-          type?: Database['public']['Enums']['user_type'];
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'users_id_fkey';
-            columns: ['id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      users_roles: {
-        Row: {
-          id: number;
-          role: Database['public']['Enums']['user_type'];
-          user_id: string;
-        };
-        Insert: {
-          id?: number;
-          role: Database['public']['Enums']['user_type'];
-          user_id: string;
-        };
-        Update: {
-          id?: number;
-          role?: Database['public']['Enums']['user_type'];
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'users_roles_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: true;
             referencedRelation: 'users';
@@ -236,7 +151,6 @@ export interface Database {
     };
     Enums: {
       status: 'reviewed' | 'unreviewed';
-      user_type: 'trainer' | 'client';
     };
     CompositeTypes: {
       [_ in never]: never;
