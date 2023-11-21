@@ -66,29 +66,26 @@ export interface Database {
       trainers_details: {
         Row: {
           created_at: string;
-          id: number;
-          isOnboarded: boolean;
+          is_onboarded: boolean;
           profile_image_url: string | null;
-          profile_name: string | null;
-          service_price: number | null;
+          profile_name: string;
+          service_price: number;
           user_id: string;
         };
         Insert: {
           created_at?: string;
-          id?: number;
-          isOnboarded?: boolean;
+          is_onboarded?: boolean;
           profile_image_url?: string | null;
-          profile_name?: string | null;
-          service_price?: number | null;
+          profile_name: string;
+          service_price: number;
           user_id?: string;
         };
         Update: {
           created_at?: string;
-          id?: number;
-          isOnboarded?: boolean;
+          is_onboarded?: boolean;
           profile_image_url?: string | null;
-          profile_name?: string | null;
-          service_price?: number | null;
+          profile_name?: string;
+          service_price?: number;
           user_id?: string;
         };
         Relationships: [

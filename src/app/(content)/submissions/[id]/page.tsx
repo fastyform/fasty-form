@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
-import { getUserRoleFromSession } from '@/utils/get-data-from-session';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
@@ -11,7 +11,7 @@ dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
-  const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
+  const isTrainerAccount = await checkIsTrainerAccount();
   const supabaseWithCookies = getSupabaseServerComponentClient();
   const { data: submission } = await supabaseWithCookies
     .from('submissions')

@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppLogo from '@/components/app-logo';
-import { getUserIdFromSession, getUserRoleFromSession } from '@/utils/get-data-from-session';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import FilterTabs from './_components/filter-tabs';
 import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
 import Submissions from './_components/submissions';
@@ -12,12 +12,9 @@ const SubmissionsPage = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
+  const isTrainerAccount = await checkIsTrainerAccount();
   const key = JSON.stringify(searchParams);
-
-  const userId = (await getUserIdFromSession()) || '';
-  const supabase = getSupabaseServerComponentClient();
-  const { data: trainerData } = await supabase.from('trainers_details').select('id').eq('user_id', userId).single();
+  const { id: userId } = await getUserFromSession();
 
   return (
     <>
@@ -25,9 +22,7 @@ const SubmissionsPage = async ({
         <AppLogo />
         <div className="flex gap-5">
           <MobileNavbarLink aria-label="Ustawienia" href="/settings" icon="settings" />
-          {isTrainerAccount && (
-            <MobileNavbarLink aria-label="Profil" href={`/trainers/${trainerData?.id}`} icon="profile" />
-          )}
+          {isTrainerAccount && <MobileNavbarLink aria-label="Profil" href={`/trainers/${userId}`} icon="profile" />}
         </div>
       </div>
       <h1 className="text-2xl text-white">Twoje zgłoszenia</h1>

@@ -3,7 +3,7 @@
 import { supportFormSchema } from '@/components/support-form/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
-import { getUserMailFromSession } from '@/utils/get-data-from-session';
+import getUserFromSession from '@/utils/get-user-from-session';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodemailer = require('nodemailer');
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 
 const actionSendSupportTicket = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = supportFormSchema.safeParse({ message: data.get('message') });
-  const email = getUserMailFromSession();
+  const { email } = await getUserFromSession();
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');

@@ -3,24 +3,13 @@ import 'dayjs/locale/pl';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import AppButtonLink from '@/components/app-button-link';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import getTrainerDetailsById from './_utils/get-trainer-details-by-id';
 
 const TrainerPage = async ({ params }: { params: { id: string } }) => {
-  const supabaseWithCookies = getSupabaseServerComponentClient();
-  const { data: trainerDetails, error } = await supabaseWithCookies
-    .from('trainers_details')
-    .select('profile_name, profile_image_url, isOnboarded, service_price, user_id')
-    .eq('id', params.id)
-    .single();
+  const trainerDetails = await getTrainerDetailsById(params.id);
 
-  if (!trainerDetails?.isOnboarded) return redirect('/submissions');
+  if (!trainerDetails.is_onboarded) return redirect('/submissions');
 
-  if (!trainerDetails || error)
-    return (
-      <div className="lg:mt-10">
-        <h2 className="text-white ">Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z nami.</h2>
-      </div>
-    );
   // TODO REMOVE ARTIFICIAL TIMEOUT
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
@@ -48,7 +37,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             {trainerDetails.profile_name}
           </h1>
           <span className="text-base text-white lg:text-xl">
-            Analaiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
+            Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
         <AppButtonLink className="max-w-sm" href="/">
@@ -63,10 +52,10 @@ export default TrainerPage;
 
 export async function generateStaticParams() {
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
-  const { data: trainers, error } = await supabase.from('trainers_details').select('id');
+  const { data: trainers, error } = await supabase.from('trainers_details').select('user_id');
   if (!trainers || error) return;
 
   return trainers.map((trainer) => ({
-    id: trainer.id.toString(),
+    id: trainer.user_id,
   }));
 }

@@ -8,11 +8,11 @@ const LoadingTrainerProfilePage = () => (
     <div className="relative z-20 flex w-full max-w-sm flex-col gap-10 lg:max-w-2xl xl:max-w-4xl">
       <div className="flex flex-col gap-2.5">
         <div className="animation-pulse w-fit select-none rounded-full bg-[#1e2226] text-2xl font-bold min-[800px]:text-6xl xl:text-8xl">
-          <span className="invisible"> Imię nazwisko</span>
+          <span className="invisible">Imię nazwisko</span>
         </div>
         <div className=" animation-pulse w-fit select-none rounded-full bg-[#1e2226] text-base lg:text-xl">
           <span className="invisible">
-            Analaiza techniki jednego wideo - <span className="font-bold">11zł </span>
+            Analiza techniki jednego wideo - <span className="font-bold">11zł</span>
           </span>
         </div>
       </div>
