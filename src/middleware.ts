@@ -2,7 +2,7 @@ import { type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/utils/supabase/client';
 
-const PROTECTED_ROUTES = ['/submissions', '/profile', '/settings'];
+const PROTECTED_ROUTES = ['/submissions', '/settings'];
 const UNAVAILABLE_ROUTES = ['/login', '/register'];
 
 export const middleware = async (request: NextRequest) => {
