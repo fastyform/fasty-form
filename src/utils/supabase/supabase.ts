@@ -3,36 +3,23 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
-      orders: {
+      roles: {
         Row: {
-          client_id: string | null;
-          created_at: string;
-          id: string;
-          trainer_id: string | null;
+          role: Database['public']['Enums']['role'] | null;
+          user_id: string;
         };
         Insert: {
-          client_id?: string | null;
-          created_at?: string;
-          id?: string;
-          trainer_id?: string | null;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
         };
         Update: {
-          client_id?: string | null;
-          created_at?: string;
-          id?: string;
-          trainer_id?: string | null;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
         };
         Relationships: [
           {
-            foreignKeyName: 'orders_client_id_fkey';
-            columns: ['client_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'orders_trainer_id_fkey';
-            columns: ['trainer_id'];
+            foreignKeyName: 'roles_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: true;
             referencedRelation: 'users';
             referencedColumns: ['id'];
@@ -45,7 +32,7 @@ export interface Database {
           client_id: string | null;
           created_at: string;
           guest_mail: string | null;
-          id: number;
+          id: string;
           order_id: string;
           status: Database['public']['Enums']['status'];
           thumbnail_url: string | null;
@@ -59,7 +46,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           guest_mail?: string | null;
-          id?: number;
+          id?: string;
           order_id: string;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
@@ -73,7 +60,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           guest_mail?: string | null;
-          id?: number;
+          id?: string;
           order_id?: string;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
@@ -102,83 +89,31 @@ export interface Database {
       trainers_details: {
         Row: {
           created_at: string;
-          id: number;
+          is_onboarded: boolean;
+          profile_image_url: string | null;
           profile_name: string;
+          service_price: number;
           user_id: string;
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          is_onboarded?: boolean;
+          profile_image_url?: string | null;
           profile_name: string;
+          service_price: number;
           user_id?: string;
         };
         Update: {
           created_at?: string;
-          id?: number;
+          is_onboarded?: boolean;
+          profile_image_url?: string | null;
           profile_name?: string;
+          service_price?: number;
           user_id?: string;
         };
         Relationships: [
           {
             foreignKeyName: 'trainers_details_user_id_fkey';
-            columns: ['user_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      users: {
-        Row: {
-          created_at: string;
-          first_name: string | null;
-          id: string;
-          last_name: string | null;
-          type: Database['public']['Enums']['user_type'];
-        };
-        Insert: {
-          created_at?: string;
-          first_name?: string | null;
-          id: string;
-          last_name?: string | null;
-          type?: Database['public']['Enums']['user_type'];
-        };
-        Update: {
-          created_at?: string;
-          first_name?: string | null;
-          id?: string;
-          last_name?: string | null;
-          type?: Database['public']['Enums']['user_type'];
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'users_id_fkey';
-            columns: ['id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      users_roles: {
-        Row: {
-          id: number;
-          role: Database['public']['Enums']['user_type'];
-          user_id: string;
-        };
-        Insert: {
-          id?: number;
-          role: Database['public']['Enums']['user_type'];
-          user_id: string;
-        };
-        Update: {
-          id?: number;
-          role?: Database['public']['Enums']['user_type'];
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'users_roles_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: true;
             referencedRelation: 'users';
@@ -235,8 +170,8 @@ export interface Database {
       };
     };
     Enums: {
+      role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed';
-      user_type: 'trainer' | 'client';
     };
     CompositeTypes: {
       [_ in never]: never;

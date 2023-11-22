@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
-import { getUserRoleFromSession } from '@/utils/get-data-from-session';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Database } from '@/utils/supabase/supabase';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
@@ -15,12 +15,12 @@ const SubmissionCard = async ({
   submissionStatus,
   thumbnailUrl,
 }: {
-  submissionId: number;
+  submissionId: string;
   trainerProfileName: string | undefined;
   submissionStatus: Database['public']['Enums']['status'];
   thumbnailUrl: string | null;
 }) => {
-  const isClientAccount = (await getUserRoleFromSession()) === 'client';
+  const isTrainerAccount = await checkIsTrainerAccount();
 
   return (
     <SubmissionCardContainer>
@@ -35,7 +35,7 @@ const SubmissionCard = async ({
             />
             <StatusBadge className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5" type={submissionStatus} />
           </div>
-          {isClientAccount && trainerProfileName && (
+          {!isTrainerAccount && trainerProfileName && (
             <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
           )}
         </div>
@@ -44,7 +44,7 @@ const SubmissionCard = async ({
         className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
         href={`/submissions/${submissionId}`}
       >
-        {isClientAccount ? 'Szczegóły' : 'Oceń technikę'}
+        {isTrainerAccount ? 'Oceń technikę' : 'Szczegóły'}
       </Link>
     </SubmissionCardContainer>
   );
