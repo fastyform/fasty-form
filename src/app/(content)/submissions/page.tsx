@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppLogo from '@/components/app-logo';
-import { getUserRoleFromSession } from '@/utils/get-data-from-session';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import FilterTabs from './_components/filter-tabs';
 import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
 import Submissions from './_components/submissions';
@@ -11,7 +12,8 @@ const SubmissionsPage = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
+  const { id: userId } = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(userId);
   const key = JSON.stringify(searchParams);
 
   return (
@@ -20,7 +22,7 @@ const SubmissionsPage = async ({
         <AppLogo />
         <div className="flex gap-5">
           <MobileNavbarLink aria-label="Ustawienia" href="/settings" icon="settings" />
-          {isTrainerAccount && <MobileNavbarLink aria-label="Profil" href="/profile" icon="profile" />}
+          {isTrainerAccount && <MobileNavbarLink aria-label="Profil" href={`/trainers/${userId}`} icon="profile" />}
         </div>
       </div>
       <h1 className="text-2xl text-white">Twoje zgłoszenia</h1>

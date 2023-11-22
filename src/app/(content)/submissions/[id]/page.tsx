@@ -2,25 +2,19 @@ import { createClient } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
-import { getUserRoleFromSession } from '@/utils/get-data-from-session';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
+import getSubmissionById from './_utils/get-submission-by-id';
 
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
-  const isTrainerAccount = (await getUserRoleFromSession()) === 'trainer';
-  const supabaseWithCookies = getSupabaseServerComponentClient();
-  const { data: submission } = await supabaseWithCookies
-    .from('submissions')
-    .select(
-      'status, thumbnail_url, trainers_details (profile_name), updated_at, video_url, client_description, trainer_review',
-    )
-    .eq('id', params.id)
-    .single();
-  if (!submission) return;
+  const user = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
+  const submission = await getSubmissionById(params.id);
 
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
@@ -36,6 +30,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         <span className="font-bold">Ostatnia zmiana: </span>
         <span className="capitalize">{formattedUpdateDate}</span>
       </p>
+      <span className="text-base text-white lg:hidden">
+        <span>Trener: </span>
+        <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
+      </span>
       <video
         controls
         muted
@@ -43,6 +41,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         poster={submission?.thumbnail_url || undefined}
         src={submission.video_url}
       />
+      <span className="text-xl text-white lg:hidden">
+        <span>Trener: </span>
+        <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
+      </span>
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         <SubmissionPartWithIcon verticalLine icon="submission">
           <h2 className="text-lg font-bold leading-5 text-white">
@@ -92,7 +94,5 @@ export async function generateStaticParams() {
 
   if (!submissions || error) return;
 
-  return submissions.map((submission) => ({
-    id: submission.id,
-  }));
+  return submissions;
 }
