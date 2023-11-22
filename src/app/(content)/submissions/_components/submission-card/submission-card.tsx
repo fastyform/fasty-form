@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import { Database } from '@/utils/supabase/supabase';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
@@ -20,7 +21,8 @@ const SubmissionCard = async ({
   submissionStatus: Database['public']['Enums']['status'];
   thumbnailUrl: string | null;
 }) => {
-  const isTrainerAccount = await checkIsTrainerAccount();
+  const user = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   return (
     <SubmissionCardContainer>

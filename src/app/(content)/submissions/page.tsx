@@ -12,9 +12,9 @@ const SubmissionsPage = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const isTrainerAccount = await checkIsTrainerAccount();
-  const key = JSON.stringify(searchParams);
   const { id: userId } = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(userId);
+  const key = JSON.stringify(searchParams);
 
   return (
     <>

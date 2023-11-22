@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import getSubmissionById from './_utils/get-submission-by-id';
@@ -11,7 +12,8 @@ dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
-  const isTrainerAccount = await checkIsTrainerAccount();
+  const user = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
   const submission = await getSubmissionById(params.id);
 
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');

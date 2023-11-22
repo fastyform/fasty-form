@@ -1,9 +1,12 @@
-import getUserFromSession from './get-user-from-session';
+import { getSupabaseServerComponentClient } from './supabase/client';
 
-const checkIsTrainerAccount = async () => {
-  const user = await getUserFromSession();
+const checkIsTrainerAccount = async (userId: string) => {
+  const supabase = getSupabaseServerComponentClient();
 
-  return user.user_metadata.role === 'trainer';
+  const { data, error } = await supabase.from('roles').select('role').eq('user_id', userId).single();
+  if (!data || error) throw new Error();
+
+  return data.role === 'trainer';
 };
 
 export default checkIsTrainerAccount;
