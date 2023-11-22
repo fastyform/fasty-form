@@ -15,7 +15,7 @@ const SubmissionCard = async ({
   submissionStatus,
   thumbnailUrl,
 }: {
-  submissionId: number;
+  submissionId: string;
   trainerProfileName: string | undefined;
   submissionStatus: Database['public']['Enums']['status'];
   thumbnailUrl: string | null;

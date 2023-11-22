@@ -3,13 +3,36 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
+      roles: {
+        Row: {
+          role: Database['public']['Enums']['role'] | null;
+          user_id: string;
+        };
+        Insert: {
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
+        };
+        Update: {
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roles_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: true;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       submissions: {
         Row: {
           client_description: string | null;
           client_id: string | null;
           created_at: string;
           guest_mail: string | null;
-          id: number;
+          id: string;
           order_id: string;
           status: Database['public']['Enums']['status'];
           thumbnail_url: string | null;
@@ -23,7 +46,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           guest_mail?: string | null;
-          id?: number;
+          id?: string;
           order_id: string;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
@@ -37,7 +60,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           guest_mail?: string | null;
-          id?: number;
+          id?: string;
           order_id?: string;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
@@ -147,6 +170,7 @@ export interface Database {
       };
     };
     Enums: {
+      role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed';
     };
     CompositeTypes: {
