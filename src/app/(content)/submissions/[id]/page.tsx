@@ -3,24 +3,16 @@ import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
+import getSubmissionById from './_utils/get-submission-by-id';
 
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const isTrainerAccount = await checkIsTrainerAccount();
-  const supabaseWithCookies = getSupabaseServerComponentClient();
-  const { data: submission } = await supabaseWithCookies
-    .from('submissions')
-    .select(
-      'status, thumbnail_url, trainers_details (profile_name), updated_at, video_url, client_description, trainer_review',
-    )
-    .eq('id', params.id)
-    .single();
-  if (!submission) return;
+  const submission = await getSubmissionById(params.id);
 
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
@@ -36,6 +28,10 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         <span className="font-bold">Ostatnia zmiana: </span>
         <span className="capitalize">{formattedUpdateDate}</span>
       </p>
+      <span className="text-base text-white lg:hidden">
+        <span>Trener: </span>
+        <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
+      </span>
       <video
         controls
         muted
