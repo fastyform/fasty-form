@@ -4,18 +4,23 @@ import AppLogo from '@/components/app-logo';
 import RegisterFormClient from './_components/register-form-client';
 
 const RegisterClientPage = () => (
-  <main className="grid min-h-screen px-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:px-0 lg:pt-0">
-    <div className="flex w-full max-w-sm grow flex-col gap-10 justify-self-center">
-      <div className="flex flex-col items-center">
-        <AppLogo className="mb-10" />
-        <span className="mb-2.5 font-bold text-zinc-400">Witaj w FastForm!</span>
-        <h1 className="text-center text-2xl text-white">
-          Trenuj jak <span className="font-medium text-yellow-400">zawodowiec</span>,
-          <br />z techniką <span className="font-medium text-yellow-400">mistrza</span>
-        </h1>
-      </div>
-      <div className="flex flex-col gap-4">
-        <RegisterFormClient />
+  <main className="grid min-h-screen lg:grid-cols-2">
+    <div className="grid place-items-center p-5">
+      <div className="flex w-full max-w-sm grow flex-col gap-5 justify-self-center">
+        <div className="flex flex-col gap-10">
+          <AppLogo />
+          <div className="flex flex-col gap-2.5 text-center">
+            <span className="font-bold text-zinc-400">Witaj w FastForm!</span>
+            <h1 className="text-2xl text-white">
+              Trenuj jak <span className="font-medium text-yellow-400">zawodowiec</span>,
+              <br />z techniką <span className="font-medium text-yellow-400">mistrza</span>
+            </h1>
+          </div>
+          <div className="flex flex-col gap-6">
+            <h2 className="text-2xl font-bold text-white">Zarejestruj się jako klient</h2>
+            <RegisterFormClient />
+          </div>
+        </div>
         <div className="flex flex-col gap-2">
           <Link className="w-fit self-center text-white transition-opacity hover:opacity-80" href="/register/trainer">
             Zarejestruj się jako <span className="font-bold text-yellow-400">trener</span>

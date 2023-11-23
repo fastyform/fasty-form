@@ -1,33 +1,22 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
-import ProviderButton from '@/app/(auth)/_components/provider-button';
-import actionRegisterClient from '@/app/(auth)/register/client/_actions/action-register-client';
-import { formSchema, FormValues } from '@/app/(auth)/register/client/_utils';
+import RegisterWithGoogle from '@/app/(auth)/providers/_components/register-with-google';
+import actionRegister from '@/app/(auth)/register/_actions/action-register';
+import { formSchema, FormValues } from '@/app/(auth)/register/_utils';
 import ErrorIcon from '@/assets/error-icon';
-import AppButton from '@/components/app-button';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { formDefaultState } from '@/utils/form';
 
-const SubmitButton = ({ isValid }: { isValid: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton loading={pending && isValid} type="submit">
-      Zarejestruj się
-    </AppButton>
-  );
-};
-
 const RegisterFormClient = () => {
-  const [state, formAction] = useFormState(actionRegisterClient, formDefaultState);
+  const [state, formAction] = useFormState(actionRegister, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '', policy: false },
@@ -40,11 +29,11 @@ const RegisterFormClient = () => {
     }
   }, [state, reset]);
 
-  const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
+  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, role: 'client' }))();
 
   return (
-    <form action={handleFormAction} className="flex flex-col">
-      <div className="flex flex-col gap-5">
+    <form action={handleFormAction} className="flex flex-col gap-10">
+      <div className="flex flex-col gap-4">
         <AppFormState state={state} />
         <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
         <AppInputForm<FormValues>
@@ -54,13 +43,11 @@ const RegisterFormClient = () => {
           label="Hasło"
           type="password"
         />
-      </div>
-      <div className="mb-8 ml-3 mt-4">
         <Controller
           control={control}
           name="policy"
           render={({ field, fieldState }) => (
-            <div className="flex w-fit flex-col">
+            <div className="ml-3 flex w-fit flex-col">
               <FormControlLabel
                 classes={{ label: 'text-xs' }}
                 control={
@@ -91,15 +78,12 @@ const RegisterFormClient = () => {
           )}
         />
       </div>
-      <div className="flex flex-col gap-5">
-        <SubmitButton isValid={formState.isValid} />
+      <div className="flex flex-col gap-2">
+        <AppButtonSubmit isValid={formState.isValid} type="submit">
+          Zarejestruj się
+        </AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
-        <ProviderButton icon={<Image alt="google" height={19} src="/google.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Google</span>
-        </ProviderButton>
-        <ProviderButton icon={<Image alt="apple" height={19} src="/apple.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Apple</span>
-        </ProviderButton>
+        <RegisterWithGoogle userRole="client" />
       </div>
     </form>
   );

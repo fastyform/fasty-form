@@ -1,25 +1,15 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import actionSignIn from '@/app/(auth)/login/_actions/action-sign-in';
-import AppButton from '@/components/app-button';
+import actionSignIn from '@/app/(auth)/login/_actions/action-login';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
 import { editProfileFormSchema, EditProfileFormValues } from './_utils';
-
-const SubmitButton = ({ isValid }: { isValid: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton loading={pending && isValid} type="submit">
-      Przejdź dalej
-    </AppButton>
-  );
-};
 
 const EditProfileForm = () => {
   const [state, formAction] = useFormState(actionSignIn, formDefaultState);
@@ -56,7 +46,7 @@ const EditProfileForm = () => {
           <AppInputForm<EditProfileFormValues> control={control} fieldName="profile_name" />
         </div>
       </div>
-      <SubmitButton isValid={formState.isValid} />
+      <AppButtonSubmit isValid={formState.isValid}>Przejdź dalej</AppButtonSubmit>
     </form>
   );
 };

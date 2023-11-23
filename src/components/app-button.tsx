@@ -10,9 +10,10 @@ const AppButton = <C extends ElementType>(props: LoadingButtonProps<C, { compone
   return (
     <LoadingButton
       disableElevation
+      color="inherit"
       classes={{
         disabled: twMerge(
-          '!bg-gray-600 text-transparent [&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6',
+          '!bg-gray-600 !text-transparent [&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6',
           disabled,
         ),
         root: twMerge(

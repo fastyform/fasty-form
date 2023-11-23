@@ -11,3 +11,5 @@ export const passwordValidator = z
   .min(1, 'Proszę wprowadzić hasło.');
 
 export const checkboxCheckedValidator = z.literal<boolean>(true);
+
+export const roleSchema = z.enum(['client', 'trainer']);

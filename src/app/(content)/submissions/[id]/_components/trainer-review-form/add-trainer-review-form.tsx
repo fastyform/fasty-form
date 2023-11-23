@@ -1,27 +1,18 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Dialog } from '@mui/material';
 import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/_components/submission-part-with-icon';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppInputForm from '@/components/app-input/app-input-form';
 import actionAddTrainerReview from './_actions/action-add-trainer-review';
 import QuestionMarkIcon from './_assets/question-mark-icon';
 import { trainerReviewFormSchema, TrainerReviewValues } from './_utils';
-
-const SubmitButton = ({ isValid, onClick }: { isValid: boolean; onClick: () => void }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton loading={pending && isValid} onClick={onClick}>
-      Dodaj ocenę filmiku
-    </AppButton>
-  );
-};
 
 const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   const [isReviewInputVisible, setIsReviewInputVisible] = useState(false);
@@ -62,10 +53,12 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               fieldName="trainerReview"
               minRows={10}
             />
-            <SubmitButton
+            <AppButtonSubmit
               isValid={formState.isValid}
               onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
-            />
+            >
+              Dodaj ocenę filmiku
+            </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>
         <Dialog

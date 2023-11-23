@@ -1,30 +1,20 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
-import ProviderButton from '@/app/(auth)/_components/provider-button';
-import actionSignIn from '@/app/(auth)/login/_actions/action-sign-in';
+import actionLogin from '@/app/(auth)/login/_actions/action-login';
 import { formSchema, FormValues } from '@/app/(auth)/login/_utils';
-import AppButton from '@/components/app-button';
+import ProviderButton from '@/app/(auth)/providers/_components/provider-button';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { formDefaultState } from '@/utils/form';
 
-const SubmitButton = ({ isValid }: { isValid: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton loading={pending && isValid} type="submit">
-      Zaloguj się
-    </AppButton>
-  );
-};
-
 const LoginForm = () => {
-  const [state, formAction] = useFormState(actionSignIn, formDefaultState);
+  const [state, formAction] = useFormState(actionLogin, formDefaultState);
   const { control, handleSubmit, formState } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '' },
@@ -46,14 +36,11 @@ const LoginForm = () => {
       >
         Zapomniałem hasła
       </Link>
-      <div className="flex flex-col gap-5">
-        <SubmitButton isValid={formState.isValid} />
+      <div className="flex flex-col gap-2">
+        <AppButtonSubmit isValid={formState.isValid}>Zaloguj się</AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
         <ProviderButton icon={<Image alt="google" height={19} src="/google.svg" width={19} />}>
           Kontynuuj z&nbsp;<span className="font-bold">Google</span>
-        </ProviderButton>
-        <ProviderButton icon={<Image alt="apple" height={19} src="/apple.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Apple</span>
         </ProviderButton>
       </div>
     </form>

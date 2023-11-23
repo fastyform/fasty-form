@@ -6,7 +6,7 @@ import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionSignIn = async (prevState: FormState, data: FormData) => {
+const actionLogin = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
 
   if (!formSchemaParsed.success) {
@@ -32,4 +32,4 @@ const actionSignIn = async (prevState: FormState, data: FormData) => {
   return getResponse('Wystąpił błąd podczas logowania, spróbuj ponownie, lub skontaktuj się z nami.');
 };
 
-export default actionSignIn;
+export default actionLogin;
