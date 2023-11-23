@@ -15,7 +15,7 @@ const EditButtonMobile = async ({ trainerId }: { trainerId: string }) => {
         <Link
           aria-label="Edycja profilu"
           className="flex h-11 w-11 min-w-0 items-center justify-center rounded-xl border border-solid border-gray-600 bg-[#1E2226]"
-          href="/submissions"
+          href={`/edit-profile/${trainerId}`}
         >
           <EditIcon />
         </Link>

@@ -4,7 +4,7 @@ import { getSupabase } from '@/utils/supabase/client';
 import getTrainerDetailsById from './app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import checkIsTrainerAccount from './utils/check-is-trainer-account';
 
-const PROTECTED_ROUTES = ['/submissions', '/settings'];
+const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile'];
 const UNAVAILABLE_ROUTES = ['/login', '/register'];
 
 export const middleware = async (request: NextRequest) => {

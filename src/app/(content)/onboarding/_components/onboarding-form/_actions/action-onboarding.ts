@@ -6,7 +6,7 @@ import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionEditProfile = async (prevState: FormState, data: FormData) => {
+const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = onboardingFormSchema.safeParse({
     servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
     profileName: data.get('profileName'),
@@ -26,14 +26,14 @@ const actionEditProfile = async (prevState: FormState, data: FormData) => {
   const { servicePrice, profileName } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
-    .update({ service_price: servicePrice, profile_name: profileName })
+    .update({ service_price: servicePrice, profile_name: profileName, is_onboarded: true })
     .eq('user_id', userId);
 
   if (!error) {
-    return redirect(`/trainers/${userId}?isSuccess=true`);
+    return redirect(`/trainers/${userId}`);
   }
 
   return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');
 };
 
-export default actionEditProfile;
+export default actionOnBoarding;
