@@ -7,12 +7,7 @@ import { Database } from './supabase';
 
 export const getSupabase = (
   options: SupabaseClientOptions<'public'> & { cookies: CookieMethods; cookieOptions?: any },
-) =>
-  createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    options,
-  );
+) => createServerClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, options);
 
 // NOTE: For routes and server actions
 export const getSupabaseServerClient = () => {
