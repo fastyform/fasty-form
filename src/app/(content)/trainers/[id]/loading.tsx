@@ -1,24 +1,25 @@
 import Image from 'next/image';
+import SkeletonButton from '@/components/skeletons/skeleton-button';
+import SkeletonWrapper from '@/components/skeletons/skeleton-wrapper';
 
 const LoadingTrainerProfilePage = () => (
-  <div className="flex grow items-end min-[800px]:items-center">
-    <div className="animation-pulse fixed right-0 top-0 z-0 aspect-[1/2] h-full max-w-full">
-      <Image fill alt="Placeholder image" className=" object-contain" src="/image-placeholder.png" />
+  <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
+    <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm rounded-full border border-gray-600 object-cover lg:mb-0 lg:mt-0">
+      <Image fill alt="Placeholder image" className="rounded-full" src="/default-trainer.jpg" />
     </div>
-    <div className="relative z-20 flex w-full max-w-sm flex-col gap-10 lg:max-w-2xl xl:max-w-4xl">
-      <div className="flex flex-col gap-2.5">
-        <div className="animation-pulse w-fit select-none rounded-full bg-[#1e2226] text-2xl font-bold min-[800px]:text-6xl xl:text-8xl">
-          <span className="invisible">Imię nazwisko</span>
-        </div>
-        <div className=" animation-pulse w-fit select-none rounded-full bg-[#1e2226] text-base lg:text-xl">
-          <span className="invisible">
-            Analiza techniki jednego wideo - <span className="font-bold">11zł</span>
+
+    <div className="flex w-full flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-2.5">
+        <SkeletonWrapper>
+          <span className="invisible text-2xl font-bold sm:text-4xl md:text-6xl">Jan Kowalski</span>
+        </SkeletonWrapper>
+        <SkeletonWrapper>
+          <span className="invisible text-base lg:text-xl">
+            Analiza techniki jednego wideo - <span className="font-bold">25zł </span>
           </span>
-        </div>
+        </SkeletonWrapper>
       </div>
-      <div className="w-full max-w-sm animate-pulse select-none rounded-full bg-yellow-400 py-[18px] text-center text-base font-bold text-yellow-400 lg:text-base">
-        Kup analizę techniki
-      </div>
+      <SkeletonButton>Kup analizę techniki</SkeletonButton>
     </div>
   </div>
 );

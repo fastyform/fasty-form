@@ -16,31 +16,24 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
   });
 
   return (
-    <div className="flex grow items-end min-[800px]:items-center">
-      <div className="fixed right-0 top-0 z-0 aspect-[1/2] h-full max-w-full">
-        <div className="relative left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-[#0D1116] to-transparent" />
-        {trainerDetails.profile_image_url ? (
-          <Image
-            fill
-            alt={`${trainerDetails.profile_name} profile image`}
-            className=" object-contain"
-            src={trainerDetails.profile_image_url}
-          />
-        ) : (
-          <div className="bg-custom-radial fixed left-0 top-0 z-30 h-screen w-screen" />
-        )}
-        <div className="d fixed bottom-0 left-0 z-10 h-96 w-full bg-gradient-to-t from-[#0D1116] to-transparent" />
+    <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
+      <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm rounded-full border border-gray-600 object-cover lg:mb-0 lg:mt-0">
+        <Image
+          fill
+          alt={`${trainerDetails.profile_name} profile image`}
+          className="rounded-full"
+          src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
+        />
       </div>
-      <div className="relative z-20 flex w-full max-w-sm flex-col gap-10 lg:max-w-2xl xl:max-w-4xl">
-        <div className="flex flex-col min-[800px]:gap-2.5">
-          <h1 className="text-2xl font-bold text-white min-[800px]:text-6xl xl:text-8xl">
-            {trainerDetails.profile_name}
-          </h1>
+
+      <div className="flex w-full flex-col items-center gap-10">
+        <div className="flex flex-col items-center sm:gap-2.5">
+          <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-6xl ">{trainerDetails.profile_name}</h1>
           <span className="text-base text-white lg:text-xl">
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <AppButtonLink className="max-w-sm" href="/">
+        <AppButtonLink className="w-full max-w-sm" href="/">
           Kup analizę techniki
         </AppButtonLink>
       </div>
