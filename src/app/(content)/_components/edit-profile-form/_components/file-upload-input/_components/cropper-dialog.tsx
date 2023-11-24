@@ -9,32 +9,28 @@ const CropperDialog = ({
   setImageBlob,
   file,
   setFile,
+  setIsDeleting,
 }: {
   setImageBlob: Dispatch<SetStateAction<Blob | null>>;
   file: string;
   setFile: Dispatch<SetStateAction<string>>;
+  setIsDeleting: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
 
-  const handleImageUpload = async () => {
+  const handleImageCrop = async () => {
     if (!croppedAreaPixels) throw new Error();
     const croppedImage = await getCroppedImg(file, croppedAreaPixels, rotation);
     if (!croppedImage) throw new Error();
     setImageBlob(croppedImage);
     setFile('');
-    // const { data, error } = await supabase.storage
-    //   .from('Test_bucket')
-    //   .upload(`profile_images/${trainerId}.jpeg`, croppedImage, {
-    //     contentType: 'Blob',
-    //     upsert: true,
-    //   });
-    // console.log(data, error);
+    setIsDeleting(false);
   };
 
-  const onCropComplete = (_: Area, croppedArea: Area) => {
+  const onCropComplete = (_: unknown, croppedArea: Area) => {
     setCroppedAreaPixels(croppedArea);
   };
 
@@ -46,7 +42,7 @@ const CropperDialog = ({
       <div className="flex flex-col gap-5">
         <Cropper
           aspect={1}
-          classes={{ containerClassName: 'h-40 relative rounded-xl border border-gray-600' }}
+          classes={{ containerClassName: 'h-60 relative rounded-xl border border-gray-600 sm:h-80' }}
           crop={crop}
           cropShape="round"
           image={file}
@@ -79,7 +75,9 @@ const CropperDialog = ({
               onChange={(e, value) => setRotation(value as number)}
             />
           </div>
-          <AppButton onClick={handleImageUpload}>Zapisz zdjęcie</AppButton>
+          <AppButton className="w-full" onClick={handleImageCrop}>
+            Przytnij zdjęcie
+          </AppButton>
         </div>
       </div>
     </Dialog>

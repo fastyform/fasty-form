@@ -1,38 +1,71 @@
 'use server';
 
-import { onboardingFormSchema } from '@/app/(content)/onboarding/_components/onboarding-form/_utils';
+import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const actionEditProfile = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = onboardingFormSchema.safeParse({
-    servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
-    profileName: data.get('profileName'),
-  });
-  if (!formSchemaParsed.success) {
-    return getResponse('Bad request.');
-  }
+interface Payload {
+  data: FormData;
+  isDeleting: boolean;
+}
 
-  const supabase = getSupabaseServerClient();
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) {
-    return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');
-  }
+const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Payload) => {
+  try {
+    const formSchemaParsed = trainerDetailsSchema.parse({
+      servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
+      profileName: data.get('profileName'),
+    });
+    const imageBlob = data.get('imageBlob');
 
-  const userId = session.session.user.id;
+    const supabase = getSupabaseServerClient();
 
-  const { servicePrice, profileName } = formSchemaParsed.data;
-  const { error } = await supabase
-    .from('trainers_details')
-    .update({ service_price: servicePrice, profile_name: profileName })
-    .eq('user_id', userId);
+    const { data: session } = await supabase.auth.getSession();
+    if (!session.session) throw new Error();
 
-  if (!error) {
+    const userId = session.session.user.id;
+
+    const getImageUrl = async () => {
+      if (isDeleting) {
+        return null;
+      }
+
+      if (imageBlob) {
+        const { error: uploadImageError } = await supabase.storage
+          .from('profile_images')
+          .upload(`${userId}.jpeg`, imageBlob, {
+            contentType: 'Blob',
+            upsert: true,
+          });
+
+        if (uploadImageError) throw new Error();
+
+        const { data: publicProfileImageUrl } = supabase.storage.from('profile_images').getPublicUrl(`${userId}.jpeg`);
+
+        return `${publicProfileImageUrl.publicUrl}?timestamp=${Date.now()};`;
+      }
+
+      return undefined;
+    };
+
+    const imageUrl = await getImageUrl();
+    const { servicePrice, profileName } = formSchemaParsed;
+
+    const { error } = await supabase
+      .from('trainers_details')
+      .update({
+        service_price: servicePrice,
+        profile_name: profileName,
+        ...(imageUrl !== undefined && { profile_image_url: imageUrl }),
+      })
+      .eq('user_id', userId);
+
+    if (error) throw new Error();
+
     return getResponse('', true);
+  } catch {
+    return getResponse('Coś poszło nie tak podczas zapisywania profilu. Spróbuj ponownie lub skontaktuj się z nami.');
   }
-
-  return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');
 };
 
 export default actionEditProfile;

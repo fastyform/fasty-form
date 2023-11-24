@@ -1,30 +1,20 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import AppButton from '@/components/app-button';
+import { trainerDetailsSchema, TrainerDetailsValues } from '@/app/(content)/_utils/trainer-details-form';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
 import actionOnBoarding from './_actions/action-onboarding';
-import { onboardingFormSchema, OnboardingFormValues } from './_utils';
-
-const SubmitButton = ({ isValid }: { isValid: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton loading={pending && isValid} type="submit">
-      Przejdź dalej
-    </AppButton>
-  );
-};
 
 const OnboardingForm = () => {
   const [state, formAction] = useFormState(actionOnBoarding, formDefaultState);
-  const { control, handleSubmit, formState } = useForm<OnboardingFormValues>({
-    resolver: zodResolver(onboardingFormSchema),
+  const { control, handleSubmit, formState } = useForm<TrainerDetailsValues>({
+    resolver: zodResolver(trainerDetailsSchema),
     defaultValues: { servicePrice: 1, profileName: '' },
     mode: 'onTouched',
   });
@@ -49,10 +39,10 @@ const OnboardingForm = () => {
         </div>
         <div className="flex flex-col gap-2.5 ">
           <span className="text-white">Nazwa profilu</span>
-          <AppInputForm<OnboardingFormValues> control={control} fieldName="profileName" />
+          <AppInputForm<TrainerDetailsValues> control={control} fieldName="profileName" />
         </div>
       </div>
-      <SubmitButton isValid={formState.isValid} />
+      <AppButtonSubmit isValid={formState.isValid} />
     </form>
   );
 };

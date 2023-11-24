@@ -1,59 +1,60 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { trainerDetailsSchema, TrainerDetailsValues } from '@/app/(content)/_utils/trainer-details-form';
 import AppButton from '@/components/app-button';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
+import notify from '@/utils/notify';
 import actionEditProfile from './_actions/action-edit-profile';
 import FileUploadInput from './_components/file-upload-input/file-upload-input';
-import { editProfileFormSchema, EditProfileFormValues } from './_utils';
-import revalidatePathServer from './_utils/revalidate-path-server';
-
-const SubmitButton = ({ isValid, disabled }: { isValid: boolean; disabled: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton classes={{ root: 'grow' }} disabled={disabled} loading={pending && isValid} type="submit">
-      Zapisz
-    </AppButton>
-  );
-};
+import revalidatePathsAfterProfileEdit from './_utils/revalidate-paths-after-profile-edit';
 
 const EditProfileForm = ({
   defaultFormData,
   profileImageUrl,
   trainerId,
 }: {
-  defaultFormData: EditProfileFormValues;
+  defaultFormData: TrainerDetailsValues;
   profileImageUrl: string | null;
   trainerId: string;
 }) => {
   const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
   const [state, formAction] = useFormState(actionEditProfile, formDefaultState);
-  const { control, handleSubmit, formState } = useForm<EditProfileFormValues>({
-    resolver: zodResolver(editProfileFormSchema),
+  const { control, handleSubmit, formState } = useForm<TrainerDetailsValues>({
+    resolver: zodResolver(trainerDetailsSchema),
     defaultValues: defaultFormData,
     mode: 'onTouched',
   });
 
-  const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
+  const handleFormAction = (data: FormData) =>
+    handleSubmit(async () => {
+      if (imageBlob) {
+        data.append('imageBlob', imageBlob);
+      }
+
+      formAction({ data, isDeleting });
+    })();
 
   useEffect(() => {
     if (state.isSuccess) {
-      revalidatePathServer(`/trainers/${trainerId}`);
-      router.back();
+      revalidatePathsAfterProfileEdit(trainerId);
+      router.push(`/trainers/${trainerId}`);
+      notify.success('Zapisano zmiany');
     }
   }, [router, state.isSuccess, trainerId]);
 
   return (
-    <form action={handleFormAction} className="flex flex-col gap-5">
+    <form action={handleFormAction} className="flex grow flex-col gap-5">
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
@@ -70,22 +71,34 @@ const EditProfileForm = ({
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="text-white">Nazwa profilu</span>
-          <AppInputForm<EditProfileFormValues> control={control} fieldName="profileName" />
+          <AppInputForm<TrainerDetailsValues> control={control} fieldName="profileName" />
         </div>
         <div className="flex flex-col items-center gap-2.5">
           <span className="mr-auto text-white">Zdjęcie profilowe</span>
-          <FileUploadInput imageBlob={imageBlob} profileImageUrl={profileImageUrl} setImageBlob={setImageBlob} />
+          <FileUploadInput
+            imageBlob={imageBlob}
+            isDeleting={isDeleting}
+            profileImageUrl={profileImageUrl}
+            setImageBlob={setImageBlob}
+            setIsDeleting={setIsDeleting}
+          />
         </div>
       </div>
-      <div className="flex flex-wrap gap-5">
+      <div className="mt-auto flex flex-wrap gap-5">
         <AppButton
           classes={{ root: 'py-2.5 bg-inherit grow' }}
           className="text-sm text-white"
-          onClick={() => router.back()}
+          onClick={() => router.push(`/trainers/${trainerId}`)}
         >
           Anuluj
         </AppButton>
-        <SubmitButton disabled={!(formState.isDirty || imageBlob)} isValid={formState.isValid} />
+        <AppButtonSubmit
+          classes={{ root: 'grow' }}
+          disabled={!(formState.isDirty || imageBlob || isDeleting)}
+          isValid={formState.isValid}
+        >
+          Zapisz
+        </AppButtonSubmit>
       </div>
     </form>
   );

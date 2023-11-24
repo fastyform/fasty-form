@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-export type EditProfileFormValues = z.infer<typeof editProfileFormSchema>;
+export type TrainerDetailsValues = z.infer<typeof trainerDetailsSchema>;
 
-export const editProfileFormSchema = z.object({
+export const trainerDetailsSchema = z.object({
   servicePrice: z.number().min(1).max(10000),
   profileName: z
     .string()
