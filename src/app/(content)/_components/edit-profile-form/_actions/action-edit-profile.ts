@@ -1,6 +1,5 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { onboardingFormSchema } from '@/app/(content)/onboarding/_components/onboarding-form/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
@@ -30,7 +29,7 @@ const actionEditProfile = async (prevState: FormState, data: FormData) => {
     .eq('user_id', userId);
 
   if (!error) {
-    return redirect(`/trainers/${userId}?isSuccess=true`);
+    return getResponse('', true);
   }
 
   return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');

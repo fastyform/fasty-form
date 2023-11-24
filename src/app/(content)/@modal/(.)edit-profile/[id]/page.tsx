@@ -6,15 +6,19 @@ import AppModal from '@/components/app-modal';
 const EditProfileModal = async ({ params }: { params: { id: string } }) => {
   const trainerDetails = await getTrainerDetailsById(params.id);
   const defaultFormData: EditProfileFormValues = {
-    profileName: trainerDetails.profile_name,
-    servicePrice: trainerDetails.service_price,
+    profileName: trainerDetails.profile_name || '',
+    servicePrice: trainerDetails.service_price || 1,
   };
 
   return (
     <AppModal>
       <section className="flex h-screen w-screen max-w-2xl  flex-col gap-5  border border-gray-600 bg-[#1e2226] px-5 py-10 min-[672px]:h-fit min-[672px]:rounded-xl min-[672px]:px-10 ">
         <h1 className="text-xl font-bold text-white">Edytuj swój profil</h1>
-        <EditProfileForm defaultFormData={defaultFormData} profileImageUrl={trainerDetails.profile_image_url} />
+        <EditProfileForm
+          defaultFormData={defaultFormData}
+          profileImageUrl={trainerDetails.profile_image_url}
+          trainerId={params.id}
+        />
       </section>
     </AppModal>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,6 +13,7 @@ import { formDefaultState } from '@/utils/form';
 import actionEditProfile from './_actions/action-edit-profile';
 import FileUploadInput from './_components/file-upload-input/file-upload-input';
 import { editProfileFormSchema, EditProfileFormValues } from './_utils';
+import revalidatePathServer from './_utils/revalidate-path-server';
 
 const SubmitButton = ({ isValid, disabled }: { isValid: boolean; disabled: boolean }) => {
   const { pending } = useFormStatus();
@@ -27,9 +28,11 @@ const SubmitButton = ({ isValid, disabled }: { isValid: boolean; disabled: boole
 const EditProfileForm = ({
   defaultFormData,
   profileImageUrl,
+  trainerId,
 }: {
   defaultFormData: EditProfileFormValues;
   profileImageUrl: string | null;
+  trainerId: string;
 }) => {
   const router = useRouter();
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
@@ -41,6 +44,13 @@ const EditProfileForm = ({
   });
 
   const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
+
+  useEffect(() => {
+    if (state.isSuccess) {
+      revalidatePathServer(`/trainers/${trainerId}`);
+      router.back();
+    }
+  }, [router, state.isSuccess, trainerId]);
 
   return (
     <form action={handleFormAction} className="flex flex-col gap-5">
