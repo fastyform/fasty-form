@@ -89,7 +89,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
 export default SubmissionPage;
 
 export async function generateStaticParams() {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
   const { data: submissions, error } = await supabase.from('submissions').select('id');
 
   if (!submissions || error) return;

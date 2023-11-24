@@ -1,25 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import AppButton from '@/components/app-button';
+import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { supportFormSchema, SupportFormValues } from '@/components/support-form/_utils';
 import { formDefaultState } from '@/utils/form';
 import actionSendSupportTicket from './_actions/action-send-support-ticket';
-
-const SubmitButton = ({ isValid }: { isValid: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <AppButton classes={{ root: 'py-2.5' }} loading={pending && isValid} type="submit">
-      Wyślij
-    </AppButton>
-  );
-};
 
 const SupportForm = () => {
   const [state, formAction] = useFormState(actionSendSupportTicket, formDefaultState);
@@ -48,7 +38,9 @@ const SupportForm = () => {
         minRows={5}
         placeholder="Wiadomość"
       />
-      <SubmitButton isValid={formState.isValid} />
+      <AppButtonSubmit classes={{ root: 'py-2.5' }} isValid={formState.isValid}>
+        Wyślij
+      </AppButtonSubmit>
     </form>
   );
 };

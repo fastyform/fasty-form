@@ -10,7 +10,7 @@ export interface Database {
         };
         Insert: {
           role?: Database['public']['Enums']['role'] | null;
-          user_id?: string;
+          user_id: string;
         };
         Update: {
           role?: Database['public']['Enums']['role'] | null;
@@ -91,24 +91,24 @@ export interface Database {
           created_at: string;
           is_onboarded: boolean;
           profile_image_url: string | null;
-          profile_name: string;
-          service_price: number;
+          profile_name: string | null;
+          service_price: number | null;
           user_id: string;
         };
         Insert: {
           created_at?: string;
           is_onboarded?: boolean;
           profile_image_url?: string | null;
-          profile_name: string;
-          service_price: number;
-          user_id?: string;
+          profile_name?: string | null;
+          service_price?: number | null;
+          user_id: string;
         };
         Update: {
           created_at?: string;
           is_onboarded?: boolean;
           profile_image_url?: string | null;
-          profile_name?: string;
-          service_price?: number;
+          profile_name?: string | null;
+          service_price?: number | null;
           user_id?: string;
         };
         Relationships: [

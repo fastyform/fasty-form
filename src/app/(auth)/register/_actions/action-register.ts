@@ -1,11 +1,18 @@
 'use server';
 
 import { headers } from 'next/headers';
-import { formSchema } from '@/app/(auth)/register/client/_utils';
+import { formSchema } from '@/app/(auth)/register/_utils';
 import { getResponse } from '@/utils';
+import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import { Database } from '@/utils/supabase/supabase';
 
-const actionRegisterClient = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
+interface Payload {
+  data: FormData;
+  role: Database['public']['Enums']['role'];
+}
+
+const actionRegister = async (prevState: FormState, { data, role }: Payload) => {
   const headersList = headers();
 
   const formSchemaParsed = formSchema.safeParse({
@@ -14,7 +21,7 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
     policy: data.get('policy') === 'true',
   });
 
-  if (!formSchemaParsed.success) {
+  if (!formSchemaParsed.success || !role) {
     return getResponse('Bad request.');
   }
 
@@ -25,7 +32,7 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
   const response = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback`, data: { role: 'client' } },
+    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback?role=${role}` },
   });
 
   if (response.data.user?.identities?.length === 0) {
@@ -43,4 +50,4 @@ const actionRegisterClient = async (prevState: { message: string; isSuccess: boo
   return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
 };
 
-export default actionRegisterClient;
+export default actionRegister;
