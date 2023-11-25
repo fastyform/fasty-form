@@ -32,15 +32,19 @@ const Submissions = async ({ searchParams }: { searchParams: { [key: string]: st
   return (
     <>
       {!!submissions &&
-        submissions.map(({ id, trainers_details, status, thumbnail_url }) => (
-          <SubmissionCard
-            key={id}
-            submissionId={id}
-            submissionStatus={status}
-            thumbnailUrl={thumbnail_url}
-            trainerProfileName={trainers_details?.profile_name}
-          />
-        ))}
+        submissions.map(({ id, trainers_details, status, thumbnail_url }) => {
+          if (!trainers_details || !trainers_details.profile_name) return;
+
+          return (
+            <SubmissionCard
+              key={id}
+              submissionId={id}
+              submissionStatus={status}
+              thumbnailUrl={thumbnail_url}
+              trainerProfileName={trainers_details.profile_name}
+            />
+          );
+        })}
     </>
   );
 };

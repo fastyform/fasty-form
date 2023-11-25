@@ -11,7 +11,7 @@ const getSubmissionById = async (submissionId: string) => {
     .eq('id', submissionId)
     .single();
 
-  if (!submission || error || !submission.trainers_details) throw new Error();
+  if (!submission || error) throw new Error();
 
   return submission;
 };

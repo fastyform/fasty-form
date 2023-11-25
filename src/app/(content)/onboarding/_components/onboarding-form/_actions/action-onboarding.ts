@@ -1,13 +1,13 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { onboardingFormSchema } from '@/app/(content)/onboarding/_components/onboarding-form/_utils';
+import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionOnBoarding = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = onboardingFormSchema.safeParse({
+  const formSchemaParsed = trainerDetailsSchema.safeParse({
     servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
     profileName: data.get('profileName'),
   });

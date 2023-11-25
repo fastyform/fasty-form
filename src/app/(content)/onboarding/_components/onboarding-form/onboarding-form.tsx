@@ -22,7 +22,7 @@ const OnboardingForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
 
   return (
-    <form action={handleFormAction} className="flex flex-col gap-5">
+    <form action={handleFormAction} className="flex w-[500px] max-w-full flex-col gap-5">
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
@@ -42,7 +42,7 @@ const OnboardingForm = () => {
           <AppInputForm<TrainerDetailsValues> control={control} fieldName="profileName" />
         </div>
       </div>
-      <AppButtonSubmit isValid={formState.isValid} />
+      <AppButtonSubmit isValid={formState.isValid}>Przejdź dalej</AppButtonSubmit>
     </form>
   );
 };

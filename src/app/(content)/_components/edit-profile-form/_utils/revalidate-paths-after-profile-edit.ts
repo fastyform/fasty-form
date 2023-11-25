@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-const revalidatePathsAfterProfileEdit = (trainerId: string) => {
+const revalidatePathsAfterProfileEdit = async (trainerId: string) => {
   revalidatePath(`/trainers/${trainerId}`);
   revalidatePath(`/trainers/${trainerId}/edit-profile`);
 };

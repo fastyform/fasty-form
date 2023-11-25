@@ -46,7 +46,7 @@ export default TrainerPage;
 export async function generateStaticParams() {
   const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
   const { data: trainers, error } = await supabase.from('trainers_details').select('user_id');
-  if (!trainers || error) return;
+  if (!trainers || error) return [];
 
   return trainers.map((trainer) => ({
     id: trainer.user_id,
