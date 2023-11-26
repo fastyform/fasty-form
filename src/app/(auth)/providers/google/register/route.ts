@@ -1,32 +1,48 @@
 import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { REGISTER_ERRORS } from '@/enums';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-
   const code = searchParams.get('code');
   const role = searchParams.get('role');
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
   if (!code || !roleSchemaParsed.success) {
-    return redirect('/register?error=true');
+    return NextResponse.json({ error: 'Bad request' }, { status: 400 });
   }
 
-  try {
-    const supabase = getSupabaseServerClient();
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  const { data: parsedRole } = roleSchemaParsed;
 
-    if (error) {
-      throw new Error();
-    }
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
-    await supabase.from('roles').update({ role: roleSchemaParsed.data }).eq('user_id', data.user.id);
-    // TODO: If error logout user and remove from supabase; Add double sign up prevention;
-  } catch {
-    return redirect('/register?error=true');
+  if (error) {
+    return redirect(`/register/${parsedRole}?error=${REGISTER_ERRORS.UNEXPECTED.param}`);
+  }
+
+  const userId = data.user.id;
+
+  // NOTE: Check if user is already registered and have assigned a role
+  const roleResponse = await supabase.from('roles').select('role').eq('user_id', userId).single();
+
+  if (roleResponse.error || !roleResponse.data) {
+    return redirect(`/register/${parsedRole}?error=${REGISTER_ERRORS.UNEXPECTED.param}`);
+  }
+
+  if (roleResponse.data.role !== null) {
+    await supabase.auth.signOut();
+
+    return redirect(`/register/${parsedRole}?error=${REGISTER_ERRORS.ALREADY_REGISTERED.param}`);
+  }
+
+  const updateRoleResponse = await supabase.from('roles').update({ role: parsedRole }).eq('user_id', userId);
+
+  if (updateRoleResponse.error) {
+    return redirect(`/register/${parsedRole}?error=${REGISTER_ERRORS.UNEXPECTED.param}`);
   }
 
   return redirect('/submissions');
