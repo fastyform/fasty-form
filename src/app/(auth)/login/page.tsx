@@ -4,7 +4,7 @@ import AppLogo from '@/components/app-logo';
 import LoginForm from './_components/login-form';
 
 const LoginPage = () => (
-  <main className="grid min-h-screen px-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:px-0 lg:pt-0">
+  <main className="grid min-h-screen p-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:p-0">
     <div className="flex w-full max-w-sm grow flex-col gap-10 justify-self-center">
       <AppLogo />
       <h1 className="text-2xl font-bold text-white">Zaloguj się</h1>

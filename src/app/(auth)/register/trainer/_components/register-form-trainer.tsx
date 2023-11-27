@@ -6,7 +6,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
-import RegisterWithGoogle from '@/app/(auth)/providers/_components/register-with-google';
+import actionRegisterGoogle from '@/app/(auth)/providers/_actions/action-register-google';
+import ButtonGoogle from '@/app/(auth)/providers/_components/button-google';
 import actionRegister from '@/app/(auth)/register/_actions/action-register';
 import { formSchema, FormValues } from '@/app/(auth)/register/trainer/_utils';
 import ErrorIcon from '@/assets/error-icon';
@@ -81,7 +82,7 @@ const RegisterFormTrainer = () => {
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid}>Zarejestruj się</AppButtonSubmit>
         <span className="self-center text-center text-zinc-200">Lub</span>
-        <RegisterWithGoogle userRole="trainer" />
+        <ButtonGoogle authCallback={() => actionRegisterGoogle('trainer')}>Zarejestruj się</ButtonGoogle>
       </div>
     </form>
   );

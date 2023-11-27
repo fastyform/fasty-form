@@ -9,16 +9,18 @@ const DEFAULT_PROPS: ToastOptions = {
 };
 
 const notify = {
-  error: (message: string) =>
+  error: (message: string, toastOptions?: ToastOptions) =>
     toast.error(message, {
       ...DEFAULT_PROPS,
       progressClassName: 'bg-red-400',
       icon: ErrorIcon,
+      ...toastOptions,
     }),
-  success: (message: string) =>
+  success: (message: string, toastOptions?: ToastOptions) =>
     toast.success(message, {
       ...DEFAULT_PROPS,
       progressClassName: 'text-green-400',
+      ...toastOptions,
     }),
 } as const;
 
