@@ -3,11 +3,11 @@
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import Link from 'next/link';
 import actionLogin from '@/app/(auth)/login/_actions/action-login';
 import { formSchema, FormValues } from '@/app/(auth)/login/_utils';
-import ProviderButton from '@/app/(auth)/providers/_components/provider-button';
+import actionLoginGoogle from '@/app/(auth)/providers/_actions/action-login-google';
+import ButtonGoogle from '@/app/(auth)/providers/_components/button-google';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -39,9 +39,7 @@ const LoginForm = () => {
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid}>Zaloguj się</AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
-        <ProviderButton icon={<Image alt="google" height={19} src="/google.svg" width={19} />}>
-          Kontynuuj z&nbsp;<span className="font-bold">Google</span>
-        </ProviderButton>
+        <ButtonGoogle authCallback={actionLoginGoogle}>Zaloguj się</ButtonGoogle>
       </div>
     </form>
   );
