@@ -7,25 +7,29 @@ import { Database } from './supabase';
 
 export const getSupabase = (
   options: SupabaseClientOptions<'public'> & { cookies: CookieMethods; cookieOptions?: any },
-) => createServerClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, options);
+  supabaseKey = process.env.SUPABASE_ANON_KEY!,
+) => createServerClient<Database>(process.env.SUPABASE_URL!, supabaseKey, options);
 
 // NOTE: For routes and server actions
-export const getSupabaseServerClient = () => {
+export const getSupabaseServerClient = (supabaseKey = process.env.SUPABASE_ANON_KEY!) => {
   const cookieStore = cookies();
 
-  return getSupabase({
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
-      },
-      set(name: string, value: string, options: CookieOptions) {
-        cookieStore.set({ name, value, ...options });
-      },
-      remove(name: string, options: CookieOptions) {
-        cookieStore.set({ name, value: '', ...options });
+  return getSupabase(
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          cookieStore.set({ name, value, ...options });
+        },
+        remove(name: string, options: CookieOptions) {
+          cookieStore.set({ name, value: '', ...options });
+        },
       },
     },
-  });
+    supabaseKey,
+  );
 };
 
 export const getSupabaseServerComponentClient = () => {
