@@ -22,7 +22,7 @@ const OnboardingForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
 
   return (
-    <form action={handleFormAction} className="flex w-[500px] max-w-full flex-col gap-5">
+    <form action={handleFormAction} className="flex w-full flex-col gap-5">
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
