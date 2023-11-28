@@ -1,7 +1,27 @@
-import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import AppButton from '@/components/app-button';
+import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 
-// TODO: it doesnt work propely it should be handled in middleware
-// Main page '/' should redirect to submissions and other pages should redirect to 404 maybe
-const NotFound = () => redirect('/submissions');
+const NotFoundPage = async () => {
+  const supabase = getSupabaseServerComponentClient();
+  const { data } = await supabase.auth.getSession();
 
-export default NotFound;
+  const isLoggedIn = !!data.session;
+
+  return (
+    <div className="bg-custom-radial flex min-h-screen  items-center justify-center p-5 text-white">
+      <div className="flex flex-col gap-8">
+        <h1 className="text-9xl font-bold md:text-[200px]">404</h1>
+        <div className="flex flex-col gap-2">
+          <h2 className="mb-2 text-5xl font-bold">Uuups!</h2>
+          <p className="text-2xl">Strona, której szukasz nie została odnaleziona.</p>
+        </div>
+        <AppButton className="self-start" component={Link} href={isLoggedIn ? '/submissions' : '/login'}>
+          {isLoggedIn ? 'Przejdź do swoich zgłoszeń' : 'Przejdź do strony logowania'}
+        </AppButton>
+      </div>
+    </div>
+  );
+};
+
+export default NotFoundPage;
