@@ -4,11 +4,12 @@ import { useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Dialog } from '@mui/material';
+import { Button } from '@mui/material';
 import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/_components/submission-part-with-icon';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
+import AppDialog from '@/components/app-dialog';
 import AppInputForm from '@/components/app-input/app-input-form';
 import actionAddTrainerReview from './_actions/action-add-trainer-review';
 import QuestionMarkIcon from './_assets/question-mark-icon';
@@ -61,11 +62,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>
-        <Dialog
-          classes={{ paper: 'rounded-xl border border-gray-600 bg-[#1e2226] py-10 px-5 lg:px-10' }}
-          open={isConfirmModalOpen}
-          onClose={() => setIsConfirmModalOpen(false)}
-        >
+        <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
           <div className="flex flex-col items-center gap-5">
             <QuestionMarkIcon />
             <div>
@@ -87,7 +84,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               </AppButton>
             </div>
           </div>
-        </Dialog>
+        </AppDialog>
       </>
     );
   }

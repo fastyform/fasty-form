@@ -13,6 +13,7 @@ import SignOutButton from './sign-out-button';
 type MenuItem = [string, string, SvgIconComponent, string];
 
 const settingsMenuData: MenuItem[] = [
+  ['Płatności', 'Skonfiguj konto, aby otrzymywać płatności. Przeglądaj swoje zarobki.', GavelIcon, 'payments'],
   ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgentIcon, 'support'],
   ['Regulamin', 'Przeczytaj nasze warunki użytkowania', GavelIcon, 'terms-of-service'],
 ];
