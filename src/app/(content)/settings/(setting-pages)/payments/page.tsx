@@ -1,12 +1,13 @@
-import checkIsUserOnboardedStripe from '@/app/(content)/_utils/check-is-user-onboarded-stripe';
+import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 import RedirectToStripeDashboardForm from './_components/redirect-to-stripe-dashboard-form';
 import RedirectToStripeOnboardingForm from './_components/redirect-to-stripe-onboarding-form';
 
 const PaymentsPage = async () => {
   const user = await getUserFromSession();
-  const isOnboardedStripe = await checkIsUserOnboardedStripe(user.id);
-  const settingsSubTitle = isOnboardedStripe
+  const trainerDetails = await getTrainerDetailsById(user.id);
+
+  const settingsSubTitle = trainerDetails.is_onboarded_stripe
     ? 'Wejdź na dashboard i sprawdź swoje zarobki.'
     : 'Połącz swoje konto ze Stripe, aby móc zarabiać.';
 
@@ -16,7 +17,7 @@ const PaymentsPage = async () => {
         <h1 className="text-2xl">Płatności</h1>
         <p>{settingsSubTitle}</p>
       </div>
-      {isOnboardedStripe ? <RedirectToStripeDashboardForm /> : <RedirectToStripeOnboardingForm />}
+      {trainerDetails.is_onboarded_stripe ? <RedirectToStripeDashboardForm /> : <RedirectToStripeOnboardingForm />}
     </>
   );
 };

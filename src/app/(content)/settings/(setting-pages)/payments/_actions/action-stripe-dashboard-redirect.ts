@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import { getResponse } from '@/utils';
 import getUserFromSession from '@/utils/get-user-from-session';
-import getStripe from '@/utils/stripe/get-stripe';
 
 const actionStripeDashboardRedirect = async () => {
   let redirectUrl: string;
@@ -19,7 +19,7 @@ const actionStripeDashboardRedirect = async () => {
 
     redirectUrl = dashboardLink.url;
   } catch {
-    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.', false);
+    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
   }
 
   return redirect(redirectUrl);

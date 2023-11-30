@@ -3,6 +3,7 @@
 import { SvgIconComponent } from '@mui/icons-material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import GavelIcon from '@mui/icons-material/Gavel';
+import PaymentsIcon from '@mui/icons-material/Payments';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
@@ -13,7 +14,7 @@ import SignOutButton from './sign-out-button';
 type MenuItem = [string, string, SvgIconComponent, string];
 
 const settingsMenuData: MenuItem[] = [
-  ['Płatności', 'Skonfiguj konto, aby otrzymywać płatności. Przeglądaj swoje zarobki.', GavelIcon, 'payments'],
+  ['Płatności', 'Skonfiguj konto, aby otrzymywać płatności. Przeglądaj swoje zarobki.', PaymentsIcon, 'payments'],
   ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgentIcon, 'support'],
   ['Regulamin', 'Przeczytaj nasze warunki użytkowania', GavelIcon, 'terms-of-service'],
 ];

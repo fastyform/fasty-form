@@ -1,8 +1,8 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
-import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 export async function GET() {
