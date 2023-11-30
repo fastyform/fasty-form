@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en">
+  <html lang="pl">
     <body className={plusJakartaSans.className} id="body">
       <ToastContainer toastClassName="bg-[#0D1116] border-gray-600 border rounded-lg" />
       <div className="min-h-screen w-full bg-[#0D1116]">{children}</div>
