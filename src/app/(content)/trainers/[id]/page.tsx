@@ -2,8 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import 'dayjs/locale/pl';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import AppButtonLink from '@/components/app-button-link';
 import getUserWithNull from '@/utils/get-user-with-null';
+import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerDetailsById from './_utils/get-trainer-details-by-id';
 
@@ -38,9 +38,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <AppButtonLink className="w-full max-w-sm" href="/">
-          Kup analizę techniki
-        </AppButtonLink>
+        <BuyForm trainerId={params.id} />
       </div>
     </div>
   );

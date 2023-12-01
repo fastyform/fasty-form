@@ -1,8 +1,8 @@
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
+import OnboardingStripeStatusDialog from './_components/onboarding-stripe-status-dialog';
 import RedirectToStripeDashboardForm from './_components/redirect-to-stripe-dashboard-form';
 import RedirectToStripeOnboardingForm from './_components/redirect-to-stripe-onboarding-form';
-import SuccessDialog from './_components/sucess-dialog';
 
 const PaymentsPage = async () => {
   const user = await getUserFromSession();
@@ -18,7 +18,7 @@ const PaymentsPage = async () => {
         <h1 className="text-2xl">Płatności</h1>
         <p>{settingsSubTitle}</p>
       </div>
-      <SuccessDialog />
+      <OnboardingStripeStatusDialog />
       {trainerDetails.is_onboarded_stripe ? <RedirectToStripeDashboardForm /> : <RedirectToStripeOnboardingForm />}
     </>
   );
