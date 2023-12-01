@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const signOut = async () => {
+const actionSignOut = async () => {
   const supabase = getSupabaseServerClient();
 
   await supabase.auth.signOut();
@@ -11,4 +11,4 @@ const signOut = async () => {
   redirect('/login');
 };
 
-export default signOut;
+export default actionSignOut;

@@ -2,7 +2,7 @@
 
 import { TextField, TextFieldProps } from '@mui/material';
 
-const AppInput = (props: TextFieldProps) => (
+const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
   <TextField
     FormHelperTextProps={{
       classes: {
@@ -30,6 +30,7 @@ const AppInput = (props: TextFieldProps) => (
         focused: '[&:not(.Mui-error)_fieldset]:border-gray-400',
         error: '[&_.MuiInputBase-input]:text-red-400 [&_fieldset]:border-red-400',
       },
+      ...InputProps,
     }}
     {...props}
   />
