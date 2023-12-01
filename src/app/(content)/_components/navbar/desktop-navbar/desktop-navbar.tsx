@@ -14,7 +14,7 @@ const DesktopNavbar = async () => {
         <DesktopNavbarLink href="/submissions" icon="submissions">
           Zgłoszenia
         </DesktopNavbarLink>
-        <DesktopNavbarLink href="/settings/payments" icon="settings">
+        <DesktopNavbarLink href={`/settings/${isTrainerAccount ? 'payments' : 'support'}`} icon="settings">
           Ustawienia
         </DesktopNavbarLink>
         {isTrainerAccount && user && (
