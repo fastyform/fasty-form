@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Cropper, { Area, Point } from 'react-easy-crop';
-import { Dialog } from '@mui/material';
 import getCroppedImg from '@/app/(content)/_components/edit-profile-form/_components/file-upload-input/_utils/get-cropped-img';
 import AppButton from '@/components/app-button';
+import AppDialog from '@/components/app-dialog';
 import FileUploadSlider from './file-upload-slider';
 
 const CropperDialog = ({
@@ -35,10 +35,7 @@ const CropperDialog = ({
   };
 
   return (
-    <Dialog
-      classes={{ paper: 'rounded-xl border border-gray-600 bg-[#1e2226] py-10 px-5 lg:px-10 w-full max-w-xl' }}
-      open={!!file}
-    >
+    <AppDialog open={!!file}>
       <div className="flex flex-col gap-5">
         <Cropper
           aspect={1}
@@ -80,7 +77,7 @@ const CropperDialog = ({
           </AppButton>
         </div>
       </div>
-    </Dialog>
+    </AppDialog>
   );
 };
 

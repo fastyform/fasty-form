@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import EditIcon from '@/app/(content)/trainers/[id]/_assets/edit-icon';
 import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[id]/_utils/check-is-trainer-profile-owner';
+import getUserWithNull from '@/utils/get-user-with-null';
 
 const EditButtonMobile = async ({ trainerId }: { trainerId: string }) => {
-  const isTrainerOwner = await checkIsTrainerProfileOwner(trainerId);
+  const user = await getUserWithNull();
+  const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerId);
   // TODO REMOVE ARTIFICIAL TIMEOUT
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
