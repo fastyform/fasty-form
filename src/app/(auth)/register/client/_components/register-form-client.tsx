@@ -14,6 +14,7 @@ import ErrorIcon from '@/assets/error-icon';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
+import AppInputFormPassword from '@/components/app-input/app-input-form-password';
 import { formDefaultState } from '@/utils/form';
 
 const RegisterFormClient = () => {
@@ -37,12 +38,11 @@ const RegisterFormClient = () => {
       <div className="flex flex-col gap-4">
         <AppFormState state={state} />
         <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
-        <AppInputForm<FormValues>
+        <AppInputFormPassword<FormValues>
           autoComplete="new-password"
           control={control}
           fieldName="password"
           label="Hasło"
-          type="password"
         />
         <Controller
           control={control}

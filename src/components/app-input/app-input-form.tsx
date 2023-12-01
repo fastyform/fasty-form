@@ -5,7 +5,8 @@ import { TextFieldProps } from '@mui/material';
 import ErrorIcon from '@/assets/error-icon';
 import AppInput from '@/components/app-input/app-input';
 
-interface Props<T extends FieldValues> extends Omit<TextFieldProps, 'name' | 'onChange' | 'onBlur' | 'inputRef'> {
+export interface Props<T extends FieldValues>
+  extends Omit<TextFieldProps, 'name' | 'onChange' | 'onBlur' | 'inputRef'> {
   fieldName: Path<T>;
   control: Control<T>;
 }

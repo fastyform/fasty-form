@@ -2,12 +2,12 @@
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import LogoutIcon from '@mui/icons-material/Logout';
-import signOut from '@/app/(content)/_actions/sign-out';
+import actionSignOut from '@/app/(content)/_actions/action-sign-out';
 import AppButton from '@/components/app-button';
 
 const SignOutButton = () => {
   const handleSignOut = async () => {
-    await signOut();
+    await actionSignOut();
   };
 
   return (

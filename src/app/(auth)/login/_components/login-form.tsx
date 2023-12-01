@@ -11,6 +11,7 @@ import ButtonGoogle from '@/app/(auth)/providers/_components/button-google';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
+import AppInputFormPassword from '@/components/app-input/app-input-form-password';
 import { formDefaultState } from '@/utils/form';
 
 const LoginForm = () => {
@@ -28,7 +29,7 @@ const LoginForm = () => {
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
-        <AppInputForm<FormValues> control={control} fieldName="password" label="Hasło" type="password" />
+        <AppInputFormPassword<FormValues> control={control} fieldName="password" label="Hasło" />
       </div>
       <Link
         className="mb-7 w-fit self-end px-1 py-2.5 text-xs text-zinc-200 transition-opacity hover:opacity-80"
