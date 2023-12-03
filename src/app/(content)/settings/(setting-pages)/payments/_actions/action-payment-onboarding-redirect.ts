@@ -1,8 +1,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -44,8 +44,8 @@ const actionPaymentOnboardingRedirect = async () => {
 
     const accountLink = await stripe.accountLinks.create({
       account: stripeAccountId,
-      refresh_url: `http://localhost:3000/stripe/refresh`,
-      return_url: `http://localhost:3000/stripe/return`,
+      refresh_url: `http://localhost:3000/stripe/onboarding/refresh`,
+      return_url: `http://localhost:3000/stripe/onboarding/return`,
       type: 'account_onboarding',
     });
 

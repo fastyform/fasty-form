@@ -2,8 +2,8 @@
 
 import dayjs from 'dayjs';
 import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
-import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
