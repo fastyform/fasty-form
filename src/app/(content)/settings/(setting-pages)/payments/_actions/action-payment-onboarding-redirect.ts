@@ -1,12 +1,14 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+
+const STRIPE_MERCHANT_CATEGORY_CODE = '7392';
 
 const actionPaymentOnboardingRedirect = async () => {
   let redirectUrl: string;
@@ -19,13 +21,13 @@ const actionPaymentOnboardingRedirect = async () => {
 
     const getStripeAccountId = async () => {
       const account = await stripe.accounts.create({
-        default_currency: Constants.CURRENCY as const,
+        default_currency: StripeConstants.CURRENCY,
         country: 'PL',
         type: 'express',
         email: user.email,
         settings: { payouts: { schedule: { interval: 'manual' } } },
         business_profile: {
-          mcc: '7392',
+          mcc: STRIPE_MERCHANT_CATEGORY_CODE,
           product_description: 'Usługa oceny techniki klienta poprzez opisanie wysłanego przez klienta wideo.',
         },
       });
@@ -44,8 +46,8 @@ const actionPaymentOnboardingRedirect = async () => {
 
     const accountLink = await stripe.accountLinks.create({
       account: stripeAccountId,
-      refresh_url: `http://localhost:3000/stripe/refresh`,
-      return_url: `http://localhost:3000/stripe/return`,
+      refresh_url: `http://localhost:3000/stripe/onboarding/refresh`,
+      return_url: `http://localhost:3000/stripe/onboarding/return`,
       type: 'account_onboarding',
     });
 

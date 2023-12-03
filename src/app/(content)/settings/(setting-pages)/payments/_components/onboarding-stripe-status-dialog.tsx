@@ -14,7 +14,7 @@ const dialogData = {
   false: [
     'fail',
     'Przykro nam!',
-    'Coś poszło nie tak. Twoje konto nadal jest nie aktywne. Spróbuj ponownie, lub skontaktuj się z nami.',
+    'Coś poszło nie tak. Twoje konto nadal jest nieaktywne. Spróbuj ponownie, lub skontaktuj się z nami.',
   ],
 };
 
@@ -35,14 +35,14 @@ const OnboardingStripeStatusDialog = () => {
 
   return (
     <AppDialog open={!!successParam} onClose={handleModalClose}>
-      <div className="flex flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-5 text-white">
         <Image alt="Ikonka stanu" className="h-[90px] w-[90px]" height={90} src={`/${icon}.svg`} width={90} />
         <div className="flex flex-col gap-2.5">
-          <h4 className="text-center text-base font-bold text-white">{title}</h4>
-          <p className="text-center text-sm text-white">{description}</p>
+          <h2 className="text-center text-base font-bold">{title}</h2>
+          <p className="text-center text-sm">{description}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButton classes={{ root: 'py-2.5 bg-inherit' }} className="text-sm text-white" onClick={handleModalClose}>
+          <AppButton classes={{ root: 'py-2.5 bg-inherit text-white' }} className="text-sm" onClick={handleModalClose}>
             Zamknij
           </AppButton>
         </div>

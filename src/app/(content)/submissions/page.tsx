@@ -3,15 +3,12 @@ import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/m
 import AppLogo from '@/components/app-logo';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
+import { SearchParams } from '@/utils/types';
 import FilterTabs from './_components/filter-tabs';
 import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
 import Submissions from './_components/submissions';
 
-const SubmissionsPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const SubmissionsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { id: userId } = await getUserFromSession();
   const isTrainerAccount = await checkIsTrainerAccount(userId);
   const key = JSON.stringify(searchParams);

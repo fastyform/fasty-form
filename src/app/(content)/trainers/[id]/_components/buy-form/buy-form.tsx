@@ -38,10 +38,12 @@ const BuyForm = ({ trainerId }: { trainerId: string }) => {
   const [state, formAction] = useFormState(actionRedirectToCheckout, formDefaultState);
 
   useEffect(() => {
-    if (!state.isSuccess && state.message) {
+    if (!state) return;
+
+    if (!state?.isSuccess && state?.message) {
       notify.error(state.message);
     }
-  }, [state.isSuccess, state.message]);
+  }, [state, state?.isSuccess, state?.message]);
 
   return (
     <form action={() => formAction(trainerId)} className="w-full max-w-sm">

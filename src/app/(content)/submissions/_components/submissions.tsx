@@ -1,10 +1,14 @@
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
 
-const Submissions = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => {
   const supabase = getSupabaseServerComponentClient();
 
-  let query = supabase.from('submissions').select('id, status, thumbnail_url, trainers_details (profile_name)');
+  let query = supabase
+    .from('submissions')
+    .select('id, status, thumbnail_url, trainers_details (profile_name)')
+    .order('created_at', { ascending: false });
 
   if (searchParams?.filter === 'reviewed') {
     query = query.eq('status', 'reviewed');

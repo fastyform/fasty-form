@@ -2,10 +2,10 @@
 
 import dayjs from 'dayjs';
 import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
-import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -55,9 +55,9 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
     const { servicePrice, profileName } = formSchemaParsed;
 
     const price = await stripe.prices.create({
-      currency: Constants.CURRENCY as const,
+      currency: StripeConstants.CURRENCY,
       product: 'default_form_analysis',
-      unit_amount: servicePrice * Constants.GROSZ_MULTIPLIER,
+      unit_amount: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
       nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
     });
 

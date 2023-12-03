@@ -31,7 +31,6 @@ export interface Database {
           client_description: string | null;
           client_id: string | null;
           created_at: string;
-          guest_mail: string | null;
           id: string;
           order_id: string;
           status: Database['public']['Enums']['status'];
@@ -39,13 +38,12 @@ export interface Database {
           trainer_id: string;
           trainer_review: string | null;
           updated_at: string;
-          video_url: string;
+          video_url: string | null;
         };
         Insert: {
           client_description?: string | null;
           client_id?: string | null;
           created_at?: string;
-          guest_mail?: string | null;
           id?: string;
           order_id: string;
           status?: Database['public']['Enums']['status'];
@@ -53,13 +51,12 @@ export interface Database {
           trainer_id: string;
           trainer_review?: string | null;
           updated_at?: string;
-          video_url: string;
+          video_url?: string | null;
         };
         Update: {
           client_description?: string | null;
           client_id?: string | null;
           created_at?: string;
-          guest_mail?: string | null;
           id?: string;
           order_id?: string;
           status?: Database['public']['Enums']['status'];
@@ -67,7 +64,7 @@ export interface Database {
           trainer_id?: string;
           trainer_review?: string | null;
           updated_at?: string;
-          video_url?: string;
+          video_url?: string | null;
         };
         Relationships: [
           {
@@ -180,7 +177,7 @@ export interface Database {
     };
     Enums: {
       role: 'trainer' | 'client';
-      status: 'reviewed' | 'unreviewed';
+      status: 'reviewed' | 'unreviewed' | 'paid';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -204,12 +201,12 @@ export type Tables<
     ? R
     : never
   : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] & Database['public']['Views'])
-  ? (Database['public']['Tables'] & Database['public']['Views'])[PublicTableNameOrOptions] extends {
-      Row: infer R;
-    }
-    ? R
-    : never
-  : never;
+    ? (Database['public']['Tables'] & Database['public']['Views'])[PublicTableNameOrOptions] extends {
+        Row: infer R;
+      }
+      ? R
+      : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
@@ -223,12 +220,12 @@ export type TablesInsert<
     ? I
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Insert: infer I;
-    }
-    ? I
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Insert: infer I;
+      }
+      ? I
+      : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
@@ -242,12 +239,12 @@ export type TablesUpdate<
     ? U
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Update: infer U;
-    }
-    ? U
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Update: infer U;
+      }
+      ? U
+      : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
@@ -257,5 +254,5 @@ export type Enums<
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-  ? Database['public']['Enums'][PublicEnumNameOrOptions]
-  : never;
+    ? Database['public']['Enums'][PublicEnumNameOrOptions]
+    : never;

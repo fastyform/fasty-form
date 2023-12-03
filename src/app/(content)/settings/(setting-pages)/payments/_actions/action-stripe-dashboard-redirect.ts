@@ -1,8 +1,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getStripe from '@/app/(content)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import getUserFromSession from '@/utils/get-user-from-session';
 
