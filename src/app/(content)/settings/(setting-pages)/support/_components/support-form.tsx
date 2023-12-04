@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import actionSendSupportTicket from '@/app/(content)/settings/(setting-pages)/support/_actions/action-send-support-ticket';
+import { supportFormSchema, SupportFormValues } from '@/app/(content)/settings/(setting-pages)/support/_utils';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
-import { supportFormSchema, SupportFormValues } from '@/components/support-form/_utils';
 import { formDefaultState } from '@/utils/form';
-import actionSendSupportTicket from './_actions/action-send-support-ticket';
 
 const SupportForm = () => {
   const [state, formAction] = useFormState(actionSendSupportTicket, formDefaultState);

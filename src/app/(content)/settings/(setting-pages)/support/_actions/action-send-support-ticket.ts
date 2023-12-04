@@ -1,6 +1,6 @@
 'use server';
 
-import { supportFormSchema } from '@/components/support-form/_utils';
+import { supportFormSchema } from '@/app/(content)/settings/(setting-pages)/support/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import getUserFromSession from '@/utils/get-user-from-session';

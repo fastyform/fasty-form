@@ -1,4 +1,4 @@
-import SupportForm from '@/components/support-form/support-form';
+import SupportForm from './_components/support-form';
 
 const SupportPage = () => (
   <>

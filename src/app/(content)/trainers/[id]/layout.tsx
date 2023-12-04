@@ -1,7 +1,7 @@
 import { ReactNode, Suspense } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
-import AppSkeletonButton from '@/components/app-skeletons/app-skeleton-button';
-import AppSkeletonWrapper from '@/components/app-skeletons/app-skeleton-wrapper';
+import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
+import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
 import EditButtonDesktop from './_components/edit-button-desktop';
 import EditButtonMobile from './_components/edit-button-mobile';
 import LoginFormModal from './_components/login-form-modal/login-form-modal';
