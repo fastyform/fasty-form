@@ -1,18 +1,10 @@
 import { Route } from 'next';
-import { redirect } from 'next/navigation';
 import EditProfileForm from '@/app/(content)/_components/edit-profile-form/edit-profile-form';
 import { TrainerDetailsValues } from '@/app/(content)/_utils/trainer-details-form';
-import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[id]/_utils/check-is-trainer-profile-owner';
 import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import AppModal from '@/components/app-modal';
-import getUserWithNull from '@/utils/get-user-with-null';
 
 const EditProfileModal = async ({ params }: { params: { id: string } }) => {
-  const user = await getUserWithNull();
-  const isUserOwner = await checkIsTrainerProfileOwner(user, params.id);
-
-  if (!isUserOwner) redirect(`/trainers/${params.id}`);
-
   const trainerDetails = await getTrainerDetailsById(params.id);
   if (!trainerDetails.profile_name || !trainerDetails.service_price) throw new Error();
 

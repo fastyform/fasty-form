@@ -31,6 +31,7 @@ export interface Database {
           client_description: string | null;
           client_id: string | null;
           created_at: string;
+          guest_mail: string | null;
           id: string;
           order_id: string;
           status: Database['public']['Enums']['status'];
@@ -38,12 +39,13 @@ export interface Database {
           trainer_id: string;
           trainer_review: string | null;
           updated_at: string;
-          video_url: string | null;
+          video_url: string;
         };
         Insert: {
           client_description?: string | null;
           client_id?: string | null;
           created_at?: string;
+          guest_mail?: string | null;
           id?: string;
           order_id: string;
           status?: Database['public']['Enums']['status'];
@@ -51,12 +53,13 @@ export interface Database {
           trainer_id: string;
           trainer_review?: string | null;
           updated_at?: string;
-          video_url?: string | null;
+          video_url: string;
         };
         Update: {
           client_description?: string | null;
           client_id?: string | null;
           created_at?: string;
+          guest_mail?: string | null;
           id?: string;
           order_id?: string;
           status?: Database['public']['Enums']['status'];
@@ -64,7 +67,7 @@ export interface Database {
           trainer_id?: string;
           trainer_review?: string | null;
           updated_at?: string;
-          video_url?: string | null;
+          video_url?: string;
         };
         Relationships: [
           {
@@ -92,7 +95,6 @@ export interface Database {
           profile_name: string | null;
           service_price: number | null;
           stripe_account_id: string | null;
-          stripe_price_id: string | null;
           user_id: string;
         };
         Insert: {
@@ -103,7 +105,6 @@ export interface Database {
           profile_name?: string | null;
           service_price?: number | null;
           stripe_account_id?: string | null;
-          stripe_price_id?: string | null;
           user_id: string;
         };
         Update: {
@@ -114,7 +115,6 @@ export interface Database {
           profile_name?: string | null;
           service_price?: number | null;
           stripe_account_id?: string | null;
-          stripe_price_id?: string | null;
           user_id?: string;
         };
         Relationships: [
@@ -177,82 +177,10 @@ export interface Database {
     };
     Enums: {
       role: 'trainer' | 'client';
-      status: 'reviewed' | 'unreviewed' | 'paid';
+      status: 'reviewed' | 'unreviewed';
     };
     CompositeTypes: {
       [_ in never]: never;
     };
   };
 }
-
-export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (Database['public']['Tables'] & Database['public']['Views'])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
-      Row: infer R;
-    }
-    ? R
-    : never
-  : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] & Database['public']['Views'])
-    ? (Database['public']['Tables'] & Database['public']['Views'])[PublicTableNameOrOptions] extends {
-        Row: infer R;
-      }
-      ? R
-      : never
-    : never;
-
-export type TablesInsert<
-  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
-      Insert: infer I;
-    }
-    ? I
-    : never
-  : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-        Insert: infer I;
-      }
-      ? I
-      : never
-    : never;
-
-export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
-      Update: infer U;
-    }
-    ? U
-    : never
-  : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-        Update: infer U;
-      }
-      ? U
-      : never
-    : never;
-
-export type Enums<
-  PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
-    : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-    ? Database['public']['Enums'][PublicEnumNameOrOptions]
-    : never;

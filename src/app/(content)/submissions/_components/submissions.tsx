@@ -4,10 +4,7 @@ import SubmissionCard from './submission-card/submission-card';
 const Submissions = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const supabase = getSupabaseServerComponentClient();
 
-  let query = supabase
-    .from('submissions')
-    .select('id, status, thumbnail_url, trainers_details (profile_name)')
-    .order('created_at', { ascending: false });
+  let query = supabase.from('submissions').select('id, status, thumbnail_url, trainers_details (profile_name)');
 
   if (searchParams?.filter === 'reviewed') {
     query = query.eq('status', 'reviewed');
@@ -15,9 +12,6 @@ const Submissions = async ({ searchParams }: { searchParams: { [key: string]: st
 
   if (searchParams?.filter === 'unreviewed') {
     query = query.eq('status', 'unreviewed');
-  }
-  if (searchParams?.filter === 'paid') {
-    query = query.eq('status', 'paid');
   }
 
   const { data: submissions, error } = await query;
