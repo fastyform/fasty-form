@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import 'dayjs/locale/pl';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import BuyForm from './_components/buy-form/buy-form';
@@ -13,7 +13,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
   const isUserOwner = await checkIsTrainerProfileOwner(user, params.id);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
 
-  if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return redirect('/not-found');
+  if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
 
   // TODO REMOVE ARTIFICIAL TIMEOUT
   await new Promise((resolve) => {
@@ -48,10 +48,13 @@ export default TrainerPage;
 
 export async function generateStaticParams() {
   const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
-  const { data: trainers, error } = await supabase.from('trainers_details').select('user_id');
+  const { data: trainers, error } = await supabase
+    .from('trainers_details')
+    .select('user_id')
+    .eq('is_onboarded', true)
+    .eq('is_onboarded_stripe', true);
+
   if (!trainers || error) return [];
 
-  return trainers.map((trainer) => ({
-    id: trainer.user_id,
-  }));
+  return trainers.map((trainer) => ({ id: trainer.user_id }));
 }

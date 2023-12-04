@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import getSubmissionById from '@/app/(content)/submissions/[id]/_utils/get-submission-by-id';
+import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';

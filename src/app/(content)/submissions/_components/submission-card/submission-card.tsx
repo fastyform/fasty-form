@@ -4,13 +4,13 @@ import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
-import { Database } from '@/utils/supabase/supabase';
+import { SubmissionStatus } from '@/utils/types';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
   <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-[#1e2226] p-2.5 lg:p-5">{children}</div>
 );
 
-const getButtonText = (submissionStatus: Database['public']['Enums']['status'], isTrainerAccount: boolean) => {
+const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {
   if (isTrainerAccount && submissionStatus === 'unreviewed') {
     return 'Oceń technikę';
   }
@@ -26,15 +26,17 @@ const SubmissionCard = async ({
 }: {
   submissionId: string;
   trainerProfileName: string | undefined;
-  submissionStatus: Database['public']['Enums']['status'];
+  submissionStatus: SubmissionStatus;
   thumbnailUrl: string | null;
 }) => {
   const user = await getUserFromSession();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
+  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}` as const;
+
   return (
     <SubmissionCardContainer>
-      <Link className=" lg:transition-opacity lg:hover:opacity-80" href={`/submissions/${submissionId}`}>
+      <Link className=" lg:transition-opacity lg:hover:opacity-80" href={href}>
         <div className="flex w-full flex-col items-start gap-5 rounded-xl">
           <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
             <Image
@@ -56,7 +58,7 @@ const SubmissionCard = async ({
       </Link>
       <Link
         className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
-        href={`/submissions/${submissionId}`}
+        href={href}
       >
         {getButtonText(submissionStatus, isTrainerAccount)}
       </Link>
