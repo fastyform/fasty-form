@@ -4,6 +4,7 @@ import AppSkeletonButton from '@/components/app-skeletons/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeletons/app-skeleton-wrapper';
 import EditButtonDesktop from './_components/edit-button-desktop';
 import EditButtonMobile from './_components/edit-button-mobile';
+import LoginFormModal from './_components/login-form-modal/login-form-modal';
 
 const TrainerPageLayout = async ({
   children,
@@ -44,6 +45,7 @@ const TrainerPageLayout = async ({
         </div>
       }
     >
+      <LoginFormModal trainerId={params.id} />
       {children}
     </Suspense>
     {modal}

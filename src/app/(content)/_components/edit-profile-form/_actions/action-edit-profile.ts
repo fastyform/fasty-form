@@ -1,8 +1,13 @@
 'use server';
 
+import dayjs from 'dayjs';
 import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
+import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
+import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {
@@ -12,6 +17,7 @@ interface Payload {
 
 const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Payload) => {
   try {
+    const stripe = getStripe();
     const formSchemaParsed = trainerDetailsSchema.parse({
       servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
       profileName: data.get('profileName'),
@@ -19,11 +25,8 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
     const imageBlob = data.get('imageBlob');
 
     const supabase = getSupabaseServerClient();
-
-    const { data: session } = await supabase.auth.getSession();
-    if (!session.session) throw new Error();
-
-    const userId = session.session.user.id;
+    const user = await getUserFromSession();
+    const trainerDetails = await getTrainerDetailsById(user.id);
 
     const getImageUrl = async () => {
       if (isDeleting) {
@@ -33,14 +36,14 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
       if (imageBlob) {
         const { error: uploadImageError } = await supabase.storage
           .from('profile_images')
-          .upload(`${userId}.jpeg`, imageBlob, {
+          .upload(`${user.id}.jpeg`, imageBlob, {
             contentType: 'Blob',
             upsert: true,
           });
 
         if (uploadImageError) throw new Error();
 
-        const { data: publicProfileImageUrl } = supabase.storage.from('profile_images').getPublicUrl(`${userId}.jpeg`);
+        const { data: publicProfileImageUrl } = supabase.storage.from('profile_images').getPublicUrl(`${user.id}.jpeg`);
 
         return `${publicProfileImageUrl.publicUrl}?timestamp=${Date.now()};`;
       }
@@ -51,14 +54,22 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
     const imageUrl = await getImageUrl();
     const { servicePrice, profileName } = formSchemaParsed;
 
+    const price = await stripe.prices.create({
+      currency: StripeConstants.CURRENCY,
+      product: 'default_form_analysis',
+      unit_amount: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
+      nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
+    });
+
     const { error } = await supabase
       .from('trainers_details')
       .update({
         service_price: servicePrice,
         profile_name: profileName,
+        stripe_price_id: price.id,
         ...(imageUrl !== undefined && { profile_image_url: imageUrl }),
       })
-      .eq('user_id', userId);
+      .eq('user_id', user.id);
 
     if (error) throw new Error();
 

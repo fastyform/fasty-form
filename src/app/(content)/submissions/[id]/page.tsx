@@ -24,6 +24,8 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
     setTimeout(resolve, 1000);
   });
 
+  if (!submission.video_url) throw new Error();
+
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
       <p className=" text-base text-white lg:hidden">
@@ -38,7 +40,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         controls
         muted
         className="aspect-video  rounded-xl border border-gray-600 lg:order-2 lg:h-80 xl:h-96"
-        poster={submission?.thumbnail_url || undefined}
+        poster={submission.thumbnail_url || undefined}
         src={submission.video_url}
       />
       <span className="text-xl text-white lg:hidden">
