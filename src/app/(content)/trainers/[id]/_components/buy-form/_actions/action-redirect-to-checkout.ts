@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const actionRedirectToCheckout = async (prevState: FormState, trainerId: string) => {

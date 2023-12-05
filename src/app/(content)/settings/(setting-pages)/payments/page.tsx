@@ -1,4 +1,4 @@
-import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 import OnboardingStripeStatusDialog from './_components/onboarding-stripe-status-dialog';
 import RedirectToStripeDashboardForm from './_components/redirect-to-stripe-dashboard-form';

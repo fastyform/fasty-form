@@ -54,3 +54,4 @@ const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => 
 };
 
 export default Submissions;
+export const revalidate = 1000 * 60 * 5;

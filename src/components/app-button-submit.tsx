@@ -9,7 +9,7 @@ interface Props extends LoadingButtonProps {
 const AppButtonSubmit = ({ isValid, ...props }: Props) => {
   const { pending } = useFormStatus();
 
-  return <AppButton {...props} loading={pending && isValid} type="submit" />;
+  return <AppButton loading={pending && isValid} type="submit" {...props} />;
 };
 
 export default AppButtonSubmit;

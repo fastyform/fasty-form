@@ -2,10 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 import 'dayjs/locale/pl';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
-import getTrainerDetailsById from './_utils/get-trainer-details-by-id';
 
 const TrainerPage = async ({ params }: { params: { id: string } }) => {
   const trainerDetails = await getTrainerDetailsById(params.id);
