@@ -54,6 +54,10 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
     const imageUrl = await getImageUrl();
     const { servicePrice, profileName } = formSchemaParsed;
 
+    if (trainerDetails.stripe_price_id) {
+      await stripe.prices.update(trainerDetails.stripe_price_id, { active: false });
+    }
+
     const price = await stripe.prices.create({
       currency: StripeConstants.CURRENCY,
       product: 'default_form_analysis',
