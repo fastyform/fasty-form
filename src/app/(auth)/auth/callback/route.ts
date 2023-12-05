@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
   const role = searchParams.get('role');
+  const redirectUrl = searchParams.get('redirectUrl');
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -27,5 +28,5 @@ export async function GET(request: NextRequest) {
     return redirect('/email-verification/error');
   }
 
-  return redirect('/email-verification/success');
+  return redirect(`/email-verification/success${redirectUrl ? `?redirectUrl=${redirectUrl}` : ''}`);
 }

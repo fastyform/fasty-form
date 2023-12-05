@@ -13,8 +13,9 @@ import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
 import { formDefaultState } from '@/utils/form';
+import { SearchParam } from '@/utils/types';
 
-const LoginForm = () => {
+const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
   const [state, formAction] = useFormState(actionLogin, formDefaultState);
   const { control, handleSubmit, formState } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -22,7 +23,7 @@ const LoginForm = () => {
     mode: 'onTouched',
   });
 
-  const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
+  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, redirectUrlParam }))();
 
   return (
     <form action={handleFormAction} className="flex flex-col">
@@ -40,7 +41,7 @@ const LoginForm = () => {
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid}>Zaloguj się</AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
-        <ButtonGoogle authCallback={actionLoginGoogle}>Zaloguj się</ButtonGoogle>
+        <ButtonGoogle authCallback={() => actionLoginGoogle(redirectUrlParam)}>Zaloguj się</ButtonGoogle>
       </div>
     </form>
   );

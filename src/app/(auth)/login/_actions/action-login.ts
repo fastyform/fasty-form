@@ -5,8 +5,10 @@ import { formSchema } from '@/app/(auth)/login/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import { SearchParam } from '@/utils/types';
 
-const actionLogin = async (prevState: FormState, data: FormData) => {
+const actionLogin = async (prevState: FormState, payload: { data: FormData; redirectUrlParam: SearchParam }) => {
+  const { data, redirectUrlParam: redirectUrl } = payload;
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
 
   if (!formSchemaParsed.success) {
@@ -18,7 +20,7 @@ const actionLogin = async (prevState: FormState, data: FormData) => {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (!error) {
-    return redirect('/submissions');
+    return redirect(typeof redirectUrl === 'string' ? redirectUrl : '/submissions');
   }
 
   if (error.message === 'Email not confirmed') {
