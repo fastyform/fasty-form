@@ -8,14 +8,16 @@ const actionAddTrainerReview = async (
   prevState: { message: string },
   payload: { data: FormData; submissionId: string },
 ) => {
+  const supabase = getSupabaseServerClient();
+
   const formSchemaParsed = trainerReviewFormSchema.safeParse({ trainerReview: payload.data.get('trainerReview') });
 
   if (!formSchemaParsed.success) {
     return { message: 'Bad request.' };
   }
 
-  const supabase = getSupabaseServerClient();
   const { trainerReview } = formSchemaParsed.data;
+
   const { error } = await supabase
     .from('submissions')
     .update({ trainer_review: trainerReview })
@@ -23,6 +25,7 @@ const actionAddTrainerReview = async (
 
   if (!error) {
     revalidatePath(`/submissions/${payload.submissionId}`);
+    revalidatePath('/submissions');
 
     return { message: '' };
   }

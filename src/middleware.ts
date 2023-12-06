@@ -1,8 +1,8 @@
 import { type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/utils/supabase/client';
-import getTrainerDetailsById from './app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import checkIsTrainerAccount from './utils/check-is-trainer-account';
+import getTrainerDetailsById from './utils/get-trainer-details-by-id';
 
 const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile', '/stripe'];
 const UNAVAILABLE_ROUTES = ['/login', '/register'];

@@ -2,11 +2,11 @@
 
 import dayjs from 'dayjs';
 import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
-import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
