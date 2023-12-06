@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import AuthLink from '@/app/_components/auth-link';
 import AppLogo from '@/components/app-logo';
+import { SearchParams } from '@/utils/types';
 import RegisterFormTrainer from './_components/register-form-trainer';
 
-const RegisterTrainerPage = () => (
+const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <main className="grid min-h-screen lg:grid-cols-2">
     <div className="grid place-items-center p-5">
       <div className="flex w-full max-w-sm grow flex-col gap-5 justify-self-center">
@@ -19,16 +20,16 @@ const RegisterTrainerPage = () => (
           </div>
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-bold text-white">Zarejestruj się jako trener</h2>
-            <RegisterFormTrainer />
+            <RegisterFormTrainer redirectUrlParam={searchParams.redirectUrl} />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Link className="w-fit self-center text-white transition-opacity hover:opacity-80" href="/register/client">
+          <AuthLink href="/register/client" redirectUrlParam={searchParams.redirectUrl}>
             Zarejestruj się jako <span className="font-bold text-yellow-400">klient</span>
-          </Link>
-          <Link className="w-fit self-center text-white transition-opacity hover:opacity-80" href="/login">
+          </AuthLink>
+          <AuthLink href="/login" redirectUrlParam={searchParams.redirectUrl}>
             Posiadasz już konto? <span className="font-bold text-yellow-400">Zaloguj się</span>
-          </Link>
+          </AuthLink>
         </div>
       </div>
     </div>
