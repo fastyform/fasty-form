@@ -10,7 +10,6 @@ const getTrainerDetailsById = async (trainerId: string) => {
     )
     .eq('user_id', trainerId)
     .single();
-
   if (!trainerDetails || error) throw new Error();
 
   return trainerDetails;

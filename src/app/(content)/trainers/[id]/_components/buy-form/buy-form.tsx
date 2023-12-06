@@ -8,7 +8,22 @@ import notify from '@/utils/notify';
 import actionRedirectToCheckout from './_actions/action-redirect-to-checkout';
 import LoadingIcon from './_assets/loading-icon';
 
-const SubmitButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const ButtonChildren = ({ pending, disabled }: { pending: boolean; disabled: boolean }) => {
+  if (pending) {
+    return (
+      <div className="relative">
+        <span className="invisible">Kup analizę techniki</span>
+        <div className="absolute left-1/2 top-1/2 w-16 -translate-x-1/2 -translate-y-1/2">
+          <LoadingIcon className="animate-spin fill-[#38404b]" />
+        </div>
+      </div>
+    );
+  }
+
+  return disabled ? 'Brak możliwości kupna na swoim profilu' : 'Kup analizę techniki';
+};
+
+const SubmitButton = ({ disabled, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { pending } = useFormStatus();
 
   return (
@@ -17,24 +32,15 @@ const SubmitButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
       type="submit"
       className={twMerge(
         'flex w-full max-w-sm items-center justify-center rounded-full bg-yellow-400 px-[30px] py-[18px] text-base font-bold normal-case tracking-normal text-[#0D1116] transition-opacity hover:opacity-80',
-        pending && 'bg-gray-600',
+        (pending || disabled) && 'pointer-events-none bg-gray-600',
       )}
     >
-      {pending ? (
-        <div className="relative">
-          <span className="invisible">Kup analizę techniki</span>
-          <div className="absolute left-1/2 top-1/2 w-16 -translate-x-1/2 -translate-y-1/2">
-            <LoadingIcon className="animate-spin fill-[#38404b]" />
-          </div>
-        </div>
-      ) : (
-        'Kup analizę techniki'
-      )}
+      <ButtonChildren disabled={!!disabled} pending={pending} />
     </button>
   );
 };
 
-const BuyForm = ({ trainerId }: { trainerId: string }) => {
+const BuyForm = ({ trainerId, isUserOwner }: { trainerId: string; isUserOwner: boolean }) => {
   const [state, formAction] = useFormState(actionRedirectToCheckout, formDefaultState);
 
   useEffect(() => {
@@ -47,7 +53,7 @@ const BuyForm = ({ trainerId }: { trainerId: string }) => {
 
   return (
     <form action={() => formAction(trainerId)} className="w-full max-w-sm">
-      <SubmitButton />
+      <SubmitButton disabled={isUserOwner} />
     </form>
   );
 };

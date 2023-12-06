@@ -1,3 +1,4 @@
+import { SubmissionsGridWrapper } from '@/app/(content)/submissions/_components/submissions';
 import { SubmissionCardContainer } from './submission-card';
 
 const SubmissionCardSkeleton = () => (
@@ -13,11 +14,11 @@ const SubmissionCardSkeleton = () => (
 );
 
 const SubmissionsSkeleton = () => (
-  <>
+  <SubmissionsGridWrapper>
     {[1, 2, 3, 4].map((key) => (
       <SubmissionCardSkeleton key={key} />
     ))}
-  </>
+  </SubmissionsGridWrapper>
 );
 
 export default SubmissionsSkeleton;

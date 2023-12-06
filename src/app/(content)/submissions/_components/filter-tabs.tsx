@@ -34,11 +34,14 @@ const FilterTabs = ({ defaultFilter }: { defaultFilter: string | string[] | unde
   return (
     <TabContext value={value}>
       <TabList
+        allowScrollButtonsMobile
         aria-label="Filtry"
-        textColor="inherit"
+        scrollButtons="auto"
+        variant="scrollable"
         classes={{
           indicator: 'invisible',
-          flexContainer: 'w-full md:gap-10 gap-5 flex-wrap',
+          flexContainer: 'w-full md:gap-10 gap-5',
+          scrollButtons: 'text-white p-0 m-0 [&_.MuiSvgIcon-root]:!text-4xl [&_.MuiSvgIcon-root]:!rounded-full',
         }}
         onChange={handleChange}
       >
