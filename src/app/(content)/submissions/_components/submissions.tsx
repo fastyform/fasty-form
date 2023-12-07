@@ -22,8 +22,11 @@ const Submissions = async ({
     query = query.neq('status', 'paid');
   }
 
-  if (typeof searchParams?.filter === 'string' && ALLOWED_FILTERS.includes(searchParams?.filter)) {
-    query = query.eq('status', searchParams?.filter);
+  if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
+    const status =
+      !isTrainerAccount && searchParams.filter === 'reviewed' ? '("reviewed","paidout")' : `(${searchParams.filter})`;
+
+    query = query.filter('status', 'in', status);
   }
 
   const { data: submissions, error } = await query;

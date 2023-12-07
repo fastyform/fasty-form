@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
-import getVisibleStatus from '@/app/(content)/submissions/_utils/get-visible-status';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { Database } from '@/utils/supabase/supabase';
@@ -46,7 +45,8 @@ const SubmissionCard = async ({
             />
             <StatusBadge
               className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5"
-              type={getVisibleStatus(submissionStatus, isTrainerAccount)}
+              isTrainerAccount={isTrainerAccount}
+              type={submissionStatus}
             />
           </div>
           {!isTrainerAccount && trainerProfileName && (

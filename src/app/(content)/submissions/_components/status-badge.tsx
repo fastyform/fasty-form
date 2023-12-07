@@ -8,8 +8,18 @@ const statusBadgeData = {
   skeleton: ['bg-[#1E2226] animate-pulse', 'text-[#1E2226]', 'Oczekujące'],
 };
 
-const StatusBadge = ({ type, className }: { className?: ClassNameValue; type: keyof typeof statusBadgeData }) => {
-  const [containerClasses, textColor, badgeText] = statusBadgeData[type];
+const StatusBadge = ({
+  type,
+  className,
+  isTrainerAccount,
+}: {
+  className?: ClassNameValue;
+  type: keyof typeof statusBadgeData;
+  isTrainerAccount: boolean;
+}) => {
+  const visibleStatus = type === 'paidout' ? 'reviewed' : type;
+
+  const [containerClasses, textColor, badgeText] = statusBadgeData[isTrainerAccount ? type : visibleStatus];
 
   return (
     <div

@@ -23,7 +23,7 @@ const getNextResponse = (message: string | string[], isSuccess: boolean, status?
 export async function GET() {
   const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const stripe = getStripe();
-  const loopErrors: string[] = [];
+  const payoutErrors: string[] = [];
 
   const { data: reviewedSubmissions, error } = await supabase
     .from('submissions')
@@ -35,7 +35,12 @@ export async function GET() {
   if (!reviewedSubmissions.length) return getNextResponse('0 payments made', true, 200);
 
   const groupedPayouts = reviewedSubmissions.reduce((acc: Accumulator, item) => {
-    if (!item.price_in_grosz || !item.trainers_details || !item.trainers_details.stripe_account_id) throw new Error();
+    if (!item.price_in_grosz || !item.trainers_details || !item.trainers_details.stripe_account_id) {
+      payoutErrors.push(`Unsuccessfull payment for ${item.trainers_details?.stripe_account_id}. Missing data!`);
+
+      return acc;
+    }
+
     const stripeAccountId = item.trainers_details.stripe_account_id;
     const price = item.price_in_grosz;
 
@@ -95,12 +100,12 @@ export async function GET() {
       },
     );
 
-    await Promise.all(payoutPromises.map((p) => p.catch((e) => loopErrors.push(e.message))));
-  } catch (e) {
-    return getNextResponse('Something went wrong', false, 400);
+    await Promise.all(payoutPromises.map((p) => p.catch((e) => payoutErrors.push(e.message))));
+  } catch (e: any) {
+    return getNextResponse(`Something went wrong ${e.message}`, false, 400);
   }
 
-  if (loopErrors.length) return getNextResponse(loopErrors, false, 207);
+  if (payoutErrors.length) return getNextResponse(payoutErrors, false, 207);
 
   return getNextResponse('Payouts made', true, 200);
 }
