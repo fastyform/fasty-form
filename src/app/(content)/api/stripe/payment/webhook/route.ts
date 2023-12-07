@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const signature = headers().get('stripe-signature');
   const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
-  if (!signature) throw new Error('Test');
+  if (!signature) throw new Error();
 
   let event;
 
@@ -36,6 +36,7 @@ export async function POST(req: Request) {
       if (!session.amount_total) throw new Error();
 
       const { error } = await supabase.from('submissions').insert({
+        price_in_grosz: session.amount_total,
         order_id: session.id,
         client_id: session.metadata.userId,
         trainer_id: session.metadata.trainerId,

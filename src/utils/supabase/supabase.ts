@@ -33,6 +33,7 @@ export interface Database {
           created_at: string;
           id: string;
           order_id: string;
+          price_in_grosz: number;
           status: Database['public']['Enums']['status'];
           thumbnail_url: string | null;
           trainer_id: string;
@@ -46,6 +47,7 @@ export interface Database {
           created_at?: string;
           id?: string;
           order_id: string;
+          price_in_grosz: number;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
           trainer_id: string;
@@ -59,6 +61,7 @@ export interface Database {
           created_at?: string;
           id?: string;
           order_id?: string;
+          price_in_grosz?: number;
           status?: Database['public']['Enums']['status'];
           thumbnail_url?: string | null;
           trainer_id?: string;
@@ -177,7 +180,7 @@ export interface Database {
     };
     Enums: {
       role: 'trainer' | 'client';
-      status: 'reviewed' | 'unreviewed' | 'paid';
+      status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
     };
     CompositeTypes: {
       [_ in never]: never;

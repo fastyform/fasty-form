@@ -55,22 +55,23 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
           <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
         </SubmissionPartWithIcon>
 
-        {submission.status === 'reviewed' && (
-          <>
-            <SubmissionPartWithIcon verticalLine icon="description">
-              <h2 className="text-lg font-bold leading-5 text-white">
-                {isTrainerAccount ? 'Twoja odpowiedź' : 'Odpowiedź trenera'}
-              </h2>
-              <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
-            </SubmissionPartWithIcon>
-            <SubmissionPartWithIcon icon="finished">
-              <h2 className="text-lg font-bold text-yellow-400">Zamówienie zakończone</h2>
-              <span className="whitespace-pre-wrap text-sm text-white">
-                Data wykonania <span className="font-bold capitalize">{formattedFinishDate}</span>
-              </span>
-            </SubmissionPartWithIcon>
-          </>
-        )}
+        {submission.status === 'reviewed' ||
+          (submission.status === 'paid' && (
+            <>
+              <SubmissionPartWithIcon verticalLine icon="description">
+                <h2 className="text-lg font-bold leading-5 text-white">
+                  {isTrainerAccount ? 'Twoja odpowiedź' : 'Odpowiedź trenera'}
+                </h2>
+                <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
+              </SubmissionPartWithIcon>
+              <SubmissionPartWithIcon icon="finished">
+                <h2 className="text-lg font-bold text-yellow-400">Zamówienie zakończone</h2>
+                <span className="whitespace-pre-wrap text-sm text-white">
+                  Data wykonania <span className="font-bold capitalize">{formattedFinishDate}</span>
+                </span>
+              </SubmissionPartWithIcon>
+            </>
+          ))}
 
         {submission.status === 'unreviewed' &&
           (isTrainerAccount ? (
