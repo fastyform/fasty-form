@@ -38,7 +38,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <BuyForm trainerId={params.id} />
+        <BuyForm isUserOwner={isUserOwner} trainerId={params.id} />
       </div>
     </div>
   );

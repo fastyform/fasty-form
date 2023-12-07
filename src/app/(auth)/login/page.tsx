@@ -7,7 +7,7 @@ import LoginForm from './_components/login-form';
 const LoginPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <main className="grid min-h-screen p-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:p-0">
     <div className="flex w-full max-w-sm grow flex-col gap-10 justify-self-center">
-      <AppLogo />
+      <AppLogo className="self-center" />
       <h1 className="text-2xl font-bold text-white">Zaloguj się</h1>
       <div className="flex flex-col gap-4">
         <LoginForm redirectUrlParam={searchParams.redirectUrl} />

@@ -9,7 +9,7 @@ const RegisterClientPage = ({ searchParams }: { searchParams: SearchParams }) =>
     <div className="grid place-items-center p-5">
       <div className="flex w-full max-w-sm grow flex-col gap-5 justify-self-center">
         <div className="flex flex-col gap-10">
-          <AppLogo />
+          <AppLogo className="self-center" />
           <div className="flex flex-col gap-2.5 text-center">
             <span className="font-bold text-zinc-400">Witaj w FastForm!</span>
             <h1 className="text-2xl text-white">

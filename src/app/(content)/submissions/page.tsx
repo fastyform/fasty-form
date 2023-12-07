@@ -25,11 +25,9 @@ const SubmissionsPage = async ({ searchParams }: { searchParams: SearchParams })
       <h1 className="text-2xl text-white">Twoje zgłoszenia</h1>
       <div className="flex flex-col gap-5">
         <FilterTabs defaultFilterParam={searchParams?.filter} isTrainerAccount={isTrainerAccount} />
-        <div className="grid grid-cols-1 gap-5 min-[450px]:grid-cols-2 md:grid-cols-3 md:gap-10 xl:grid-cols-4">
-          <Suspense key={key} fallback={<SubmissionCardSkeleton />}>
-            <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} />
-          </Suspense>
-        </div>
+        <Suspense key={key} fallback={<SubmissionCardSkeleton />}>
+          <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} />
+        </Suspense>
       </div>
     </>
   );
