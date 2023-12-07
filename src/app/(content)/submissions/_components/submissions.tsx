@@ -2,7 +2,15 @@ import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
 
-const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => {
+const ALLOWED_FILTERS = ['paid', 'reviewed', 'unreviewed'];
+
+const Submissions = async ({
+  searchParams,
+  isTrainerAccount,
+}: {
+  searchParams: SearchParams;
+  isTrainerAccount: boolean;
+}) => {
   const supabase = getSupabaseServerComponentClient();
 
   let query = supabase
@@ -10,12 +18,12 @@ const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => 
     .select('id, status, thumbnail_url, trainers_details (profile_name)')
     .order('created_at', { ascending: false });
 
-  if (searchParams?.filter === 'reviewed') {
-    query = query.eq('status', 'reviewed');
+  if (isTrainerAccount) {
+    query = query.neq('status', 'paid');
   }
 
-  if (searchParams?.filter === 'unreviewed') {
-    query = query.eq('status', 'unreviewed');
+  if (typeof searchParams?.filter === 'string' && ALLOWED_FILTERS.includes(searchParams?.filter)) {
+    query = query.eq('status', searchParams?.filter);
   }
 
   const { data: submissions, error } = await query;
@@ -54,4 +62,3 @@ const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => 
 };
 
 export default Submissions;
-export const revalidate = 1000 * 60 * 5;

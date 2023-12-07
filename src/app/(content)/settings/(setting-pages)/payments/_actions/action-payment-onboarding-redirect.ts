@@ -25,7 +25,7 @@ const actionPaymentOnboardingRedirect = async () => {
         country: 'PL',
         type: 'express',
         email: user.email,
-        settings: { payouts: { schedule: { delay_days: 'minimum', interval: 'daily' } } },
+        settings: { payouts: { schedule: { interval: 'manual' } } },
         business_profile: {
           mcc: STRIPE_MERCHANT_CATEGORY_CODE,
           product_description: 'Usługa oceny techniki klienta poprzez opisanie wysłanego przez klienta wideo.',

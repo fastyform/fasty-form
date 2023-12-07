@@ -1,6 +1,9 @@
 import dayjs from 'dayjs';
 import getSubmissionById from '@/app/(content)/submissions/[id]/_utils/get-submission-by-id';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
+import getVisibleStatus from '@/app/(content)/submissions/_utils/get-visible-status';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 
 export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
@@ -38,6 +41,8 @@ export const SubmissionTrainerName = async ({ submissionId }: { submissionId: st
 
 export const SubmissionStatusBadge = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
+  const user = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   if (!submission) return;
   // TODO REMOVE ARTIFICIAL TIMEOUT
@@ -45,5 +50,5 @@ export const SubmissionStatusBadge = async ({ submissionId }: { submissionId: st
     setTimeout(resolve, 1000);
   });
 
-  return <StatusBadge type={submission.status} />;
+  return <StatusBadge type={getVisibleStatus(submission.status, isTrainerAccount)} />;
 };

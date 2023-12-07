@@ -19,7 +19,13 @@ const CustomTab = (props: TabProps) => (
   />
 );
 
-const FilterTabs = ({ defaultFilterParam }: { defaultFilterParam: SearchParam }) => {
+const FilterTabs = ({
+  defaultFilterParam,
+  isTrainerAccount,
+}: {
+  defaultFilterParam: SearchParam;
+  isTrainerAccount: boolean;
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -48,6 +54,7 @@ const FilterTabs = ({ defaultFilterParam }: { defaultFilterParam: SearchParam })
         <CustomTab label="Wszystkie" value="all" />
         <CustomTab label="Sprawdzone" value="reviewed" />
         <CustomTab label="Oczekujące" value="unreviewed" />
+        {isTrainerAccount && <CustomTab label="Wypłacone" value="paidout" />}
       </TabList>
     </TabContext>
   );
