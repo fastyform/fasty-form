@@ -6,6 +6,7 @@ import { Tab, TabProps } from '@mui/material';
 import { Route } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import createQueryString from '@/utils/create-query-string';
+import { SearchParam } from '@/utils/types';
 
 const FILTER_VALUES = ['all', 'reviewed', 'unreviewed'] as const;
 type Filter = (typeof FILTER_VALUES)[number];
@@ -18,12 +19,20 @@ const CustomTab = (props: TabProps) => (
   />
 );
 
-const FilterTabs = ({ defaultFilter }: { defaultFilter: string | string[] | undefined }) => {
+const FilterTabs = ({
+  defaultFilterParam,
+  isTrainerAccount,
+}: {
+  defaultFilterParam: SearchParam;
+  isTrainerAccount: boolean;
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const defaultTabValue =
-    typeof defaultFilter === 'string' && FILTER_VALUES.includes(defaultFilter) ? (defaultFilter as Filter) : 'all';
+    typeof defaultFilterParam === 'string' && FILTER_VALUES.includes(defaultFilterParam)
+      ? (defaultFilterParam as Filter)
+      : 'all';
   const [value, setValue] = useState<Filter>(defaultTabValue || 'all');
 
   const handleChange = (_: SyntheticEvent, newValue: Filter) => {
@@ -48,6 +57,7 @@ const FilterTabs = ({ defaultFilter }: { defaultFilter: string | string[] | unde
         <CustomTab label="Wszystkie" value="all" />
         <CustomTab label="Sprawdzone" value="reviewed" />
         <CustomTab label="Oczekujące" value="unreviewed" />
+        {isTrainerAccount && <CustomTab label="Wypłacone" value="paidout" />}
       </TabList>
     </TabContext>
   );

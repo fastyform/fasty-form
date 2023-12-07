@@ -56,6 +56,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             />
             <AppButtonSubmit
               isValid={formState.isValid}
+              type="button"
               onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
             >
               Dodaj ocenę filmiku

@@ -6,14 +6,17 @@ import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
+import { SearchParam } from '@/utils/types';
 
 interface Payload {
   data: FormData;
   role: Database['public']['Enums']['role'];
+  redirectUrlParam: SearchParam;
 }
 
-const actionRegister = async (prevState: FormState, { data: formData, role }: Payload) => {
+const actionRegister = async (prevState: FormState, { data: formData, role, redirectUrlParam }: Payload) => {
   const headersList = headers();
+  const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
 
   const formSchemaParsed = formSchema.safeParse({
     email: formData.get('email'),
@@ -32,7 +35,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role }: Pa
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback?role=${role}` },
+    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback?role=${role}${redirectUrl}` },
   });
 
   if (data.user?.identities?.length === 0) {

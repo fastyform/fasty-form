@@ -16,8 +16,9 @@ import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
 import { formDefaultState } from '@/utils/form';
+import { SearchParam } from '@/utils/types';
 
-const RegisterFormTrainer = () => {
+const RegisterFormTrainer = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
   const [state, formAction] = useFormState(actionRegister, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -31,7 +32,8 @@ const RegisterFormTrainer = () => {
     }
   }, [state, reset]);
 
-  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, role: 'trainer' }))();
+  const handleFormAction = (data: FormData) =>
+    handleSubmit(() => formAction({ data, role: 'trainer', redirectUrlParam }))();
 
   return (
     <form action={handleFormAction} className="flex flex-col gap-10">
@@ -82,7 +84,9 @@ const RegisterFormTrainer = () => {
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid}>Zarejestruj się</AppButtonSubmit>
         <span className="self-center text-center text-zinc-200">Lub</span>
-        <ButtonGoogle authCallback={() => actionRegisterGoogle('trainer')}>Zarejestruj się</ButtonGoogle>
+        <ButtonGoogle authCallback={() => actionRegisterGoogle('trainer', redirectUrlParam)}>
+          Zarejestruj się
+        </ButtonGoogle>
       </div>
     </form>
   );

@@ -10,6 +10,14 @@ export const SubmissionCardContainer = ({ children }: { children: ReactNode }) =
   <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-[#1e2226] p-2.5 lg:p-5">{children}</div>
 );
 
+const getButtonText = (submissionStatus: Database['public']['Enums']['status'], isTrainerAccount: boolean) => {
+  if (isTrainerAccount && submissionStatus === 'unreviewed') {
+    return 'Oceń technikę';
+  }
+
+  return 'Szczegóły';
+};
+
 const SubmissionCard = async ({
   submissionId,
   trainerProfileName,
@@ -35,7 +43,11 @@ const SubmissionCard = async ({
               className="rounded-xl object-contain"
               src={thumbnailUrl || '/image-placeholder.png'}
             />
-            <StatusBadge className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5" type={submissionStatus} />
+            <StatusBadge
+              className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5"
+              isTrainerAccount={isTrainerAccount}
+              type={submissionStatus}
+            />
           </div>
           {!isTrainerAccount && trainerProfileName && (
             <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
@@ -46,7 +58,7 @@ const SubmissionCard = async ({
         className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
         href={`/submissions/${submissionId}`}
       >
-        {isTrainerAccount ? 'Oceń technikę' : 'Szczegóły'}
+        {getButtonText(submissionStatus, isTrainerAccount)}
       </Link>
     </SubmissionCardContainer>
   );

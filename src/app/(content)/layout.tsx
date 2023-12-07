@@ -3,10 +3,10 @@ import Link from 'next/link';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import DesktopNavbar from './_components/navbar/desktop-navbar/desktop-navbar';
 import OnboardingForm from './_components/onboarding-form/onboarding-form';
-import getTrainerDetailsById from './trainers/[id]/_utils/get-trainer-details-by-id';
 
 const ContentLayout = async ({ children }: { children: ReactNode }) => {
   const user = await getUserWithNull();

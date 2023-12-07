@@ -10,7 +10,15 @@ export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) =>
   </div>
 );
 
-const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => {
+const ALLOWED_FILTERS = ['paid', 'reviewed', 'unreviewed'];
+
+const Submissions = async ({
+  searchParams,
+  isTrainerAccount,
+}: {
+  searchParams: SearchParams;
+  isTrainerAccount: boolean;
+}) => {
   const supabase = getSupabaseServerComponentClient();
 
   let query = supabase
@@ -18,12 +26,15 @@ const Submissions = async ({ searchParams }: { searchParams: SearchParams }) => 
     .select('id, status, thumbnail_url, trainers_details (profile_name)')
     .order('created_at', { ascending: false });
 
-  if (searchParams?.filter === 'reviewed') {
-    query = query.eq('status', 'reviewed');
+  if (isTrainerAccount) {
+    query = query.neq('status', 'paid');
   }
 
-  if (searchParams?.filter === 'unreviewed') {
-    query = query.eq('status', 'unreviewed');
+  if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
+    const status =
+      !isTrainerAccount && searchParams.filter === 'reviewed' ? '("reviewed","paidout")' : `(${searchParams.filter})`;
+
+    query = query.filter('status', 'in', status);
   }
 
   const { data: submissions, error } = await query;

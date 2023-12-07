@@ -6,6 +6,7 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
+  const redirectUrl = searchParams.get('redirectUrl');
 
   if (!code) {
     return NextResponse.json({ error: 'Bad request' }, { status: 400 });
@@ -34,5 +35,5 @@ export async function GET(request: NextRequest) {
     return redirect(`/login?${getQueryParamError('NOT_REGISTERED')}`);
   }
 
-  return redirect('/submissions');
+  return redirect(redirectUrl || '/submissions');
 }

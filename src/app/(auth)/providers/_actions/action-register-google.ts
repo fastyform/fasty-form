@@ -5,8 +5,11 @@ import { redirect } from 'next/navigation';
 import { getResponse } from '@/utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
+import { SearchParam } from '@/utils/types';
 
-const actionRegisterGoogle = async (role: Database['public']['Enums']['role']) => {
+const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], redirectUrlParam: SearchParam) => {
+  const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
+
   if (!role) {
     return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
   }
@@ -17,7 +20,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role']) =
 
   const response = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: `${headersList.get('origin')}/providers/google/register?role=${role}` },
+    options: { redirectTo: `${headersList.get('origin')}/providers/google/register?role=${role}${redirectUrl}` },
   });
 
   if (!response.error) {

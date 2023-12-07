@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import getTrainerDetailsById from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const actionRedirectToCheckout = async (prevState: FormState, trainerId: string) => {
@@ -13,7 +13,7 @@ const actionRedirectToCheckout = async (prevState: FormState, trainerId: string)
   const stripe = getStripe();
   const user = await getUserWithNull();
 
-  if (!user) return redirect(`/trainers/${trainerId}?login=true`);
+  if (!user) return redirect(`/login?redirectUrl=/trainers/${trainerId}`);
 
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price || !trainerDetails.stripe_price_id)
     throw new Error();
@@ -39,6 +39,7 @@ const actionRedirectToCheckout = async (prevState: FormState, trainerId: string)
       mode: 'payment',
       success_url: 'http://localhost:3000/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}',
       cancel_url: `http://localhost:3000/stripe/payment/failure?trainer_id=${trainerId}`,
+      locale: 'pl',
     });
 
     if (!session.url) throw new Error();
