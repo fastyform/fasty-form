@@ -44,9 +44,8 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
 
     if (message && !isSuccess) {
       notify.error(message);
+      setIsLoading(false);
     }
-    // TODO: While redirecting button should be disabled
-    setIsLoading(false);
   };
 
   return (
@@ -54,7 +53,8 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
       loading={isLoading}
       startIcon={isLoading ? undefined : <Image alt="google" height={19} src="/google.svg" width={19} />}
       classes={{
-        root: 'bg-[#1E2226] font-normal text-white py-[18px] text-base rounded-full tracking-normal normal-case transition-opacity hover:opacity-80 border border-gray-600 border-solid',
+        root: 'bg-[#1E2226] text-white font-normal py-[18px] text-base rounded-full tracking-normal normal-case transition-opacity hover:opacity-80 border border-gray-600 border-solid',
+        loading: '!text-transparent',
       }}
       onClick={handleAuthAction}
     >

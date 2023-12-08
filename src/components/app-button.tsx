@@ -13,7 +13,7 @@ const AppButton = <C extends ElementType>(props: LoadingButtonProps<C, { compone
       color="inherit"
       classes={{
         disabled: twMerge(
-          '!bg-gray-600 [&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6',
+          '!bg-gray-600 [&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6 text-white/60',
           disabled,
         ),
         loading: 'text-transparent',
