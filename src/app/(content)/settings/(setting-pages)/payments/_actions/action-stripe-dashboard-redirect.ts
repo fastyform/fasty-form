@@ -19,7 +19,7 @@ const actionStripeDashboardRedirect = async () => {
 
     redirectUrl = dashboardLink.url;
   } catch {
-    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+    return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
   }
 
   return redirect(redirectUrl);

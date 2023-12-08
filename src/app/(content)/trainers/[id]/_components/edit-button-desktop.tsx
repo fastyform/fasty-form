@@ -20,7 +20,7 @@ const EditButtonDesktop = async ({ trainerId }: { trainerId: string }) => {
           href={`/trainers/${trainerId}/edit-profile`}
         >
           <EditIcon />
-          Kliknij, aby edytować stronę profilu
+          Kliknij tutaj, aby edytować stronę Twojego profilu
         </Link>
       )}
     </>

@@ -20,7 +20,7 @@ const actionLoginGoogle = async (redirectUrlParam: SearchParam) => {
     return redirect(response.data.url) as undefined;
   }
 
-  return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+  return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
 };
 
 export default actionLoginGoogle;

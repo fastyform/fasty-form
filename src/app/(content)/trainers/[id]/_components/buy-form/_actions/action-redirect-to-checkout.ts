@@ -46,7 +46,7 @@ const actionRedirectToCheckout = async (prevState: FormState, trainerId: string)
 
     redirectUrl = session.url;
   } catch {
-    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+    return getResponse('Wystąpił błąd. Spróbuj ponownie lub skontaktuj się z nami w razie potrzeby.');
   }
 
   return redirect(redirectUrl);

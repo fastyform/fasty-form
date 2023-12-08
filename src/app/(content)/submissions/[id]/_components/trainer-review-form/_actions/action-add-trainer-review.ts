@@ -30,7 +30,10 @@ const actionAddTrainerReview = async (
     return { message: '' };
   }
 
-  return { message: 'Wystąpił błąd podczas zapisywania oceny, spróbuj ponownie, lub skontaktuj się z nami.' };
+  return {
+    message:
+      'Wystąpił problem przy zapisywaniu Twojej oceny. Spróbuj ponownie lub skontaktuj się z nami w razie potrzeby.',
+  };
 };
 
 export default actionAddTrainerReview;

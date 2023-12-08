@@ -46,7 +46,9 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
                 {state.message}
               </span>
             )}
-            <p className="text-sm text-white">Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.</p>
+            <p className="text-sm text-white">
+              Pamiętaj, po dodaniu oceny do filmiku nie będziesz mógł jej już edytować.
+            </p>
             <AppInputForm<TrainerReviewValues>
               multiline
               className="w-full"
@@ -69,7 +71,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             <div>
               <h4 className="text-center text-base font-bold text-white">Czy chcesz dodać swoją ocenę?</h4>
               <p className="text-center text-sm text-white">
-                Po dodaniu oceny filmiku, nie będziesz miał możliwości jej edycji.
+                Pamiętaj, po dodaniu oceny do filmiku nie będziesz mógł jej już edytować.
               </p>
             </div>
             <div className="flex flex-wrap gap-5">
@@ -97,7 +99,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
         color="inherit"
         onClick={() => setIsReviewInputVisible(true)}
       >
-        <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać odpowiedź</h2>
+        <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać swoją odpowiedź</h2>
       </Button>
     </SubmissionPartWithIcon>
   );

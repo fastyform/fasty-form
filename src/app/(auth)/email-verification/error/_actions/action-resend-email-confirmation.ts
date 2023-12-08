@@ -27,20 +27,27 @@ const actionResendEmailConfirmation = async (prevState: { message: string; isSuc
   });
 
   if (!error) {
-    return getResponse('Wysłałeś ponownie link aktywacyjny. Sprawdź swoją skrzynkę mailową.', true);
+    return getResponse(
+      'Właśnie wysłaliśmy Ci link aktywacyjny. Zerknij na swoją pocztę i aktywuj konto. Czekamy na Ciebie!',
+      true,
+    );
   }
 
   if (error.message === 'Signups not allowed for otp') {
     return getResponse(
-      'Podany adres email nie istnieje w bazie danych. Sprawdź poprawność wprowadzonego adresu e-mail.',
+      'Ups! Ten adres email nie figuruje w naszej bazie. Sprawdź, czy dobrze go wpisałeś i spróbuj jeszcze raz.',
     );
   }
 
   if (error.status === 429) {
-    return getResponse('Zbyt wiele prób wysłania linku aktywacyjnego. Spróbuj ponownie później.');
+    return getResponse(
+      'Ojej! Wygląda na to, że było już kilka prób wysłania linku aktywacyjnego. Dajmy systemowi chwilę oddechu. Spróbuj ponownie za jakiś czas.',
+    );
   }
 
-  return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+  return getResponse(
+    'Hmm, coś poszło nie tak. Wystąpił nieoczekiwany błąd. Odpocznij chwilę i spróbuj ponownie za jakiś czas.',
+  );
 };
 
 export default actionResendEmailConfirmation;

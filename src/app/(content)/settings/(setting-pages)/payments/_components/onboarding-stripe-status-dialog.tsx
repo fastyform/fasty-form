@@ -9,12 +9,12 @@ const dialogData = {
   true: [
     'success',
     'Gratulacje!',
-    'Udało Ci się połączyć z kontem stripe. Od teraz twoje konto trenera jest aktywne. Twoja strona profilowa, jest widoczna dla wszystkich, oraz możesz przyjmować płatności.',
+    'Sukces! Twoje połączenie z kontem Stripe zostało zrealizowane. Od teraz jesteś aktywnym trenerem na naszej platformie. Twoja strona profilowa jest już dostępna dla użytkowników, a Ty możesz rozpocząć przyjmowanie płatności.',
   ],
   false: [
     'fail',
     'Przykro nam!',
-    'Coś poszło nie tak. Twoje konto nadal jest nieaktywne. Spróbuj ponownie, lub skontaktuj się z nami.',
+    'Ups, coś poszło nie tak. Twoje konto trenera wciąż pozostaje nieaktywne. Spróbuj jeszcze raz, a jeśli problem będzie się powtarzał, skontaktuj się z nami.',
   ],
 };
 

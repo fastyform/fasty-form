@@ -47,7 +47,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   }
 
   if (error || !data || !data.user) {
-    return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+    return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
   }
 
   await supabase.from('roles').update({ role }).eq('user_id', data.user.id);

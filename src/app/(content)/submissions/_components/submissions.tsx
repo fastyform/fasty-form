@@ -46,7 +46,8 @@ const Submissions = async ({
   if (error)
     return (
       <h2 className="text-base text-white">
-        Coś poszło nie tak przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub skontaktuj się z nami.
+        Napotkaliśmy problem przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub, jeśli to nie pomoże,
+        skontaktuj się z nami.
       </h2>
     );
 
@@ -58,7 +59,7 @@ const Submissions = async ({
         </div>
         <div className="flex flex-col justify-center gap-2.5 text-center text-white">
           <h2 className="text-xl font-bold md:text-2xl">Nic tu jeszcze nie ma!</h2>
-          <p>Twoje zgłoszenia pojawią się tutaj, gdy je utworzysz!</p>
+          <p>Tutaj zobaczysz swoje zgłoszenia, zaraz po ich utworzeniu!</p>
         </div>
       </div>
     );

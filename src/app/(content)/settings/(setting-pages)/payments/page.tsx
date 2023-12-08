@@ -9,8 +9,8 @@ const PaymentsPage = async () => {
   const trainerDetails = await getTrainerDetailsById(user.id);
 
   const settingsSubTitle = trainerDetails.is_onboarded_stripe
-    ? 'Wejdź na dashboard i sprawdź swoje zarobki.'
-    : 'Połącz swoje konto ze Stripe, aby móc zarabiać.';
+    ? 'Zajrzyj na swój dashboard, aby śledzić swoje zarobki.'
+    : 'Połącz swoje konto ze Stripe, by zacząć zarabiać.';
 
   return (
     <>

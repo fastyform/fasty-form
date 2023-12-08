@@ -11,7 +11,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
   const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
 
   if (!role) {
-    return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+    return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
   }
 
   const headersList = headers();
@@ -27,7 +27,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
     return redirect(response.data.url) as undefined;
   }
 
-  return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+  return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
 };
 
 export default actionRegisterGoogle;

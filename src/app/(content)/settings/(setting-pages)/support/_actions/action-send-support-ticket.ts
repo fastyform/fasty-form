@@ -33,10 +33,12 @@ const actionSendSupportTicket = async (prevState: FormState, data: FormData) => 
       html: data.get('message'),
     });
   } catch {
-    return getResponse(`Coś poszło nie tak. Spróbuj ponownię lub napisz do nas na maila: ${SUPPORT_MAIL}`);
+    return getResponse(
+      `Ups, wystąpił problem. Spróbuj jeszcze raz lub napisz do nas na adres: ${SUPPORT_MAIL} - chętnie pomożemy!`,
+    );
   }
 
-  return getResponse('Wiadomość została wysłana. Skontaktujemy się z Tobą najszybciej jak będzie to możliwe.', true);
+  return getResponse('Twoja wiadomość została wysłana. Odezwiemy się do Ciebie jak najszybciej. Dziękujemy!', true);
 };
 
 export default actionSendSupportTicket;
