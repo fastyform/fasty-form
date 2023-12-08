@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
-import submissionIcons from '@/app/(content)/submissions/[id]/_assets/submission-icons';
+import submissionIcons from '@/app/(content)/submissions/[id]/(submission)/_assets/submission-icons';
 
 const SubmissionPartWithIcon = ({
   children,

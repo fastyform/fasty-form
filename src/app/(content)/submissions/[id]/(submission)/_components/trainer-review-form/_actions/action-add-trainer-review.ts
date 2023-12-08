@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/_components/trainer-review-form/_utils';
+import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionAddTrainerReview = async (

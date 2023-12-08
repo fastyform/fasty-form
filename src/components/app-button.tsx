@@ -16,7 +16,7 @@ const AppButton = <C extends ElementType>(props: LoadingButtonProps<C, { compone
           '!bg-gray-600 [&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6',
           disabled,
         ),
-        loading: 'text-transparent',
+        loading: '!text-transparent',
         root: twMerge(
           'bg-yellow-400 text-[#0D1116] py-[18px] text-base font-bold rounded-full tracking-normal normal-case transition-opacity hover:opacity-80 px-[30px] transition-colors',
           root,
