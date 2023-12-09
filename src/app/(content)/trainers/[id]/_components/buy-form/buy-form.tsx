@@ -20,7 +20,7 @@ const ButtonChildren = ({ pending, disabled }: { pending: boolean; disabled: boo
     );
   }
 
-  return disabled ? 'Brak możliwości kupna na swoim profilu' : 'Kup analizę techniki';
+  return disabled ? 'Brak możliwości kupna jako trener' : 'Kup analizę techniki';
 };
 
 const SubmitButton = ({ disabled, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
@@ -41,7 +41,7 @@ const SubmitButton = ({ disabled, ...props }: ButtonHTMLAttributes<HTMLButtonEle
   );
 };
 
-const BuyForm = ({ trainerId, isUserOwner }: { trainerId: string; isUserOwner: boolean }) => {
+const BuyForm = ({ trainerId, isTrainerAccount }: { trainerId: string; isTrainerAccount: boolean }) => {
   const [state, formAction] = useFormState(actionRedirectToCheckout, formDefaultState);
 
   useEffect(() => {
@@ -53,8 +53,8 @@ const BuyForm = ({ trainerId, isUserOwner }: { trainerId: string; isUserOwner: b
   }, [state, state?.isSuccess, state?.message]);
 
   return (
-    <form action={() => formAction(trainerId)} className="w-full max-w-sm">
-      <SubmitButton disabled={isUserOwner} />
+    <form action={() => formAction({ trainerId, isTrainerAccount })} className="w-full max-w-sm">
+      <SubmitButton disabled={isTrainerAccount} />
     </form>
   );
 };

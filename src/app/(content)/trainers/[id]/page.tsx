@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import 'dayjs/locale/pl';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import BuyForm from './_components/buy-form/buy-form';
@@ -12,7 +13,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
   const user = await getUserWithNull();
   const isUserOwner = await checkIsTrainerProfileOwner(user, params.id);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
-
+  const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
 
   // TODO REMOVE ARTIFICIAL TIMEOUT
@@ -38,7 +39,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <BuyForm isUserOwner={isUserOwner} trainerId={params.id} />
+        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={params.id} />
       </div>
     </div>
   );

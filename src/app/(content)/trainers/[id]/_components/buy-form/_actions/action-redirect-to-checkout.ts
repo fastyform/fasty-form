@@ -7,7 +7,14 @@ import { FormState } from '@/utils/form';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 
-const actionRedirectToCheckout = async (prevState: FormState, trainerId: string) => {
+const actionRedirectToCheckout = async (
+  prevState: FormState,
+  payload: { trainerId: string; isTrainerAccount: boolean },
+) => {
+  const { trainerId, isTrainerAccount } = payload;
+  // TODO CHANGE RESPONSE FOR COMMON ERROR
+  if (isTrainerAccount) getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+
   let redirectUrl: string;
   const trainerDetails = await getTrainerDetailsById(trainerId);
   const stripe = getStripe();
