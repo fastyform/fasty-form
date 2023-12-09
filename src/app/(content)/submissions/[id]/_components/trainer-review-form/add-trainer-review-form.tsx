@@ -47,7 +47,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               </span>
             )}
             <p className="text-sm text-white">
-              Pamiętaj, po dodaniu oceny do filmiku nie będziesz mógł jej już edytować.
+              Pamiętaj, po dodaniu oceny do wideo nie będziesz mógł jej już edytować.
             </p>
             <AppInputForm<TrainerReviewValues>
               multiline
@@ -61,7 +61,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               type="button"
               onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
             >
-              Dodaj ocenę filmiku
+              Dodaj ocenę wideo
             </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>
@@ -71,7 +71,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             <div>
               <h4 className="text-center text-base font-bold text-white">Czy chcesz dodać swoją ocenę?</h4>
               <p className="text-center text-sm text-white">
-                Pamiętaj, po dodaniu oceny do filmiku nie będziesz mógł jej już edytować.
+                Pamiętaj, po dodaniu oceny do wideo nie będziesz mógł jej już edytować.
               </p>
             </div>
             <div className="flex flex-wrap gap-5">

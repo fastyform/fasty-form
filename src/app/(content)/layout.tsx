@@ -42,7 +42,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
         >
           <ErrorIcon className="h-auto w-10 shrink-0 grow-0 basis-10" />
           <div className="flex flex-wrap items-center gap-2.5">
-            <span>Wprowadź swoje dane płatności, aby aktywować swoje konto.</span>
+            <span>Wprowadź swoje dane płatności, aby aktywować konto.</span>
             <AppButton classes={{ root: 'py-2.5 text-sm' }}>Przejdź do ustawień płatności</AppButton>
           </div>
         </Link>

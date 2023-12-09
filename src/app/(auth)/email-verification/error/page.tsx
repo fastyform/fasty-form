@@ -12,7 +12,7 @@ const EmailVerificationErrorPage = () => (
       </h1>
       <p className="text-white">
         Wyślij ponownie link aktywacyjny na <br />
-        adres email, który podałeś podczas rejestracji.
+        adres email podany podczas rejestracji.
       </p>
       <ResendEmailForm />
       <Link className="w-fit self-center text-white transition-opacity hover:opacity-80" href="/login">

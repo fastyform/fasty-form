@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { formSchema } from '@/app/(auth)/login/_utils';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { SearchParam } from '@/utils/types';
@@ -33,9 +34,7 @@ const actionLogin = async (prevState: FormState, payload: { data: FormData; redi
     return getResponse('Nieprawidłowe dane logowania, spróbuj ponownie.');
   }
 
-  return getResponse(
-    'Wystąpił problem podczas logowania. Spróbuj ponownie lub skontaktuj się z nami, jeśli potrzebujesz pomocy.',
-  );
+  return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
 
 export default actionLogin;

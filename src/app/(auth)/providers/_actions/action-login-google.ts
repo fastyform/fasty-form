@@ -3,6 +3,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { SearchParam } from '@/utils/types';
 
@@ -20,7 +21,7 @@ const actionLoginGoogle = async (redirectUrlParam: SearchParam) => {
     return redirect(response.data.url) as undefined;
   }
 
-  return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
+  return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
 
 export default actionLoginGoogle;

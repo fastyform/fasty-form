@@ -9,7 +9,7 @@ const PaymentsPage = async () => {
   const trainerDetails = await getTrainerDetailsById(user.id);
 
   const settingsSubTitle = trainerDetails.is_onboarded_stripe
-    ? 'Zajrzyj na swój dashboard, aby śledzić swoje zarobki.'
+    ? 'Zajrzyj na swój panel płatności, aby śledzić swoje zarobki.'
     : 'Połącz swoje konto ze Stripe, by zacząć zarabiać.';
 
   return (

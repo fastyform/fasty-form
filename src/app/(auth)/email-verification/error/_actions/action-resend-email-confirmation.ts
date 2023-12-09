@@ -3,6 +3,7 @@
 import { headers } from 'next/headers';
 import { formSchema } from '@/app/(auth)/email-verification/error/_utils';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionResendEmailConfirmation = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
@@ -35,7 +36,7 @@ const actionResendEmailConfirmation = async (prevState: { message: string; isSuc
 
   if (error.message === 'Signups not allowed for otp') {
     return getResponse(
-      'Ups! Ten adres email nie figuruje w naszej bazie. Sprawdź, czy dobrze go wpisałeś i spróbuj jeszcze raz.',
+      'Ups! Ten adres email nie jest zarejestrowany w naszej bazie. Proszę sprawdzić, czy został wpisany poprawnie i spróbować jeszcze raz.',
     );
   }
 
@@ -45,9 +46,7 @@ const actionResendEmailConfirmation = async (prevState: { message: string; isSuc
     );
   }
 
-  return getResponse(
-    'Hmm, coś poszło nie tak. Wystąpił nieoczekiwany błąd. Odpocznij chwilę i spróbuj ponownie za jakiś czas.',
-  );
+  return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
 
 export default actionResendEmailConfirmation;

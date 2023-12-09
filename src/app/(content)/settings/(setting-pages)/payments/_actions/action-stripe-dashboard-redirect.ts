@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 
@@ -19,7 +20,7 @@ const actionStripeDashboardRedirect = async () => {
 
     redirectUrl = dashboardLink.url;
   } catch {
-    return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   return redirect(redirectUrl);

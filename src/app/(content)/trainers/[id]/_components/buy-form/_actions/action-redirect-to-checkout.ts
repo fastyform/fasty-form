@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
@@ -46,7 +47,7 @@ const actionRedirectToCheckout = async (prevState: FormState, trainerId: string)
 
     redirectUrl = session.url;
   } catch {
-    return getResponse('Wystąpił błąd. Spróbuj ponownie lub skontaktuj się z nami w razie potrzeby.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   return redirect(redirectUrl);

@@ -1,6 +1,8 @@
+import Constants from '@/utils/constants';
+
 export const QUERY_PARAM_ERRORS = {
   ALREADY_REGISTERED: 'Konto o podanym adresie email zostało już zarejestrowane.',
-  UNEXPECTED: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później lub skontaktuj się z nami.',
+  UNEXPECTED: Constants.COMMON_ERROR_MESSAGE,
   NOT_REGISTERED: 'Konto o podanym adresie email nie zostało jeszcze zarejestrowane.',
 } as const;
 

@@ -3,6 +3,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
 import { SearchParam } from '@/utils/types';
@@ -11,7 +12,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
   const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
 
   if (!role) {
-    return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   const headersList = headers();
@@ -27,7 +28,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
     return redirect(response.data.url) as undefined;
   }
 
-  return getResponse('Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.');
+  return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
 
 export default actionRegisterGoogle;
