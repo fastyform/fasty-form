@@ -10,7 +10,7 @@ export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) =>
   </div>
 );
 
-const ALLOWED_FILTERS = ['paid', 'reviewed', 'unreviewed'];
+const ALLOWED_FILTERS = ['paid', 'reviewed', 'unreviewed', 'paidout'];
 
 const Submissions = async ({
   searchParams,
@@ -53,13 +53,17 @@ const Submissions = async ({
 
   if (!submissions?.length)
     return (
-      <div className="flex w-full flex-col items-center gap-5">
+      <div className="flex w-full flex-col items-center gap-5 ">
         <div className="max-h-sm flex aspect-square h-auto w-full max-w-sm items-center justify-center rounded-full border border-gray-600 bg-[#1C1F22] min-[300px]:w-2/3">
           <NotFoundIcon className="w-full" />
         </div>
-        <div className="flex flex-col justify-center gap-2.5 text-center text-white">
+        <div className="flex max-w-sm flex-col justify-center gap-2.5 text-center text-white">
           <h2 className="text-xl font-bold md:text-2xl">Nic tu jeszcze nie ma!</h2>
-          <p>Tutaj zobaczysz swoje zgłoszenia, zaraz po ich utworzeniu!</p>
+          <p>
+            {isTrainerAccount
+              ? 'Twoje zgłoszenia pojawią się tutaj, gdy klient zakupi usługę oraz wypełni wszystkie potrzebne informacje.'
+              : 'Twoje zgłoszenia pojawią się tutaj, gdy je utworzysz!'}
+          </p>
         </div>
       </div>
     );
