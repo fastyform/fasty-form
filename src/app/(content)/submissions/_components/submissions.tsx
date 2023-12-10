@@ -46,7 +46,8 @@ const Submissions = async ({
   if (error)
     return (
       <h2 className="text-base text-white">
-        Coś poszło nie tak przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub skontaktuj się z nami.
+        Napotkaliśmy problem przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub, jeśli to nie pomoże,
+        skontaktuj się z nami.
       </h2>
     );
 

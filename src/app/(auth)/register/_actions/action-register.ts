@@ -3,6 +3,7 @@
 import { headers } from 'next/headers';
 import { formSchema } from '@/app/(auth)/register/_utils';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
@@ -47,7 +48,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   }
 
   if (error || !data || !data.user) {
-    return getResponse('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   await supabase.from('roles').update({ role }).eq('user_id', data.user.id);

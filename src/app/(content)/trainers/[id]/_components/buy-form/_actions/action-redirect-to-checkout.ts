@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
@@ -12,8 +13,7 @@ const actionRedirectToCheckout = async (
   payload: { trainerId: string; isTrainerAccount: boolean },
 ) => {
   const { trainerId, isTrainerAccount } = payload;
-  // TODO CHANGE RESPONSE FOR COMMON ERROR
-  if (isTrainerAccount) getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+  if (isTrainerAccount) getResponse(Constants.COMMON_ERROR_MESSAGE);
 
   let redirectUrl: string;
   const trainerDetails = await getTrainerDetailsById(trainerId);
@@ -53,7 +53,7 @@ const actionRedirectToCheckout = async (
 
     redirectUrl = session.url;
   } catch {
-    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   return redirect(redirectUrl);

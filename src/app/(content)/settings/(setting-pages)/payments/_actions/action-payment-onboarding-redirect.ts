@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -28,7 +29,8 @@ const actionPaymentOnboardingRedirect = async () => {
         settings: { payouts: { schedule: { interval: 'manual' } } },
         business_profile: {
           mcc: STRIPE_MERCHANT_CATEGORY_CODE,
-          product_description: 'Usługa oceny techniki klienta poprzez opisanie wysłanego przez klienta wideo.',
+          product_description:
+            'Usługa analizy techniki klienta, polegająca na ocenie i komentarzu do wideo przesłanego przez klienta.',
         },
       });
 
@@ -53,7 +55,7 @@ const actionPaymentOnboardingRedirect = async () => {
 
     redirectUrl = accountLink.url;
   } catch {
-    return getResponse('Wystąpił błąd, spróbuj ponownie, lub skontaktuj się z nami.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   return redirect(redirectUrl);

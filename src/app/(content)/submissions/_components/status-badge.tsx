@@ -15,7 +15,7 @@ const StatusBadge = ({
 }: {
   className?: ClassNameValue;
   type: keyof typeof statusBadgeData;
-  isTrainerAccount: boolean;
+  isTrainerAccount?: boolean;
 }) => {
   const visibleStatus = type === 'paidout' ? 'reviewed' : type;
 

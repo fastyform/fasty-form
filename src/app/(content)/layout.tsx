@@ -25,8 +25,10 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
           ) : (
             <section className="mx-auto my-5 flex w-[500px] max-w-full flex-col gap-10">
               <div className="flex flex-col gap-2.5 text-white  min-[500px]:text-center">
-                <h1 className="text-2xl font-bold md:text-3xl">Wypełnij swoje dane</h1>
-                <p className=" text-xl">Aby zacząć korzystać z portalu, prosimy o wypełnienie obowiązkowych pól.</p>
+                <h1 className="text-2xl font-bold md:text-3xl">Wprowadź swoje dane</h1>
+                <p className=" text-xl">
+                  Aby rozpocząć korzystanie z portalu, prosimy o uzupełnienie wszystkich wymaganych pól.
+                </p>
               </div>
               <OnboardingForm />
             </section>
@@ -40,7 +42,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
         >
           <ErrorIcon className="h-auto w-10 shrink-0 grow-0 basis-10" />
           <div className="flex flex-wrap items-center gap-2.5">
-            <span>Uzupełnij dane płatności, aby Twoje konto było aktywne.</span>
+            <span>Wprowadź swoje dane płatności, aby aktywować konto.</span>
             <AppButton classes={{ root: 'py-2.5 text-sm' }}>Przejdź do ustawień płatności</AppButton>
           </div>
         </Link>
