@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
@@ -18,7 +19,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   const supabase = getSupabaseServerClient();
   const { data: session } = await supabase.auth.getSession();
   if (!session.session) {
-    return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');
+    return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
   const userId = session.session.user.id;
@@ -33,7 +34,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
     return redirect(`/trainers/${userId}`);
   }
 
-  return getResponse('Wystąpił błąd podczas zapisywania, spróbuj ponownie, lub skontaktuj się z nami.');
+  return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
 
 export default actionOnBoarding;

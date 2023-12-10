@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
+import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionAddTrainerReview = async (
@@ -30,7 +31,9 @@ const actionAddTrainerReview = async (
     return { message: '' };
   }
 
-  return { message: 'Wystąpił błąd podczas zapisywania oceny, spróbuj ponownie, lub skontaktuj się z nami.' };
+  return {
+    message: Constants.COMMON_ERROR_MESSAGE,
+  };
 };
 
 export default actionAddTrainerReview;
