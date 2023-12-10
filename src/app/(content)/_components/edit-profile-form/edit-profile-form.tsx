@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { trainerDetailsSchema, TrainerDetailsValues } from '@/app/(content)/_utils/trainer-details-form';
 import AppButton from '@/components/app-button';
@@ -50,7 +49,7 @@ const EditProfileForm = ({
     const handleAfterFormSubmit = async () => {
       if (state.isSuccess) {
         await revalidatePathsAfterProfileEdit(trainerId);
-        router.push(`/trainers/${trainerId}` as Route);
+        router.push(`/trainers/${trainerId}` as const);
         notify.success('Zapisano zmiany');
       }
     };
@@ -92,7 +91,7 @@ const EditProfileForm = ({
         <AppButton
           classes={{ root: 'py-2.5 bg-inherit grow' }}
           className="text-sm text-white"
-          onClick={() => router.push(`/trainers/${trainerId}` as Route)}
+          onClick={() => router.push(`/trainers/${trainerId}` as const)}
         >
           Anuluj
         </AppButton>

@@ -5,7 +5,7 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@mui/material';
-import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/_components/submission-part-with-icon';
+import SubmissionPartWithIcon from '@/app/(content)/submissions/[id]/(submission)/_components/submission-part-with-icon';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
