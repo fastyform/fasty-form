@@ -3,6 +3,7 @@
 import { SvgIconComponent } from '@mui/icons-material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import GavelIcon from '@mui/icons-material/Gavel';
+import PasswordIcon from '@mui/icons-material/Password';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import Link from 'next/link';
@@ -15,6 +16,7 @@ type MenuItem = [string, string, SvgIconComponent, string];
 
 const settingsMenuData: MenuItem[] = [
   ['Płatności', 'Przeglądaj swoje zarobki.', PaymentsIcon, 'payments'],
+  ['Hasło', 'Zmień swoje hasło.', PasswordIcon, 'update-password'],
   ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgentIcon, 'support'],
   ['Regulamin', 'Przeczytaj nasze warunki użytkowania', GavelIcon, 'terms-of-service'],
 ];

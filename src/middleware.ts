@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/utils/supabase/client';
 
 const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile', '/stripe'];
-const UNAVAILABLE_ROUTES = ['/login', '/register'];
+const UNAVAILABLE_ROUTES = ['/login', '/register', '/forgot-password'];
 
 export const middleware = async (request: NextRequest) => {
   let response = NextResponse.next({ request: { headers: request.headers } });

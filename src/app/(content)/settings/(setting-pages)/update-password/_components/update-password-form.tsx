@@ -1,0 +1,93 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { useFormState } from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Route } from 'next';
+import { useRouter } from 'next/navigation';
+import actionUpdatePassword from '@/app/(content)/settings/(setting-pages)/update-password/_actions/action-update-password';
+import {
+  UpdatePasswordFormValues,
+  updatePasswordSchema,
+} from '@/app/(content)/settings/(setting-pages)/update-password/_utils';
+import QuestionMarkIcon from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_assets/question-mark-icon';
+import AppButton from '@/components/app-button';
+import AppButtonSubmit from '@/components/app-button-submit';
+import AppDialog from '@/components/app-dialog';
+import AppFormState from '@/components/app-form-error';
+import AppInputFormPassword from '@/components/app-input/app-input-form-password';
+import { formDefaultState } from '@/utils/form';
+import { SearchParam } from '@/utils/types';
+
+const UpdatePasswordForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
+  const passwordFormRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [state, formAction] = useFormState(actionUpdatePassword, formDefaultState);
+  const { control, handleSubmit, formState, reset } = useForm<UpdatePasswordFormValues>({
+    resolver: zodResolver(updatePasswordSchema),
+    defaultValues: { password: '' },
+    mode: 'onTouched',
+  });
+
+  const handlePasswordUpdate = () => {
+    if (passwordFormRef.current === null) return;
+    passwordFormRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
+
+  useEffect(() => {
+    if (state?.isSuccess) {
+      reset();
+      if (typeof redirectUrlParam === 'string') router.push(redirectUrlParam as Route);
+    }
+  }, [state, reset, redirectUrlParam, router]);
+
+  return (
+    <>
+      <form ref={passwordFormRef} action={handleFormAction} className="flex max-w-md flex-col items-start gap-5">
+        <AppFormState state={state} />
+        <AppInputFormPassword<UpdatePasswordFormValues>
+          className="w-full"
+          control={control}
+          fieldName="password"
+          label="Hasło"
+        />
+        <AppButtonSubmit
+          classes={{ root: 'py-2.5' }}
+          isValid={formState.isValid}
+          type="button"
+          onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
+        >
+          Zmień hasło
+        </AppButtonSubmit>
+      </form>
+      <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
+        <div className="flex flex-col items-center gap-5">
+          <QuestionMarkIcon />
+          <div>
+            <h4 className="text-center text-base font-bold text-white">Czy chcesz zmienić swoje hasło?</h4>
+            <p className="text-center text-sm text-white">Pamiętaj, zmiana hasła jest nieodwracalna.</p>
+          </div>
+          <div className="flex flex-wrap gap-5">
+            <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handlePasswordUpdate}>
+              Zmień hasło
+            </AppButton>
+            <AppButton
+              classes={{ root: 'py-2.5 bg-inherit' }}
+              className="text-sm text-white"
+              onClick={() => setIsConfirmModalOpen(false)}
+            >
+              Anuluj
+            </AppButton>
+          </div>
+        </div>
+      </AppDialog>
+    </>
+  );
+};
+
+export default UpdatePasswordForm;
