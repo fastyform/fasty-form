@@ -35,15 +35,14 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
 
       if (imageBlob) {
         const { error: uploadImageError } = await supabase.storage
-          .from('profile_images')
+          .from('profile-images')
           .upload(`${user.id}.jpeg`, imageBlob, {
             contentType: 'Blob',
             upsert: true,
           });
 
         if (uploadImageError) throw new Error();
-
-        const { data: publicProfileImageUrl } = supabase.storage.from('profile_images').getPublicUrl(`${user.id}.jpeg`);
+        const { data: publicProfileImageUrl } = supabase.storage.from('profile-images').getPublicUrl(`${user.id}.jpeg`);
 
         return `${publicProfileImageUrl.publicUrl}?timestamp=${Date.now()};`;
       }

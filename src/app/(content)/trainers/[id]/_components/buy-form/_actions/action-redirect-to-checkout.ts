@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
@@ -12,6 +13,7 @@ const actionRedirectToCheckout = async (
   prevState: FormState,
   payload: { trainerId: string; isTrainerAccount: boolean },
 ) => {
+  const headersList = headers();
   const { trainerId, isTrainerAccount } = payload;
   if (isTrainerAccount) getResponse(Constants.COMMON_ERROR_MESSAGE);
 
@@ -44,8 +46,8 @@ const actionRedirectToCheckout = async (
         userId: user.id,
       },
       mode: 'payment',
-      success_url: 'http://localhost:3000/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}',
-      cancel_url: `http://localhost:3000/stripe/payment/failure?trainer_id=${trainerId}`,
+      success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${headersList.get('origin')}/payment/failure?trainer_id=${trainerId}`,
       locale: 'pl',
     });
 
