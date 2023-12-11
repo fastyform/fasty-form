@@ -16,11 +16,6 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
 
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
   return (
     <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
       <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm rounded-full border border-gray-600 object-cover lg:mb-0 lg:mt-0">

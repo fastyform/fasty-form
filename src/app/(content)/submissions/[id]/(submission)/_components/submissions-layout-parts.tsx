@@ -9,11 +9,6 @@ export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: str
 
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
 
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
   return (
     <span className="hidden text-xl text-white lg:block">
       <span className="font-bold">Ostatnia zmiana: </span>
@@ -24,11 +19,6 @@ export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: str
 
 export const SubmissionTrainerName = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
-
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
 
   return (
     <span className="hidden text-xl text-white lg:block">
@@ -44,10 +34,6 @@ export const SubmissionStatusBadge = async ({ submissionId }: { submissionId: st
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   if (!submission) return;
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
 
   return <StatusBadge isTrainerAccount={isTrainerAccount} type={submission.status} />;
 };

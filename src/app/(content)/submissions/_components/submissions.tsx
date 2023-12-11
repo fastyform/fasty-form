@@ -38,10 +38,6 @@ const Submissions = async ({
   }
 
   const { data: submissions, error } = await query;
-  // TODO REMOVE ARTIFICIAL LOADING TIME
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
 
   if (error)
     return (

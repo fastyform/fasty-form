@@ -7,11 +7,6 @@ const EditButtonDesktop = async ({ trainerId }: { trainerId: string }) => {
   const user = await getUserWithNull();
   const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerId);
 
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
   return (
     <>
       {isTrainerOwner && (

@@ -24,11 +24,6 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
 
-  // TODO REMOVE ARTIFICIAL TIMEOUT
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
   if (!submission.video_url) throw new Error();
 
   return (
