@@ -11,7 +11,7 @@ const RegisterClientPage = ({ searchParams }: { searchParams: SearchParams }) =>
         <div className="flex flex-col gap-10">
           <AppLogo className="self-center" />
           <div className="flex flex-col gap-2.5 text-center">
-            <span className="font-bold text-zinc-400">Witaj w FastForm!</span>
+            <span className="font-bold text-zinc-400">Witaj w FastyForm!</span>
             <h1 className="text-2xl text-white">
               Trenuj jak <span className="font-medium text-yellow-400">zawodowiec</span>,
               <br />z techniką <span className="font-medium text-yellow-400">mistrza</span>

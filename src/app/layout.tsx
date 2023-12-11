@@ -6,8 +6,8 @@ import './globals.css';
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
 export const metadata: Metadata = {
-  title: 'FastForm - sprawdź swoją technikę',
-  description: 'FastForm - szybko sprawdź swoją technikę przy pomocy trenera',
+  title: 'FastyForm - sprawdź swoją technikę',
+  description: 'FastyForm - szybko sprawdź swoją technikę przy pomocy trenera',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
