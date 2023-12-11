@@ -3,12 +3,13 @@
 import { useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
+import { Route } from 'next';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AppButtonLink from '@/components/app-button-link';
 import { Database } from '@/utils/supabase/supabase';
 
-const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements` as const;
+const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements` as Route;
 
 const SuccessPaymentPage = () => {
   const supabase = createBrowserClient(

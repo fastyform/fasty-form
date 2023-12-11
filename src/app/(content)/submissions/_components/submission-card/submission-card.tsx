@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Route } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
@@ -32,7 +33,7 @@ const SubmissionCard = async ({
   const user = await getUserFromSession();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
-  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}` as const;
+  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}` as Route;
 
   return (
     <SubmissionCardContainer>
