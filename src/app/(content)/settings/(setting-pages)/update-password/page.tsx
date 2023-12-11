@@ -1,0 +1,11 @@
+import { SearchParams } from '@/utils/types';
+import UpdatePasswordForm from './_components/update-password-form';
+
+const UpdatePassword = ({ searchParams }: { searchParams: SearchParams }) => (
+  <>
+    <h1 className="text-2xl text-white">Zaktualizuj hasło</h1>
+    <UpdatePasswordForm redirectUrlParam={searchParams.redirectUrl} />
+  </>
+);
+
+export default UpdatePassword;

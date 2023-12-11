@@ -19,7 +19,7 @@ const RedirectToStripeDashboardForm = () => {
   return (
     <form action={formAction}>
       <AppButtonSubmit isValid classes={{ root: 'py-2.5' }}>
-        Dashboard
+        Panel płatności
       </AppButtonSubmit>
     </form>
   );

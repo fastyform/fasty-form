@@ -28,7 +28,7 @@ const SupportForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
 
   return (
-    <form action={handleFormAction} className="flex flex-col items-start gap-5">
+    <form action={handleFormAction} className="flex max-w-md flex-col items-start gap-5">
       <AppFormState state={state} />
       <AppInputForm<SupportFormValues>
         fullWidth
