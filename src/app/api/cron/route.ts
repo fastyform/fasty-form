@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -20,7 +20,11 @@ const getNextResponse = (message: string | string[], isSuccess: boolean, status?
     { status },
   );
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return getNextResponse('Unauthorized', false, 401);
+  }
+
   const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const stripe = getStripe();
   const payoutErrors: string[] = [];
