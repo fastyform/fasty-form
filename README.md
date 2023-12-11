@@ -5,6 +5,8 @@ This is a FastyForm (https://fastyform.com/) project bootstrapped with [`create-
 First, install and start supabase CLI (you need to have also docker running):</br>
 [https://supabase.com/docs/guides/cli/getting-started?platform=npm#installing-the-supabase-cli](https://supabase.com/docs/guides/cli/getting-started?platform=npm#installing-the-supabase-cli)</br></br>
 
+Add in supabase dashboard [http://localhost:54323/project/default/database/triggers](http://localhost:54323/project/default/database/triggers) trigger for users (auth) table, events: insert, after the event, choose function with name handle_new_user</br></br>
+
 Copy from your terminal your envs:</br>
 SUPABASE_URL</br>
 SUPABASE_ANON_KEY</br>
@@ -23,9 +25,15 @@ Install stripe CLI</br>
 Add last env:</br>
 STRIPE_WEBHOOK_SECRET</br></br>
 
-After you create account locally you have to add role in table manually, because of not ending emails. Same with trainer_details if you create trainer account.</br></br>
+After you create account locally you have to go [http://localhost:54324](http://localhost:54324) and confirm email.</br></br>
+For google auth to work you have to add .env in supabase directory, add:</br>
+export GOOGLE_CLIENT_ID="x"</br>
+export GOOGLE_SECRET="x"</br>
+You can find them here [https://console.cloud.google.com/apis/credentials/oauthclient](https://console.cloud.google.com/apis/credentials/oauthclient) Testing OAuth FastyForm
+Then source ./supabase/.env && supabase stop</br>
+source ./supabase/.env && supabase start </br></br>
 
-Add bucket with name 'profile-images' and public bucket option checked and also policy:</br>
+Add bucket with name 'profile-images' and public bucket option checked and also policy:</>
 Allowed operation all checked</br>
 and bucket_id = 'profile-images' AND name = auth.uid()::text || '.jpeg'</br></br>
 
