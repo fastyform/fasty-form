@@ -11,11 +11,11 @@ import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { formDefaultState } from '@/utils/form';
 
-const ContactForm = () => {
+const ContactForm = ({ userEmail }: { userEmail?: string }) => {
   const [state, formAction] = useFormState(actionSendContactForm, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: { message: '', email: '' },
+    defaultValues: { message: '', email: userEmail || '' },
     mode: 'onTouched',
   });
 
@@ -28,9 +28,15 @@ const ContactForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
 
   return (
-    <form action={handleFormAction} className="flex max-w-md flex-col items-start gap-5">
+    <form action={handleFormAction} className="flex max-w-md grow flex-col items-start gap-5">
       <AppFormState state={state} />
-      <AppInputForm<ContactFormValues> fullWidth control={control} fieldName="email" label="Email" />
+      <AppInputForm<ContactFormValues>
+        fullWidth
+        control={control}
+        disabled={!!userEmail}
+        fieldName="email"
+        label="Email"
+      />
       <AppInputForm<ContactFormValues>
         fullWidth
         multiline

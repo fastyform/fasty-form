@@ -27,7 +27,7 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
     await transporter.sendMail({
       from: formSchemaParsed.data.email,
       to: SUPPORT_MAIL,
-      subject: 'Contact form - not logged in user',
+      subject: 'Contact form',
       html: formSchemaParsed.data.message,
     });
   } catch {

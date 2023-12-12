@@ -5,7 +5,8 @@ const privacyPolicyData = {
   ],
   'Zakres przetwarzanych danych': [
     'Aplikacja przetwarza dane osobowe podane dobrowolnie przez użytkowników w procesie rejestracji.',
-    'Dane zbierane podczas rejestracji to m.in. dane logowania',
+    'Dane zbierane podczas rejestracji to m.in. dane logowania, typ konta (klient, trener).',
+    'W przypadku konta trenera, dodatkowo po zarejestrowaniu użytkownik przechodzi proces onboarding, podczas którego aplikacja zbiera takie informacje jak nazwa profilu trenera, cena oferowanych usług oraz link do zdjęcia profilowego.',
   ],
   'Cel przetwarzania danych': [
     'Dane osobowe są przetwarzane w celu świadczenia usług przez Aplikację, w tym analizy wideo, obsługi płatności.',

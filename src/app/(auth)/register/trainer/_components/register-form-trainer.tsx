@@ -66,7 +66,7 @@ const RegisterFormTrainer = ({ redirectUrlParam }: { redirectUrlParam: SearchPar
                 label={
                   <span className={twMerge('text-zinc-200', fieldState.invalid && 'text-red-400')}>
                     Akceptuję&nbsp;
-                    <Link className="font-bold" href="/terms-of-service?from=register" rel="noopener" target="_blank">
+                    <Link className="font-bold" href="/terms-of-service" rel="noopener" target="_blank">
                       regulamin.
                     </Link>
                   </span>

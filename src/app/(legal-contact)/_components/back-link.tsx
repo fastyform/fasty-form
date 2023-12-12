@@ -17,7 +17,7 @@ const BackLink = () => {
 
   return (
     <Button
-      className="flex items-center gap-2.5 text-sm transition-opacity hover:opacity-80"
+      className="flex items-center gap-2.5 text-sm text-white transition-opacity hover:opacity-80"
       onClick={handleNavigation}
     >
       <ArrowBackIcon />
