@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -11,18 +11,17 @@ type Accumulator = {
 };
 const MINIMAL_PAYOUT_IN_GROSZ = 500;
 
-const getNextResponse = (message: string | string[], isSuccess: boolean, status?: number) =>
-  NextResponse.json(
-    {
-      message,
-      ok: isSuccess,
-    },
-    { status },
-  );
+const getResponse = (message: string | string[], status?: number) => {
+  const messageFormatted = typeof message === 'string' ? message : JSON.stringify(message);
+
+  return new Response(messageFormatted, {
+    status,
+  });
+};
 
 export async function GET(request: NextRequest) {
   if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
-    return getNextResponse('Unauthorized', false, 401);
+    return getResponse('Unauthorized', 401);
   }
 
   const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -34,9 +33,9 @@ export async function GET(request: NextRequest) {
     .select('id, trainers_details (stripe_account_id), price_in_grosz')
     .eq('status', 'reviewed');
 
-  if (error || !reviewedSubmissions) return getNextResponse(error.message, false);
+  if (error || !reviewedSubmissions) return getResponse(error.message);
 
-  if (!reviewedSubmissions.length) return getNextResponse('0 payments made', true, 200);
+  if (!reviewedSubmissions.length) return getResponse('0 payments made', 200);
 
   const groupedPayouts = reviewedSubmissions.reduce((acc: Accumulator, item) => {
     if (!item.price_in_grosz || !item.trainers_details || !item.trainers_details.stripe_account_id) {
@@ -106,10 +105,10 @@ export async function GET(request: NextRequest) {
 
     await Promise.all(payoutPromises.map((p) => p.catch((e) => payoutErrors.push(e.message))));
   } catch (e: any) {
-    return getNextResponse(`Something went wrong ${e.message}`, false, 400);
+    return getResponse(`Something went wrong ${e.message}`, 400);
   }
 
-  if (payoutErrors.length) return getNextResponse(payoutErrors, false, 207);
+  if (payoutErrors.length) return getResponse(payoutErrors, 207);
 
-  return getNextResponse('Payouts made', true, 200);
+  return getResponse('Payouts made', 200);
 }
