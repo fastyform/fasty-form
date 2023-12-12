@@ -8,12 +8,14 @@ const nextConfig = {
     { source: '/register', destination: '/register/client', permanent: false },
   ],
   images: {
-    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'veknudpszbrjutmcmrwk.supabase.co',
         port: '',
+      },
+      {
+        hostname: 'localhost',
       },
     ],
   },

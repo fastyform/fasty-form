@@ -5,6 +5,7 @@ import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import actionRegisterGoogle from '@/app/(auth)/providers/_actions/action-register-google';
 import ButtonGoogle from '@/app/(auth)/providers/_components/button-google';
@@ -65,9 +66,9 @@ const RegisterFormTrainer = ({ redirectUrlParam }: { redirectUrlParam: SearchPar
                 label={
                   <span className={twMerge('text-zinc-200', fieldState.invalid && 'text-red-400')}>
                     Akceptuję&nbsp;
-                    <a className="font-bold" href="www.test-cratun-policy-fastform.com" rel="noopener" target="_blank">
+                    <Link className="font-bold" href="/terms-of-service?from=register" rel="noopener" target="_blank">
                       regulamin.
-                    </a>
+                    </Link>
                   </span>
                 }
               />
