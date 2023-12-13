@@ -2,8 +2,7 @@ import { ReactNode, Suspense } from 'react';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
-import EditButtonDesktop from './_components/edit-button-desktop';
-import EditButtonMobile from './_components/edit-button-mobile';
+import ActionButtonsProfile from './_components/action-buttons-profile';
 
 const TrainerPageLayout = async ({
   children,
@@ -16,12 +15,16 @@ const TrainerPageLayout = async ({
 }) => (
   <section className="relative flex w-full flex-col justify-between py-5 lg:h-auto">
     <Suspense>
-      <EditButtonDesktop trainerId={params.id} />
+      <div className="absolute left-0 top-0 hidden gap-2.5 lg:flex">
+        <ActionButtonsProfile trainerId={params.id} />
+      </div>
     </Suspense>
     <div className="relative z-30 flex justify-between lg:hidden">
       <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
       <Suspense>
-        <EditButtonMobile trainerId={params.id} />
+        <div className="flex-gap flex gap-2.5 lg:hidden">
+          <ActionButtonsProfile trainerId={params.id} />
+        </div>
       </Suspense>
     </div>
     <Suspense
