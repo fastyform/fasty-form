@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
 import AuthLink from '@/app/_components/auth-link';
 import { SearchParams } from '@/utils/types';
 import LoginForm from './_components/login-form';
+
+export const metadata: Metadata = {
+  title: 'Logowanie - FastyForm',
+  description: 'Zaloguj się do swojego konta FastyForm, aby korzystać z pełnej gamy usług analizy wideo.',
+};
 
 const LoginPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <SplitPageWithImage

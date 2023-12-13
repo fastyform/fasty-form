@@ -1,7 +1,14 @@
+import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
 import AuthLink from '@/app/_components/auth-link';
 import { SearchParams } from '@/utils/types';
 import RegisterFormClient from './_components/register-form-client';
+
+export const metadata: Metadata = {
+  title: 'Rejestracja Klienta - FastyForm',
+  description:
+    'Dołącz do FastyForm jako klient. Zarejestruj się, aby mieć dostęp do zakupu personalizowanych analiz wideo od Twojego ulubionego trenera.',
+};
 
 const RegisterClientPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <SplitPageWithImage imageProps={{ alt: 'Ekwipunek na siłowni', src: '/client-register.jpg' }}>
