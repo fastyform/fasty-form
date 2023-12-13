@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
+import { Database } from '@/utils/supabase/supabase';
 import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 
@@ -44,7 +45,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
 export default TrainerPage;
 
 export async function generateStaticParams() {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+  const supabase = createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
   const { data: trainers, error } = await supabase
     .from('trainers_details')
     .select('user_id')
@@ -57,14 +58,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+  const supabase = createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
   const { data: trainer, error } = await supabase
     .from('trainers_details')
     .select('profile_name')
     .eq('user_id', params.id)
     .single();
 
-  if (!trainer || error)
+  if (!trainer || error || !trainer.profile_name)
     return {
       title: 'Profil Trenera - FastyForm',
       description: 'Zakup analizę wideo u trenera w FastyForm.',
