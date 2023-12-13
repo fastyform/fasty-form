@@ -11,7 +11,7 @@ const SplitPageWithImage = ({
   children: ReactNode;
   imageProps: ImageProps;
 }) => (
-  <main className="relative m-auto grid min-h-screen p-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:p-0">
+  <main className="min-h-screen-responsive relative m-auto grid p-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:p-0">
     <div className="relative flex h-full w-full max-w-sm grow flex-col justify-self-center lg:py-5">
       <div className="my-auto flex flex-col gap-10">
         <AppLogo className="self-center" />

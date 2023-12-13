@@ -16,7 +16,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
   const isOnboarded = trainerDetails ? trainerDetails.is_onboarded : true;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="min-h-screen-responsive flex flex-col">
       <div className="ml-auto mr-auto flex w-full max-w-screen-2xl flex-col px-5">
         <DesktopNavbar />
         <main className="flex grow lg:pt-10">

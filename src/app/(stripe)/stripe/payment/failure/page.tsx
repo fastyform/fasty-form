@@ -8,7 +8,7 @@ const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) =>
   if (!trainerId) redirect('/submissions');
 
   return (
-    <div className="bg-custom-radial flex min-h-screen items-center justify-center p-5 text-white">
+    <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">
       <div className="flex flex-col items-center gap-5">
         <Image alt="Ikonka sukcesu" className="h-[90px] w-[90px]" height={90} src="/fail.svg" width={90} />
         <div className="flex flex-col gap-2.5">

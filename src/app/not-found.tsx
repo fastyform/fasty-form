@@ -9,7 +9,7 @@ const NotFoundPage = async () => {
   const isLoggedIn = !!data.session;
 
   return (
-    <div className="bg-custom-radial flex min-h-screen  items-center justify-center p-5 text-white">
+    <div className="bg-custom-radial min-h-screen-responsive flex  items-center justify-center p-5 text-white">
       <div className="flex flex-col gap-8">
         <h1 className="text-9xl font-bold md:text-[200px]">404</h1>
         <div className="flex flex-col gap-2">
