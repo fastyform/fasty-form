@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import 'dayjs/locale/pl';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
@@ -53,4 +54,24 @@ export async function generateStaticParams() {
   if (!trainers || error) return [];
 
   return trainers.map((trainer) => ({ id: trainer.user_id }));
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+  const { data: trainer, error } = await supabase
+    .from('trainers_details')
+    .select('profile_name')
+    .eq('user_id', params.id)
+    .single();
+
+  if (!trainer || error)
+    return {
+      title: 'Profil Trenera - FastyForm',
+      description: 'Zakup analizę wideo u trenera w FastyForm.',
+    };
+
+  return {
+    title: `Profil Trenera ${trainer.profile_name} - FastyForm`,
+    description: `Zakup analizę wideo u trenera ${trainer.profile_name} w FastyForm.`,
+  };
 }

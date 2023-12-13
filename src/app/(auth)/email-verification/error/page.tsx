@@ -1,7 +1,14 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
 import ErrorIcon from '@/assets/error-icon';
 import ResendEmailForm from './_components/resend-email-form';
+
+export const metadata: Metadata = {
+  title: 'Błąd Weryfikacji E-mail - FastyForm',
+  description:
+    'Napotkałeś problem podczas weryfikacji e-mail? FastyForm pomoże Ci szybko rozwiązać problem. Sprawdź, co możesz zrobić',
+};
 
 const EmailVerificationErrorPage = () => (
   <div className="bg-custom-radial flex min-h-[inherit] flex-col items-center justify-center gap-10 px-10 py-5 text-center md:gap-16">
