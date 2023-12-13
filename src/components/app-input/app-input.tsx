@@ -29,6 +29,7 @@ const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
         notchedOutline: 'border-gray-600',
         focused: '[&:not(.Mui-error)_fieldset]:border-gray-400',
         error: '[&_.MuiInputBase-input]:text-red-400 [&_fieldset]:border-red-400',
+        disabled: 'webkit-fill-white',
       },
       ...InputProps,
     }}

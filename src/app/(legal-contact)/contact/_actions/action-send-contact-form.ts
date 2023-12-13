@@ -1,9 +1,8 @@
 'use server';
 
-import { supportFormSchema } from '@/app/(content)/settings/(setting-pages)/support/_utils';
+import { contactFormSchema } from '@/app/(legal-contact)/contact/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
-import getUserFromSession from '@/utils/get-user-from-session';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodemailer = require('nodemailer');
@@ -18,19 +17,18 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const actionSendSupportTicket = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = supportFormSchema.safeParse({ message: data.get('message') });
-  const { email } = await getUserFromSession();
+const actionSendContactForm = async (prevState: FormState, data: FormData) => {
+  const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
   }
   try {
     await transporter.sendMail({
-      from: email,
+      from: formSchemaParsed.data.email,
       to: SUPPORT_MAIL,
-      subject: 'Support ticket',
-      html: data.get('message'),
+      subject: 'Contact form',
+      html: formSchemaParsed.data.message,
     });
   } catch {
     return getResponse(
@@ -41,4 +39,4 @@ const actionSendSupportTicket = async (prevState: FormState, data: FormData) => 
   return getResponse('Twoja wiadomość została wysłana. Odezwiemy się do Ciebie jak najszybciej. Dziękujemy!', true);
 };
 
-export default actionSendSupportTicket;
+export default actionSendContactForm;

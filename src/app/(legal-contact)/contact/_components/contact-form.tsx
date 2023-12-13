@@ -4,18 +4,18 @@ import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import actionSendSupportTicket from '@/app/(content)/settings/(setting-pages)/support/_actions/action-send-support-ticket';
-import { supportFormSchema, SupportFormValues } from '@/app/(content)/settings/(setting-pages)/support/_utils';
+import actionSendContactForm from '@/app/(legal-contact)/contact/_actions/action-send-contact-form';
+import { contactFormSchema, ContactFormValues } from '@/app/(legal-contact)/contact/_utils';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { formDefaultState } from '@/utils/form';
 
-const SupportForm = () => {
-  const [state, formAction] = useFormState(actionSendSupportTicket, formDefaultState);
-  const { control, handleSubmit, formState, reset } = useForm<SupportFormValues>({
-    resolver: zodResolver(supportFormSchema),
-    defaultValues: { message: '' },
+const ContactForm = ({ userEmail }: { userEmail?: string }) => {
+  const [state, formAction] = useFormState(actionSendContactForm, formDefaultState);
+  const { control, handleSubmit, formState, reset } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: { message: '', email: userEmail || '' },
     mode: 'onTouched',
   });
 
@@ -28,9 +28,16 @@ const SupportForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(() => formAction(data))();
 
   return (
-    <form action={handleFormAction} className="flex max-w-md flex-col items-start gap-5">
+    <form action={handleFormAction} className="flex max-w-md grow flex-col items-start gap-5">
       <AppFormState state={state} />
-      <AppInputForm<SupportFormValues>
+      <AppInputForm<ContactFormValues>
+        fullWidth
+        control={control}
+        disabled={!!userEmail}
+        fieldName="email"
+        label="Email"
+      />
+      <AppInputForm<ContactFormValues>
         fullWidth
         multiline
         control={control}
@@ -45,4 +52,4 @@ const SupportForm = () => {
   );
 };
 
-export default SupportForm;
+export default ContactForm;
