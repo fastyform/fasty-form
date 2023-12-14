@@ -12,7 +12,7 @@ const BackLink = () => {
   const handleNavigation = () => {
     if (shouldNavigateBackParam) return router.back();
 
-    return router.push('/login');
+    return router.push('/');
   };
 
   return (
