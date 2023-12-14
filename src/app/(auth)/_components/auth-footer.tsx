@@ -8,7 +8,8 @@ const AuthFooter = ({ shouldNavigateBack }: { shouldNavigateBack?: boolean }) =>
     <div className="flex justify-center gap-5 pt-10 text-sm text-white">
       <Link href={getHrefFormatted('/terms-of-service')}>Regulamin</Link>
       <Link href={getHrefFormatted('/privacy-policy')}>Polityka prywatności</Link>
-      <Link href={getHrefFormatted('/contact')}>Kontakt</Link>
+      <Link href={getHrefFormatted('/contact')}>Kontakt</Link>{' '}
+      <Link href={getHrefFormatted('/cookies')}>Ciateczka</Link>
     </div>
   );
 };

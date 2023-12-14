@@ -12,6 +12,9 @@ const LegalPage = () => {
       <Link className="text-sm text-white" href={`/privacy-policy${shouldNavigateBackParam}`}>
         Polityka prywatności
       </Link>
+      <Link className="text-sm text-white" href={`/cookies${shouldNavigateBackParam}`}>
+        Ciasteczka
+      </Link>
     </>
   );
 };

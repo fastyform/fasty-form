@@ -12,6 +12,7 @@ const tosData = {
   'Bezpieczeństwo i odpowiedzialność za konto': [
     'Użytkownik jest odpowiedzialny za zachowanie poufności swoich danych logowania.',
     'W przypadku podejrzenia nieautoryzowanego dostępu do konta, użytkownik jest zobowiązany do niezwłocznego poinformowania o tym fakcie administracji Aplikacji.',
+    'Zalecamy regularną zmianę haseł i użycie silnych kombinacji znaków, aby zwiększyć bezpieczeństwo konta.',
   ],
 
   'Usługi i płatności': [
@@ -36,7 +37,7 @@ const tosData = {
   ],
   'Ochrona danych osobowych': [
     'Aplikacja przetwarza dane osobowe użytkowników zgodnie z obowiązującymi przepisami o ochronie danych osobowych.',
-    'Szczegóły dotyczące przetwarzania danych osobowych zawarte są w Polityce Prywatności.',
+    'Szczegółowe informacje dotyczące przetwarzania danych osobowych, w tym środków bezpieczeństwa i praw użytkownika, znajdują się w naszej Polityce Prywatności.',
   ],
   Odpowiedzialność: [
     'Właściciele nie ponoszą odpowiedzialności za działania użytkowników oraz treści przez nich przesyłanych.',
