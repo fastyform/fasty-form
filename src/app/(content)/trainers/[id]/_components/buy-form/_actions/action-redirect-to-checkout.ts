@@ -47,7 +47,7 @@ const actionRedirectToCheckout = async (
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/payment/failure?trainer_id=${trainerId}`,
+      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_id=${trainerId}`,
       locale: 'pl',
     });
 
