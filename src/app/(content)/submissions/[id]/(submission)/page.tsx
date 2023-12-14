@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
 import { notFound } from 'next/navigation';
+import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
@@ -24,7 +25,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
 
-  if (!submission.video_url) throw new Error();
+  if (!submission.video_url || !submission.trainers_details?.profile_name) throw new Error();
 
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
@@ -32,10 +33,11 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         <span className="font-bold">Ostatnia zmiana: </span>
         <span className="capitalize">{formattedUpdateDate}</span>
       </p>
-      <span className="text-base text-white lg:hidden">
-        <span>Trener: </span>
-        <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
-      </span>
+      <TrainerProfileNameLink
+        className="lg:hidden"
+        profileName={submission.trainers_details.profile_name}
+        trainerId={submission.trainer_id}
+      />
       <video
         controls
         muted
