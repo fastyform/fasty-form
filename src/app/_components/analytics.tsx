@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import Hotjar from '@hotjar/browser';
+import TagManager from 'react-gtm-module';
 
-const siteId = Number(process.env.HOTJAR_SITE_ID!);
-const hotjarVersion = 6;
 const development = process.env.NODE_ENV !== 'production';
+const tagManagerArgs = {
+  gtmId: process.env.NEXT_PUBLIC_GTM_ID!,
+};
 
 const Analytics = () => {
   useEffect(() => {
     if (!development) {
-      Hotjar.init(siteId, hotjarVersion);
+      TagManager.initialize(tagManagerArgs);
     }
   }, []);
 
