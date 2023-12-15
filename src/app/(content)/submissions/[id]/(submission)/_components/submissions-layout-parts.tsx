@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
+import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -19,12 +20,14 @@ export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: str
 
 export const SubmissionTrainerName = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
+  if (!submission.trainers_details?.profile_name) throw new Error();
 
   return (
-    <span className="hidden text-xl text-white lg:block">
-      <span>Trener: </span>
-      <span className="font-bold text-yellow-400">{submission.trainers_details?.profile_name}</span>
-    </span>
+    <TrainerProfileNameLink
+      className="hidden text-xl lg:block"
+      profileName={submission.trainers_details.profile_name}
+      trainerId={submission.trainer_id}
+    />
   );
 };
 

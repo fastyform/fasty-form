@@ -3,8 +3,7 @@ import ConsentSwitches from './_components/consent-switches';
 import cookiesData from './_utils/cookies-data';
 
 const Cookies = () => {
-  const cookieStore = cookies();
-  const cookiesConsent = cookieStore.get('cookiesConsent');
+  const cookiesConsent = cookies().get('cookiesConsent');
 
   return (
     <div className="flex flex-col gap-10 md:flex-row">

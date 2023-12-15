@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
+import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import AppLogo from '@/components/app-logo';
 import SubmissionRequirementsForm from './_components/submission-requirements-form';
 
@@ -23,10 +24,10 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
       </div>
       <div className="flex flex-col gap-5">
         <h1 className="text-2xl font-bold text-white">Szczegóły zamówienia</h1>
-        <span className="text-base text-white">
-          <span>Trener: </span>
-          <span className="font-bold text-yellow-400">{submission.trainers_details.profile_name}</span>
-        </span>
+        <TrainerProfileNameLink
+          profileName={submission.trainers_details.profile_name}
+          trainerId={submission.trainer_id}
+        />
       </div>
       <SubmissionRequirementsForm />
     </div>
