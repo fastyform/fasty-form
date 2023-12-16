@@ -1,9 +1,10 @@
+import Constants from '@/utils/constants';
 import privacyPolicyData from './_utils/privacy-policy-data';
 
 const PrivacyPolicyPage = () => (
   <>
     <h1 className="text-2xl font-bold">
-      Polityka prywatności <span className="text-yellow-400">FastyForm</span>
+      Polityka prywatności <span className="text-yellow-400">{Constants.APP_NAME}</span>
     </h1>
     {Object.entries(privacyPolicyData).map(([title, descriptionPoints], index) => (
       <div key={title} className="flex flex-col gap-5">

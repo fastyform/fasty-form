@@ -1,6 +1,8 @@
+import Constants from '@/utils/constants';
+
 const privacyPolicyData = {
   Wprowadzenie: [
-    'Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych użytkowników Aplikacji FastyForm.',
+    `Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych użytkowników Aplikacji ${Constants.APP_NAME}.`,
     'Administratorem danych jest Przemysław Paziewski i Kacper Zabielski, zwani dalej Administratorem.',
   ],
   'Zakres przetwarzanych danych': [

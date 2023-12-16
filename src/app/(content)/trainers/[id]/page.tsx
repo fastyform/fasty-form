@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { Database } from '@/utils/supabase/supabase';
@@ -67,12 +68,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
   if (!trainer || error || !trainer.profile_name)
     return {
-      title: 'Profil Trenera - FastyForm',
-      description: 'Zakup analizę wideo u trenera w FastyForm.',
+      title: `Profil Trenera - ${Constants.APP_NAME}`,
+      description: `Zakup analizę wideo u trenera w ${Constants.APP_NAME}.`,
     };
 
   return {
-    title: `Profil Trenera ${trainer.profile_name} - FastyForm`,
-    description: `Zakup analizę wideo u trenera ${trainer.profile_name} w FastyForm.`,
+    title: `Profil Trenera ${trainer.profile_name} - ${Constants.APP_NAME}`,
+    description: `Zakup analizę wideo u trenera ${trainer.profile_name} w ${Constants.APP_NAME}.`,
   };
 }

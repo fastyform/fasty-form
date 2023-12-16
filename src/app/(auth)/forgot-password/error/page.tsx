@@ -3,11 +3,11 @@ import Link from 'next/link';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
+import Constants from '@/utils/constants';
 
 export const metadata: Metadata = {
-  title: 'Błąd Resetowania Hasła - FastyForm',
-  description:
-    'Wystąpił problem z resetowaniem hasła w FastyForm. Skorzystaj z naszej pomocy, aby szybko wrócić do swojego konta',
+  title: `Błąd Resetowania Hasła - ${Constants.APP_NAME}`,
+  description: `Wystąpił problem z resetowaniem hasła w ${Constants.APP_NAME}. Skorzystaj z naszej pomocy, aby szybko wrócić do swojego konta`,
 };
 
 const ForgotPasswordErrorPage = () => (

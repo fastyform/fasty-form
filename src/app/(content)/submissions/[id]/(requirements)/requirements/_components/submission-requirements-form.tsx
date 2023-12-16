@@ -66,7 +66,7 @@ const SubmissionRequirementsForm = () => {
         minRows={5}
         placeholder="Wiadomość"
       />
-      <AppButtonSubmit isValid={formState.isValid}>Prześlij</AppButtonSubmit>
+      <AppButtonSubmit isValid={formState.isValid}>Wyślij</AppButtonSubmit>
     </form>
   );
 };
