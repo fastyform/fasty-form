@@ -2,14 +2,15 @@
 
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import ShareIcon from '@/app/(content)/trainers/[id]/_assets/share-icon';
+import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 
 const ShareProfileButton = ({ profileName }: { profileName: string }) => {
   const [, copyToClipboard] = useCopyToClipboard();
   const handleShare = async () => {
     const shareData = {
-      title: `FastyForm - Profil Trenera - ${profileName}`,
-      text: 'Zakup u mnie analizę wideo u trenera w FastyForm.',
+      title: `${Constants.APP_NAME} - Profil Trenera - ${profileName}`,
+      text: `Zakup u mnie analizę wideo u trenera w ${Constants.APP_NAME}.`,
       url: window.location.href,
     };
 

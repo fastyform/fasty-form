@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Constants from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
 import ContactForm from './_components/contact-form';
 
@@ -16,8 +17,8 @@ const ContactPage = async () => {
         <p>
           Cześć!
           <br />
-          <br /> W FastyForm ciągle dążymy do doskonałości, ale wiemy, że zawsze istnieje przestrzeń na rozwój i
-          ulepszenia. Dlatego też Twoje spostrzeżenia i opinie są dla nas niezwykle cenne!
+          <br /> W {Constants.APP_NAME} ciągle dążymy do doskonałości, ale wiemy, że zawsze istnieje przestrzeń na
+          rozwój i ulepszenia. Dlatego też Twoje spostrzeżenia i opinie są dla nas niezwykle cenne!
           <br />
           <br /> Jeśli napotkałeś jakiekolwiek błędy, problemy techniczne, czy masz jakiekolwiek sugestie, jak możemy
           poprawić naszą stronę lub usługi, prosimy o kontakt. Każda uwaga jest dla nas ważna i każdą traktujemy bardzo
@@ -57,7 +58,7 @@ const ContactPage = async () => {
           <br />
           Serdecznie,
           <br />
-          Zespół FastyForm
+          Zespół {Constants.APP_NAME}
         </p>
       </div>
     </div>

@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
 import AuthLink from '@/app/_components/auth-link';
+import Constants from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 import ForgotPasswordForm from './_components/forgot-password-form';
 
 export const metadata: Metadata = {
-  title: 'Zresetuj Hasło - FastyForm',
-  description:
-    'Zapomniałeś hasła do FastyForm? Bez obaw, łatwo zresetujesz swoje hasło, aby kontynuować korzystanie z naszych usług.',
+  title: `Zresetuj Hasło - ${Constants.APP_NAME}`,
+  description: `Zapomniałeś hasła do ${Constants.APP_NAME}? Bez obaw, łatwo zresetujesz swoje hasło, aby kontynuować korzystanie z naszych usług.`,
 };
 
 const ForgotPasswordPage = ({ searchParams }: { searchParams: SearchParams }) => (

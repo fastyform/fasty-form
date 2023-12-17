@@ -22,7 +22,7 @@ const actionRedirectToCheckout = async (
   const stripe = getStripe();
   const user = await getUserWithNull();
 
-  if (!user) return redirect(`/login?redirectUrl=/trainers/${trainerId}`);
+  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerId}`);
 
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price || !trainerDetails.stripe_price_id)
     throw new Error();
@@ -44,6 +44,7 @@ const actionRedirectToCheckout = async (
       metadata: {
         trainerId,
         userId: user.id,
+        userEmail: user.email,
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,

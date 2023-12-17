@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { actionSetCookiesConsent } from '@/app/(legal-contact)/cookies/_actions/action-set-cookies-consent';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
+import Constants from '@/utils/constants';
 
 const CookiesModal = ({ cookiesConsent }: { cookiesConsent?: RequestCookie }) => (
   <AppDialog
@@ -15,7 +16,7 @@ const CookiesModal = ({ cookiesConsent }: { cookiesConsent?: RequestCookie }) =>
   >
     <div className="flex flex-col gap-5 text-white">
       <h1 className="text-xl">
-        Zanim zaczniesz z <span className="font-bold text-yellow-400">FastyForm</span>
+        Zanim zaczniesz z <span className="font-bold text-yellow-400">{Constants.APP_NAME}</span>
       </h1>
       <div className="flex flex-col gap-2.5">
         <p className="text-sm">

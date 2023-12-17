@@ -3,14 +3,15 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { cookies } from 'next/headers';
+import Constants from '@/utils/constants';
 import Analytics from './_components/analytics';
 import CookiesModal from './_components/cookies-modal';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
 export const metadata: Metadata = {
-  title: 'FastyForm - sprawdź swoją technikę',
-  description: 'FastyForm - szybko sprawdź swoją technikę przy pomocy trenera',
+  title: `${Constants.APP_NAME} - sprawdź swoją technikę`,
+  description: `${Constants.APP_NAME} - szybko sprawdź swoją technikę przy pomocy trenera`,
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

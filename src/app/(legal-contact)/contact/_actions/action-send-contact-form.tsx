@@ -1,21 +1,13 @@
 'use server';
 
+import { render } from '@react-email/render';
 import { contactFormSchema } from '@/app/(legal-contact)/contact/_utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const nodemailer = require('nodemailer');
+import MailTemplate from '@/utils/mail/mail-template';
+import sendMail from '@/utils/mail/send-mail';
 
 const SUPPORT_MAIL = process.env.NODEMAILER_EMAIL;
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: SUPPORT_MAIL,
-    pass: process.env.NODEMAILER_PW,
-  },
-});
 
 const actionSendContactForm = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });
@@ -23,12 +15,18 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
   }
+
   try {
-    await transporter.sendMail({
-      from: formSchemaParsed.data.email,
+    await sendMail({
       to: SUPPORT_MAIL,
-      subject: 'Contact form',
-      html: formSchemaParsed.data.message,
+      subject: 'Formularz kontatkowy',
+      html: render(
+        <MailTemplate title="Formularz kontatkowy">
+          Email: {formSchemaParsed.data.email}
+          <br />
+          Wiadomość: {formSchemaParsed.data.message}
+        </MailTemplate>,
+      ),
     });
   } catch {
     return getResponse(

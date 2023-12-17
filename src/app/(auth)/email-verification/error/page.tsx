@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
 import ErrorIcon from '@/assets/error-icon';
+import Constants from '@/utils/constants';
 import ResendEmailForm from './_components/resend-email-form';
 
 export const metadata: Metadata = {
-  title: 'Błąd Weryfikacji E-mail - FastyForm',
-  description:
-    'Napotkałeś problem podczas weryfikacji e-mail? FastyForm pomoże Ci szybko rozwiązać problem. Sprawdź, co możesz zrobić',
+  title: `Błąd Weryfikacji E-mail - ${Constants.APP_NAME}`,
+  description: `Napotkałeś problem podczas weryfikacji e-mail? ${Constants.APP_NAME} pomoże Ci szybko rozwiązać problem. Sprawdź, co możesz zrobić`,
 };
 
 const EmailVerificationErrorPage = () => (

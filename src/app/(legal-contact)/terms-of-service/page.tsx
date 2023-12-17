@@ -1,9 +1,10 @@
+import Constants from '@/utils/constants';
 import tosData from './_utils/tos-data';
 
 const TermsOfServicePage = () => (
   <>
     <h1 className="text-2xl font-bold">
-      Regulamin <span className="text-yellow-400">FastyForm</span>
+      Regulamin <span className="text-yellow-400">{Constants.APP_NAME}</span>
     </h1>
 
     <div className="flex flex-col gap-5">
@@ -12,7 +13,7 @@ const TermsOfServicePage = () => (
         <strong>Właściciele:</strong> Przemysław Paziewski oraz Kacper Zabielski
       </p>
       <p>
-        <strong>Aplikacja:</strong> FastyForm
+        <strong>Aplikacja:</strong> {Constants.APP_NAME}
       </p>
     </div>
     {Object.entries(tosData).map(([title, descriptionPoints], index) => (

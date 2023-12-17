@@ -1,9 +1,23 @@
+import { render } from '@react-email/render';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { getQueryParamError } from '@/app/(auth)/_utils';
+import Constants from '@/utils/constants';
+import MailTemplate from '@/utils/mail/mail-template';
+import sendMail from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
 
+const mailTexts = {
+  client: [
+    `Witaj w ${Constants.APP_NAME}! Zadbaj o swoją technikę już dziś.`,
+    `Super, że jesteś z nami. W ${Constants.APP_NAME} czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo. Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!`,
+  ],
+  trainer: [
+    'Witamy na pokładzie, Trenerze!',
+    `Cieszymy się, że dołączyłeś do naszego zespołu w ${Constants.APP_NAME}. Twoje doświadczenie i wiedza są dla nas na wagę złota. Sprawdź, jak łatwo zarządzać zapytaniami od klientów i dzielić się swoimi ekspertskimi analizami techiniki. Jakby coś, jesteśmy tu, aby Ci pomóc. Do dzieła!`,
+  ],
+};
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
@@ -49,6 +63,14 @@ export async function GET(request: NextRequest) {
 
     return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
   }
+
+  const [title, description] = mailTexts[parsedRole];
+
+  await sendMail({
+    to: data.user.email,
+    subject: `Witaj w ${Constants.APP_NAME}!`,
+    html: render(<MailTemplate title={title}>{description}</MailTemplate>),
+  });
 
   return redirect(redirectUrl || '/submissions');
 }

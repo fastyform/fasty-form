@@ -1,18 +1,19 @@
 import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
 import AuthLink from '@/app/_components/auth-link';
+import Constants from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 import RegisterFormTrainer from './_components/register-form-trainer';
 
 export const metadata: Metadata = {
-  title: 'Rejestracja Trenera - FastyForm',
-  description: 'Zostań trenerem w FastyForm. Zarejestruj się, aby dzielić się swoją wiedzą i umiejętnościami.',
+  title: `Rejestracja Trenera - ${Constants.APP_NAME}`,
+  description: `Zostań trenerem w ${Constants.APP_NAME}. Zarejestruj się, aby dzielić się swoją wiedzą i umiejętnościami.`,
 };
 
 const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <SplitPageWithImage imageProps={{ alt: 'Ekwipunek na siłowni', src: '/trainer-register.jpg' }}>
     <div className="flex flex-col gap-2.5 text-center">
-      <span className="font-bold text-zinc-400">Witaj w FastyForm!</span>
+      <span className="font-bold text-zinc-400">Witaj w ${Constants.APP_NAME}!</span>
       <h1 className="text-2xl text-white">
         Stań się trenerem <span className="font-medium text-yellow-400">przyszłości</span>,
         <br />

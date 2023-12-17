@@ -1,7 +1,11 @@
+import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import MailTemplate from '@/utils/mail/mail-template';
+import sendMail from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import SuccessfulPaymentMailContent from './_components/successful-payment-mail-content';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -30,20 +34,35 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     try {
       const session = event.data.object;
-      if (!session.metadata || !session.metadata.userId || !session.metadata.trainerId)
+      if (!session.metadata || !session.metadata.userId || !session.metadata.trainerId || !session.metadata.userEmail)
         throw new Error('Metadata is empty');
 
       if (!session.amount_total) throw new Error();
 
-      const { error } = await supabase.from('submissions').insert({
-        price_in_grosz: session.amount_total,
-        order_id: session.id,
-        client_id: session.metadata.userId,
-        trainer_id: session.metadata.trainerId,
-        status: 'paid',
-      });
+      const { data: submission, error } = await supabase
+        .from('submissions')
+        .insert({
+          price_in_grosz: session.amount_total,
+          order_id: session.id,
+          client_id: session.metadata.userId,
+          client_email: session.metadata.userEmail,
+          trainer_id: session.metadata.trainerId,
+          status: 'paid',
+        })
+        .select('id')
+        .single();
 
-      if (error) throw new Error(error.message);
+      if (error || !submission) throw new Error(error.message);
+
+      await sendMail({
+        to: session.metadata.userEmail,
+        subject: 'Dziękujemy za zakup!',
+        html: render(
+          <MailTemplate title="Dzięki za zakup analizy! Jesteśmy gotowi na Twoje wideo.">
+            <SuccessfulPaymentMailContent submissionId={submission.id} />
+          </MailTemplate>,
+        ),
+      });
     } catch (error) {
       return NextResponse.json(
         {
