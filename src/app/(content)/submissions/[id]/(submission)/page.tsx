@@ -7,6 +7,7 @@ import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
+import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import getSubmissionById from './_utils/get-submission-by-id';
 
@@ -25,7 +26,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
 
-  if (!submission.video_url || !submission.trainers_details?.profile_name) throw new Error();
+  if (!submission.trainers_details?.profile_name) throw new Error();
 
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
@@ -38,13 +39,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         profileName={submission.trainers_details.profile_name}
         trainerId={submission.trainer_id}
       />
-      <video
-        controls
-        muted
-        className="aspect-video  rounded-xl border border-gray-600 lg:order-2 lg:h-80 xl:h-96"
-        poster={submission.thumbnail_url || undefined}
-        src={submission.video_url}
-      />
+      <SubmissionVideo submissionId={params.id} />
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         <SubmissionPartWithIcon verticalLine icon="submission">
           <h2 className="text-lg font-bold leading-5 text-white">
@@ -89,7 +84,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
 export default SubmissionPage;
 
 export async function generateStaticParams() {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
   const { data: submissions, error } = await supabase.from('submissions').select('id').neq('status', 'paid');
   if (!submissions || error) return [];
 

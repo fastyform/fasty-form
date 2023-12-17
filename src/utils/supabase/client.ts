@@ -7,11 +7,11 @@ import { Database } from './supabase';
 
 export const getSupabase = (
   options: SupabaseClientOptions<'public'> & { cookies: CookieMethods; cookieOptions?: any },
-  supabaseKey = process.env.SUPABASE_ANON_KEY!,
-) => createServerClient<Database>(process.env.SUPABASE_URL!, supabaseKey, options);
+  supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+) => createServerClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, supabaseKey, options);
 
 // NOTE: For routes and server actions
-export const getSupabaseServerClient = (supabaseKey = process.env.SUPABASE_ANON_KEY!) => {
+export const getSupabaseServerClient = (supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!) => {
   const cookieStore = cookies();
 
   return getSupabase(

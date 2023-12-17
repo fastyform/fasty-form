@@ -10,6 +10,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.470.0",
+    "@aws-sdk/s3-request-presigner": "^3.472.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.2",
@@ -23,6 +25,7 @@
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.38.3",
     "@uidotdev/usehooks": "^2.4.1",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "next": "^14.0.4",
     "nodemailer": "^6.9.7",
@@ -64,6 +67,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-sort-json": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.6",
+    "supabase": "^1.123.4",
     "tailwindcss": "^3",
     "typescript": "^5"
   }

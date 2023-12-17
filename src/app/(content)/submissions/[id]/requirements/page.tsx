@@ -29,7 +29,7 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
           trainerId={submission.trainer_id}
         />
       </div>
-      <SubmissionRequirementsForm />
+      <SubmissionRequirementsForm submissionId={params.id} />
     </div>
   );
 };
