@@ -52,7 +52,7 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
           onUploadProgress: ({ progress }) => {
             progressArray[index] = progress;
 
-            setTotalProgress(progressArray.reduce((acc, current) => acc + current, 0) / totalParts);
+            setTotalProgress(progressArray.reduce((acc, current) => acc + current * 100, 0) / totalParts);
           },
         });
       });
