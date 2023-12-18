@@ -10,7 +10,7 @@ const MailTemplate = ({ title, children }: { title: string; children: ReactNode 
         <td align="center">
           <a href={Constants.ORIGIN_URL}>
             <img
-              alt="FastForm logo"
+              alt={`${Constants.APP_NAME} logo`}
               className="h-auto w-full max-w-[300px]"
               src="https://veknudpszbrjutmcmrwk.supabase.co/storage/v1/object/public/assets/Logo.png"
             />

@@ -1,4 +1,3 @@
-This is a FastyForm (https://fastyform.com/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -16,8 +15,6 @@ supabase db pull --schema auth<br/>
 supabase db pull --schema storage<br/><br/>
 
 Copy from your terminal your envs:<br/>
-SUPABASE_URL<br/>
-SUPABASE_ANON_KEY<br/>
 NEXT_PUBLIC_SUPABASE_URL<br/>
 NEXT_PUBLIC_SUPABASE_ANON_KEY<br/>
 SUPABASE_SERVICE_ROLE_KEY<br/><br/>
@@ -46,4 +43,3 @@ If you want to do database migration (pushing local supabase changes to producti
 If you want to pull database schema from production use:<br/>
 1.supabase db pull<br/>
 2.supabase db reset<br/>
-
