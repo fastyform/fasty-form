@@ -30,7 +30,7 @@ const ProgressCircular = ({ progress }: { progress: number }) => {
           </span>
         </div>
         <p className="text-center font-bold text-white">
-          Trwa wrzucanie wideo. Pozostaw to okno otwrte do momentu zakończenia. Zamknięcie okna spowoduje przerwanie.
+          Trwa wrzucanie wideo. Pozostaw to okno otwarte do momentu zakończenia. Zamknięcie okna spowoduje przerwanie.
         </p>
       </div>
     </div>
