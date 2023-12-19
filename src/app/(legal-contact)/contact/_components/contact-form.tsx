@@ -30,13 +30,7 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
   return (
     <form action={handleFormAction} className="flex max-w-md grow flex-col items-start gap-5">
       <AppFormState state={state} />
-      <AppInputForm<ContactFormValues>
-        fullWidth
-        control={control}
-        disabled={!!userEmail}
-        fieldName="email"
-        label="Email"
-      />
+      <AppInputForm<ContactFormValues> fullWidth control={control} fieldName="email" label="Email" />
       <AppInputForm<ContactFormValues>
         fullWidth
         multiline
