@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Route } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +13,10 @@ export const SubmissionCardContainer = ({ children }: { children: ReactNode }) =
 );
 
 const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {
+  if (submissionStatus === 'paid') {
+    return 'Wyślij wideo';
+  }
+
   if (isTrainerAccount && submissionStatus === 'unreviewed') {
     return 'Oceń technikę';
   }
@@ -40,12 +45,19 @@ const SubmissionCard = async ({
       <Link className=" lg:transition-opacity lg:hover:opacity-80" href={href}>
         <div className="flex w-full flex-col items-start gap-5 rounded-xl">
           <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
-            <Image
-              fill
-              alt={`${thumbnailUrl ? 'Zdjęcie' : 'Placeholder'} zgłoszenia o id ${submissionId}`}
-              className="rounded-xl object-contain"
-              src={thumbnailUrl || '/image-placeholder.png'}
-            />
+            {submissionStatus === 'paid' ? (
+              <div className="flex h-full flex-col items-center justify-center">
+                <CloudUploadIcon className="fill-yellow-400" fontSize="large" />
+                <span className=" text-yellow-400">Wgraj wideo</span>
+              </div>
+            ) : (
+              <Image
+                fill
+                alt={`${thumbnailUrl ? 'Zdjęcie' : 'Placeholder'} zgłoszenia o id ${submissionId}`}
+                className="rounded-xl object-contain"
+                src={thumbnailUrl || '/image-placeholder.png'}
+              />
+            )}
             <StatusBadge
               className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5"
               isTrainerAccount={isTrainerAccount}

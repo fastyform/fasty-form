@@ -13,13 +13,10 @@ import AppInputForm from '@/components/app-input/app-input-form';
 import ProgressCircular from './_components/progress-circular';
 import useOnSubmit from './use-on-submit';
 
-// Add error handling
-// Add accelerator
 // Host in only specific formats
 // Check if middleware affects server actions
 // What if get object access expires?
-// Add thumbnail generation
-// Add SubmissionVideo error boundary
+// Fix video file extensions, add more
 
 interface Props {
   submissionId: string;
