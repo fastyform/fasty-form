@@ -17,6 +17,7 @@ jobs:
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,6 +32,14 @@ jobs:
         run: supabase db dump --db-url "$SUPABASE_DB_URL" -f schema.sql
       - name: Backup data
         run: supabase db dump --db-url "$SUPABASE_DB_URL" -f data.sql --data-only --use-copy
+
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        with:
+          source-directory: '.'
+          destination-repository-name: 'backups'
+          target-branch: main
+
 
       - run: supabase link --project-ref $SUPABASE_PROJECT_ID
       - run: supabase db push
