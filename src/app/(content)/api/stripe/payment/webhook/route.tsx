@@ -1,6 +1,7 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import MailTemplate from '@/utils/mail/mail-template';
 import sendMail from '@/utils/mail/send-mail';
@@ -45,17 +46,18 @@ export async function POST(req: Request) {
           price_in_grosz: session.amount_total,
           order_id: session.id,
           client_id: session.metadata.userId,
-          client_email: session.metadata.userEmail,
           trainer_id: session.metadata.trainerId,
           status: 'paid',
         })
-        .select('id')
+        .select('id, client_id')
         .single();
 
-      if (error || !submission) throw new Error(error.message);
+      if (error || !submission || !submission.client_id) throw new Error(error?.message);
+
+      const user = await getUserAsAdminById(submission.client_id);
 
       await sendMail({
-        to: session.metadata.userEmail,
+        to: user.email,
         subject: 'Dziękujemy za zakup!',
         html: render(
           <MailTemplate title="Dzięki za zakup analizy! Jesteśmy gotowi na Twoje wideo.">

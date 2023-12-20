@@ -4,6 +4,7 @@ import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
 import AddReviewMailContent from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_components/add-review-mail-conent';
 import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
+import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
 import sendMail from '@/utils/mail/send-mail';
@@ -27,15 +28,17 @@ const actionAddTrainerReview = async (
     .from('submissions')
     .update({ trainer_review: trainerReview, status: 'reviewed' })
     .eq('id', payload.submissionId)
-    .select('client_email, trainers_details (profile_name), trainer_id')
+    .select('trainers_details (profile_name), trainer_id, client_id')
     .single();
 
-  if (!error && submission && submission.client_email && submission.trainers_details && submission.trainer_id) {
+  if (!error && submission && submission.trainers_details && submission.trainer_id && submission.client_id) {
     revalidatePath(`/submissions/${payload.submissionId}`);
     revalidatePath('/submissions');
 
+    const user = await getUserAsAdminById(submission.client_id);
+
     await sendMail({
-      to: submission.client_email,
+      to: user.email,
       subject: 'Trener przeanalizował twoje wideo',
       html: render(
         <MailTemplate title="Twoja Analiza Wideo Jest Gotowa! Sprawdź, odpowiedź trenera.">
