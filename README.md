@@ -43,3 +43,5 @@ If you want to do database migration (pushing local supabase changes to producti
 If you want to pull database schema from production use:<br/>
 1.supabase db pull<br/>
 2.supabase db reset<br/>
+
+Test
