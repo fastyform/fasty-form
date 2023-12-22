@@ -1,7 +1,7 @@
-import { AbortMultipartUploadCommand, S3Client } from '@aws-sdk/client-s3';
+import { AbortMultipartUploadCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { BUCKET_NAME, S3_CLIENT_PARAMS } from '@/app/(content)/submissions/[id]/_utils';
+import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 
 const schema = z.object({
   fileName: z.string(),
@@ -9,8 +9,6 @@ const schema = z.object({
 });
 
 export const DELETE = async (request: Request) => {
-  const s3Client = new S3Client(S3_CLIENT_PARAMS);
-
   const parsedBody = schema.safeParse(await request.json());
 
   if (!parsedBody.success) {
@@ -19,7 +17,7 @@ export const DELETE = async (request: Request) => {
 
   await s3Client.send(
     new AbortMultipartUploadCommand({
-      Bucket: BUCKET_NAME,
+      Bucket: BUCKET_NAME_UNPROCESSED,
       Key: parsedBody.data.fileName,
       UploadId: parsedBody.data.uploadId,
     }),

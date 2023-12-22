@@ -1,8 +1,8 @@
 'use server';
 
-import { CreateMultipartUploadCommand, S3Client, UploadPartCommand } from '@aws-sdk/client-s3';
+import { CreateMultipartUploadCommand, UploadPartCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { BUCKET_NAME, S3_CLIENT_PARAMS } from '@/app/(content)/submissions/[id]/_utils';
+import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 
 interface Payload {
   fileName: string;
@@ -15,10 +15,9 @@ const actionGetUploadParts = async (payload: Payload) => {
   const Key = payload.fileName;
 
   // Initiate multipart upload
-  const s3Client = new S3Client(S3_CLIENT_PARAMS);
   const createUploadResponse = await s3Client.send(
     new CreateMultipartUploadCommand({
-      Bucket: BUCKET_NAME,
+      Bucket: BUCKET_NAME_UNPROCESSED,
       Key,
     }),
   );
@@ -27,7 +26,7 @@ const actionGetUploadParts = async (payload: Payload) => {
   const presignedUrlPromises = [...Array(payload.totalParts).keys()].map((partIndex) => {
     const partNumber = partIndex + 1;
     const uploadPartCommand = new UploadPartCommand({
-      Bucket: BUCKET_NAME,
+      Bucket: BUCKET_NAME_UNPROCESSED,
       Key,
       PartNumber: partNumber,
       UploadId: createUploadResponse.UploadId,

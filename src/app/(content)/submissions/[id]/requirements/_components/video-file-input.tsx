@@ -5,11 +5,11 @@ import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import ErrorIcon from '@/assets/error-icon';
 
-const MAX_FILE_SIZE_IN_BYTES = 104857600; // 100 MB
+const MAX_FILE_SIZE_IN_BYTES = 104857600 * 2; // 200 MB
 
 const ERROR_MESSAGES: { [key: string]: string } = {
-  'file-invalid-type': 'Plik musi być plikiem wideo w formacie .mp4 lub .webm',
-  'file-too-large': 'Maksymalna wielkość pliku wideo to 100 MB.',
+  'file-invalid-type': 'Plik musi być plikiem wideo w formacie .mp4, .webm lub .mov.',
+  'file-too-large': 'Maksymalna wielkość pliku wideo to 200 MB.',
 };
 
 interface Props {
@@ -26,6 +26,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
     accept: {
       'video/mp4': ['.mp4'],
       'video/webm': ['.webm'],
+      'video/quicktime': ['.mov', '.qt'],
     },
     onDropAccepted: async ([acceptedFile]) => {
       const video = document.createElement('video');

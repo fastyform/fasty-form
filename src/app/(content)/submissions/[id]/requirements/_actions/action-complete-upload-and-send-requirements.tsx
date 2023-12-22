@@ -1,21 +1,16 @@
 'use server';
 
-import {
-  CompletedPart,
-  CompleteMultipartUploadCommand,
-  CompleteMultipartUploadRequest,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { CompletedPart, CompleteMultipartUploadCommand, CompleteMultipartUploadRequest } from '@aws-sdk/client-s3';
 import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { BUCKET_NAME, S3_CLIENT_PARAMS } from '@/app/(content)/submissions/[id]/_utils';
 import RequirementsSentMailContent from '@/app/(content)/submissions/[id]/requirements/_components/requirements-sent-mail-content';
 import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/requirements/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
 import sendMail from '@/utils/mail/send-mail';
+import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {
@@ -34,11 +29,9 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
   const { data: session, error: sessionError } = await supabase.auth.getSession();
   if (sessionError || !session.session) throw new Error();
 
-  const s3Client = new S3Client(S3_CLIENT_PARAMS);
-
   const completeMultipartUploadResponse = await s3Client.send(
     new CompleteMultipartUploadCommand({
-      Bucket: BUCKET_NAME,
+      Bucket: BUCKET_NAME_UNPROCESSED,
       Key: fileName,
       UploadId: uploadId,
       MultipartUpload: { Parts: parts },
