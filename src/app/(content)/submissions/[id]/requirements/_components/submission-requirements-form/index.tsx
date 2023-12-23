@@ -13,10 +13,14 @@ import AppInputForm from '@/components/app-input/app-input-form';
 import ProgressCircular from './_components/progress-circular';
 import useOnSubmit from './use-on-submit';
 
-// Host in only specific formats
 // Check if middleware affects server actions
-// What if get object access expires?
-// Fix video file extensions, add more
+// Videos with qt and mov should work and if extension doesn't work it should have appropriate fallback
+// Set max file size on backend
+// sanitize file name to prevent XSS
+// delete unprocessed files after certain period of time
+// optimize ffmpeg in lambda for best quality/performance/cost ratio
+// generate thumbnail in lambda or in client side - it should be generated fast
+// add tips for video uploads
 
 interface Props {
   submissionId: string;
@@ -45,11 +49,9 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <div className="aspect-video w-full">
-                <video
-                  className="aspect-video rounded-xl border border-gray-600"
-                  controls={!isLoading}
-                  src={videoSrc}
-                />
+                <video className="aspect-video rounded-xl border border-gray-600" controls={!isLoading} src={videoSrc}>
+                  Plik wideo nie jest wspierany przez Twoją przeglądarkę. Wspierane pliki to .mp4, .webm, .mov.
+                </video>
               </div>
               <AppButton
                 classes={{ root: 'py-2 bg-transparent' }}
