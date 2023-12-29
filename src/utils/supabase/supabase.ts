@@ -53,7 +53,6 @@ export interface Database {
       submissions: {
         Row: {
           client_description: string | null;
-          client_email: string | null;
           client_id: string | null;
           created_at: string;
           id: string;
@@ -67,7 +66,6 @@ export interface Database {
         };
         Insert: {
           client_description?: string | null;
-          client_email?: string | null;
           client_id?: string | null;
           created_at?: string;
           id?: string;
@@ -81,7 +79,6 @@ export interface Database {
         };
         Update: {
           client_description?: string | null;
-          client_email?: string | null;
           client_id?: string | null;
           created_at?: string;
           id?: string;
