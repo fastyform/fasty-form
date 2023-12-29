@@ -13,11 +13,6 @@ import AppInputForm from '@/components/app-input/app-input-form';
 import ProgressCircular from './_components/progress-circular';
 import useOnSubmit from './use-on-submit';
 
-// Check if middleware affects server actions
-// optimize ffmpeg in lambda for best quality/performance/cost ratio
-// add tips for video uploads
-// optimize get presignedUrls for cache components cache same as expiration time
-
 interface Props {
   submissionId: string;
 }
