@@ -1,11 +1,10 @@
 import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
+import { removeFileExtension } from '@/utils';
 import s3Client, { BUCKET_NAME_PROCESSED, BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 
 const VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
-
-const removeFileExtension = (fileName: string) => fileName.split('.').slice(0, -1).join('.');
 
 const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
@@ -38,7 +37,6 @@ const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
     <video
       controls
       className="aspect-video rounded-xl border border-gray-600 lg:order-2 lg:h-80 xl:h-96"
-      poster={submission.thumbnail_url || undefined}
       src={videoUrl}
     />
   );

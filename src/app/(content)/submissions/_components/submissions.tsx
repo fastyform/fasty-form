@@ -23,7 +23,7 @@ const Submissions = async ({
 
   let query = supabase
     .from('submissions')
-    .select('id, status, thumbnail_url, trainers_details (profile_name)')
+    .select('id, status, video_key, trainers_details (profile_name)')
     .order('created_at', { ascending: false });
 
   if (isTrainerAccount) {
@@ -67,7 +67,7 @@ const Submissions = async ({
   return (
     <SubmissionsGridWrapper>
       {!!submissions &&
-        submissions.map(({ id, trainers_details, status, thumbnail_url }) => {
+        submissions.map(({ id, trainers_details, status, video_key }) => {
           if (!trainers_details || !trainers_details.profile_name) return;
 
           return (
@@ -75,8 +75,8 @@ const Submissions = async ({
               key={id}
               submissionId={id}
               submissionStatus={status}
-              thumbnailUrl={thumbnail_url}
               trainerProfileName={trainers_details.profile_name}
+              videoKey={video_key}
             />
           );
         })}

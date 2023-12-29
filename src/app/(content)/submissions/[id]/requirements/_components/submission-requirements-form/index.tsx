@@ -13,15 +13,6 @@ import AppInputForm from '@/components/app-input/app-input-form';
 import ProgressCircular from './_components/progress-circular';
 import useOnSubmit from './use-on-submit';
 
-// Check if middleware affects server actions
-// Videos with qt and mov should work and if extension doesn't work it should have appropriate fallback
-// Set max file size on backend
-// sanitize file name to prevent XSS
-// delete unprocessed files after certain period of time
-// optimize ffmpeg in lambda for best quality/performance/cost ratio
-// generate thumbnail in lambda or in client side - it should be generated fast
-// add tips for video uploads
-
 interface Props {
   submissionId: string;
 }
@@ -43,7 +34,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
 
   return (
     <>
-      {/* // NOTE: This textarea size is hardcoded because of the jumping form bug on first render */}
+      {/* NOTE: This textarea size is hardcoded because of the jumping form bug on first render */}
       <form className="flex flex-col gap-5 [&_textarea]:!h-[115px]" onSubmit={handleSubmit(onSubmit)}>
         {videoSrc ? (
           <div className="flex flex-col gap-2">
