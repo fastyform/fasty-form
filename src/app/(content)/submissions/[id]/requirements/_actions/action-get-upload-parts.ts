@@ -14,6 +14,11 @@ const UPLOAD_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
 const actionGetUploadParts = async (payload: Payload) => {
   const Key = payload.fileName;
 
+  if (payload.totalParts > 40) {
+    // 40 parts by 5MB = 200MB - max file size
+    throw new Error('Max file size is 200MB');
+  }
+
   // Initiate multipart upload
   const createUploadResponse = await s3Client.send(
     new CreateMultipartUploadCommand({

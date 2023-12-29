@@ -2,6 +2,7 @@ import { S3Client } from '@aws-sdk/client-s3';
 
 export const BUCKET_NAME_UNPROCESSED = process.env.S3_BUCKET_NAME_UNPROCESSED!;
 export const BUCKET_NAME_PROCESSED = process.env.S3_BUCKET_NAME_PROCESSED!;
+export const BUCKET_NAME_THUMBNAILS = process.env.S3_BUCKET_NAME_THUMBNAILS!;
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
 

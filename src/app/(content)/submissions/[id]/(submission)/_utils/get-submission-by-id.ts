@@ -6,7 +6,7 @@ const getSubmissionById = async (submissionId: string) => {
   const { data: submission, error } = await supabase
     .from('submissions')
     .select(
-      'status, thumbnail_url, trainers_details (profile_name), updated_at, video_key, client_description, trainer_review, trainer_id',
+      'status, trainers_details (profile_name), updated_at, video_key, client_description, trainer_review, trainer_id',
     )
     .eq('id', submissionId)
     .single();

@@ -60,7 +60,6 @@ export interface Database {
           order_id: string;
           price_in_grosz: number;
           status: Database['public']['Enums']['status'];
-          thumbnail_url: string | null;
           trainer_id: string;
           trainer_review: string | null;
           updated_at: string;
@@ -75,7 +74,6 @@ export interface Database {
           order_id: string;
           price_in_grosz: number;
           status?: Database['public']['Enums']['status'];
-          thumbnail_url?: string | null;
           trainer_id: string;
           trainer_review?: string | null;
           updated_at?: string;
@@ -90,7 +88,6 @@ export interface Database {
           order_id?: string;
           price_in_grosz?: number;
           status?: Database['public']['Enums']['status'];
-          thumbnail_url?: string | null;
           trainer_id?: string;
           trainer_review?: string | null;
           updated_at?: string;
