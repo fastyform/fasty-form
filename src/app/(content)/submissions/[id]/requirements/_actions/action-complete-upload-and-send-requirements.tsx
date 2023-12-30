@@ -42,7 +42,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
     .from('submissions')
     .update({
       video_key: completeMultipartUploadResponse.Key,
-      client_description: clientDescription,
+      client_description: clientDescription || null,
       status: 'unreviewed',
     })
     .eq('id', submissionId)

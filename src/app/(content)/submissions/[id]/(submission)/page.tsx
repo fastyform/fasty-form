@@ -41,12 +41,14 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
       />
       <SubmissionVideo submissionId={params.id} />
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
-        <SubmissionPartWithIcon verticalLine icon="submission">
-          <h2 className="text-lg font-bold leading-5 text-white">
-            {isTrainerAccount ? 'Zgłoszenie klienta' : 'Twoje zgłoszenie'}
-          </h2>
-          <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
-        </SubmissionPartWithIcon>
+        {!!submission.client_description && (
+          <SubmissionPartWithIcon verticalLine icon="submission">
+            <h2 className="text-lg font-bold leading-5 text-white">
+              {isTrainerAccount ? 'Zgłoszenie klienta' : 'Twoje zgłoszenie'}
+            </h2>
+            <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
+          </SubmissionPartWithIcon>
+        )}
 
         {(submission.status === 'reviewed' || submission.status === 'paidout') && (
           <>
