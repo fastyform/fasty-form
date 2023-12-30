@@ -14,7 +14,7 @@ const SubmissionCardImageThumbnail = ({ src }: { src: string }) => {
     // eslint-disable-next-line @next/next/no-img-element
     <img
       alt="Miniaturka zgłoszenia wideo"
-      className="absolute	inset-0 h-full w-full rounded-xl bg-[#0D1116] object-contain"
+      className="absolute inset-0	h-full w-full object-contain"
       src={src}
       onError={() => setIsError(true)}
     />
