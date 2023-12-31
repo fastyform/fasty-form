@@ -1,7 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
-import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
+import { editProfileSchema } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
@@ -18,7 +18,7 @@ interface Payload {
 const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Payload) => {
   try {
     const stripe = getStripe();
-    const formSchemaParsed = trainerDetailsSchema.parse({
+    const formSchemaParsed = editProfileSchema.parse({
       servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
       profileName: data.get('profileName'),
     });

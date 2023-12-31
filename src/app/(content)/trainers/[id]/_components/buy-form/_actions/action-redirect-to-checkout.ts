@@ -2,27 +2,27 @@
 
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import getTrainerDetailsBySlug from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-slug';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
-import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const actionRedirectToCheckout = async (
   prevState: FormState,
-  payload: { trainerId: string; isTrainerAccount: boolean },
+  payload: { trainerProfileSlug: string; isTrainerAccount: boolean },
 ) => {
   const headersList = headers();
-  const { trainerId, isTrainerAccount } = payload;
+  const { trainerProfileSlug, isTrainerAccount } = payload;
   if (isTrainerAccount) getResponse(Constants.COMMON_ERROR_MESSAGE);
 
   let redirectUrl: string;
-  const trainerDetails = await getTrainerDetailsById(trainerId);
+  const trainerDetails = await getTrainerDetailsBySlug(trainerProfileSlug);
   const stripe = getStripe();
   const user = await getUserWithNull();
 
-  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerId}`);
+  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerProfileSlug}`);
 
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price || !trainerDetails.stripe_price_id)
     throw new Error();
@@ -42,13 +42,14 @@ const actionRedirectToCheckout = async (
         on_behalf_of: trainerDetails.stripe_account_id,
       },
       metadata: {
-        trainerId,
+        trainerId: trainerDetails.user_id,
         userId: user.id,
         userEmail: user.email,
+        trainerProfileSlug,
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_id=${trainerId}`,
+      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${trainerProfileSlug}`,
       locale: 'pl',
     });
 

@@ -3,18 +3,18 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import getTrainerDetailsBySlug from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-slug';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
-import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { Database } from '@/utils/supabase/supabase';
 import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 
 const TrainerPage = async ({ params }: { params: { id: string } }) => {
-  const trainerDetails = await getTrainerDetailsById(params.id);
+  const trainerDetails = await getTrainerDetailsBySlug(params.id);
   const user = await getUserWithNull();
-  const isUserOwner = await checkIsTrainerProfileOwner(user, params.id);
+  const isUserOwner = await checkIsTrainerProfileOwner(user, trainerDetails.user_id);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
@@ -37,7 +37,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={params.id} />
+        <BuyForm isTrainerAccount={isTrainerAccount} trainerProfileSlug={params.id} />
       </div>
     </div>
   );
@@ -52,13 +52,12 @@ export async function generateStaticParams() {
   );
   const { data: trainers, error } = await supabase
     .from('trainers_details')
-    .select('user_id')
-    .eq('is_onboarded', true)
-    .eq('is_onboarded_stripe', true);
+    .select('profile_slug')
+    .eq('is_onboarded', true);
 
   if (!trainers || error) return [];
 
-  return trainers.map((trainer) => ({ id: trainer.user_id }));
+  return trainers.map((trainer) => ({ id: trainer.profile_slug }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {

@@ -16,14 +16,14 @@ const TrainerPageLayout = async ({
   <section className="relative flex w-full flex-col justify-between py-5 lg:h-auto">
     <Suspense>
       <div className="absolute left-0 top-0 hidden gap-2.5 lg:flex">
-        <ActionButtonsProfile trainerId={params.id} />
+        <ActionButtonsProfile trainerProfileSlug={params.id} />
       </div>
     </Suspense>
     <div className="relative z-30 flex justify-between lg:hidden">
       <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
       <Suspense>
         <div className="flex-gap flex gap-2.5 lg:hidden">
-          <ActionButtonsProfile trainerId={params.id} />
+          <ActionButtonsProfile trainerProfileSlug={params.id} />
         </div>
       </Suspense>
     </div>

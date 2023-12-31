@@ -51,7 +51,7 @@ const CropperDialog = ({
         />
         <div>
           <div>
-            <span className="text-sm text-white">Zoom</span>
+            <span className="text-sm text-white">Przybliżenie</span>
             <FileUploadSlider
               aria-labelledby="Przybliż"
               max={3}
@@ -62,7 +62,7 @@ const CropperDialog = ({
             />
           </div>
           <div>
-            <span className="text-sm text-white">Rotation</span>
+            <span className="text-sm text-white">Rotacja</span>
             <FileUploadSlider
               aria-labelledby="Rotacja"
               max={360}

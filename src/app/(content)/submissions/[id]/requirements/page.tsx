@@ -12,8 +12,8 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
     return redirect(`/submissions/${params.id}`);
   }
 
-  if (!submission.trainers_details?.profile_name) {
-    throw new Error('Trainer profile name is missing');
+  if (!submission.trainers_details?.profile_name || !submission.trainers_details?.profile_slug) {
+    throw new Error('Trainer profile name or slug is missing');
   }
 
   return (
@@ -24,13 +24,10 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
       </div>
       <div className="flex flex-col gap-5">
         <h1 className="text-2xl font-bold text-white">Szczegóły zamówienia</h1>
-        <span className="text-white">
-          Analiza techniki -{' '}
-          <TrainerProfileNameLink
-            profileName={submission.trainers_details.profile_name}
-            trainerId={submission.trainer_id}
-          />
-        </span>
+        <TrainerProfileNameLink
+          profileName={submission.trainers_details.profile_name}
+          trainerProfileSlug={submission.trainers_details.profile_slug}
+        />
       </div>
       <SubmissionRequirementsForm submissionId={params.id} />
     </div>

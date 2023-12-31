@@ -2,17 +2,18 @@ import Constants from '@/utils/constants';
 
 const AddReviewMailContent = ({
   profileName,
-  trainerId,
+  trainerProfileSlug,
   submissionId,
 }: {
   profileName: string | null;
-  trainerId: string;
+  trainerProfileSlug: string;
   submissionId: string;
 }) => (
   <>
     Mamy świetne wieści - Twoja analiza wideo od{' '}
-    <a href={`${Constants.ORIGIN_URL}/trainers/${trainerId}`}>{profileName}</a> jest już gotowa! Trener przyjrzał się
-    dokładnie Twojemu nagraniu i ma kilka cennych wskazówek, które pomogą Ci doskonalić Twoje umiejętności.
+    <a href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</a> jest już gotowa! Trener
+    przyjrzał się dokładnie Twojemu nagraniu i ma kilka cennych wskazówek, które pomogą Ci doskonalić Twoje
+    umiejętności.
     <br />
     <br />
     Aby zobaczyć analizę <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</a>, albo

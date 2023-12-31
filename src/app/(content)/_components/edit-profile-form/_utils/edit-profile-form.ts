@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-export type TrainerDetailsValues = z.infer<typeof trainerDetailsSchema>;
+export type EditProfileValues = z.infer<typeof editProfileSchema>;
 
-export const trainerDetailsSchema = z.object({
+export const editProfileSchema = z.object({
   servicePrice: z.number().min(1).max(10000),
   profileName: z
-    .string()
+    .string({ required_error: 'Wprowadź nazwę profilu.' })
     .min(1, 'Wprowadź nazwę profilu.')
     .max(50, 'Nazwa profilu może zawierać maksymalnie 50 znaków.'),
 });

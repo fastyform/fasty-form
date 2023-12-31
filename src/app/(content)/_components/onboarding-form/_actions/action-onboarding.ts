@@ -1,16 +1,17 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { trainerDetailsSchema } from '@/app/(content)/_utils/trainer-details-form';
+import { onboardingFormSchema } from '@/app/(content)/_components/onboarding-form/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionOnBoarding = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = trainerDetailsSchema.safeParse({
+  const formSchemaParsed = onboardingFormSchema.safeParse({
     servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
     profileName: data.get('profileName'),
+    profileSlug: data.get('profileSlug'),
   });
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
@@ -24,15 +25,17 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
 
   const userId = session.session.user.id;
 
-  const { servicePrice, profileName } = formSchemaParsed.data;
+  const { servicePrice, profileName, profileSlug } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
-    .update({ service_price: servicePrice, profile_name: profileName, is_onboarded: true })
+    .update({ service_price: servicePrice, profile_name: profileName, profile_slug: profileSlug, is_onboarded: true })
     .eq('user_id', userId);
 
   if (!error) {
-    return redirect(`/trainers/${userId}`);
+    return redirect(`/trainers/${profileSlug}`);
   }
+
+  if (error.code === '23505') return getResponse('Twój link do profilu nie jest unikalny. Spróbuj inny.');
 
   return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };
