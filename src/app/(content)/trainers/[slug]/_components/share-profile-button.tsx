@@ -1,7 +1,7 @@
 'use client';
 
 import { useCopyToClipboard } from '@uidotdev/usehooks';
-import ShareIcon from '@/app/(content)/trainers/[id]/_assets/share-icon';
+import ShareIcon from '@/app/(content)/trainers/[slug]/_assets/share-icon';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 

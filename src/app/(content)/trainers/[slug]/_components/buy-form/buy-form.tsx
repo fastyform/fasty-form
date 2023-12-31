@@ -41,13 +41,7 @@ const SubmitButton = ({ disabled, ...props }: ButtonHTMLAttributes<HTMLButtonEle
   );
 };
 
-const BuyForm = ({
-  trainerProfileSlug,
-  isTrainerAccount,
-}: {
-  trainerProfileSlug: string;
-  isTrainerAccount: boolean;
-}) => {
+const BuyForm = ({ trainerId, isTrainerAccount }: { trainerId: string; isTrainerAccount: boolean }) => {
   const [state, formAction] = useFormState(actionRedirectToCheckout, formDefaultState);
 
   useEffect(() => {
@@ -59,7 +53,7 @@ const BuyForm = ({
   }, [state, state?.isSuccess, state?.message]);
 
   return (
-    <form action={() => formAction({ trainerProfileSlug, isTrainerAccount })} className="w-full max-w-sm">
+    <form action={() => formAction({ trainerId, isTrainerAccount })} className="w-full max-w-sm">
       <SubmitButton disabled={isTrainerAccount} />
     </form>
   );

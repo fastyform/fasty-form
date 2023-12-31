@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import EditIcon from '@/app/(content)/trainers/[id]/_assets/edit-icon';
-import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[id]/_utils/check-is-trainer-profile-owner';
-import getTrainerDetailsBySlug from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-slug';
+import EditIcon from '@/app/(content)/trainers/[slug]/_assets/edit-icon';
+import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import ShareProfileButton from './share-profile-button';
 
@@ -16,16 +16,16 @@ const EditProfileButton = async ({ trainerProfileSlug }: { trainerProfileSlug: s
   </Link>
 );
 
-const ActionButtonsProfile = async ({ trainerProfileSlug }: { trainerProfileSlug: string }) => {
+const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
   const user = await getUserWithNull();
-  const trainerDetails = await getTrainerDetailsBySlug(trainerProfileSlug);
-  const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerDetails.user_id);
+  const trainerDetails = await getTrainerDetailsById(trainerId);
+  const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerId);
 
-  if (!isTrainerOwner || !trainerDetails.profile_name) return;
+  if (!isTrainerOwner || !trainerDetails.profile_name || !trainerDetails.profile_slug) return;
 
   return (
     <>
-      <EditProfileButton trainerProfileSlug={trainerProfileSlug} />
+      <EditProfileButton trainerProfileSlug={trainerDetails.profile_slug} />
       {trainerDetails.is_onboarded && trainerDetails.is_onboarded_stripe && (
         <ShareProfileButton profileName={trainerDetails.profile_name} />
       )}

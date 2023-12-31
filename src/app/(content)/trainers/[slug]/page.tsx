@@ -3,18 +3,20 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import getTrainerDetailsBySlug from '@/app/(content)/trainers/[id]/_utils/get-trainer-details-by-slug';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
+import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { Database } from '@/utils/supabase/supabase';
 import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
+import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
-const TrainerPage = async ({ params }: { params: { id: string } }) => {
-  const trainerDetails = await getTrainerDetailsBySlug(params.id);
+const TrainerPage = async ({ params }: { params: { slug: string } }) => {
+  const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
+  const trainerDetails = await getTrainerDetailsById(trainerId);
   const user = await getUserWithNull();
-  const isUserOwner = await checkIsTrainerProfileOwner(user, trainerDetails.user_id);
+  const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
@@ -37,7 +39,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <BuyForm isTrainerAccount={isTrainerAccount} trainerProfileSlug={params.id} />
+        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
       </div>
     </div>
   );

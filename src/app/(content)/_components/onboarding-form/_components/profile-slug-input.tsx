@@ -59,6 +59,9 @@ const ProfileSlugInput = ({
   return (
     <div className="flex flex-col gap-2.5 ">
       <span className="text-white">Link do profilu</span>
+      <span className="text-xs text-white">
+        Pamiętaj, że Twój link do profilu jest trwały i niezmienialny. Wybierz mądrze!
+      </span>
       <AppInputForm<OnboardingFormValues> control={control} fieldName="profileSlug" />
     </div>
   );
