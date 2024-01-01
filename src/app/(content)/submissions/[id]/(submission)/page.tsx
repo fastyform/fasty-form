@@ -1,8 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -16,11 +15,13 @@ dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const user = await getUserFromSession();
-  const isTrainerAccount = await checkIsTrainerAccount(user.id);
-  const submission = await getSubmissionById(params.id);
+  const [isTrainerAccount, submission] = await Promise.all([
+    checkIsTrainerAccount(user.id),
+    getSubmissionById(params.id),
+  ]);
 
   if (submission.status === 'paid') {
-    notFound();
+    return redirect(`/submissions/${params.id}/requirements`);
   }
 
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
@@ -84,11 +85,3 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
 };
 
 export default SubmissionPage;
-
-export async function generateStaticParams() {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
-  const { data: submissions, error } = await supabase.from('submissions').select('id').neq('status', 'paid');
-  if (!submissions || error) return [];
-
-  return submissions;
-}

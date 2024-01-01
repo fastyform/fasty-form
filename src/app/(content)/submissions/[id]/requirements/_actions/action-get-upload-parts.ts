@@ -2,6 +2,8 @@
 
 import { CreateMultipartUploadCommand, UploadPartCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 
 interface Payload {
@@ -12,6 +14,13 @@ interface Payload {
 const UPLOAD_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
 
 const actionGetUploadParts = async (payload: Payload) => {
+  const user = await getUserFromSession();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
+
+  if (isTrainerAccount) {
+    throw new Error('Trainer account cannot upload videos');
+  }
+
   const Key = payload.fileName;
 
   if (payload.totalParts > 40) {

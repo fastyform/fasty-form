@@ -1,3 +1,4 @@
+import 'server-only';
 import { S3Client } from '@aws-sdk/client-s3';
 
 export const BUCKET_NAME_UNPROCESSED = process.env.S3_BUCKET_NAME_UNPROCESSED!;
