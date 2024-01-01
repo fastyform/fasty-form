@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import RequirementsSentMailContent from '@/app/(content)/submissions/[id]/requirements/_components/requirements-sent-mail-content';
 import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/requirements/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
 import sendMail from '@/utils/mail/send-mail';
@@ -28,6 +29,12 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
   const supabase = getSupabaseServerClient();
   const { data: session, error: sessionError } = await supabase.auth.getSession();
   if (sessionError || !session.session) throw new Error();
+
+  const isTrainerAccount = await checkIsTrainerAccount(session.session.user.id);
+
+  if (isTrainerAccount) {
+    throw new Error('Trainer account cannot upload videos');
+  }
 
   const completeMultipartUploadResponse = await s3Client.send(
     new CompleteMultipartUploadCommand({

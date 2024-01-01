@@ -14,8 +14,7 @@ import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
 const TrainerPage = async ({ params }: { params: { slug: string } }) => {
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
-  const trainerDetails = await getTrainerDetailsById(trainerId);
-  const user = await getUserWithNull();
+  const [trainerDetails, user] = await Promise.all([getTrainerDetailsById(trainerId), getUserWithNull()]);
   const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
@@ -47,21 +46,6 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
 
 export default TrainerPage;
 
-export async function generateStaticParams() {
-  const supabase = createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
-  const { data: trainers, error } = await supabase
-    .from('trainers_details')
-    .select('profile_slug')
-    .eq('is_onboarded', true);
-
-  if (!trainers || error) return [];
-
-  return trainers.map((trainer) => ({ slug: trainer.profile_slug }));
-}
-
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -70,7 +54,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const { data: trainer, error } = await supabase
     .from('trainers_details')
     .select('profile_name')
-    .eq('user_id', params.slug)
+    .eq('profile_slug', params.slug)
     .single();
 
   if (!trainer || error || !trainer.profile_name)

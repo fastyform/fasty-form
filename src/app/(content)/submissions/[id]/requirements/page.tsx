@@ -3,13 +3,22 @@ import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/m
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import AppLogo from '@/components/app-logo';
+import { triggerRootNotFound } from '@/utils';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getUserFromSession from '@/utils/get-user-from-session';
 import SubmissionRequirementsForm from './_components/submission-requirements-form';
 
 const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }) => {
-  const submission = await getSubmissionById(params.id);
+  const [user, submission] = await Promise.all([getUserFromSession(), getSubmissionById(params.id)]);
 
   if (submission.status !== 'paid') {
     return redirect(`/submissions/${params.id}`);
+  }
+
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
+
+  if (isTrainerAccount) {
+    return triggerRootNotFound();
   }
 
   if (!submission.trainers_details?.profile_name || !submission.trainers_details?.profile_slug) {

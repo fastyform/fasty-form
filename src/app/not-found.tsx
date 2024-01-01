@@ -1,12 +1,10 @@
 import Link from 'next/link';
 import AppButton from '@/components/app-button';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import getUserWithNull from '@/utils/get-user-with-null';
 
 const NotFoundPage = async () => {
-  const supabase = getSupabaseServerComponentClient();
-  const { data } = await supabase.auth.getSession();
-
-  const isLoggedIn = !!data.session;
+  const user = await getUserWithNull();
+  const isLoggedIn = !!user;
 
   return (
     <div className="bg-custom-radial min-h-screen-responsive flex  items-center justify-center p-5 text-white">

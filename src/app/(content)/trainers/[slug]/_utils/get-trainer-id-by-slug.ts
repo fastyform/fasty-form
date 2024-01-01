@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 
 const getTrainerIdBySlug = async (trainerProfileSlug: string) => {
@@ -9,7 +10,11 @@ const getTrainerIdBySlug = async (trainerProfileSlug: string) => {
     .eq('profile_slug', trainerProfileSlug)
     .single();
 
-  if (!trainerDetails || error) throw new Error();
+  if (!trainerDetails) {
+    notFound();
+  }
+
+  if (error) throw new Error();
 
   return trainerDetails;
 };
