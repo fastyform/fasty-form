@@ -112,6 +112,7 @@ export interface Database {
           is_onboarded_stripe: boolean;
           profile_image_url: string | null;
           profile_name: string | null;
+          profile_slug: string | null;
           service_price: number | null;
           stripe_account_id: string | null;
           stripe_price_id: string | null;
@@ -123,6 +124,7 @@ export interface Database {
           is_onboarded_stripe?: boolean;
           profile_image_url?: string | null;
           profile_name?: string | null;
+          profile_slug?: string | null;
           service_price?: number | null;
           stripe_account_id?: string | null;
           stripe_price_id?: string | null;
@@ -134,6 +136,7 @@ export interface Database {
           is_onboarded_stripe?: boolean;
           profile_image_url?: string | null;
           profile_name?: string | null;
+          profile_slug?: string | null;
           service_price?: number | null;
           stripe_account_id?: string | null;
           stripe_price_id?: string | null;

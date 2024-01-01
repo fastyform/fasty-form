@@ -28,10 +28,16 @@ const actionAddTrainerReview = async (
     .from('submissions')
     .update({ trainer_review: trainerReview, status: 'reviewed' })
     .eq('id', payload.submissionId)
-    .select('trainers_details (profile_name), trainer_id, client_id')
+    .select('trainers_details (profile_name, profile_slug), client_id')
     .single();
 
-  if (!error && submission && submission.trainers_details && submission.trainer_id && submission.client_id) {
+  if (
+    !error &&
+    submission &&
+    submission.trainers_details &&
+    submission.client_id &&
+    submission.trainers_details.profile_slug
+  ) {
     revalidatePath(`/submissions/${payload.submissionId}`);
     revalidatePath('/submissions');
 
@@ -45,7 +51,7 @@ const actionAddTrainerReview = async (
           <AddReviewMailContent
             profileName={submission.trainers_details.profile_name}
             submissionId={payload.submissionId}
-            trainerId={submission.trainer_id}
+            trainerProfileSlug={submission.trainers_details.profile_slug}
           />
         </MailTemplate>,
       ),

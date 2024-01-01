@@ -22,10 +22,15 @@ const actionRedirectToCheckout = async (
   const stripe = getStripe();
   const user = await getUserWithNull();
 
-  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerId}`);
-
-  if (!trainerDetails.stripe_account_id || !trainerDetails.service_price || !trainerDetails.stripe_price_id)
+  if (
+    !trainerDetails.stripe_account_id ||
+    !trainerDetails.service_price ||
+    !trainerDetails.stripe_price_id ||
+    !trainerDetails.profile_slug
+  )
     throw new Error();
+
+  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}`);
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -45,10 +50,13 @@ const actionRedirectToCheckout = async (
         trainerId,
         userId: user.id,
         userEmail: user.email,
+        trainerProfileSlug: trainerDetails.profile_slug,
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_id=${trainerId}`,
+      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${
+        trainerDetails.profile_slug
+      }`,
       locale: 'pl',
     });
 

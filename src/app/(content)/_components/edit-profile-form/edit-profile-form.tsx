@@ -6,7 +6,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { trainerDetailsSchema, TrainerDetailsValues } from '@/app/(content)/_utils/trainer-details-form';
+import {
+  editProfileSchema,
+  EditProfileValues,
+} from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
@@ -21,18 +24,18 @@ import revalidatePathsAfterProfileEdit from './_utils/revalidate-paths-after-pro
 const EditProfileForm = ({
   defaultFormData,
   profileImageUrl,
-  trainerId,
+  trainerProfileSlug,
 }: {
-  defaultFormData: TrainerDetailsValues;
+  defaultFormData: EditProfileValues;
   profileImageUrl: string | null;
-  trainerId: string;
+  trainerProfileSlug: string;
 }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
   const [state, formAction] = useFormState(actionEditProfile, formDefaultState);
-  const { control, handleSubmit, formState } = useForm<TrainerDetailsValues>({
-    resolver: zodResolver(trainerDetailsSchema),
+  const { control, handleSubmit, formState } = useForm<EditProfileValues>({
+    resolver: zodResolver(editProfileSchema),
     defaultValues: defaultFormData,
     mode: 'onTouched',
   });
@@ -49,13 +52,13 @@ const EditProfileForm = ({
   useEffect(() => {
     const handleAfterFormSubmit = async () => {
       if (state.isSuccess) {
-        await revalidatePathsAfterProfileEdit(trainerId);
-        router.push(`/trainers/${trainerId}` as Route);
+        await revalidatePathsAfterProfileEdit(trainerProfileSlug);
+        router.push(`/trainers/${trainerProfileSlug}` as Route);
         notify.success('Zapisano zmiany');
       }
     };
     handleAfterFormSubmit();
-  }, [router, state.isSuccess, trainerId]);
+  }, [router, state.isSuccess, trainerProfileSlug]);
 
   return (
     <form action={handleFormAction} className="flex grow flex-col gap-5">
@@ -75,7 +78,7 @@ const EditProfileForm = ({
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="text-white">Nazwa profilu</span>
-          <AppInputForm<TrainerDetailsValues> control={control} fieldName="profileName" />
+          <AppInputForm<EditProfileValues> control={control} fieldName="profileName" />
         </div>
         <div className="flex flex-col items-center gap-2.5">
           <span className="mr-auto text-white">Zdjęcie profilowe</span>
@@ -92,7 +95,7 @@ const EditProfileForm = ({
         <AppButton
           classes={{ root: 'py-2.5 bg-inherit grow' }}
           className="text-sm text-white"
-          onClick={() => router.push(`/trainers/${trainerId}` as Route)}
+          onClick={() => router.push(`/trainers/${trainerProfileSlug}` as Route)}
         >
           Anuluj
         </AppButton>

@@ -10,11 +10,13 @@ import getUserWithNull from '@/utils/get-user-with-null';
 import { Database } from '@/utils/supabase/supabase';
 import BuyForm from './_components/buy-form/buy-form';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
+import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
-const TrainerPage = async ({ params }: { params: { id: string } }) => {
-  const trainerDetails = await getTrainerDetailsById(params.id);
+const TrainerPage = async ({ params }: { params: { slug: string } }) => {
+  const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
+  const trainerDetails = await getTrainerDetailsById(trainerId);
   const user = await getUserWithNull();
-  const isUserOwner = await checkIsTrainerProfileOwner(user, params.id);
+  const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
@@ -37,7 +39,7 @@ const TrainerPage = async ({ params }: { params: { id: string } }) => {
             Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
           </span>
         </div>
-        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={params.id} />
+        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
       </div>
     </div>
   );
@@ -52,13 +54,12 @@ export async function generateStaticParams() {
   );
   const { data: trainers, error } = await supabase
     .from('trainers_details')
-    .select('user_id')
-    .eq('is_onboarded', true)
-    .eq('is_onboarded_stripe', true);
+    .select('profile_slug')
+    .eq('is_onboarded', true);
 
   if (!trainers || error) return [];
 
-  return trainers.map((trainer) => ({ id: trainer.user_id }));
+  return trainers.map((trainer) => ({ id: trainer.profile_slug }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {

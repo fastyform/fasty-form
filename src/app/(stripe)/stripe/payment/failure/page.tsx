@@ -4,8 +4,8 @@ import AppButtonLink from '@/components/app-button-link';
 import { SearchParams } from '@/utils/types';
 
 const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) => {
-  const trainerId = searchParams.trainer_id;
-  if (!trainerId) redirect('/submissions');
+  const trainerProfileSlug = searchParams.trainer_profile_slug;
+  if (!trainerProfileSlug) redirect('/submissions');
 
   return (
     <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">
@@ -18,7 +18,7 @@ const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) =>
           <p className="text-center text-sm lg:text-base">Spróbuj ponownie lub skontaktuj się z nami.</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonLink className="py-2.5 text-sm" href={`/trainers/${trainerId}`}>
+          <AppButtonLink className="py-2.5 text-sm" href={`/trainers/${trainerProfileSlug}`}>
             Wróć na stronę trenera
           </AppButtonLink>
         </div>
