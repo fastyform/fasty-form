@@ -5,7 +5,7 @@ const ALLOWED_SLUG_CHARS_REGEX = /^[a-z0-9\-_]+$/g;
 export type OnboardingFormValues = z.infer<typeof onboardingFormSchema>;
 
 export const onboardingFormSchema = z.object({
-  servicePrice: z.number().min(1).max(10000),
+  servicePrice: z.number().min(2).max(10000),
   profileName: z
     .string({ required_error: 'Wprowadź nazwę profilu.' })
     .min(1, 'Wprowadź nazwę profilu.')
