@@ -6,7 +6,7 @@ import { IconButton } from '@mui/material';
 const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) => (
   <BaseNumberInput
     max={1000}
-    min={1}
+    min={2}
     slotProps={{
       root: {
         className:

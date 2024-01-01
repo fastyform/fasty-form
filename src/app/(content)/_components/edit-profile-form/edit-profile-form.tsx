@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { LoadingButtonProps } from '@mui/lab';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import {
@@ -11,7 +12,6 @@ import {
   EditProfileValues,
 } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
 import AppButton from '@/components/app-button';
-import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
@@ -20,6 +20,17 @@ import notify from '@/utils/notify';
 import actionEditProfile from './_actions/action-edit-profile';
 import FileUploadInput from './_components/file-upload-input/file-upload-input';
 import revalidatePathsAfterProfileEdit from './_utils/revalidate-paths-after-profile-edit';
+
+interface Props extends LoadingButtonProps {
+  isValid: boolean;
+  isLoading: boolean;
+}
+
+const SaveProfileButton = ({ isValid, isLoading, ...props }: Props) => {
+  const { pending } = useFormStatus();
+
+  return <AppButton loading={(pending && isValid) || isLoading} type="submit" {...props} />;
+};
 
 const EditProfileForm = ({
   defaultFormData,
@@ -31,6 +42,7 @@ const EditProfileForm = ({
   trainerProfileSlug: string;
 }) => {
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
   const [state, formAction] = useFormState(actionEditProfile, formDefaultState);
@@ -52,11 +64,13 @@ const EditProfileForm = ({
   useEffect(() => {
     const handleAfterFormSubmit = async () => {
       if (state.isSuccess) {
+        setIsRedirecting(true);
         await revalidatePathsAfterProfileEdit(trainerProfileSlug);
         router.push(`/trainers/${trainerProfileSlug}` as Route);
         notify.success('Zapisano zmiany');
       }
     };
+
     handleAfterFormSubmit();
   }, [router, state.isSuccess, trainerProfileSlug]);
 
@@ -99,13 +113,14 @@ const EditProfileForm = ({
         >
           Anuluj
         </AppButton>
-        <AppButtonSubmit
+        <SaveProfileButton
           classes={{ root: 'grow' }}
           disabled={!(formState.isDirty || imageBlob || isDeleting)}
+          isLoading={isRedirecting}
           isValid={formState.isValid}
         >
           Zapisz
-        </AppButtonSubmit>
+        </SaveProfileButton>
       </div>
     </form>
   );
