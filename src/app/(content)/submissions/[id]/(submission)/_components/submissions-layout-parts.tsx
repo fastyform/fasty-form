@@ -20,13 +20,13 @@ export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: str
 
 export const SubmissionTrainerName = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
-  if (!submission.trainers_details?.profile_name) throw new Error();
+  if (!submission.trainers_details?.profile_name || !submission.trainers_details.profile_slug) throw new Error();
 
   return (
     <TrainerProfileNameLink
       className="hidden text-xl lg:block"
       profileName={submission.trainers_details.profile_name}
-      trainerId={submission.trainer_id}
+      trainerProfileSlug={submission.trainers_details.profile_slug}
     />
   );
 };

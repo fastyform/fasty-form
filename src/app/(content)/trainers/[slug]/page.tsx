@@ -59,10 +59,10 @@ export async function generateStaticParams() {
 
   if (!trainers || error) return [];
 
-  return trainers.map((trainer) => ({ id: trainer.profile_slug }));
+  return trainers.map((trainer) => ({ slug: trainer.profile_slug }));
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const { data: trainer, error } = await supabase
     .from('trainers_details')
     .select('profile_name')
-    .eq('user_id', params.id)
+    .eq('user_id', params.slug)
     .single();
 
   if (!trainer || error || !trainer.profile_name)

@@ -77,7 +77,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
           </p>
         ))}
       </div>
-      <ul className="list-inside list-disc text-xs text-white	">
+      <ul className="flex list-inside list-disc flex-col gap-2 text-xs text-white">
         {INSTRUCTIONS.map((instruction) => (
           <li key={instruction} dangerouslySetInnerHTML={{ __html: instruction }} />
         ))}

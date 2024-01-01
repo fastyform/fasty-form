@@ -26,7 +26,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
   const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
 
-  if (!submission.trainers_details?.profile_name) throw new Error();
+  if (!submission.trainers_details?.profile_name || !submission.trainers_details.profile_slug) throw new Error();
 
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
@@ -37,7 +37,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
       <TrainerProfileNameLink
         className="lg:hidden"
         profileName={submission.trainers_details.profile_name}
-        trainerId={submission.trainer_id}
+        trainerProfileSlug={submission.trainers_details.profile_slug}
       />
       <SubmissionVideo submissionId={params.id} />
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
