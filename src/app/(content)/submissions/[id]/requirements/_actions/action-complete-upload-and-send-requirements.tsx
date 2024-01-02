@@ -60,7 +60,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
 
   const trainer = await getUserAsAdminById(submission.trainer_id);
 
-  await sendMail({
+  sendMail({
     to: trainer.email,
     subject: `Pojawiło się nowe zgłoszenie - ${Constants.APP_NAME}`,
     html: render(

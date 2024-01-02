@@ -43,7 +43,7 @@ const actionAddTrainerReview = async (
 
     const user = await getUserAsAdminById(submission.client_id);
 
-    await sendMail({
+    sendMail({
       to: user.email,
       subject: 'Trener przeanalizował twoje wideo',
       html: render(

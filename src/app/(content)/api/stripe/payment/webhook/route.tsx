@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
       const user = await getUserAsAdminById(submission.client_id);
 
-      await sendMail({
+      sendMail({
         to: user.email,
         subject: 'Dziękujemy za zakup!',
         html: render(

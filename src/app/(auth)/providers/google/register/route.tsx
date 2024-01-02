@@ -15,7 +15,7 @@ const mailTexts = {
   ],
   trainer: [
     'Witamy na pokładzie, Trenerze!',
-    `Cieszymy się, że dołączyłeś do naszego zespołu w ${Constants.APP_NAME}. Twoje doświadczenie i wiedza są dla nas na wagę złota. Sprawdź, jak łatwo zarządzać zapytaniami od klientów i dzielić się swoimi ekspertskimi analizami techiniki. Jakby coś, jesteśmy tu, aby Ci pomóc. Do dzieła!`,
+    `Cieszymy się, że dołączyłeś do naszego zespołu w ${Constants.APP_NAME}. Twoje doświadczenie i wiedza są dla nas na wagę złota. Sprawdź, jak łatwo zarządzać zapytaniami od klientów i dzielić się swoimi eksperckimi analizami techniki. Jakby coś, jesteśmy tu, aby Ci pomóc. Do dzieła!`,
   ],
 };
 export async function GET(request: NextRequest) {
@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
 
   const [title, description] = mailTexts[parsedRole];
 
-  await sendMail({
+  sendMail({
     to: data.user.email,
     subject: `Witaj w ${Constants.APP_NAME}!`,
     html: render(<MailTemplate title={title}>{description}</MailTemplate>),

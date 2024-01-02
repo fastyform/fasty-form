@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendMail = async (mailOptions: MailOptions, errorCallback?: () => void) => {
+const sendMail = (mailOptions: MailOptions, errorCallback?: () => void) => {
   transporter.sendMail({ ...mailOptions, from: `${Constants.APP_NAME} ${SUPPORT_MAIL}` }, (error: Error | null) => {
     if (error && errorCallback) {
       errorCallback();
