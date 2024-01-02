@@ -1,8 +1,19 @@
 import { HeadObjectCommand } from '@aws-sdk/client-s3';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
-import { getProcessedVideoKey, getVideoUrlExpirationTimeInSeconds } from '@/app/api/video/url/[key]/route';
+import { removeFileExtension } from '@/utils';
 import Constants from '@/utils/constants';
 import s3Client, { BUCKET_NAME_PROCESSED } from '@/utils/s3';
+
+const UNPROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 10; // 10 minutes
+const PROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
+
+export const getVideoUrlExpirationTimeInSeconds = (isProcessed: boolean) => {
+  if (isProcessed) return PROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS;
+
+  return UNPROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS;
+};
+
+export const getProcessedVideoKey = (videoKey: string) => `${removeFileExtension(videoKey)}.webm`;
 
 const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
