@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { onboardingFormSchema } from '@/app/(content)/_components/onboarding-form/_utils';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -28,7 +29,12 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   const { servicePrice, profileName, profileSlug } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
-    .update({ service_price: servicePrice, profile_name: profileName, profile_slug: profileSlug, is_onboarded: true })
+    .update({
+      service_price_in_grosz: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
+      profile_name: profileName,
+      profile_slug: profileSlug,
+      is_onboarded: true,
+    })
     .eq('user_id', userId);
 
   if (!error) {

@@ -67,7 +67,7 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
     const { error } = await supabase
       .from('trainers_details')
       .update({
-        service_price: servicePrice,
+        service_price_in_grosz: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
         profile_name: profileName,
         stripe_price_id: price.id,
         ...(imageUrl !== undefined && { profile_image_url: imageUrl }),

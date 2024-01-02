@@ -14,7 +14,7 @@ export async function GET() {
 
   const user = await getUserFromSession();
   const trainerDetails = await getTrainerDetailsById(user.id);
-  if (!trainerDetails.stripe_account_id || !trainerDetails.service_price) throw new Error();
+  if (!trainerDetails.stripe_account_id || !trainerDetails.service_price_in_grosz) throw new Error();
 
   if (trainerDetails.is_onboarded_stripe) {
     return redirect('/settings/payments');
@@ -29,7 +29,7 @@ export async function GET() {
       const price = await stripe.prices.create({
         currency: StripeConstants.CURRENCY,
         product: 'default_form_analysis',
-        unit_amount: trainerDetails.service_price * StripeConstants.GROSZ_MULTIPLIER,
+        unit_amount: trainerDetails.service_price_in_grosz,
         nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
       });
 
