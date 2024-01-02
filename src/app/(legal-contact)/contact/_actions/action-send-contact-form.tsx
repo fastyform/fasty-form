@@ -21,7 +21,7 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
       to: SUPPORT_MAIL,
       subject: 'Formularz kontatkowy',
       html: render(
-        <MailTemplate title="Formularz kontatkowy">
+        <MailTemplate title="Formularz kontaktowy">
           Email: {formSchemaParsed.data.email}
           <br />
           Wiadomość: {formSchemaParsed.data.message}
