@@ -1,5 +1,9 @@
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 
+export const VideoSkeleton = () => (
+  <div className="aspect-video animate-pulse rounded-xl bg-[#1E2226] lg:order-2 lg:h-80 xl:h-96" />
+);
+
 const LoadingSubmissionPage = () => (
   <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
     <div className="w-fit animate-pulse select-none rounded-xl bg-[#1E2226] text-base lg:hidden">
@@ -10,7 +14,7 @@ const LoadingSubmissionPage = () => (
       <span className="invisible">Trener: </span>
       <span className="invisible font-bold">Jan Kowalski</span>
     </div>
-    <div className="aspect-video animate-pulse rounded-xl bg-[#1E2226] lg:order-2 lg:h-80 xl:h-96" />
+    <VideoSkeleton />
     <div className="flex flex-col gap-5 lg:order-1 lg:grow">
       <SubmissionPartWithIcon verticalLine icon="submission">
         <div className="invisible animate-pulse select-none rounded-xl bg-[#1E2226] text-lg font-bold leading-5">

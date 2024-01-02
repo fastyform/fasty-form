@@ -1,37 +1,33 @@
-import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { HeadObjectCommand } from '@aws-sdk/client-s3';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
-import { removeFileExtension } from '@/utils';
-import s3Client, { BUCKET_NAME_PROCESSED, BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
-
-const VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
+import { getProcessedVideoKey, getVideoUrlExpirationTimeInSeconds } from '@/app/api/video/url/[key]/route';
+import Constants from '@/utils/constants';
+import s3Client, { BUCKET_NAME_PROCESSED } from '@/utils/s3';
 
 const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
 
   if (!submission.video_key) throw new Error('No video key');
 
-  const videoKey = submission.video_key;
-
   let isVideoProcessed = false;
 
-  const processedVideoKey = `${removeFileExtension(videoKey)}.webm`;
-
   try {
-    await s3Client.send(new HeadObjectCommand({ Bucket: BUCKET_NAME_PROCESSED, Key: processedVideoKey }));
+    await s3Client.send(
+      new HeadObjectCommand({ Bucket: BUCKET_NAME_PROCESSED, Key: getProcessedVideoKey(submission.video_key) }),
+    );
     isVideoProcessed = true;
   } catch {}
 
-  const videoUrl = await getSignedUrl(
-    s3Client,
-    new GetObjectCommand({
-      Bucket: isVideoProcessed ? BUCKET_NAME_PROCESSED : BUCKET_NAME_UNPROCESSED,
-      Key: isVideoProcessed ? processedVideoKey : videoKey,
-    }),
+  const response = await fetch(
+    `${Constants.ORIGIN_URL}/api/video/url/${submission.video_key}?isProcessed=${isVideoProcessed}`,
     {
-      expiresIn: VIDEO_URL_EXPIRATION_TIME_IN_SECONDS,
+      method: 'GET',
+      next: { revalidate: getVideoUrlExpirationTimeInSeconds(isVideoProcessed) },
     },
   );
+  if (!response.ok) throw new Error('Failed to get video url');
+
+  const { videoUrl } = (await response.json()) as { videoUrl: string };
 
   return (
     <video

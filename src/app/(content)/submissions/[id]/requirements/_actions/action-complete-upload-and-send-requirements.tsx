@@ -15,7 +15,7 @@ import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {
-  fileName: string;
+  videoKey: string;
   uploadId: CompleteMultipartUploadRequest['UploadId'];
   parts: CompletedPart[];
   submissionId: string;
@@ -23,7 +23,7 @@ interface Payload {
 }
 
 const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
-  const { fileName, uploadId, parts, submissionId, clientDescription } = payload;
+  const { videoKey, uploadId, parts, submissionId, clientDescription } = payload;
 
   submissionRequirementsSchema.parse({ clientDescription });
   const supabase = getSupabaseServerClient();
@@ -39,7 +39,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
   const completeMultipartUploadResponse = await s3Client.send(
     new CompleteMultipartUploadCommand({
       Bucket: BUCKET_NAME_UNPROCESSED,
-      Key: fileName,
+      Key: videoKey,
       UploadId: uploadId,
       MultipartUpload: { Parts: parts },
     }),

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
@@ -9,6 +10,7 @@ import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import getSubmissionById from './_utils/get-submission-by-id';
+import { VideoSkeleton } from './loading';
 
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
@@ -40,7 +42,9 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         profileName={submission.trainers_details.profile_name}
         trainerProfileSlug={submission.trainers_details.profile_slug}
       />
-      <SubmissionVideo submissionId={params.id} />
+      <Suspense fallback={<VideoSkeleton />}>
+        <SubmissionVideo submissionId={params.id} />
+      </Suspense>
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         {!!submission.client_description && (
           <SubmissionPartWithIcon verticalLine icon="submission">
