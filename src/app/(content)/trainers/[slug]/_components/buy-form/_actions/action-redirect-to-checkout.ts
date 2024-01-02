@@ -2,7 +2,9 @@
 
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import calculateStripeFee from '@/app/(stripe)/stripe/_utils/calculate-stripe-fee';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -24,15 +26,15 @@ const actionRedirectToCheckout = async (
 
   if (
     !trainerDetails.stripe_account_id ||
-    !trainerDetails.service_price ||
+    !trainerDetails.service_price_in_grosz ||
     !trainerDetails.stripe_price_id ||
     !trainerDetails.profile_slug
   )
     throw new Error();
 
   if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}`);
-
   try {
+    const stripeFee = calculateStripeFee(trainerDetails.service_price_in_grosz);
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -41,6 +43,7 @@ const actionRedirectToCheckout = async (
         },
       ],
       payment_intent_data: {
+        application_fee_amount: stripeFee,
         transfer_data: {
           destination: trainerDetails.stripe_account_id,
         },
@@ -51,6 +54,7 @@ const actionRedirectToCheckout = async (
         userId: user.id,
         userEmail: user.email,
         trainerProfileSlug: trainerDetails.profile_slug,
+        priceAfterFees: trainerDetails.service_price_in_grosz - stripeFee,
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
@@ -58,6 +62,7 @@ const actionRedirectToCheckout = async (
         trainerDetails.profile_slug
       }`,
       locale: 'pl',
+      currency: StripeConstants.CURRENCY,
     });
 
     if (!session.url) throw new Error();

@@ -113,7 +113,7 @@ export interface Database {
           profile_image_url: string | null;
           profile_name: string | null;
           profile_slug: string | null;
-          service_price: number | null;
+          service_price_in_grosz: number | null;
           stripe_account_id: string | null;
           stripe_price_id: string | null;
           user_id: string;
@@ -125,7 +125,7 @@ export interface Database {
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
-          service_price?: number | null;
+          service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
           stripe_price_id?: string | null;
           user_id: string;
@@ -137,7 +137,7 @@ export interface Database {
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
-          service_price?: number | null;
+          service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
           stripe_price_id?: string | null;
           user_id?: string;

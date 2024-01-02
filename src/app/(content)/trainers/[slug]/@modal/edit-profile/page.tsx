@@ -4,6 +4,7 @@ import { EditProfileValues } from '@/app/(content)/_components/edit-profile-form
 import EditProfileForm from '@/app/(content)/_components/edit-profile-form/edit-profile-form';
 import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from '@/app/(content)/trainers/[slug]/_utils/get-trainer-id-by-slug';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import AppModal from '@/components/app-modal';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
@@ -16,11 +17,11 @@ const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
 
   if (!isUserOwner) redirect(`/trainers/${params.slug}`);
 
-  if (!trainerDetails.profile_name || !trainerDetails.service_price) throw new Error();
+  if (!trainerDetails.profile_name || !trainerDetails.service_price_in_grosz) throw new Error();
 
   const defaultFormData: EditProfileValues = {
     profileName: trainerDetails.profile_name,
-    servicePrice: trainerDetails.service_price,
+    servicePrice: trainerDetails.service_price_in_grosz / StripeConstants.GROSZ_MULTIPLIER,
   };
 
   return (

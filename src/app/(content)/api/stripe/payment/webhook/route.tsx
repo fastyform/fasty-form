@@ -35,15 +35,19 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     try {
       const session = event.data.object;
-      if (!session.metadata || !session.metadata.userId || !session.metadata.trainerId || !session.metadata.userEmail)
+      if (
+        !session.metadata ||
+        !session.metadata.userId ||
+        !session.metadata.trainerId ||
+        !session.metadata.userEmail ||
+        !session.metadata.priceAfterFees
+      )
         throw new Error('Metadata is empty');
-
-      if (!session.amount_total) throw new Error();
 
       const { data: submission, error } = await supabase
         .from('submissions')
         .insert({
-          price_in_grosz: session.amount_total,
+          price_in_grosz: Number(session.metadata.priceAfterFees),
           order_id: session.id,
           client_id: session.metadata.userId,
           trainer_id: session.metadata.trainerId,

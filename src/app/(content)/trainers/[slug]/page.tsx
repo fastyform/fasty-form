@@ -3,6 +3,7 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
@@ -19,6 +20,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
   const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
+  if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
 
   return (
     <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
@@ -35,7 +37,10 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
         <div className="flex flex-col items-center sm:gap-2.5">
           <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-6xl ">{trainerDetails.profile_name}</h1>
           <span className="text-base text-white lg:text-xl">
-            Analiza techniki jednego wideo - <span className="font-bold">{trainerDetails.service_price}zł </span>
+            Analiza techniki jednego wideo -{' '}
+            <span className="font-bold">
+              {trainerDetails.service_price_in_grosz / StripeConstants.GROSZ_MULTIPLIER}zł{' '}
+            </span>
           </span>
         </div>
         <BuyForm isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
