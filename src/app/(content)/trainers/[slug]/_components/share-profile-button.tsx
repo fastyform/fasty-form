@@ -10,11 +10,17 @@ const ShareProfileButton = ({ profileName }: { profileName: string }) => {
   const handleShare = async () => {
     const shareData = {
       title: `${Constants.APP_NAME} - Profil Trenera - ${profileName}`,
-      text: `Zakup u mnie analizę wideo u trenera w ${Constants.APP_NAME}.`,
+      text: `Zakup u mnie analizę wideo w ${Constants.APP_NAME}.`,
       url: window.location.href,
     };
 
-    if (navigator.canShare && navigator.canShare(shareData)) return navigator.share(shareData);
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+
+        return;
+      } catch {}
+    }
 
     copyToClipboard(window.location.href);
     notify.success('Skopiowano link do profilu do schowka');

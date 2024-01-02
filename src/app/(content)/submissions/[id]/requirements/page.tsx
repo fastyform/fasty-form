@@ -33,10 +33,13 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
       </div>
       <div className="flex flex-col gap-5">
         <h1 className="text-2xl font-bold text-white">Szczegóły zamówienia</h1>
-        <TrainerProfileNameLink
-          profileName={submission.trainers_details.profile_name}
-          trainerProfileSlug={submission.trainers_details.profile_slug}
-        />
+        <span className="text-white">
+          Analiza techniki -{' '}
+          <TrainerProfileNameLink
+            profileName={submission.trainers_details.profile_name}
+            trainerProfileSlug={submission.trainers_details.profile_slug}
+          />
+        </span>
       </div>
       <SubmissionRequirementsForm submissionId={params.id} />
     </div>

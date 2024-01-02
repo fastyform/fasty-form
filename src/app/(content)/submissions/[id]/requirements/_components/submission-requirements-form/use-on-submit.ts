@@ -12,7 +12,7 @@ const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunk size
 
 type UploadData = {
   uploadId: string | undefined;
-  fileName: string;
+  videoKey: string;
 } | null;
 
 const useOnSubmit = (videoFile: File | null, submissionId: string) => {
@@ -28,17 +28,12 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
 
     try {
       const totalParts = Math.ceil(videoFile.size / CHUNK_SIZE);
-      const fileName = Date.now() + videoFile.name;
 
-      const uploadPartsData = await actionGetUploadParts({ fileName, totalParts });
-
-      if (!uploadPartsData.isSuccess) return;
-
-      const {
-        data: { presignedUrls, uploadId },
-      } = uploadPartsData;
-
-      abortData = { uploadId, fileName };
+      const { presignedUrls, uploadId, videoKey } = await actionGetUploadParts({
+        fileName: videoFile.name,
+        totalParts,
+      });
+      abortData = { uploadId, videoKey };
 
       const progressArray = new Array(totalParts).fill(0);
 
@@ -65,7 +60,7 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
       }));
 
       await actionCompleteUploadAndSendRequirements({
-        fileName,
+        videoKey,
         parts,
         uploadId,
         submissionId,
@@ -73,7 +68,7 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
       });
     } catch {
       if (abortData) {
-        axios.delete('/api/upload', { data: abortData }).catch(() => {});
+        axios.delete('/api/video/upload', { data: abortData }).catch(() => {});
       }
       notify.error(Constants.COMMON_ERROR_MESSAGE);
       setIsLoading(false);
