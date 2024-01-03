@@ -13,11 +13,16 @@ interface Props extends ButtonProps {
 const DesktopNavbarLink = ({ children, icon, ...props }: Props) => {
   const active = useSelectedLayoutSegment();
   const params = useParams();
-  const isActive =
-    typeof params.slug === 'string'
-      ? props.href?.includes(params.slug)
-      : props.href?.split('?')[0].includes(active || '');
 
+  const checkIsActive = () => {
+    const href = props.href?.split('?')[0];
+
+    if (typeof params.slug === 'string') return href?.includes(params.slug);
+
+    return href?.split('?')[0].includes(active || '');
+  };
+
+  const isActive = checkIsActive();
   const NavbarIcon = navbarIcons[icon];
 
   return (
