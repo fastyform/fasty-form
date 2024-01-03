@@ -7,11 +7,11 @@ import actionLogin from '@/app/(auth)/login/_actions/action-login';
 import { formSchema, FormValues } from '@/app/(auth)/login/_utils';
 import actionLoginGoogle from '@/app/(auth)/providers/_actions/action-login-google';
 import ButtonGoogle from '@/app/(auth)/providers/_components/button-google';
-import AuthLink from '@/app/_components/auth-link';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
+import AuthLink from '@/components/auth-link';
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 

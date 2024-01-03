@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
-import AuthLink from '@/app/_components/auth-link';
+import AuthLink from '@/components/auth-link';
 import Constants from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 import ForgotPasswordForm from './_components/forgot-password-form';

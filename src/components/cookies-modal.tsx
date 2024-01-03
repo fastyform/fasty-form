@@ -8,6 +8,7 @@ import { actionSetCookiesConsent } from '@/app/(legal-contact)/cookies/_actions/
 import { CookieConsent } from '@/app/(legal-contact)/cookies/_utils/types';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
+import useAnalytics from '@/hooks/use-analytics';
 import Constants from '@/utils/constants';
 
 const CookiesModal = () => {
@@ -22,6 +23,8 @@ const CookiesModal = () => {
     await actionSetCookiesConsent(values);
     await checkCookiesConsent();
   };
+
+  useAnalytics(cookiesConsent);
 
   useEffect(() => {
     checkCookiesConsent();
