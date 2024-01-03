@@ -8,6 +8,7 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { twMerge } from 'tailwind-merge';
 import { actionSetCookiesConsent } from '@/app/(legal-contact)/cookies/_actions/action-set-cookies-consent';
 import { CookieConsent } from '@/app/(legal-contact)/cookies/_utils/types';
+import useAnalytics from '@/hooks/use-analytics';
 
 interface Props extends SwitchProps {
   label: string;
@@ -36,6 +37,8 @@ const ConsentSwitch = ({ label, disabled, ...props }: Props) => (
 );
 
 const ConsentSwitches = ({ cookiesConsent }: { cookiesConsent?: RequestCookie }) => {
+  useAnalytics(cookiesConsent);
+
   if (!cookiesConsent) return;
   const cookiesConsentValues = JSON.parse(cookiesConsent.value) as CookieConsent;
 
