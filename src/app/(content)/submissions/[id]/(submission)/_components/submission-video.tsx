@@ -13,7 +13,7 @@ export const getVideoUrlExpirationTimeInSeconds = (isProcessed: boolean) => {
   return UNPROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS;
 };
 
-export const getProcessedVideoKey = (videoKey: string) => `${removeFileExtension(videoKey)}.webm`;
+export const getProcessedVideoKey = (videoKey: string) => `${removeFileExtension(videoKey)}.mp4`;
 
 const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);

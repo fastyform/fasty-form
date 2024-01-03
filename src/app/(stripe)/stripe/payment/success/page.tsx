@@ -70,7 +70,7 @@ const SuccessPaymentPage = () => {
             Płatność zakończona pomyślnie
           </h2>
           <p className="text-center text-sm lg:text-base">
-            Nastąpi przekierowanie Jeżeli to się nie wydarzy kliknij w przycisk poniżej.
+            Nastąpi przekierowanie. Jeżeli to się nie wydarzy kliknij w przycisk poniżej.
           </p>
         </div>
         <div className="flex flex-wrap gap-5">
