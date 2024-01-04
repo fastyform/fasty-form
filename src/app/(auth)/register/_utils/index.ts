@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { checkboxCheckedValidator, emailValidator, passwordValidator } from '@/utils/validators';
+import { checkboxCheckedValidator, emailValidator, newPasswordValidator } from '@/utils/validators';
 
 export const formSchema = z.object({
   email: emailValidator,
-  password: passwordValidator,
+  password: newPasswordValidator,
   policy: checkboxCheckedValidator,
 });
 
