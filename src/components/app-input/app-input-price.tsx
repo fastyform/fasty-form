@@ -49,7 +49,7 @@ const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) 
         <div className="text-xs text-white">
           <span className="whitespace-nowrap font-bold text-yellow-400"> {priceAfterFee?.toFixed(2)} zł </span>
           <span>
-            - Kwota, która trafi na twoje konto. Jest to kwota pomniejszona o prowizje dostawcy płatności. Pobieramy
+            - Kwota, która trafi na twoje konto. Jest to kwota pomniejszona o prowizję dostawcy płatności. Pobieramy
             opłaty według wzoru: <span className="whitespace-nowrap font-bold text-yellow-400">cena * 0.02 + 1 zł</span>
           </span>
         </div>

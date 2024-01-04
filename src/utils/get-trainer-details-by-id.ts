@@ -6,7 +6,7 @@ const getTrainerDetailsById = async (trainerId: string) => {
   const { data: trainerDetails, error } = await supabase
     .from('trainers_details')
     .select(
-      'profile_name, profile_image_url, is_onboarded, service_price_in_grosz, stripe_account_id, is_onboarded_stripe, stripe_price_id, profile_slug',
+      'profile_name, profile_image_url, is_onboarded, service_price_in_grosz, stripe_account_id, stripe_onboarding_status, stripe_price_id, profile_slug',
     )
     .eq('user_id', trainerId)
     .single();

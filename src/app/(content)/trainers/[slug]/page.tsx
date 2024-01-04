@@ -17,7 +17,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
   const [trainerDetails, user] = await Promise.all([getTrainerDetailsById(trainerId), getUserWithNull()]);
   const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
-  const stripeOnboardingRedirect = !trainerDetails.is_onboarded_stripe && !isUserOwner;
+  const stripeOnboardingRedirect = trainerDetails.stripe_onboarding_status !== 'verified' && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');

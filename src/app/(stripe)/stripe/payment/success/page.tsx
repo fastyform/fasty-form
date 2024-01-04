@@ -53,7 +53,11 @@ const SuccessPaymentPage = () => {
 
     const channel = supabase
       .channel('submissions')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'submissions' }, handleInserts)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'submissions', filter: `order_id=eq.${orderId}` },
+        handleInserts,
+      )
       .subscribe();
 
     return () => {

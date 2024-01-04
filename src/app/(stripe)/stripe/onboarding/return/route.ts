@@ -9,6 +9,7 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 export async function GET() {
   let isOnboardedStripe: boolean;
+  let isRequiredDataFilled: boolean;
   let isError: boolean;
   const supabase = getSupabaseServerClient();
 
@@ -16,16 +17,17 @@ export async function GET() {
   const trainerDetails = await getTrainerDetailsById(user.id);
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price_in_grosz) throw new Error();
 
-  if (trainerDetails.is_onboarded_stripe) {
+  if (trainerDetails.stripe_onboarding_status !== 'unverified') {
     return redirect('/settings/payments');
   }
 
   try {
     const stripe = getStripe();
     const stripeAccount = await stripe.accounts.retrieve(trainerDetails.stripe_account_id);
+    isRequiredDataFilled = stripeAccount.requirements?.currently_due?.length === 0;
     isOnboardedStripe = stripeAccount.charges_enabled;
 
-    if (isOnboardedStripe) {
+    if (isOnboardedStripe || isRequiredDataFilled) {
       const price = await stripe.prices.create({
         currency: StripeConstants.CURRENCY,
         product: 'default_form_analysis',
@@ -35,7 +37,10 @@ export async function GET() {
 
       const { error } = await supabase
         .from('trainers_details')
-        .update({ is_onboarded_stripe: true, stripe_price_id: price.id })
+        .update({
+          stripe_onboarding_status: isOnboardedStripe ? 'verified' : 'pending_verification',
+          stripe_price_id: price.id,
+        })
         .eq('user_id', user.id);
 
       if (error) throw new Error();
@@ -47,8 +52,9 @@ export async function GET() {
   revalidatePath('/settings/payments');
 
   const getRedirectParam = () => {
-    if (isOnboardedStripe) return '?isSuccess=true';
-    if (isError) return '?isSuccess=false';
+    if (isOnboardedStripe) return '?stripe_onboarding_status=verified';
+    if (isRequiredDataFilled) return '?stripe_onboarding_status=pending_verification';
+    if (isError) return '?stripe_onboarding_status=error';
 
     return '';
   };
