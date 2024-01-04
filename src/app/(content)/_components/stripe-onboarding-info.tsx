@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { createBrowserClient } from '@supabase/ssr';
-import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
+import { RealtimePostgresUpdatePayload } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import actionRevalidateRootLayout from '@/app/(content)/_actions/action-revalidate-root-layout';
@@ -37,7 +37,7 @@ const StripeOnboardingInfo = ({
     if (stripeOnboardingStatusParam === 'verified') return;
 
     const handleStripeStatusUpdate = async (
-      payload: RealtimePostgresInsertPayload<Database['public']['Tables']['trainers_details']['Row']>,
+      payload: RealtimePostgresUpdatePayload<Database['public']['Tables']['trainers_details']['Row']>,
     ) => {
       if (payload.new.stripe_onboarding_status === 'verified') {
         await actionRevalidateRootLayout();
