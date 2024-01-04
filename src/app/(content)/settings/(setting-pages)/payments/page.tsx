@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import AppButton from '@/components/app-button';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -33,6 +34,20 @@ const PaymentsPage = async () => {
         <p>{settingsSubTitle}</p>
       </div>
       <Button />
+      <div className="text-white">
+        <span className="font-bold">Kiedy otrzymasz należność?</span>
+        <br />
+        <span className="font-bold text-yellow-400">3-7 dni roboczych</span>
+        <span> po zakończonej i ocenionej przez Ciebie analizie wideo. </span>
+        <br />
+        <br />
+        <span>
+          Więcej informacji znajdziesz w{' '}
+          <Link className="font-bold text-yellow-400" href="/terms-of-service?should-navigate-back=true">
+            regulaminie.
+          </Link>
+        </span>
+      </div>
     </>
   );
 };

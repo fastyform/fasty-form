@@ -19,6 +19,12 @@ const tosData = {
     'Aplikacja umożliwia zakup analiz wideo od trenerów.',
     'Płatności za usługi realizowane są za pośrednictwem systemu płatności Stripe.',
     'Po dokonaniu płatności użytkownik może przesłać materiał wideo wraz z opcjonalnymi uwagami.',
+    'Po zakończonej i ocenionej przez trenera analizie wideo, przysługujące trenerowi wynagrodzenie jest automatycznie wypłacane.',
+    'Czas dostępności środków zależy od dostawcy usług płatniczych i może wynosić od 3 do 7 dni. Po tym okresie środki są automatycznie przelewane na konto bankowe trenera.',
+    'Właściciele Aplikacji nie ponoszą odpowiedzialności za opóźnienia w przetwarzaniu płatności przez zewnętrzne systemy płatności.',
+    'Prowizja naliczana przez Właścicieli Aplikacji od każdej transakcji jest obliczana według następującego wzoru: [cena usługi ustalona przez trenera] * 0.02 + 1 PLN.',
+    'Kwota prowizji jest automatycznie odliczana od wynagrodzenia należnego trenerowi za świadczone usługi.',
+    'Właściciele Aplikacji zastrzegają sobie prawo do zmiany stawki prowizji, zgodnie z postanowieniem 15.1 Regulaminu.',
   ],
   'Prawa autorskie i użytkowanie materiałów wideo': [
     'Wszystkie materiały przesłane przez użytkowników pozostają ich własnością intelektualną. Aplikacja oraz trenerzy mogą wykorzystywać te materiały wyłącznie w celu świadczenia usług analizy.',
