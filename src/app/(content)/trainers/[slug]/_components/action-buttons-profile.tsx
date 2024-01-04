@@ -26,7 +26,7 @@ const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
   return (
     <>
       <EditProfileButton trainerProfileSlug={trainerDetails.profile_slug} />
-      {trainerDetails.is_onboarded && trainerDetails.is_onboarded_stripe && (
+      {trainerDetails.is_onboarded && trainerDetails.stripe_onboarding_status === 'verified' && (
         <ShareProfileButton profileName={trainerDetails.profile_name} />
       )}
     </>

@@ -109,36 +109,36 @@ export interface Database {
         Row: {
           created_at: string;
           is_onboarded: boolean;
-          is_onboarded_stripe: boolean;
           profile_image_url: string | null;
           profile_name: string | null;
           profile_slug: string | null;
           service_price_in_grosz: number | null;
           stripe_account_id: string | null;
+          stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status'];
           stripe_price_id: string | null;
           user_id: string;
         };
         Insert: {
           created_at?: string;
           is_onboarded?: boolean;
-          is_onboarded_stripe?: boolean;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
+          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status'];
           stripe_price_id?: string | null;
           user_id: string;
         };
         Update: {
           created_at?: string;
           is_onboarded?: boolean;
-          is_onboarded_stripe?: boolean;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
+          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status'];
           stripe_price_id?: string | null;
           user_id?: string;
         };
@@ -202,6 +202,7 @@ export interface Database {
     Enums: {
       role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
+      stripe_onboarding_status: 'verified' | 'unverified' | 'pending_verification';
     };
     CompositeTypes: {
       [_ in never]: never;
