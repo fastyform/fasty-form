@@ -7,3 +7,5 @@ export async function GET() {
     return redirect('/settings/payments');
   }
 }
+
+export const revalidate = 0;

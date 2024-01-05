@@ -53,10 +53,17 @@ export async function POST(req: Request) {
           trainer_id: session.metadata.trainerId,
           status: 'paid',
         })
-        .select('id, client_id')
+        .select('id, client_id, trainers_details (profile_name, profile_slug)')
         .single();
 
-      if (error || !submission || !submission.client_id) throw new Error(error?.message);
+      if (
+        error ||
+        !submission ||
+        !submission.client_id ||
+        !submission.trainers_details?.profile_name ||
+        !submission.trainers_details?.profile_slug
+      )
+        throw new Error(error?.message);
 
       const user = await getUserAsAdminById(submission.client_id);
 
@@ -65,7 +72,11 @@ export async function POST(req: Request) {
         subject: 'Dziękujemy za zakup!',
         html: render(
           <MailTemplate title="Dzięki za zakup analizy! Jesteśmy gotowi na Twoje wideo.">
-            <SuccessfulPaymentMailContent submissionId={submission.id} />
+            <SuccessfulPaymentMailContent
+              submissionId={submission.id}
+              trainerProfileName={submission.trainers_details.profile_name}
+              trainerProfileSlug={submission.trainers_details.profile_slug}
+            />
           </MailTemplate>,
         ),
       });
