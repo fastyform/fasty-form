@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
-const secret = process.env.STRIPE_WEBHOOK_SECRET!;
+const secret = process.env.STRIPE_ONBOARDING_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
   const stripe = getStripe();

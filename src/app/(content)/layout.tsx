@@ -16,7 +16,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen-responsive flex flex-col">
       <div className="ml-auto mr-auto flex w-full max-w-screen-2xl flex-col px-5">
-        <DesktopNavbar />
+        {isOnboarded && <DesktopNavbar />}
         <main className="flex grow lg:pt-10">
           {isOnboarded ? (
             children
@@ -33,7 +33,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
           )}
         </main>
       </div>
-      {trainerDetails && trainerDetails.stripe_onboarding_status !== 'verified' && (
+      {trainerDetails && trainerDetails.stripe_onboarding_status !== 'verified' && isOnboarded && (
         <StripeOnboardingInfo trainerDetails={trainerDetails} userId={user.id} />
       )}
       <OnboardingStripeStatusDialog />

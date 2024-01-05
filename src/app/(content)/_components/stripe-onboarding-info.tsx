@@ -67,7 +67,7 @@ const StripeOnboardingInfo = ({
       href="/settings/payments"
     >
       {trainerDetails.stripe_onboarding_status === 'pending_verification' ? (
-        <CircularProgress classes={{ root: 'text-yellow-400' }} size={26} />
+        <CircularProgress classes={{ root: 'text-yellow-400 min-w-[26px]' }} size={26} />
       ) : (
         <ErrorIcon className="h-auto w-10 shrink-0 grow-0 basis-10" />
       )}
