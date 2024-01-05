@@ -1,12 +1,23 @@
 import Constants from '@/utils/constants';
 
-const SuccessfulPaymentMailContent = ({ submissionId }: { submissionId: string }) => (
+const SuccessfulPaymentMailContent = ({
+  submissionId,
+  trainerProfileName,
+  trainerProfileSlug,
+}: {
+  submissionId: string;
+  trainerProfileName: string;
+  trainerProfileSlug: string;
+}) => (
   <>
-    Cześć! Dziękujemy za dokonanie zakupu analizy wideo w {Constants.APP_NAME}.
+    Cześć! Dziękujemy za dokonanie zakupu analizy wideo w {Constants.APP_NAME}, u trenera{' '}
+    <a href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</a>
     <br />
-    <br /> Jesteśmy podekscytowani, że możemy pomóc Ci w osiągnięciu nowych celów! Teraz wszystko, co musisz zrobić, to
-    przesłać nam swoje wideo. Swoje zgłoszenie znajdziesz w zakładce &apos;Zgłoszenia&apos; w naszej aplikacji - tam
-    będziesz mógł łatwo dodać swoje wideo i wszelkie dodatkowe uwagi, które chcesz przekazać trenerowi.
+    <br />
+    Wraz z trenerem chcielibyśmy Ci podziękować. Jesteśmy podekscytowani, że możemy pomóc Ci w osiągnięciu nowych celów!
+    Teraz wszystko, co musisz zrobić, to przesłać nam swoje wideo. Swoje zgłoszenie znajdziesz w zakładce
+    &apos;Zgłoszenia&apos; w naszej aplikacji - tam będziesz mógł łatwo dodać swoje wideo i wszelkie dodatkowe uwagi,
+    które chcesz przekazać trenerowi.
     <br />
     <br /> Jeśli jeszcze nie wypełniłeś szczegółów, to proste,{' '}
     <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</a>
