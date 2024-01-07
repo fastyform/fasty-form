@@ -17,15 +17,12 @@ export async function GET() {
   const trainerDetails = await getTrainerDetailsById(user.id);
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price_in_grosz) throw new Error();
 
-  if (trainerDetails.stripe_onboarding_status !== 'unverified') {
-    return redirect('/settings/payments');
-  }
-
   try {
     const stripe = getStripe();
     const stripeAccount = await stripe.accounts.retrieve(trainerDetails.stripe_account_id);
+
     isRequiredDataFilled = stripeAccount.requirements?.currently_due?.length === 0;
-    isOnboardedStripe = stripeAccount.charges_enabled;
+    isOnboardedStripe = stripeAccount.charges_enabled || trainerDetails.stripe_onboarding_status === 'verified';
 
     if (isOnboardedStripe || isRequiredDataFilled) {
       const price = await stripe.prices.create({
