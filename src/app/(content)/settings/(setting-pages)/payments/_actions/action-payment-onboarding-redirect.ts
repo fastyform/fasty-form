@@ -18,7 +18,7 @@ const actionPaymentOnboardingRedirect = async () => {
     const trainerDetails = await getTrainerDetailsById(user.id);
     const stripe = getStripe();
     const supabase = getSupabaseServerClient();
-    if (!trainerDetails.service_price_in_grosz) throw new Error();
+    if (!trainerDetails.service_price_in_grosz || !trainerDetails.profile_slug) throw new Error();
 
     const getStripeAccountId = async () => {
       const account = await stripe.accounts.create({
@@ -29,8 +29,7 @@ const actionPaymentOnboardingRedirect = async () => {
         settings: { payouts: { schedule: { interval: 'manual' } } },
         business_profile: {
           mcc: STRIPE_MERCHANT_CATEGORY_CODE,
-          product_description:
-            'Usługa analizy techniki klienta, polegająca na ocenie i komentarzu do wideo przesłanego przez klienta.',
+          url: `${Constants.ORIGIN_URL}/trainers/${trainerDetails.profile_slug}`,
         },
       });
 
