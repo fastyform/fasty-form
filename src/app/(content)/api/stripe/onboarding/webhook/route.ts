@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     );
   }
 
-  if (event.type === 'account.updated' && event.account) {
+  if (event.type === 'account.updated' && event.account && event.data.object.charges_enabled) {
     const { error } = await supabase
       .from('trainers_details')
       .update({ stripe_onboarding_status: 'verified' })
