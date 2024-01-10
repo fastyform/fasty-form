@@ -9,7 +9,7 @@ const AuthFooter = ({ shouldNavigateBack }: { shouldNavigateBack?: boolean }) =>
       <Link href={getHrefFormatted('/terms-of-service')}>Regulamin</Link>
       <Link href={getHrefFormatted('/privacy-policy')}>Polityka prywatności</Link>
       <Link href={getHrefFormatted('/contact')}>Kontakt</Link>{' '}
-      <Link href={getHrefFormatted('/cookies')}>Ciateczka</Link>
+      <Link href={getHrefFormatted('/cookies')}>Ciasteczka</Link>
     </div>
   );
 };
