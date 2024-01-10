@@ -26,14 +26,18 @@ export const middleware = async (request: NextRequest) => {
     },
   });
 
-  const { data } = await supabase.auth.getSession();
+  try {
+    const { data } = await supabase.auth.getSession();
 
-  if (data.session && UNAVAILABLE_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
-    return NextResponse.redirect(new URL('/submissions', request.url));
-  }
+    if (data.session && UNAVAILABLE_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+      return NextResponse.redirect(new URL('/submissions', request.url));
+    }
 
-  if (!data.session && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    if (!data.session && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  } catch (error) {
+    console.error(error);
   }
 
   return response;
