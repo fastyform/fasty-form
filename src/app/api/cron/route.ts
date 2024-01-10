@@ -5,10 +5,15 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 type Accumulator = {
   [key: string]: {
-    totalPayout: number;
-    submissionId: string;
+    [key: string]: number;
   };
 };
+
+type PayOutDataAccumulator = {
+  payoutAmount: number;
+  submissionIds: string[];
+};
+
 const MINIMAL_PAYOUT_IN_GROSZ = 500;
 
 const getResponse = (message: string | string[], status?: number) => {
@@ -47,61 +52,64 @@ export async function GET(request: NextRequest) {
     const stripeAccountId = item.trainers_details.stripe_account_id;
     const price = item.price_in_grosz;
 
-    if (acc[stripeAccountId]) {
-      acc[stripeAccountId] = {
-        ...acc[stripeAccountId],
-        totalPayout: acc[stripeAccountId].totalPayout + price,
-      };
-    } else {
-      acc[stripeAccountId] = {
-        submissionId: item.id,
-        totalPayout: price,
-      };
-    }
+    acc[stripeAccountId] = {
+      ...acc[stripeAccountId],
+      [item.id]: price,
+    };
 
     return acc;
   }, {});
 
   try {
-    const payoutPromises = Object.entries(groupedPayouts).map(
-      async ([stripeAccountId, { totalPayout, submissionId }]) => {
-        if (totalPayout < MINIMAL_PAYOUT_IN_GROSZ) {
-          throw new Error(
-            `Minimal payout is 5 zł, account: ${stripeAccountId} has currently ${
-              totalPayout / StripeConstants.GROSZ_MULTIPLIER
-            } zł`,
-          );
-        }
+    const payoutPromises = Object.entries(groupedPayouts).map(async ([stripeAccountId, submissionPayoutData]) => {
+      const totalAccountPayout = Object.values(submissionPayoutData).reduce((acc, item) => acc + item, 0);
 
-        const balance = await stripe.balance.retrieve({
-          stripeAccount: stripeAccountId,
-        });
+      if (totalAccountPayout < MINIMAL_PAYOUT_IN_GROSZ) {
+        throw new Error(
+          `Minimal payout is 5 zł, account: ${stripeAccountId} has currently ${
+            totalAccountPayout / StripeConstants.GROSZ_MULTIPLIER
+          } zł`,
+        );
+      }
 
-        const totalAvailableBalance = balance.available.reduce((acc, item) => acc + item.amount, 0);
+      const balance = await stripe.balance.retrieve({
+        stripeAccount: stripeAccountId,
+      });
 
-        if (totalAvailableBalance < totalPayout) {
-          throw new Error(
-            `Not sufficient balance for ${stripeAccountId}. Balance: ${totalAvailableBalance}, Payout: ${totalPayout}`,
-          );
-        }
+      const totalAvailableBalance = balance.available.reduce((acc, item) => acc + item.amount, 0);
 
+      const payoutData = Object.entries(submissionPayoutData).reduce(
+        (acc: PayOutDataAccumulator, [submissionId, price]) => {
+          if (acc.payoutAmount + price > totalAvailableBalance) return acc;
+
+          return {
+            payoutAmount: acc.payoutAmount + price,
+            submissionIds: [...acc.submissionIds, submissionId],
+          };
+        },
+        {
+          payoutAmount: 0,
+          submissionIds: [],
+        },
+      );
+
+      if (payoutData.payoutAmount > 0 && payoutData.submissionIds.length > 0) {
         await stripe.payouts.create(
           {
-            amount: totalPayout,
+            amount: payoutData.payoutAmount,
             currency: StripeConstants.CURRENCY,
           },
           { stripeAccount: stripeAccountId },
         );
 
-        const { error: updateStatusError } = await supabase
+        const { error: updateError } = await supabase
           .from('submissions')
           .update({ status: 'paidout' })
-          .eq('id', submissionId);
+          .in('id', payoutData.submissionIds);
 
-        if (updateStatusError)
-          throw new Error(`Something went wrong with updating submission (${submissionId}) status`);
-      },
-    );
+        if (updateError) throw new Error(`Something went wrong with updating submissions status`);
+      }
+    });
 
     await Promise.all(payoutPromises.map((p) => p.catch((e) => payoutErrors.push(e.message))));
   } catch (e: any) {
