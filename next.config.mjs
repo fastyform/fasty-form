@@ -9,7 +9,6 @@ const nextConfig = {
     typedRoutes: true,
   },
   redirects: async () => [
-    { source: '/', destination: '/submissions', permanent: false },
     { source: '/register', destination: '/register/client', permanent: false },
   ],
   images: {
