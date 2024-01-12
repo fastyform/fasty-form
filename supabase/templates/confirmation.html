@@ -1,0 +1,36 @@
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:rgb(15,18,22);padding:2.5rem">
+  <tbody>
+     <tr>
+        <td align="center"><a href="{{ .SiteURL }}" target="_blank"><img alt="FastyForm logo" src="https://veknudpszbrjutmcmrwk.supabase.co/storage/v1/object/public/assets/Logo.png" style="height:auto;width:100%;max-width:300px"/></a></td>
+     </tr>
+  </tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;padding:1.25rem">
+  <tbody>
+     <tr>
+        <td align="center" style="padding:1.25rem">
+           <h2 style="margin:0px;font-size:1.5rem;line-height:2rem;color:rgb(30,30,30);text-align:center;">Ostatni krok do zakończenia rejestracji!</h2>
+        </td>
+     </tr>
+     <tr>
+        <td align="center" style="padding-bottom: 20px;">
+          <a href="{{ .SiteURL }}/auth/callback?code={{ .TokenHash }}&redirect_to={{ .RedirectTo }}" style="font-size: 16px; font-weight: bold; color: #1E1E1E; padding: 20px 40px; display: inline-block; text-decoration: none; background-color: #FACC15; border-radius: 50px;">Potwierdź swój adres e-mail</a>
+        </td>
+     </tr>
+     <tr>
+        <td style="padding-bottom:2.5rem;font-size:1rem;line-height:1.5rem;color:rgb(30,30,30)">   Witaj w naszej społeczności!<br/><br/>Dziękujemy za dołączenie do nas! Jesteśmy podekscytowani, że zdecydowałeś się być częścią naszej grupy. Twoje doświadczenia, opinie i obecność są dla nas bardzo ważne. Zachęcamy do aktywnego udziału i dzielenia się swoimi pomysłami. Pamiętaj, że zawsze jesteśmy tutaj, aby Ci pomóc.<br/>
+      <br/> Jeśli masz jakiekolwiek pytania, wątpliwości lub potrzebujesz wsparcia, nasz zespół jest do Twojej dyspozycji. Skontaktuj się z nami w dowolnym momencie - z radością odpowiemy na każde zapytanie.<br/>
+      <br/> Jeszcze raz dziękujemy i serdecznie witamy!<br/>
+      Zespół FastyForm.</td>
+     </tr>
+     <tr>
+        <td style="padding-bottom:2.5rem;font-size:0.8rem;line-height:1.2rem;color:rgb(30,30,30)">Został ostatni krok, aby twoje konto było aktywne i abyś mógł w pełni korzystać z funkcji ktore ci oferujemy. <a href="{{ .SiteURL }}/auth/callback?code={{ .TokenHash }}&redirect_to={{ .RedirectTo }}" style="color: blue;">Kliknij tutaj</a>, aby potwierdzić maila.</td>
+     </tr>
+     <tr>
+        <td style="font-size:0.75rem;line-height:1rem;color:rgb(0,0,0,0.6)">Jeśli masz problem z linkami, skopiuj i wklej następujący adres w przeglądarce: {{ .SiteURL }}/auth/callback?code={{ .TokenHash }}&redirect_to={{ .RedirectTo }}<br/><br/> Możesz też skontaktować się z nami wysyłając wiadomość na adres: <a href='mailto:support@fastyform.com'>support@fastyform.com</a>.</td>
+     </tr>
+     <tr>
+        <td style="font-size:0.75rem;line-height:1rem;color:rgb(0,0,0,0.6)">E-mail został wygenerowany automatycznie. Prosimy na niego nie odpowiadać.</td>
+     </tr>
+  </tbody>
+</table>

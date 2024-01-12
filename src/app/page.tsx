@@ -42,7 +42,7 @@ const HomePage = () => (
             src="/desktop-home-image.png"
           />
         </div>
-        <AuthFooter />
+        <AuthFooter shouldNavigateBack />
       </div>
     </div>
   </div>
