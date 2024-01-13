@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) => (
   <SplitPageWithImage imageProps={{ alt: 'Ekwipunek na siłowni', src: '/trainer-register.jpg' }}>
     <div className="flex flex-col gap-2.5 text-center">
-      <span className="font-bold text-zinc-400">Witaj w ${Constants.APP_NAME}!</span>
+      <span className="font-bold text-zinc-400">Witaj w {Constants.APP_NAME}!</span>
       <h1 className="text-2xl text-white">
         Stań się trenerem <span className="font-medium text-yellow-400">przyszłości</span>,
         <br />
