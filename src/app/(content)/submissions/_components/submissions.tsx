@@ -1,8 +1,15 @@
 import { ReactNode } from 'react';
 import NotFoundIcon from '@/app/(content)/submissions/_assets/not-found-icon';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { Database } from '@/utils/supabase/supabase';
 import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
+
+type Submission = Pick<Database['public']['Tables']['submissions']['Row'], 'id' | 'status' | 'video_key'> & {
+  trainers_details: {
+    profile_name: string | null;
+  } | null;
+};
 
 export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) => (
   <div className="grid grid-cols-1 gap-5 min-[450px]:grid-cols-2 md:grid-cols-3 md:gap-10 xl:grid-cols-4">
@@ -10,7 +17,24 @@ export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) =>
   </div>
 );
 
-const ALLOWED_FILTERS = ['paid', 'reviewed', 'unreviewed', 'paidout'];
+const clientStatusesPriorities = ['paid', 'reviewed', 'unreviewed', 'paidout'];
+const trainerStatusesPriorities = ['unreviewed', 'paidout', 'reviewed'];
+const ALLOWED_FILTERS = clientStatusesPriorities;
+
+const orderSubmissions = (submissions: Submission[], isTrainerAccount: boolean) => {
+  const statusesPriorities = isTrainerAccount ? trainerStatusesPriorities : clientStatusesPriorities;
+
+  return submissions.toSorted((a, b) => {
+    const priorityA = statusesPriorities.indexOf(a.status);
+    const priorityB = statusesPriorities.indexOf(b.status);
+
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+
+    return 0;
+  });
+};
 
 const Submissions = async ({
   searchParams,
@@ -67,7 +91,7 @@ const Submissions = async ({
   return (
     <SubmissionsGridWrapper>
       {!!submissions &&
-        submissions.map(({ id, trainers_details, status, video_key }) => {
+        orderSubmissions(submissions, isTrainerAccount).map(({ id, trainers_details, status, video_key }) => {
           if (!trainers_details || !trainers_details.profile_name) return;
 
           return (
