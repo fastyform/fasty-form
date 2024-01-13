@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
+import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -29,7 +29,7 @@ const actionPaymentOnboardingRedirect = async () => {
         settings: { payouts: { schedule: { interval: 'manual' } } },
         business_profile: {
           mcc: STRIPE_MERCHANT_CATEGORY_CODE,
-          url: `${Constants.ORIGIN_URL}/trainers/${trainerDetails.profile_slug}`,
+          url: `${PRODUCTION_ORIGIN_URL}/trainers/${trainerDetails.profile_slug}`,
         },
       });
 

@@ -1,42 +1,27 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { formSchema } from '@/app/(auth)/email-verification/error/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionResendEmailConfirmation = async (prevState: { message: string; isSuccess: boolean }, data: FormData) => {
-  const headersList = headers();
-
   const formSchemaParsed = formSchema.safeParse({ email: data.get('email') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
   }
 
-  const supabase = getSupabaseServerClient();
+  const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   const { email } = formSchemaParsed.data;
 
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: false,
-      emailRedirectTo: `${headersList.get('origin')}/auth/callback`,
-    },
-  });
+  const { error } = await supabase.auth.resend({ type: 'signup', email });
 
   if (!error) {
     return getResponse(
       'Właśnie wysłaliśmy Ci link aktywacyjny. Zerknij na swoją pocztę i aktywuj konto. Czekamy na Ciebie!',
       true,
-    );
-  }
-
-  if (error.message === 'Signups not allowed for otp') {
-    return getResponse(
-      'Ups! Ten adres email nie jest zarejestrowany w naszej bazie. Proszę sprawdzić, czy został wpisany poprawnie i spróbować jeszcze raz.',
     );
   }
 

@@ -1,6 +1,5 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { formSchema } from '@/app/(auth)/register/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
@@ -16,8 +15,7 @@ interface Payload {
 }
 
 const actionRegister = async (prevState: FormState, { data: formData, role, redirectUrlParam }: Payload) => {
-  const headersList = headers();
-  const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
+  const redirectPath = typeof redirectUrlParam === 'string' ? redirectUrlParam : '';
 
   const formSchemaParsed = formSchema.safeParse({
     email: formData.get('email'),
@@ -36,7 +34,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${headersList.get('origin')}/auth/callback?role=${role}${redirectUrl}` },
+    options: { emailRedirectTo: `${Constants.ORIGIN_URL}${redirectPath}` },
   });
 
   if (data.user?.identities?.length === 0) {
