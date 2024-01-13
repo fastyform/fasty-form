@@ -13,7 +13,7 @@ const EmailVerificationSuccessPage = ({ searchParams }: { searchParams: SearchPa
         <h1 className="text-2xl font-bold text-white md:text-3xl">
           Sukces! Twój adres email <br /> został zweryfikowany!
         </h1>
-        <p className="text-white">Przejdź do swoich zgłoszeń i dowiedz się czy Twoja technika jest poprawna!</p>
+        <p className="text-white">Przejdź do swoich zgłoszeń i zacznij korzystać z FastyForm już dziś!</p>
       </div>
       <AppButton component={Link} href={hasRedirectUrlParam ? (searchParams.redirectUrl as string) : '/submissions'}>
         {hasRedirectUrlParam ? 'Wróc na profil trenera' : 'Przejdź do swoich zgłoszeń'}
