@@ -1,6 +1,5 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { forgotPasswordFormSchema } from '@/app/(auth)/forgot-password/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
@@ -10,12 +9,11 @@ import { SearchParam } from '@/utils/types';
 
 const actionForgotPassword = async (
   prevState: FormState,
-  payload: { data: FormData; redirectUrlParam: SearchParam },
+  payload: { data: FormData; redirectPathParam: SearchParam },
 ) => {
-  const headersList = headers();
-  const { data, redirectUrlParam } = payload;
+  const { data, redirectPathParam } = payload;
 
-  const redirectUrl = typeof redirectUrlParam === 'string' ? `?redirectUrl=${redirectUrlParam}` : '';
+  const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
   const formSchemaParsed = forgotPasswordFormSchema.safeParse({ email: data.get('email') });
 
@@ -26,7 +24,7 @@ const actionForgotPassword = async (
   const supabase = getSupabaseServerClient();
 
   const { error } = await supabase.auth.resetPasswordForEmail(formSchemaParsed.data.email, {
-    redirectTo: `${headersList.get('origin')}/auth/password-reset${redirectUrl}`,
+    redirectTo: `${Constants.ORIGIN_URL}${redirectPath}`,
   });
 
   if (!error)

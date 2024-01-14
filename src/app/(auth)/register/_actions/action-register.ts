@@ -11,11 +11,11 @@ import { SearchParam } from '@/utils/types';
 interface Payload {
   data: FormData;
   role: Database['public']['Enums']['role'];
-  redirectUrlParam: SearchParam;
+  redirectPathParam: SearchParam;
 }
 
-const actionRegister = async (prevState: FormState, { data: formData, role, redirectUrlParam }: Payload) => {
-  const redirectPath = typeof redirectUrlParam === 'string' ? redirectUrlParam : '';
+const actionRegister = async (prevState: FormState, { data: formData, role, redirectPathParam }: Payload) => {
+  const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
   const formSchemaParsed = formSchema.safeParse({
     email: formData.get('email'),

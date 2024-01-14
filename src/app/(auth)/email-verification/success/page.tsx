@@ -4,7 +4,7 @@ import AppButton from '@/components/app-button';
 import { SearchParams } from '@/utils/types';
 
 const EmailVerificationSuccessPage = ({ searchParams }: { searchParams: SearchParams }) => {
-  const hasRedirectUrlParam = typeof searchParams.redirectUrl === 'string';
+  const hasRedirectPathParam = typeof searchParams.redirectPath === 'string';
 
   return (
     <div className="bg-custom-radial flex min-h-[inherit] flex-col items-center justify-center gap-10 px-10 text-center md:gap-16">
@@ -15,8 +15,8 @@ const EmailVerificationSuccessPage = ({ searchParams }: { searchParams: SearchPa
         </h1>
         <p className="text-white">Przejdź do swoich zgłoszeń i zacznij korzystać z FastyForm już dziś!</p>
       </div>
-      <AppButton component={Link} href={hasRedirectUrlParam ? (searchParams.redirectUrl as string) : '/submissions'}>
-        {hasRedirectUrlParam ? 'Wróc na profil trenera' : 'Przejdź do swoich zgłoszeń'}
+      <AppButton component={Link} href={hasRedirectPathParam ? (searchParams.redirectPath as string) : '/submissions'}>
+        {hasRedirectPathParam ? 'Wróc na profil trenera' : 'Przejdź do swoich zgłoszeń'}
       </AppButton>
     </div>
   );
