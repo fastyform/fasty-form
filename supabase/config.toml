@@ -94,6 +94,10 @@ enable_confirmations = true
 subject = "FastyForm - Potwierdź swój adres e-mail"
 content_path = "./supabase/templates/confirmation.html"
 
+[auth.email.template.recovery]
+subject = "FastyForm - Zresetuj hasło"
+content_path = "./supabase/templates/reset-password.html"
+
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.
 enable_signup = true

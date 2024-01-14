@@ -5,19 +5,19 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const code = searchParams.get('code');
+  const tokenHash = searchParams.get('token_hash');
 
   const queryParamRedirectToUrl = searchParams.get('redirect_to') || `${Constants.ORIGIN_URL}`;
   const redirectURL = new URL(queryParamRedirectToUrl);
   const redirectUrlPathname = redirectURL.pathname === '/' ? null : redirectURL.pathname;
 
-  if (!code) {
+  if (!tokenHash) {
     return redirect('/email-verification/error');
   }
 
   try {
     const supabase = getSupabaseServerClient();
-    const { error } = await supabase.auth.verifyOtp({ type: 'email', token_hash: code });
+    const { error } = await supabase.auth.verifyOtp({ type: 'email', token_hash: tokenHash });
 
     if (error) {
       throw new Error(error.message);
@@ -26,5 +26,5 @@ export async function GET(request: NextRequest) {
     return redirect('/email-verification/error');
   }
 
-  return redirect(`/email-verification/success${redirectUrlPathname ? `?redirectUrl=${redirectUrlPathname}` : ''}`);
+  return redirect(`/email-verification/success${redirectUrlPathname ? `?redirectPath=${redirectUrlPathname}` : ''}`);
 }

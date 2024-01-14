@@ -20,7 +20,7 @@ import AppInputFormPassword from '@/components/app-input/app-input-form-password
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
-const UpdatePasswordForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
+const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchParam }) => {
   const passwordFormRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -42,9 +42,9 @@ const UpdatePasswordForm = ({ redirectUrlParam }: { redirectUrlParam: SearchPara
   useEffect(() => {
     if (state?.isSuccess) {
       reset();
-      if (typeof redirectUrlParam === 'string') router.push(redirectUrlParam as Route);
+      if (typeof redirectPathParam === 'string') router.push(redirectPathParam as Route);
     }
-  }, [state, reset, redirectUrlParam, router]);
+  }, [state, reset, redirectPathParam, router]);
 
   return (
     <>
