@@ -22,7 +22,7 @@ const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) =
     </div>
     <div className="flex flex-col gap-6">
       <h2 className="text-2xl font-bold text-white">Zarejestruj się jako trener</h2>
-      <RegisterFormTrainer redirectUrlParam={searchParams.redirectUrl} />
+      <RegisterFormTrainer redirectPathParam={searchParams.redirectUrl} />
     </div>
     <div className="flex flex-col gap-2">
       <AuthLink href="/register/client" redirectUrlParam={searchParams.redirectUrl}>

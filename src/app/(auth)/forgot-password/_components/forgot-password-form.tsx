@@ -12,7 +12,7 @@ import AppInputForm from '@/components/app-input/app-input-form';
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
-const ForgotPasswordForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
+const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchParam }) => {
   const [state, formAction] = useFormState(actionForgotPassword, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordFormSchema),
@@ -26,7 +26,7 @@ const ForgotPasswordForm = ({ redirectUrlParam }: { redirectUrlParam: SearchPara
     }
   }, [state, reset]);
 
-  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, redirectUrlParam }))();
+  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, redirectPathParam }))();
 
   return (
     <form action={handleFormAction} className="flex flex-col gap-5">
