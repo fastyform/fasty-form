@@ -25,6 +25,7 @@ const tosData = {
     'Prowizja naliczana przez Właścicieli Aplikacji od każdej transakcji jest obliczana według następującego wzoru: [cena usługi ustalona przez trenera] * 0.02 + 1 PLN.',
     'Kwota prowizji jest automatycznie odliczana od wynagrodzenia należnego trenerowi za świadczone usługi.',
     'Właściciele Aplikacji zastrzegają sobie prawo do zmiany stawki prowizji, zgodnie z postanowieniem 15.1 Regulaminu.',
+    'Minimalna kwota do wypłaty wynagrodzenia dla trenera przez system płatności Stripe wynosi 5 zł. Wypłaty poniżej tej kwoty będą akumulowane, dopóki łączna suma do wypłaty nie przekroczy minimalnej kwoty wymaganej.',
   ],
   'Prawa autorskie i użytkowanie materiałów wideo': [
     'Wszystkie materiały przesłane przez użytkowników pozostają ich własnością intelektualną. Aplikacja oraz trenerzy mogą wykorzystywać te materiały wyłącznie w celu świadczenia usług analizy.',
