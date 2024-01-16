@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 const RootLayout = async ({ children }: { children: React.ReactNode }) => (
   <html lang="pl">
     <body className={plusJakartaSans.className} id="body">
-      <ToastContainer toastClassName="bg-[#0D1116] border-gray-600 border rounded-lg" />
+      <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
       <CookiesModal />
-      <div className="min-h-screen-responsive w-full bg-[#0D1116]">{children}</div>
+      <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
     </body>
   </html>
 );

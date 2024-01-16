@@ -43,7 +43,7 @@ const SubmissionCard = async ({
     <SubmissionCardContainer>
       <Link className=" lg:transition-opacity lg:hover:opacity-80" href={href}>
         <div className="flex w-full flex-col items-start gap-5 rounded-xl">
-          <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
+          <div className="relative h-60 w-full rounded-xl bg-bunker min-[450px]:h-40 lg:h-60">
             <Suspense>
               <SubmissionCardImage submissionStatus={submissionStatus} videoKey={videoKey} />
             </Suspense>

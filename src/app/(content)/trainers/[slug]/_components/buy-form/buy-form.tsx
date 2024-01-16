@@ -31,7 +31,7 @@ const SubmitButton = ({ disabled, ...props }: ButtonHTMLAttributes<HTMLButtonEle
       {...props}
       type="submit"
       className={twMerge(
-        'flex w-full max-w-sm items-center justify-center rounded-full bg-yellow-400 px-[30px] py-[18px] text-base font-bold normal-case tracking-normal text-[#0D1116] transition-opacity hover:opacity-80',
+        'flex w-full max-w-sm items-center justify-center rounded-full bg-yellow-400 px-[30px] py-[18px] text-base font-bold normal-case tracking-normal text-bunker transition-opacity hover:opacity-80',
         (pending || disabled) && 'pointer-events-none bg-gray-600/20',
         disabled && '!text-white/40',
       )}
