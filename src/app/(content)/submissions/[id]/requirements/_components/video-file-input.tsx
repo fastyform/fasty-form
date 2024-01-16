@@ -64,7 +64,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
         <div
           {...getRootProps({
             className:
-              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-[#1E2226] dropzone',
+              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone',
           })}
         >
           <input {...getInputProps()} />

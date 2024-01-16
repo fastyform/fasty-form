@@ -58,7 +58,7 @@ const FileUploadInput = ({
         {...getRootProps({
           className: twMerge(
             twMerge(
-              'hidden h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-[#1E2226]',
+              'hidden h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark',
               shouldInputBeVisible && 'flex',
               'dropzone',
             ),

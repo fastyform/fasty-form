@@ -5,7 +5,7 @@ const statusBadgeData = {
   unreviewed: ['bg-slate-700/75', 'text-white', 'Oczekujące'],
   paid: ['bg-[#0D1116] border border-gray-600', 'text-white', 'Zapłacone'],
   paidout: ['bg-gray-600', 'text-white', 'Wypłacono'],
-  skeleton: ['bg-[#1E2226] animate-pulse', 'text-[#1E2226]', 'Oczekujące'],
+  skeleton: ['bg-shark animate-pulse', 'text-shark', 'Oczekujące'],
 };
 
 const StatusBadge = ({

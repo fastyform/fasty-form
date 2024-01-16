@@ -14,7 +14,7 @@ const SubmissionLayout = async ({ children, params }: { children: ReactNode; par
         <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
         <Suspense
           fallback={
-            <div className="hidden animate-pulse select-none rounded-full bg-[#1E2226] text-xl lg:block">
+            <div className="hidden animate-pulse select-none rounded-full bg-shark text-xl lg:block">
               <span className="invisible font-bold">Ostatnia zmiana: </span>
               <span className="invisible capitalize">01.04.2001</span>
             </div>
@@ -27,7 +27,7 @@ const SubmissionLayout = async ({ children, params }: { children: ReactNode; par
       <div className="flex items-center gap-5">
         <Suspense
           fallback={
-            <div className="hidden animate-pulse select-none rounded-xl bg-[#1E2226] text-xl lg:block">
+            <div className="hidden animate-pulse select-none rounded-xl bg-shark text-xl lg:block">
               <span className="invisible">Trener: </span>
               <span className="invisible font-bold">Jan Kowalski</span>
             </div>

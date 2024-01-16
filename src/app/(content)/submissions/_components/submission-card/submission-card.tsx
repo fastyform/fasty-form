@@ -8,7 +8,7 @@ import { SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
-  <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-[#1e2226] p-2.5 lg:p-5">{children}</div>
+  <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>
 );
 
 const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {

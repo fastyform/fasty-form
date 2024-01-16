@@ -8,4 +8,11 @@ export default {
   ],
   plugins: [],
   important: '#body',
+  theme: {
+    extend: {
+      colors: {
+        shark: '#1E2226',
+      },
+    },
+  },
 };

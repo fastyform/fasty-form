@@ -34,7 +34,7 @@ const TrainerPageLayout = async ({
       <Suspense
         fallback={
           <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
-            <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm animate-pulse rounded-full bg-[#1e2226] object-cover lg:mb-0 lg:mt-0" />
+            <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm animate-pulse rounded-full bg-shark object-cover lg:mb-0 lg:mt-0" />
             <div className="flex w-full flex-col items-center gap-10">
               <div className="flex flex-col items-center gap-2.5">
                 <AppSkeletonWrapper>
