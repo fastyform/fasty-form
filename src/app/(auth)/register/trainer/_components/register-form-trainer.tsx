@@ -40,13 +40,8 @@ const RegisterFormTrainer = ({ redirectPathParam }: { redirectPathParam: SearchP
     <form action={handleFormAction} className="flex flex-col gap-10">
       <div className="flex flex-col gap-5">
         <AppFormState state={state} />
-        <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
-        <AppInputFormPassword<FormValues>
-          autoComplete="new-password"
-          control={control}
-          fieldName="password"
-          label="Hasło"
-        />
+        <AppInputForm control={control} fieldName="email" label="Email" />
+        <AppInputFormPassword autoComplete="new-password" control={control} fieldName="password" label="Hasło" />
         <Controller
           control={control}
           name="policy"
