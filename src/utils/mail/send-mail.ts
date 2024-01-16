@@ -14,7 +14,11 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendMail = async (mailOptions: MailOptions) => {
-  await transporter.sendMail({ ...mailOptions, from: `${Constants.APP_NAME} ${SUPPORT_MAIL}` });
+  try {
+    await transporter.sendMail({ ...mailOptions, from: `${Constants.APP_NAME} ${SUPPORT_MAIL}` });
+  } catch (error) {
+    console.error('Failed to send email:', error);
+  }
 };
 
 export default sendMail;
