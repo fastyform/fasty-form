@@ -63,9 +63,16 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
       <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
         <div className="flex flex-col items-center gap-5">
           <QuestionMarkIcon />
-          <div>
-            <h4 className="text-center text-base font-bold text-white">Czy chcesz zmienić swoje hasło?</h4>
-            <p className="text-center text-sm text-white">Pamiętaj, zmiana hasła jest nieodwracalna.</p>
+          <div className="flex flex-col gap-2.5">
+            <div>
+              <h4 className="text-center text-base font-bold text-white">Czy chcesz zmienić swoje hasło?</h4>
+              <p className="text-center text-sm text-white">Pamiętaj, zmiana hasła jest nieodwracalna.</p>
+            </div>
+            {redirectPathParam && (
+              <p className="text-center text-sm text-white">
+                Po zmianie hasła zostaniesz przekierowany na stronę trenera.
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap gap-5">
             <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handlePasswordUpdate}>
