@@ -57,7 +57,7 @@ const OnboardingForm = () => {
         </div>
         <div className="flex flex-col gap-2.5 ">
           <span className="text-white">Nazwa profilu</span>
-          <AppInputForm<OnboardingFormValues>
+          <AppInputForm
             control={control}
             fieldName="profileName"
             onBlur={(e) => {
@@ -78,7 +78,7 @@ const OnboardingForm = () => {
             Pamiętaj, że link do Twojego profilu jest stały i nie podlega zmianie. Możesz go swobodnie udostępniać swoim
             klientom, dlatego wybierz go mądrze!
           </span>
-          <AppInputForm<OnboardingFormValues>
+          <AppInputForm
             control={control}
             fieldName="profileSlug"
             InputProps={{

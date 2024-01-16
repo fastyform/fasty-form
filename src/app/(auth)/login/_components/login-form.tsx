@@ -29,8 +29,8 @@ const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
     <form action={handleFormAction} className="flex flex-col">
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
-        <AppInputForm<FormValues> control={control} fieldName="email" label="Email" />
-        <AppInputFormPassword<FormValues> control={control} fieldName="password" label="Hasło" />
+        <AppInputForm control={control} fieldName="email" label="Email" />
+        <AppInputFormPassword control={control} fieldName="password" label="Hasło" />
       </div>
       <AuthLink
         className="mb-7 w-fit self-end px-1 py-2.5 text-xs text-zinc-200 transition-opacity hover:opacity-80"

@@ -30,15 +30,8 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
   return (
     <form action={handleFormAction} className="flex max-w-md grow flex-col items-start gap-5">
       <AppFormState state={state} />
-      <AppInputForm<ContactFormValues> fullWidth control={control} fieldName="email" label="Email" />
-      <AppInputForm<ContactFormValues>
-        fullWidth
-        multiline
-        control={control}
-        fieldName="message"
-        minRows={5}
-        placeholder="Wiadomość"
-      />
+      <AppInputForm fullWidth control={control} fieldName="email" label="Email" />
+      <AppInputForm fullWidth multiline control={control} fieldName="message" minRows={5} placeholder="Wiadomość" />
       <AppButtonSubmit classes={{ root: 'py-2.5' }} isValid={formState.isValid}>
         Wyślij
       </AppButtonSubmit>

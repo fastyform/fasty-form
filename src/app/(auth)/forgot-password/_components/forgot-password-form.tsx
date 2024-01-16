@@ -31,7 +31,7 @@ const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
   return (
     <form action={handleFormAction} className="flex flex-col gap-5">
       <AppFormState state={state} />
-      <AppInputForm<ForgotPasswordFormValues> control={control} fieldName="email" label="Email" />
+      <AppInputForm control={control} fieldName="email" label="Email" />
       <AppButtonSubmit isValid={formState.isValid}>Wyślij prośbę o reset hasła</AppButtonSubmit>
     </form>
   );

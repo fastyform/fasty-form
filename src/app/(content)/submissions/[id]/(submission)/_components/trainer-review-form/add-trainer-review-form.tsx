@@ -49,13 +49,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             <p className="text-sm text-white">
               Pamiętaj, po dodaniu oceny do wideo nie będziesz mógł jej już edytować.
             </p>
-            <AppInputForm<TrainerReviewValues>
-              multiline
-              className="w-full"
-              control={control}
-              fieldName="trainerReview"
-              minRows={10}
-            />
+            <AppInputForm multiline className="w-full" control={control} fieldName="trainerReview" minRows={10} />
             <AppButtonSubmit
               isValid={formState.isValid}
               type="button"
