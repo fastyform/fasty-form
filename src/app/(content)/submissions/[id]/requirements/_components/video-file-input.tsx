@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { ClassNameValue, twMerge } from 'tailwind-merge';
 import ErrorIcon from '@/assets/error-icon';
 
 const MAX_FILE_SIZE_IN_BYTES = 104857600 * 2; // 200 MB
@@ -27,7 +28,7 @@ const MAX_VIDEO_DURATION_IN_SECONDS = 60;
 
 const VideoFileInput = ({ onFileSet }: Props) => {
   const [fileInputErrors, setFileInputErrors] = useState<string[]>([]);
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
     maxSize: MAX_FILE_SIZE_IN_BYTES,
     multiple: false,
     accept: {
@@ -58,18 +59,31 @@ const VideoFileInput = ({ onFileSet }: Props) => {
     },
   });
 
+  const getTwMergedClasses = (type: 'border' | 'fill' | 'text', baseClass: ClassNameValue) =>
+    twMerge(
+      baseClass,
+      'transition-colors',
+      isFocused && `${type}-yellow-100`,
+      isDragAccept && `${type}-green-400`,
+      isDragReject && `${type}-red-400`,
+    );
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <div
           {...getRootProps({
-            className:
-              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone',
+            className: getTwMergedClasses(
+              'border',
+              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone gap-2.5 text-sm',
+            ),
           })}
         >
           <input {...getInputProps()} />
-          <CloudUploadIcon className="fill-yellow-400" fontSize="large" />
-          <span className=" text-yellow-400">Wgraj wideo</span>
+          <CloudUploadIcon className={getTwMergedClasses('fill', 'fill-yellow-400')} fontSize="large" />
+          <span className={getTwMergedClasses('text', ' text-yellow-400')}>
+            Przeciągnij i upuść tu pliki, lub kliknij, aby wybrać pliki.
+          </span>
         </div>
         {fileInputErrors.map((error) => (
           <p key={error} className="flex items-center gap-2 text-red-400">

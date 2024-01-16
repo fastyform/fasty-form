@@ -1,6 +1,6 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { removeFileExtension } from '@/utils';
 import s3Client, { BUCKET_NAME_THUMBNAILS } from '@/utils/s3';
 import { SubmissionStatus } from '@/utils/types';
@@ -17,9 +17,12 @@ const VIDEO_THUMBNAIL_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60 * 6; // 6 hours
 const SubmissionCardImage = async ({ submissionStatus, videoKey }: Props) => {
   if (submissionStatus === 'paid') {
     return (
-      <div className="flex h-full flex-col items-center justify-center">
-        <CloudUploadIcon className="fill-yellow-400" fontSize="large" />
-        <span className=" text-yellow-400">Wgraj wideo</span>
+      <div className="flex h-full flex-col items-center justify-center gap-2.5">
+        <FactCheckOutlinedIcon className="fill-yellow-400 text-5xl" />
+        <span className=" text-center text-yellow-400">
+          Dokończ
+          <br /> zamówienie
+        </span>
       </div>
     );
   }
