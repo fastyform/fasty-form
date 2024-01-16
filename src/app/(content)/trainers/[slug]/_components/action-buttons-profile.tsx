@@ -8,7 +8,7 @@ import ShareProfileButton from './share-profile-button';
 const EditProfileButton = async ({ trainerProfileSlug }: { trainerProfileSlug: string }) => (
   <Link
     aria-label="Edycja profilu"
-    className="flex h-11 w-11 min-w-0 items-center justify-center gap-2.5 rounded-xl border border-solid border-gray-600 bg-[#1E2226] text-sm font-normal text-white lg:w-fit lg:px-5 lg:py-2.5 lg:transition-opacity lg:hover:opacity-80"
+    className="flex h-11 w-11 min-w-0 items-center justify-center gap-2.5 rounded-xl border border-solid border-gray-600 bg-shark text-sm font-normal text-white lg:w-fit lg:px-5 lg:py-2.5 lg:transition-opacity lg:hover:opacity-80"
     href={`/trainers/${trainerProfileSlug}/edit-profile`}
   >
     <EditIcon />
