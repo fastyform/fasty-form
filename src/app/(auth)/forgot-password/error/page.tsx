@@ -19,7 +19,7 @@ const ForgotPasswordErrorPage = () => (
         Przejdź na stronę resetowania hasła
       </AppButton>
     </div>
-    <AuthFooter />
+    <AuthFooter className="pt-10" />
   </div>
 );
 
