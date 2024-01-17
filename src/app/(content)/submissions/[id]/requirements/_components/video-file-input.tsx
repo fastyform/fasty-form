@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { ClassNameValue, twMerge } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import ErrorIcon from '@/assets/error-icon';
 
 const MAX_FILE_SIZE_IN_BYTES = 104857600 * 2; // 200 MB
@@ -59,29 +59,37 @@ const VideoFileInput = ({ onFileSet }: Props) => {
     },
   });
 
-  const getTwMergedClasses = (type: 'border' | 'fill' | 'text', baseClass: ClassNameValue) =>
-    twMerge(
-      baseClass,
-      'transition-colors',
-      isFocused && `${type}-yellow-100`,
-      isDragAccept && `${type}-green-400`,
-      isDragReject && `${type}-red-400`,
-    );
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <div
           {...getRootProps({
-            className: getTwMergedClasses(
-              'border',
-              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone gap-2.5 text-sm',
+            className: twMerge(
+              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone gap-2.5 text-sm transition-colors',
+              isFocused && 'border-yellow-100',
+              isDragAccept && 'border-green-400',
+              isDragReject && 'border-red-400',
             ),
           })}
         >
           <input {...getInputProps()} />
-          <CloudUploadIcon className={getTwMergedClasses('fill', 'fill-yellow-400')} fontSize="large" />
-          <span className={getTwMergedClasses('text', ' text-yellow-400')}>
+          <CloudUploadIcon
+            fontSize="large"
+            className={twMerge(
+              'fill-yellow-400, transition-colors',
+              isFocused && 'fill-yellow-100',
+              isDragAccept && 'fill-green-400',
+              isDragReject && 'fill-red-400',
+            )}
+          />
+          <span
+            className={twMerge(
+              'text-yellow-400, transition-colors',
+              isFocused && 'text-yellow-100',
+              isDragAccept && 'text-green-400',
+              isDragReject && 'text-red-400',
+            )}
+          >
             Przeciągnij i upuść tu pliki, lub kliknij, aby wybrać pliki.
           </span>
         </div>
