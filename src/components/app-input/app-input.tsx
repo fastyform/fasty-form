@@ -25,7 +25,7 @@ const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
       },
       classes: {
         input: 'text-white',
-        root: 'rounded-2xl [&:not(.Mui-error):not(.Mui-disabled):not(.Mui-focused)_fieldset]:hover:border-gray-500 bg-[#1E2226]',
+        root: 'rounded-2xl [&:not(.Mui-error):not(.Mui-disabled):not(.Mui-focused)_fieldset]:hover:border-gray-500 bg-shark',
         notchedOutline: 'border-gray-600',
         focused: '[&:not(.Mui-error)_fieldset]:border-gray-400',
         error: '[&_.MuiInputBase-input]:text-red-400 [&_fieldset]:border-red-400',

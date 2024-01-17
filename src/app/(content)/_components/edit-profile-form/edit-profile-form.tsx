@@ -92,7 +92,7 @@ const EditProfileForm = ({
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="text-white">Nazwa profilu</span>
-          <AppInputForm<EditProfileValues> control={control} fieldName="profileName" />
+          <AppInputForm control={control} fieldName="profileName" />
         </div>
         <div className="flex flex-col items-center gap-2.5">
           <span className="mr-auto text-white">Zdjęcie profilowe</span>

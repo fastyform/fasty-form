@@ -8,7 +8,7 @@ import { SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
-  <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-[#1e2226] p-2.5 lg:p-5">{children}</div>
+  <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>
 );
 
 const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {
@@ -43,7 +43,7 @@ const SubmissionCard = async ({
     <SubmissionCardContainer>
       <Link className=" lg:transition-opacity lg:hover:opacity-80" href={href}>
         <div className="flex w-full flex-col items-start gap-5 rounded-xl">
-          <div className="relative h-60 w-full rounded-xl bg-[#0D1116] min-[450px]:h-40 lg:h-60">
+          <div className="relative h-60 w-full rounded-xl bg-bunker min-[450px]:h-40 lg:h-60">
             <Suspense>
               <SubmissionCardImage submissionStatus={submissionStatus} videoKey={videoKey} />
             </Suspense>

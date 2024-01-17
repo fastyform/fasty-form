@@ -17,7 +17,7 @@ const ProgressCircular = ({ progress }: { progress: number }) => {
   }, [progress, progressCircleRef]);
 
   return (
-    <div className="min-h-screen-responsive fixed left-0 top-0 z-50 flex w-screen items-center justify-center bg-[#1e2226]/90 p-10 backdrop-blur">
+    <div className="min-h-screen-responsive fixed left-0 top-0 z-50 flex w-screen items-center justify-center bg-shark/90 p-10 backdrop-blur">
       <div className="flex w-full max-w-sm flex-col gap-10">
         <div className="relative">
           <CircleIcon className="w-full stroke-white/10" />

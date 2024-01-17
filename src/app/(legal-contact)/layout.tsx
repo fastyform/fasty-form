@@ -6,7 +6,7 @@ const LegalSupportLayout = ({ children }: { children: ReactNode }) => (
     <div className="ml-auto mr-auto flex w-full max-w-screen-2xl flex-col gap-5 px-5 py-10 text-white md:gap-10">
       <Suspense
         fallback={
-          <div className="w-fit animate-pulse select-none rounded-full bg-[#1E2226] px-5 text-xl">
+          <div className="w-fit animate-pulse select-none rounded-full bg-shark px-5 text-xl">
             <span className="invisible">Powrót</span>
           </div>
         }

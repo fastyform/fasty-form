@@ -8,4 +8,12 @@ export default {
   ],
   plugins: [],
   important: '#body',
+  theme: {
+    extend: {
+      colors: {
+        shark: '#1E2226',
+        bunker: '#0D1116',
+      },
+    },
+  },
 };

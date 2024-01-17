@@ -21,7 +21,7 @@ const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) 
         slotProps={{
           root: {
             className:
-              'gap-2 items-center flex justify-between p-2 flex-nowrap rounded-2xl bg-[#1E2226] border border-gray-600 grow',
+              'gap-2 items-center flex justify-between p-2 flex-nowrap rounded-2xl bg-shark border border-gray-600 grow',
           },
           input: {
             name,

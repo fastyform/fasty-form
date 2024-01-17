@@ -14,7 +14,7 @@ const MobileNavbarLink = ({ icon, className, ...props }: Props) => {
 
   return (
     <IconButton
-      className={twMerge(className, 'h-11 w-11 min-w-0 rounded-xl border border-solid border-gray-600 bg-[#1E2226]')}
+      className={twMerge(className, 'h-11 w-11 min-w-0 rounded-xl border border-solid border-gray-600 bg-shark')}
       LinkComponent={Link}
       {...props}
     >

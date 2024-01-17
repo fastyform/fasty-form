@@ -70,10 +70,10 @@ const CookiesModal = () => {
           przejrzeć i zmienić swoje wybory dotyczące plików cookie, dostosowując ustawienia zgodnie z własnymi
           preferencjami.
         </p>
-        <div className="sticky bottom-0 flex flex-wrap justify-center gap-5 bg-[#1e2226] p-5">
+        <div className="sticky bottom-0 flex flex-wrap justify-center gap-5 bg-shark p-5">
           <AppButton
             classes={{
-              root: 'bg-[#1E2226] text-white font-normal py-2.5 text-base rounded-full border border-gray-600 border-solid text-sm',
+              root: 'bg-shark text-white font-normal py-2.5 text-base rounded-full border border-gray-600 border-solid text-sm',
             }}
             onClick={() => handleCookieAcceptance({ googleAnalytics: false, hotjar: false })}
           >
