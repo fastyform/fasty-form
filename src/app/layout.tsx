@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - sprawdź swoją technikę`,
   description: `${Constants.APP_NAME} - szybko sprawdź swoją technikę przy pomocy trenera`,
   applicationName: Constants.APP_NAME,
+  metadataBase: new URL(Constants.ORIGIN_URL),
   openGraph: {
     type: 'website',
     locale: 'pl_PL',
