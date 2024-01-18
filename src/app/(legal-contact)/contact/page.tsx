@@ -40,13 +40,13 @@ const ContactPage = async () => {
             </Link>
             .
           </li>
-          <li>
+          {/* <li>
             <strong>Telefon:</strong> Jeśli wolisz rozmowę telefoniczną, zadzwoń do nas pod numer{' '}
             <Link className="whitespace-nowrap font-bold text-yellow-400" href={`tel:${process.env.CONTACT_PHONE}`}>
               {process.env.CONTACT_PHONE}
             </Link>
             . Jesteśmy dostępni 24/7.
-          </li>
+          </li> */}
         </ul>
 
         <p>

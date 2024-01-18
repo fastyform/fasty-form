@@ -68,7 +68,9 @@ const HomePage = () => (
             Dołącz do zaufanego grona trenerów <br /> analizuj, pomagaj, zarabiaj!
           </h2>
         </div>
-        <AppButton classes={{ root: 'xl:py-5 xl:px-[70px] xl:text-2xl' }}>Przejdź do {Constants.APP_NAME}</AppButton>
+        <AppButton classes={{ root: 'xl:py-5 xl:px-[70px] xl:text-2xl' }} component={Link} href="/register/trainer">
+          Przejdź do {Constants.APP_NAME}
+        </AppButton>
       </Container.Content>
     </Container>
 
