@@ -1,9 +1,7 @@
 import { type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/utils/supabase/client';
-
-const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile', '/stripe'];
-const UNAVAILABLE_ROUTES = ['/login', '/register', '/forgot-password'];
+import { PROTECTED_ROUTES, UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS } from './utils/constants';
 
 export const middleware = async (request: NextRequest) => {
   let response = NextResponse.next({ request: { headers: request.headers } });
@@ -29,7 +27,10 @@ export const middleware = async (request: NextRequest) => {
   try {
     const { data } = await supabase.auth.getSession();
 
-    if (data.session && UNAVAILABLE_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+    if (
+      data.session &&
+      UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS.some((route) => request.nextUrl.pathname.startsWith(route))
+    ) {
       return NextResponse.redirect(new URL('/submissions', request.url));
     }
 
