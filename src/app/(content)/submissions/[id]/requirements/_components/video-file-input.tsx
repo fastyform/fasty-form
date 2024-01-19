@@ -76,7 +76,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
           <CloudUploadIcon
             fontSize="large"
             className={twMerge(
-              'fill-yellow-400, transition-colors',
+              'fill-yellow-400',
               isFocused && 'fill-yellow-100',
               isDragAccept && 'fill-green-400',
               isDragReject && 'fill-red-400',
@@ -84,13 +84,13 @@ const VideoFileInput = ({ onFileSet }: Props) => {
           />
           <span
             className={twMerge(
-              'text-yellow-400, transition-colors',
+              'text-yellow-400',
               isFocused && 'text-yellow-100',
               isDragAccept && 'text-green-400',
               isDragReject && 'text-red-400',
             )}
           >
-            Przeciągnij i upuść tu pliki, lub kliknij, aby wybrać pliki.
+            Przeciągnij i upuść plik wideo, lub kliknij, aby wybrać.
           </span>
         </div>
         {fileInputErrors.map((error) => (
