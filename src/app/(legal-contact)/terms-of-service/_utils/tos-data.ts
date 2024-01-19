@@ -80,7 +80,7 @@ const tosData = {
   ],
   'Postanowienia końcowe': [
     'Wszelkie spory wynikające z korzystania z Aplikacji będą rozstrzygane zgodnie z prawem polskim.',
-    'Regulamin wchodzi w życie z dniem 12.12.2026.',
+    'Regulamin wchodzi w życie z dniem 01.01.2024.',
   ],
 };
 
