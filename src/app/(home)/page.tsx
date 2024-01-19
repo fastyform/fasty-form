@@ -111,7 +111,7 @@ const HomePage = () => (
       </Container.Content>
     </Container>
 
-    <Container className="my-20 xl:my-36">
+    <Container className="my-20 mb-4 lg:mb-10 xl:my-36">
       <Container.Content className="items-center justify-center gap-5 sm:gap-8 xl:justify-between">
         <HomeArrow className="hidden h-auto w-6 sm:block sm:w-10 lg:w-16 xl:w-32" />
         <div className="text-sm font-bold uppercase text-white lg:text-xl xl:text-4xl">analizuj</div>
