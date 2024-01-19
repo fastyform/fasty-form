@@ -1,4 +1,4 @@
-export const PRODUCTION_ORIGIN_URL = 'https://fastyform.com';
+export const PRODUCTION_ORIGIN_URL = 'https://www.fastyform.com';
 
 const Constants = {
   COMMON_ERROR_MESSAGE: 'Hmm, napotkaliśmy nieoczekiwany błąd. Daj nam chwilę i spróbuj ponownie za jakiś czas.',
