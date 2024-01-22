@@ -59,7 +59,7 @@ const HomePage = () => (
         <header className="mb-6 flex xl:mb-[70px]">
           <AppLogo />
         </header>
-        <div className="mb-10 flex max-w-[360px] flex-col gap-5 text-center lg:max-w-[600px] xl:mb-20 xl:max-w-[750px] xl:text-start">
+        <div className="mb-10 flex max-w-[360px] flex-col gap-5 text-center lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
           <h1 className="text-4xl font-bold text-white xl:text-7xl">
             Zarabiaj jako <span className="text-yellow-400">trener</span> na analizie techniki swoich{' '}
             <span className="text-yellow-400">klientów</span> z FastyForm!
@@ -69,7 +69,7 @@ const HomePage = () => (
           </h2>
         </div>
         <AppButton classes={{ root: 'xl:py-5 xl:px-[70px] xl:text-2xl' }} component={Link} href="/register/trainer">
-          Przejdź do {Constants.APP_NAME}
+          Zarejestruj się jako trener
         </AppButton>
       </Container.Content>
     </Container>
@@ -83,7 +83,7 @@ const HomePage = () => (
       />
     </section>
 
-    <Container className="z-[1] mt-10">
+    <Container className="z-[1] mt-10 xl:mt-20">
       <Container.Content className="flex-col justify-between gap-10 xl:flex-row xl:items-center xl:gap-0">
         <div className="flex grow flex-col gap-10">
           {stepsData.map(([Number, title, description, className]) => (
