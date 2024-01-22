@@ -19,7 +19,6 @@ import { formDefaultState } from '@/utils/form';
 import notify from '@/utils/notify';
 import actionEditProfile from './_actions/action-edit-profile';
 import FileUploadInput from './_components/file-upload-input/file-upload-input';
-import revalidatePathsAfterProfileEdit from './_utils/revalidate-paths-after-profile-edit';
 
 interface Props extends LoadingButtonProps {
   isValid: boolean;
@@ -58,14 +57,13 @@ const EditProfileForm = ({
         data.append('imageBlob', imageBlob);
       }
 
-      formAction({ data, isDeleting });
+      formAction({ data, isDeleting, trainerProfileSlug });
     })();
 
   useEffect(() => {
     const handleAfterFormSubmit = async () => {
       if (state.isSuccess) {
         setIsRedirecting(true);
-        await revalidatePathsAfterProfileEdit(trainerProfileSlug);
         router.push(`/trainers/${trainerProfileSlug}` as Route);
         notify.success('Zapisano zmiany');
       }

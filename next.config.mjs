@@ -8,9 +8,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  redirects: async () => [
-    { source: '/register', destination: '/register/client', permanent: false },
-  ],
+  redirects: async () => [{ source: '/register', destination: '/register/client', permanent: false }],
   images: {
     remotePatterns: [
       {
@@ -20,6 +18,9 @@ const nextConfig = {
       },
       {
         hostname: 'localhost',
+      },
+      {
+        hostname: '127.0.0.1',
       },
     ],
   },

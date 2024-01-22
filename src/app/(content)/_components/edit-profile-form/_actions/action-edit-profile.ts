@@ -1,6 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
+import { revalidatePath } from 'next/cache';
 import { editProfileSchema } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
@@ -13,9 +14,10 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 interface Payload {
   data: FormData;
   isDeleting: boolean;
+  trainerProfileSlug: string;
 }
 
-const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Payload) => {
+const actionEditProfile = async (prevState: FormState, { data, isDeleting, trainerProfileSlug }: Payload) => {
   try {
     const stripe = getStripe();
     const formSchemaParsed = editProfileSchema.parse({
@@ -75,6 +77,9 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting }: Pay
       .eq('user_id', user.id);
 
     if (error) throw new Error();
+
+    revalidatePath(`/trainers/${trainerProfileSlug}`);
+    revalidatePath(`/trainers/${trainerProfileSlug}/edit-profile`);
 
     return getResponse('', true);
   } catch {
