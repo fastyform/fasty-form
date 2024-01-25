@@ -21,13 +21,13 @@ const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
   const trainerDetails = await getTrainerDetailsById(trainerId);
   const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerId);
 
-  if (!isTrainerOwner || !trainerDetails.profile_name || !trainerDetails.profile_slug) return;
+  if (!isTrainerOwner || !trainerDetails.profile_slug) return;
 
   return (
     <>
       <EditProfileButton trainerProfileSlug={trainerDetails.profile_slug} />
       {trainerDetails.is_onboarded && trainerDetails.stripe_onboarding_status === 'verified' && (
-        <ShareProfileButton profileName={trainerDetails.profile_name} />
+        <ShareProfileButton trainerDetails={trainerDetails} />
       )}
     </>
   );
