@@ -12,7 +12,7 @@ import Submissions from './_components/submissions';
 const SubmissionsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { id: userId } = await getUserFromSession();
   const isTrainerAccount = await checkIsTrainerAccount(userId);
-  const trainerProfileSlug = userId && isTrainerAccount && (await getTrainerDetailsById(userId)).profile_slug;
+  const trainerProfileSlug = isTrainerAccount && (await getTrainerDetailsById(userId)).profile_slug;
   const key = JSON.stringify(searchParams);
 
   return (
@@ -27,10 +27,10 @@ const SubmissionsPage = async ({ searchParams }: { searchParams: SearchParams })
         </div>
       </div>
       <h1 className="text-2xl text-white">Twoje zgłoszenia</h1>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-8">
         <FilterTabs defaultFilterParam={searchParams?.filter} isTrainerAccount={isTrainerAccount} />
         <Suspense key={key} fallback={<SubmissionCardSkeleton />}>
-          <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} />
+          <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} userId={userId} />
         </Suspense>
       </div>
     </>
