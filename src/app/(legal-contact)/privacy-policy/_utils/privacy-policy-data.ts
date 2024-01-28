@@ -17,6 +17,10 @@ const privacyPolicyData = {
   'Bezpieczeństwo danych': [
     'Administrator zobowiązuje się do ochrony danych osobowych zgodnie z obowiązującymi przepisami i najlepszymi praktykami. Stosowane są odpowiednie środki techniczne i organizacyjne.',
   ],
+  'Komunikacja E-mailowa': [
+    `Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez aplikację ${Constants.APP_NAME} Ta komunikacja może obejmować, ale nie ogranicza się do powiadomień dotyczących konta, transakcji, aktualizacji usług oraz innych ważnych informacji związanych z użytkowaniem aplikacji.`,
+    'Zapewniamy, że adres e-mail użytkownika będzie wykorzystywany wyłącznie do wysyłania takich niezbędnych komunikatów, zgodnie z naszymi zasadami ochrony danych osobowych.',
+  ],
   'Prawa użytkownika': [
     'Użytkownik ma prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania.',
     'Użytkownik ma prawo wniesienia sprzeciwu co do przetwarzania jego danych osobowych.',
