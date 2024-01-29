@@ -8,6 +8,7 @@ const tosData = {
     'Aby korzystać z pełnej funkcjonalności Aplikacji, należy zarejestrować konto użytkownika.',
     'Podczas rejestracji użytkownik jest zobowiązany do podania prawdziwych i aktualnych danych.',
     'Dodawanie zdjęcia profilowego jest opcjonalne. Jeśli użytkownik zdecyduje się dodać zdjęcie profilowe, będzie ono przechowywane na naszych serwerach i widoczne dla wszystkich użytkowników Aplikacji.',
+    'Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez Aplikację, w tym powiadomień dotyczących konta, transakcji, aktualizacji usług oraz innych ważnych informacji związanych z użytkowaniem aplikacji.',
   ],
   'Bezpieczeństwo i odpowiedzialność za konto': [
     'Użytkownik jest odpowiedzialny za zachowanie poufności swoich danych logowania.',
