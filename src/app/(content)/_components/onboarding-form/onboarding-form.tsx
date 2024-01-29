@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,15 +20,13 @@ const slugifyWithOptions = (text: string) =>
 
 const OnboardingForm = () => {
   const [state, formAction] = useFormState(actionOnBoarding, formDefaultState);
-  const { control, handleSubmit, formState, watch, getFieldState, setValue, setError, resetField } =
-    useForm<OnboardingFormValues>({
-      resolver: zodResolver(onboardingFormSchema),
-      defaultValues: { servicePrice: 30, profileName: '', profileSlug: '' },
-      mode: 'onTouched',
-    });
+  const [shouldSlugify, setShouldSlugify] = useState(true);
+  const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
+    resolver: zodResolver(onboardingFormSchema),
+    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '' },
+    mode: 'onTouched',
+  });
 
-  const profileSlugInputState = getFieldState('profileSlug');
-  const profileSlugInputValue = watch('profileSlug');
   const profileNameInputValue = watch('profileName');
 
   const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
@@ -61,12 +59,9 @@ const OnboardingForm = () => {
             control={control}
             fieldName="profileName"
             onBlur={(e) => {
-              if (!profileNameInputValue) return;
-
-              if (!profileSlugInputState.isTouched || !profileSlugInputValue) {
+              if (shouldSlugify) {
                 setValue('profileSlug', slugifyWithOptions(e.target.value), {
                   shouldValidate: true,
-                  shouldDirty: true,
                 });
               }
             }}
@@ -90,7 +85,13 @@ const OnboardingForm = () => {
             }}
             onBlur={(e) => {
               if (!e.target.value) {
+                setShouldSlugify(true);
                 resetField('profileSlug', { keepError: true });
+
+                return;
+              }
+              if (e.target.value !== slugifyWithOptions(profileNameInputValue)) {
+                setShouldSlugify(false);
               }
             }}
           />
