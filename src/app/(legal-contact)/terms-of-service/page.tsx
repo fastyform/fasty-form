@@ -1,4 +1,4 @@
-import Constants from '@/utils/constants';
+import Constants, { COMPANY_INFO } from '@/utils/constants';
 import tosData from './_utils/tos-data';
 
 const TermsOfServicePage = () => (
@@ -10,7 +10,7 @@ const TermsOfServicePage = () => (
     <div className="flex flex-col gap-5">
       <h2 className="text-2xl">Definicje</h2>
       <p>
-        <strong>Właściciele:</strong> Przemysław Paziewski oraz Kacper Zabielski
+        <strong>Właściciel:</strong> {COMPANY_INFO}
       </p>
       <p>
         <strong>Aplikacja:</strong> {Constants.APP_NAME}
