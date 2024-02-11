@@ -3,15 +3,12 @@ import AddIcon from '@mui/icons-material/Add';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { IconButton } from '@mui/material';
+import { groszToPLN, PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
 import calculateStripeFee from '@/app/(stripe)/stripe/_utils/calculate-stripe-fee';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 
 const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) => {
   const priceAfterFee =
-    props.value &&
-    (props.value * StripeConstants.GROSZ_MULTIPLIER -
-      calculateStripeFee(props.value * StripeConstants.GROSZ_MULTIPLIER)) /
-      StripeConstants.GROSZ_MULTIPLIER;
+    props.value && groszToPLN(PLNToGrosz(props.value) - calculateStripeFee(PLNToGrosz(props.value)));
 
   return (
     <div className="flex w-full flex-col flex-wrap gap-2.5">

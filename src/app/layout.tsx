@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import CookiesModal from '@/components/cookies-modal';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
+import Providers from './providers';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
@@ -33,7 +34,9 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => (
     <body className={plusJakartaSans.className} id="body">
       <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
       <CookiesModal />
-      <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
+      <Providers>
+        <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
+      </Providers>
     </body>
   </html>
 );

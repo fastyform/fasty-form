@@ -3,7 +3,7 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
@@ -38,9 +38,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
           <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-6xl ">{trainerDetails.profile_name}</h1>
           <span className="text-base text-white lg:text-xl">
             Analiza techniki jednego wideo -{' '}
-            <span className="font-bold">
-              {trainerDetails.service_price_in_grosz / StripeConstants.GROSZ_MULTIPLIER}zł{' '}
-            </span>
+            <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
           </span>
         </div>
         <BuyForm isTrainerAccount={isTrainerAccount} trainerId={trainerId} />

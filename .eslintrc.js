@@ -25,9 +25,6 @@ module.exports = {
         case: 'kebabCase',
       },
     ],
-
-    // '@typescript-eslint/ban-ts-comment': 'off',
-    // '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'consistent-return': 'off',
     'import/order': [
@@ -81,10 +78,6 @@ module.exports = {
     ],
     'unused-imports/no-unused-imports': 'error',
     'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/naming-convention': 'off',
   },
-  // settings: {
-  //   'import/resolver': {
-  //     typescript: {},
-  //   },
-  // },
 };

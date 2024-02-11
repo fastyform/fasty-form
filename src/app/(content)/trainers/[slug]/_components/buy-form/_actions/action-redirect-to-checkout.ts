@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import Stripe from 'stripe';
 import calculateStripeFee from '@/app/(stripe)/stripe/_utils/calculate-stripe-fee';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
@@ -10,6 +11,25 @@ import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
+
+const getReceiptDescription = (trainerStripeAccount: Stripe.Account) => {
+  const { business_type } = trainerStripeAccount;
+  let description = 'Zakup analizy techniki na podstawie wideo od: ';
+
+  if (business_type === 'individual') {
+    description += `${trainerStripeAccount.business_profile?.name}`;
+  }
+
+  if (business_type === 'company') {
+    const { company: { name, address } = {}, metadata } = trainerStripeAccount;
+    const companyAddress = `Adres: ${address?.city}, ${address?.line1} ${address?.line2} ${address?.postal_code}`;
+    const companyNIP = `NIP: ${metadata?.nip}`;
+    const companyDescription = [name, companyNIP, companyAddress];
+    description += companyDescription.join('; ');
+  }
+
+  return description;
+};
 
 const actionRedirectToCheckout = async (
   prevState: FormState,
@@ -35,6 +55,9 @@ const actionRedirectToCheckout = async (
   if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}`);
   try {
     const stripeFee = calculateStripeFee(trainerDetails.service_price_in_grosz);
+
+    const trainerStripeAccount = await stripe.accounts.retrieve({ stripeAccount: trainerDetails.stripe_account_id });
+
     const session = await stripe.checkout.sessions.create(
       {
         line_items: [
@@ -44,6 +67,7 @@ const actionRedirectToCheckout = async (
           },
         ],
         payment_intent_data: {
+          description: getReceiptDescription(trainerStripeAccount),
           application_fee_amount: stripeFee,
         },
         metadata: {
@@ -73,5 +97,4 @@ const actionRedirectToCheckout = async (
 
   return redirect(redirectUrl);
 };
-
 export default actionRedirectToCheckout;
