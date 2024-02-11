@@ -30,6 +30,8 @@ const tosData = {
     'Kwota prowizji jest automatycznie odliczana od wynagrodzenia należnego trenerowi za świadczone usługi.',
     'Właściciel Aplikacji zastrzega sobie prawo do zmiany stawki prowizji, zgodnie z postanowieniem 15.1 Regulaminu.',
     'Minimalna kwota do wypłaty wynagrodzenia dla trenera przez system płatności Stripe wynosi 5 zł. Wypłaty poniżej tej kwoty będą akumulowane, dopóki łączna suma do wypłaty nie przekroczy minimalnej kwoty wymaganej.',
+    `Usługi przetwarzania płatności dla Trenerów (Użytkownicy zakładający konto Trenera) na ${Constants.APP_NAME} są świadczone przez Stripe i podlegają <a class="text-yellow-400" href="https://stripe.com/en-pl/legal/connect-account">Umowie Stripe Connected Account Agreement</a>, która obejmuje <a class="text-yellow-400" href="https://stripe.com/en-pl/legal/ssa">Stripe Terms of Service</a> (razem  "Stripe Services Agreement"). Wyrażając zgodę na niniejsze warunki lub kontynuując działalność jako Trener (Użytkownik zakładający konto Trenera) na ${Constants.APP_NAME}, użytkownik wyraża zgodę na przestrzeganie Umowy "Stripe Services Agreement", która może być okresowo modyfikowana przez Stripe. Warunkiem udostępnienia przez ${Constants.APP_NAME} usług przetwarzania płatności za pośrednictwem Stripe jest wyrażenie zgody na przekazanie ${Constants.APP_NAME} dokładnych i pełnych informacji o użytkowniku i jego działalności oraz upoważnienie ${Constants.APP_NAME} do udostępniania tych informacji i informacji o transakcjach związanych z korzystaniem przez użytkownika z usług przetwarzania płatności świadczonych przez Stripe.`,
+    'W przypadku konta trenera, aplikacja wymaga podania dodatkowych informacji osobistych w celu przetwarzania płatności przez system Stripe. Dla osób fizycznych jest to imię i nazwisko, natomiast dla firm – NIP oraz adres firmy. Zebrane dane są wykorzystywane do wygenerowania paragonów Stripe, na których, w zależności od statusu trenera (osoba fizyczna lub firma), wyświetlane są odpowiednio imię i nazwisko trenera lub NIP i adres firmy.',
   ],
   'Prawa autorskie i użytkowanie materiałów wideo': [
     'Wszystkie materiały przesłane przez użytkowników pozostają ich własnością intelektualną. Aplikacja oraz trenerzy mogą wykorzystywać te materiały wyłącznie w celu świadczenia usług analizy.',
@@ -37,7 +39,11 @@ const tosData = {
     'Użytkownik, wysyłając materiał wideo w celu weryfikacji techniki, wyraża zgodę na przetwarzanie swojego wizerunku przez trenera wyłącznie w celu świadczenia usługi analizy techniki ćwiczeń.',
   ],
   'Zasady anulowania i zmiany zamówień': [
-    'Użytkownik ma prawo anulować lub zmienić zamówienie na usługi trenera przed rozpoczęciem ich realizacji. Szczegóły dotyczące procesu dowiesz się kontatując się z naszym działem pomocy.',
+    'Użytkownik ma prawo anulować zamówienie na usługi trenera, jeżeli usługa nie została jeszcze rozpoczęta. Aby anulować zamówienie, użytkownik musi skontaktować się z naszym działem pomocy za pośrednictwem oficjalnych kanałów komunikacji podanych w aplikacji.',
+    `Prośba o anulowanie zostanie rozpatrzona przez ${Constants.APP_NAME} w ciągu 48 godzin od momentu otrzymania. W przypadku potwierdzenia, że usługa nie została jeszcze rozpoczęta przez trenera, zamówienie zostanie anulowane, a użytkownikowi zostaną zwrócone pełne środki za niezrealizowaną usługę.`,
+    `W przypadku, gdy użytkownik złoży prośbę o anulowanie zamówienia, ale trener rozpocznie realizację usługi przed przetworzeniem tej prośby przez ${Constants.APP_NAME}, zamówienie nie zostanie anulowane, a płatność nie podlega zwrotowi. Użytkownik zostanie poinformowany o statusie zamówienia oraz o tym, że usługa jest w trakcie realizacji lub została zakończona.`,
+    `${Constants.APP_NAME} dokłada wszelkich starań, aby prośby o anulowanie były przetwarzane w możliwie najkrótszym czasie, jednakże nie gwarantuje anulowania zamówienia, jeśli trener rozpocznie jego realizację przed przetworzeniem prośby o anulowanie przez ${Constants.APP_NAME}.`,
+    'Szczegóły dotyczące procesu anulowania i zmiany zamówień można znaleźć kontaktując się z naszym działem pomocy.',
   ],
   'Prawa i obowiązki użytkownika': [
     'Użytkownik zobowiązany jest do korzystania z Aplikacji zgodnie z prawem i dobrymi obyczajami.',
@@ -56,6 +62,7 @@ const tosData = {
     'Właściciel nie ponosi odpowiedzialności za działania użytkowników oraz treści przez nich przesyłanych.',
     'Aplikacja dostarczana jest "jak jest", bez gwarancji działania bez błędów.',
     'Właściciel oraz trenerzy nie ponoszą odpowiedzialności za ewentualne szkody wynikające z niewłaściwego stosowania porad lub analiz trenerów.',
+    'Użytkownik ponosi pełną odpowiedzialność za wszelkie przesłane materiały, które naruszają prawa osób trzecich, w tym prawa autorskie, prawa do znaków towarowych, prawo do prywatności lub inne prawa własności intelektualnej lub osobiste. Właściciel Aplikacji nie jest odpowiedzialny za treści przesyłane przez użytkowników, ale zobowiązuje się do działania w ramach obowiązujących przepisów w przypadku otrzymania powiadomienia o możliwym naruszeniu.',
   ],
   'Zwroty pieniędzy': [
     'Użytkownik ma prawo do złożenia wniosku o zwrot pieniędzy w przypadku, gdy usługa nie została wykonana zgodnie z umową lub posiada istotne wady.',

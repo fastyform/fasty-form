@@ -11,6 +11,7 @@ const privacyPolicyData = {
     'W przypadku konta trenera, dodatkowo po zarejestrowaniu użytkownik przechodzi proces onboarding, podczas którego aplikacja zbiera takie informacje jak nazwa profilu trenera, cena oferowanych usług oraz link do zdjęcia profilowego.',
     'Dane są przechowywane na serwerach dostawców usług: Vercel (frontend), Supabase (backend) oraz Stripe (płatności), którzy zapewniają odpowiednie zabezpieczenia danych.',
     'Wszystkie dane przekazywane podmiotom trzecim, takim jak Stripe, Vercel, i Supabase, są chronione zgodnie z ich politykami prywatności. Zachęcamy użytkowników do zapoznania się z politykami prywatności tych usług, aby zrozumieć, jak przetwarzane są ich dane.',
+    'Dla kont trenerów działających jako przedsiębiorstwa, aplikacja wymaga podania NIP oraz adresu firmy, które są zbierane dodatkowo poza procesem onboardingowym Stripe. Celem zebrania tych informacji jest ich wykorzystanie na paragonach Stripe, aby zapewnić zgodność z wymaganiami prawnymi oraz preferencjami użytkownika dotyczącymi dokumentów płatniczych. Imię i nazwisko trenerów będących osobami fizycznymi są zbierane w ramach standardowego procesu tworzenia konta i mogą być również używane na paragonach Stripe.',
   ],
   'Cel przetwarzania danych': [
     'Dane osobowe są przetwarzane w celu świadczenia usług przez Aplikację, w tym analizy wideo, obsługi płatności, a także do celów administracyjnych i prawnych.',
@@ -32,6 +33,8 @@ const privacyPolicyData = {
   'Udostępnianie danych': [
     'Dane mogą być udostępniane podmiotom zewnętrznym wyłącznie w celach niezbędnych do realizacji usług Aplikacji. Wszelkie udostępnianie danych odbywa się z zachowaniem najwyższych standardów ochrony danych.',
     'Dane osobowe użytkowników są przechowywane przez okres niezbędny do realizacji celów, dla których zostały zebrane, w tym dla potrzeb wykonania umowy oraz zgodnie z obowiązującymi przepisami prawa. Po tym okresie dane są usuwane lub anonimizowane.',
+    'Gdy użytkownik (konto Trenera lub konto Klienta) podaje dane osobowe w związku z Usługami płatniczymi Stripe, Stripe otrzymuje te dane osobowe i przetwarza je zgodnie z <a class="text-yellow-400" href="https://stripe.com/en-pl/privacy">Polityką prywatności Stripe</a>.',
+    'Dane osobowe trenerów, takie jak imię i nazwisko osób fizycznych oraz NIP i adres firm, mogą być udostępniane dostawcy płatności Stripe w celu generowania paragonów. Stripe przetwarza te dane zgodnie ze swoją polityką prywatności, co zapewnia użytkownikom przejrzystość i bezpieczeństwo w zakresie przetwarzania ich danych osobowych.',
   ],
   'Zmiany w Polityce Prywatności': [
     'Administrator zastrzega sobie prawo do wprowadzania zmian w Polityce Prywatności. O wszelkich zmianach użytkownicy zostaną poinformowani poprzez e-mail lub powiadomienia w aplikacji.',

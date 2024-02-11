@@ -12,9 +12,7 @@ const PrivacyPolicyPage = () => (
           {index + 1}. {title}
         </h2>
         {descriptionPoints.map((el, i) => (
-          <p key={el} className="ml-5">
-            {index + 1}.{i + 1}. {el}
-          </p>
+          <p key={el} className="ml-5" dangerouslySetInnerHTML={{ __html: `${index + 1}.${i + 1}. ${el}` }} />
         ))}
       </div>
     ))}
