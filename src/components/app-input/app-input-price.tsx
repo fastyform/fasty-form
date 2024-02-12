@@ -3,9 +3,9 @@ import AddIcon from '@mui/icons-material/Add';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { IconButton } from '@mui/material';
+import Link from 'next/link';
 import { groszToPLN, PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
-import calculateStripeFee from '@/app/(stripe)/stripe/_utils/calculate-stripe-fee';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import { calculateStripeFee } from '@/app/(stripe)/stripe/_utils/calculate-fees';
 
 const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) => {
   const priceAfterFee =
@@ -47,10 +47,10 @@ const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) 
         <div className="text-xs text-white">
           <span className="whitespace-nowrap font-bold text-yellow-400"> {priceAfterFee?.toFixed(2)} zł </span>
           <span>
-            - Kwota, która trafi na twoje konto. Pobieramy opłaty według wzoru:{' '}
-            <span className="whitespace-nowrap font-bold text-yellow-400">
-              cena * {StripeConstants.STRIPE_FEE_PERCENTAGE} + 1 zł
-            </span>
+            - uśredniona kwota, która trafi na twoje konto zależnie od typu płatności. Sprawdź jak{' '}
+            <Link className="whitespace-nowrap font-bold text-yellow-400" href="/terms-of-service">
+              obliczamy prowizję.
+            </Link>
           </span>
         </div>
       </div>

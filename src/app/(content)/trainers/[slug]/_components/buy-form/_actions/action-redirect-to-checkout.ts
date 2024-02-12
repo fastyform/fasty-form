@@ -3,7 +3,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
-import calculateStripeFee from '@/app/(stripe)/stripe/_utils/calculate-stripe-fee';
+import { calculateAppFee } from '@/app/(stripe)/stripe/_utils/calculate-fees';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
@@ -49,7 +49,7 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
 
   if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}`);
 
-  const stripeFee = calculateStripeFee(trainerDetails.service_price_in_grosz);
+  const appFee = calculateAppFee(trainerDetails.service_price_in_grosz);
 
   const trainerStripeAccount = await stripe.accounts.retrieve({ stripeAccount: trainerDetails.stripe_account_id });
 
@@ -63,14 +63,15 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
       ],
       payment_intent_data: {
         description: getReceiptDescription(trainerStripeAccount),
-        application_fee_amount: stripeFee,
+        application_fee_amount: appFee,
+        receipt_email: user.email,
       },
+      customer_email: user.email,
       metadata: {
         trainerId,
         userId: user.id,
         userEmail: user.email,
         trainerProfileSlug: trainerDetails.profile_slug,
-        priceAfterFees: trainerDetails.service_price_in_grosz - stripeFee,
       },
       mode: 'payment',
       success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,

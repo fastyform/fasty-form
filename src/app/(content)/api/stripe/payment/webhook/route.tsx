@@ -40,14 +40,14 @@ export async function POST(req: Request) {
         !session.metadata.userId ||
         !session.metadata.trainerId ||
         !session.metadata.userEmail ||
-        !session.metadata.priceAfterFees
+        !session.amount_total
       )
         throw new Error('Metadata is empty');
 
       const { data: submission, error } = await supabase
         .from('submissions')
         .insert({
-          price_in_grosz: Number(session.metadata.priceAfterFees),
+          price_in_grosz: session.amount_total,
           order_id: session.id,
           client_id: session.metadata.userId,
           trainer_id: session.metadata.trainerId,
