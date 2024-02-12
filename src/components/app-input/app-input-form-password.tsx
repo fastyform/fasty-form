@@ -10,8 +10,6 @@ import AppInputForm, { Props as AppInputFormPasswordProps } from './app-input-fo
 const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPasswordProps<T>) => {
   const [isPasswordVisible, toggleIsPasswordVisible] = useReducer((value) => !value, false);
 
-  const tooltipTitle = isPasswordVisible ? 'Ukryj hasło' : 'Pokaż hasło';
-
   return (
     <AppInputForm
       {...props}
@@ -19,7 +17,7 @@ const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPassword
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <Tooltip arrow title={tooltipTitle}>
+            <Tooltip arrow title={isPasswordVisible ? 'Ukryj hasło' : 'Pokaż hasło'}>
               <IconButton className="text-white" onClick={toggleIsPasswordVisible}>
                 {isPasswordVisible ? <VisibilityOff /> : <Visibility />}
               </IconButton>

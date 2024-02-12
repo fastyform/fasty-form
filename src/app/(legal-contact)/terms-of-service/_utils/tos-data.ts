@@ -1,3 +1,4 @@
+import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import Constants from '@/utils/constants';
 
 const tosData = {
@@ -26,7 +27,7 @@ const tosData = {
     'Po zakończonej i ocenionej przez trenera analizie wideo, przysługujące trenerowi wynagrodzenie jest automatycznie wypłacane.',
     'Czas dostępności środków zależy od dostawcy usług płatniczych i może wynosić od 3 do 7 dni. Po tym okresie środki są automatycznie przelewane na konto bankowe trenera.',
     'Właściciel Aplikacji nie ponosi odpowiedzialności za opóźnienia w przetwarzaniu płatności przez zewnętrzne systemy płatności.',
-    'Prowizja naliczana przez Właściciela Aplikacji od każdej transakcji jest obliczana według następującego wzoru: [cena usługi ustalona przez trenera] * 0.02 + 1 PLN. Prowizja jest pobierana jako wynagrodzenie za korzystanie z platformy jako narzędzia pośredniczącego.',
+    `Prowizja naliczana przez Właściciela Aplikacji od każdej transakcji jest obliczana według następującego wzoru: [cena usługi ustalona przez trenera] * ${StripeConstants.STRIPE_FEE_PERCENTAGE} + 1 PLN. Prowizja jest pobierana jako wynagrodzenie za korzystanie z platformy jako narzędzia pośredniczącego.`,
     'Kwota prowizji jest automatycznie odliczana od wynagrodzenia należnego trenerowi za świadczone usługi.',
     'Właściciel Aplikacji zastrzega sobie prawo do zmiany stawki prowizji, zgodnie z postanowieniem 15.1 Regulaminu.',
     'Minimalna kwota do wypłaty wynagrodzenia dla trenera przez system płatności Stripe wynosi 5 zł. Wypłaty poniżej tej kwoty będą akumulowane, dopóki łączna suma do wypłaty nie przekroczy minimalnej kwoty wymaganej.',

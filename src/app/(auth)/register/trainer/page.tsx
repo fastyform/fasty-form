@@ -17,7 +17,7 @@ const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) =
       <h1 className="text-2xl text-white">
         Stań się trenerem <span className="font-medium text-yellow-400">przyszłości</span>,
         <br />
-        dołącz, trenuj, <span className="font-medium text-yellow-400">zarabiaj</span>
+        analizuj, pomagaj, <span className="font-medium text-yellow-400">zarabiaj</span>
       </h1>
     </div>
     <div className="flex flex-col gap-6">
