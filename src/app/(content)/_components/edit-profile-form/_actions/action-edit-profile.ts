@@ -3,6 +3,7 @@
 import dayjs from 'dayjs';
 import { revalidatePath } from 'next/cache';
 import { editProfileSchema } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
+import { PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
@@ -54,24 +55,26 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting, train
 
     const imageUrl = await getImageUrl();
     const { servicePrice, profileName } = formSchemaParsed;
+    let price;
 
-    if (trainerDetails.stripe_price_id) {
-      await stripe.prices.update(trainerDetails.stripe_price_id, { active: false });
+    if (trainerDetails.stripe_price_id && trainerDetails.stripe_account_id) {
+      price = await stripe.prices.create(
+        {
+          currency: StripeConstants.CURRENCY,
+          product: user.id,
+          unit_amount: PLNToGrosz(servicePrice),
+          nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
+        },
+        { stripeAccount: trainerDetails.stripe_account_id },
+      );
     }
-
-    const price = await stripe.prices.create({
-      currency: StripeConstants.CURRENCY,
-      product: 'default_form_analysis',
-      unit_amount: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
-      nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
-    });
 
     const { error } = await supabase
       .from('trainers_details')
       .update({
-        service_price_in_grosz: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
+        service_price_in_grosz: PLNToGrosz(servicePrice),
         profile_name: profileName,
-        stripe_price_id: price.id,
+        stripe_price_id: price?.id,
         ...(imageUrl !== undefined && { profile_image_url: imageUrl }),
       })
       .eq('user_id', user.id);

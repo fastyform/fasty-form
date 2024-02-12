@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { onboardingFormSchema } from '@/app/(content)/_components/onboarding-form/_utils';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import { PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -30,7 +30,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   const { error } = await supabase
     .from('trainers_details')
     .update({
-      service_price_in_grosz: servicePrice * StripeConstants.GROSZ_MULTIPLIER,
+      service_price_in_grosz: PLNToGrosz(servicePrice),
       profile_name: profileName,
       profile_slug: profileSlug,
       is_onboarded: true,
