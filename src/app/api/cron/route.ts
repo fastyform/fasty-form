@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -66,9 +67,7 @@ export async function GET(request: NextRequest) {
 
       if (totalAccountPayout < MINIMAL_PAYOUT_IN_GROSZ) {
         throw new Error(
-          `Minimal payout is 5 zł, account: ${stripeAccountId} has currently ${
-            totalAccountPayout / StripeConstants.GROSZ_MULTIPLIER
-          } zł`,
+          `Minimal payout is 5 zł, account: ${stripeAccountId} has currently ${groszToPLN(totalAccountPayout)} zł`,
         );
       }
 
