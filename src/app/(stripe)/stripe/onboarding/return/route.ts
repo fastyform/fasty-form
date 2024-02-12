@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
@@ -24,27 +25,18 @@ export async function GET() {
     isOnboardedStripe = stripeAccount.charges_enabled || trainerDetails.stripe_onboarding_status === 'verified';
 
     if (isOnboardedStripe || isRequiredDataFilled) {
-      const product = await stripe.products.create(
-        {
-          name: 'Ocena techniki - 1 wideo',
-          default_price_data: {
-            currency: StripeConstants.CURRENCY,
-            unit_amount: trainerDetails.service_price_in_grosz,
-          },
-          id: user.id,
-        },
-        {
-          stripeAccount: trainerDetails.stripe_account_id,
-        },
-      );
-
-      if (!product.default_price) throw new Error();
+      const price = await stripe.prices.create({
+        currency: StripeConstants.CURRENCY,
+        product: 'default_form_analysis',
+        unit_amount: trainerDetails.service_price_in_grosz,
+        nickname: `${trainerDetails.profile_name} - ${user.id} - ${dayjs()}`,
+      });
 
       const { error } = await supabase
         .from('trainers_details')
         .update({
           stripe_onboarding_status: isOnboardedStripe ? 'verified' : 'pending_verification',
-          stripe_price_id: product.default_price as string,
+          stripe_price_id: price.id,
         })
         .eq('user_id', user.id);
 

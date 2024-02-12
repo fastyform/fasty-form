@@ -53,35 +53,36 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
 
   const trainerStripeAccount = await stripe.accounts.retrieve({ stripeAccount: trainerDetails.stripe_account_id });
 
-  const session = await stripe.checkout.sessions.create(
-    {
-      line_items: [
-        {
-          price: trainerDetails.stripe_price_id,
-          quantity: 1,
-        },
-      ],
-      payment_intent_data: {
-        description: getReceiptDescription(trainerStripeAccount),
-        application_fee_amount: stripeFee,
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: trainerDetails.stripe_price_id,
+        quantity: 1,
       },
-      metadata: {
-        trainerId,
-        userId: user.id,
-        userEmail: user.email,
-        trainerProfileSlug: trainerDetails.profile_slug,
-        priceAfterFees: trainerDetails.service_price_in_grosz - stripeFee,
+    ],
+    payment_intent_data: {
+      description: getReceiptDescription(trainerStripeAccount),
+      application_fee_amount: stripeFee,
+      transfer_data: {
+        destination: trainerDetails.stripe_account_id,
       },
-      mode: 'payment',
-      success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${
-        trainerDetails.profile_slug
-      }`,
-      locale: 'pl',
-      currency: StripeConstants.CURRENCY,
+      on_behalf_of: trainerDetails.stripe_account_id,
     },
-    { stripeAccount: trainerDetails.stripe_account_id },
-  );
+    metadata: {
+      trainerId,
+      userId: user.id,
+      userEmail: user.email,
+      trainerProfileSlug: trainerDetails.profile_slug,
+      priceAfterFees: trainerDetails.service_price_in_grosz - stripeFee,
+    },
+    mode: 'payment',
+    success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${
+      trainerDetails.profile_slug
+    }`,
+    locale: 'pl',
+    currency: StripeConstants.CURRENCY,
+  });
 
   if (!session.url) throw new Error();
 
