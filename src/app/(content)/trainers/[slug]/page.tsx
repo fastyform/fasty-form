@@ -9,7 +9,7 @@ import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { Database } from '@/utils/supabase/supabase';
-import BuyForm from './_components/buy-form/buy-form';
+import BuyButton from './_components/buy-form/buy-button';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
@@ -41,7 +41,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
             <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
           </span>
         </div>
-        <BuyForm isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
+        <BuyButton isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
       </div>
     </div>
   );

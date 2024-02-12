@@ -26,7 +26,7 @@ const stepsData = [
   [
     One,
     'Załóż konto <br/> <span class="text-yellow-400">trenera</span> bez <br/> żadnych opłat.',
-    `${Constants.APP_NAME} jest w pełni darmowe. Jedynie dostawca płatności pobiera niewielką prowizję od każdej płatności.`,
+    `Założenie konta w ${Constants.APP_NAME} jest w pełni darmowe. Pobieramy jedynie niewielką prowizję od każdej płatności.`,
     'sm:ml-0',
   ],
   [
