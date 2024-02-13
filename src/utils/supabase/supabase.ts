@@ -56,9 +56,9 @@ export interface Database {
           client_id: string | null;
           created_at: string;
           id: string;
-          order_id: string;
-          price_in_grosz: number;
+          price_in_grosz: number | null;
           status: Database['public']['Enums']['status'];
+          stripe_session_id: string | null;
           trainer_id: string;
           trainer_review: string | null;
           updated_at: string;
@@ -69,9 +69,9 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
-          order_id: string;
-          price_in_grosz: number;
+          price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'];
+          stripe_session_id?: string | null;
           trainer_id: string;
           trainer_review?: string | null;
           updated_at?: string;
@@ -82,9 +82,9 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
-          order_id?: string;
-          price_in_grosz?: number;
+          price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'];
+          stripe_session_id?: string | null;
           trainer_id?: string;
           trainer_review?: string | null;
           updated_at?: string;
@@ -114,7 +114,7 @@ export interface Database {
           profile_slug: string | null;
           service_price_in_grosz: number | null;
           stripe_account_id: string | null;
-          stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status'];
+          stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id: string | null;
           user_id: string;
         };
@@ -126,7 +126,7 @@ export interface Database {
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
-          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status'];
+          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
           user_id: string;
         };
@@ -138,7 +138,7 @@ export interface Database {
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
           stripe_account_id?: string | null;
-          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status'];
+          stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
           user_id?: string;
         };
@@ -202,7 +202,7 @@ export interface Database {
     Enums: {
       role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
-      stripe_onboarding_status: 'verified' | 'unverified' | 'pending_verification';
+      stripe_onboarding_status_enum: 'verified' | 'unverified' | 'pending_verification';
     };
     CompositeTypes: {
       [_ in never]: never;

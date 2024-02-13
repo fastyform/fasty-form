@@ -35,23 +35,19 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     try {
       const session = event.data.object;
-      if (
-        !session.metadata ||
-        !session.metadata.userId ||
-        !session.metadata.trainerId ||
-        !session.metadata.userEmail ||
-        !session.amount_total
-      )
+
+      if (!session.metadata || !session.metadata.userId || !session.metadata.trainerId || !session.metadata.userEmail) {
         throw new Error('Metadata is empty');
+      }
 
       const { data: submission, error } = await supabase
         .from('submissions')
         .insert({
-          price_in_grosz: session.amount_total,
-          order_id: session.id,
+          stripe_session_id: session.id,
           client_id: session.metadata.userId,
           trainer_id: session.metadata.trainerId,
           status: 'paid',
+          id: session.metadata.submissionId,
         })
         .select('id, client_id, trainers_details (profile_name, profile_slug)')
         .single();
@@ -62,8 +58,9 @@ export async function POST(req: Request) {
         !submission.client_id ||
         !submission.trainers_details?.profile_name ||
         !submission.trainers_details?.profile_slug
-      )
+      ) {
         throw new Error(error?.message);
+      }
 
       const user = await getUserAsAdminById(submission.client_id);
 
@@ -80,6 +77,37 @@ export async function POST(req: Request) {
           </MailTemplate>,
         ),
       });
+    } catch (error) {
+      return NextResponse.json(
+        {
+          message: `Creating submission error: ${error}`,
+          ok: false,
+        },
+        { status: 400 },
+      );
+    }
+  }
+
+  if (event.type === 'charge.succeeded') {
+    const charge = event.data.object;
+
+    try {
+      const balance = await stripe.balanceTransactions.retrieve(event.data.object.balance_transaction as string, {
+        stripeAccount: event.account,
+      });
+
+      if (!charge.metadata.submissionId) {
+        throw new Error('Metadata is empty');
+      }
+
+      const { error } = await supabase
+        .from('submissions')
+        .update({ price_in_grosz: balance.net })
+        .eq('id', charge.metadata.submissionId);
+
+      if (error) {
+        throw new Error(error.message);
+      }
     } catch (error) {
       return NextResponse.json(
         {
