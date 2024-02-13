@@ -11,7 +11,7 @@ import { roleSchema } from '@/utils/validators';
 const mailTexts = {
   client: [
     `Witaj w ${Constants.APP_NAME}! Zadbaj o swoją technikę już dziś.`,
-    `Super, że jesteś z nami. W ${Constants.APP_NAME} czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo. Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!`,
+    `Super, że jesteś z nami. W ${Constants.APP_NAME} czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo. Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę. Będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!`,
   ],
   trainer: [
     'Witamy na pokładzie, Trenerze!',
