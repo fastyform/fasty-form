@@ -7,7 +7,7 @@ import RedirectToStripeOnboardingForm from './_components/redirect-to-stripe-onb
 import StripeDashboard from './_components/stripe-dashboard';
 
 type PaymentPageData = {
-  [K in Database['public']['Enums']['stripe_onboarding_status']]: [string, ComponentType];
+  [K in Database['public']['Enums']['stripe_onboarding_status_enum']]: [string, ComponentType];
 };
 
 const PendingVerificationButton = () => (
