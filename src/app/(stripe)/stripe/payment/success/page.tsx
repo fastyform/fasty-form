@@ -18,9 +18,9 @@ const SuccessPaymentPage = () => {
   );
   const searchParam = useSearchParams();
   const router = useRouter();
-  const orderId = searchParam.get('order_id');
+  const stripeSessionId = searchParam.get('stripe_session_id');
 
-  if (!orderId) router.push('/submissions');
+  if (!stripeSessionId) router.push('/submissions');
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,22 +31,26 @@ const SuccessPaymentPage = () => {
   }, [router]);
 
   useEffect(() => {
-    if (!orderId) return;
+    if (!stripeSessionId) return;
     const getNewSubmissionId = async () => {
-      const { data } = await supabase.from('submissions').select('id').eq('order_id', orderId).single();
+      const { data } = await supabase
+        .from('submissions')
+        .select('id')
+        .eq('stripe_session_id', stripeSessionId)
+        .single();
 
       if (data && data.id) {
         router.push(getSubmissionRequirementsLink(data.id));
       }
     };
     getNewSubmissionId();
-  }, [orderId, router, supabase]);
+  }, [stripeSessionId, router, supabase]);
 
   useEffect(() => {
     const handleInserts = (
       payload: RealtimePostgresInsertPayload<Database['public']['Tables']['submissions']['Row']>,
     ) => {
-      if (payload.new.order_id === orderId) {
+      if (payload.new.stripe_session_id === stripeSessionId) {
         router.push(getSubmissionRequirementsLink(payload.new.id));
       }
     };
@@ -55,7 +59,7 @@ const SuccessPaymentPage = () => {
       .channel('submissions')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'submissions', filter: `order_id=eq.${orderId}` },
+        { event: 'INSERT', schema: 'public', table: 'submissions', filter: `stripe_session_id=eq.${stripeSessionId}` },
         handleInserts,
       )
       .subscribe();
@@ -63,7 +67,7 @@ const SuccessPaymentPage = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [orderId, router, supabase]);
+  }, [stripeSessionId, router, supabase]);
 
   return (
     <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">

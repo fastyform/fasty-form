@@ -1,5 +1,6 @@
 'use server';
 
+import crypto from 'crypto';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
@@ -53,6 +54,8 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
 
   const trainerStripeAccount = await stripe.accounts.retrieve({ stripeAccount: trainerDetails.stripe_account_id });
 
+  const newSubmissionIdMetadata = { submissionId: crypto.randomUUID() };
+
   const session = await stripe.checkout.sessions.create(
     {
       line_items: [
@@ -65,16 +68,20 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
         description: getReceiptDescription(trainerStripeAccount),
         application_fee_amount: appFee,
         receipt_email: user.email,
+        metadata: {
+          ...newSubmissionIdMetadata,
+        },
       },
-      customer_email: user.email,
       metadata: {
         trainerId,
         userId: user.id,
         userEmail: user.email,
         trainerProfileSlug: trainerDetails.profile_slug,
+        ...newSubmissionIdMetadata,
       },
+      customer_email: user.email,
       mode: 'payment',
-      success_url: `${headersList.get('origin')}/stripe/payment/success?order_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${headersList.get('origin')}/stripe/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${
         trainerDetails.profile_slug
       }`,
