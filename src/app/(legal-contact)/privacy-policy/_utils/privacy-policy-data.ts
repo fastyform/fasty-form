@@ -16,6 +16,7 @@ const privacyPolicyData = {
   'Cel przetwarzania danych': [
     'Dane osobowe są przetwarzane w celu świadczenia usług przez Aplikację, w tym analizy wideo, obsługi płatności, a także do celów administracyjnych i prawnych.',
     'Dane osobowe są przetwarzane na podstawie zgody użytkownika, w celu wykonania umowy między użytkownikiem a Administratorem, lub gdy przetwarzanie jest niezbędne do wypełnienia obowiązku prawnego ciążącego na Administratorze.',
+    'Dane osobowe mogą być również przetwarzane w celu wysyłania użytkownikowi powiadomień drogą mailową zgodnie z domyślnymi ustawieniami powiadomień, o których użytkownik zostaje poinformowany podczas procesu rejestracji. Powiadomienia te mogą obejmować porady i wskazówki do lepszego korzystania z aplikacji, promocje specjalne oraz informacje o aktualizacjach i nowych funkcjach Aplikacji.',
   ],
   'Bezpieczeństwo danych': [
     'Administrator zobowiązuje się do ochrony danych osobowych zgodnie z obowiązującymi przepisami i najlepszymi praktykami. Stosowane są odpowiednie środki techniczne i organizacyjne.',
@@ -35,6 +36,7 @@ const privacyPolicyData = {
     'Dane osobowe użytkowników są przechowywane przez okres niezbędny do realizacji celów, dla których zostały zebrane, w tym dla potrzeb wykonania umowy oraz zgodnie z obowiązującymi przepisami prawa. Po tym okresie dane są usuwane lub anonimizowane.',
     'Gdy użytkownik (konto Trenera lub konto Klienta) podaje dane osobowe w związku z Usługami płatniczymi Stripe, Stripe otrzymuje te dane osobowe i przetwarza je zgodnie z <a class="text-yellow-400" href="https://stripe.com/en-pl/privacy">Polityką prywatności Stripe</a>.',
     'Dane osobowe trenerów, takie jak imię i nazwisko osób fizycznych oraz NIP i adres firm, mogą być udostępniane dostawcy płatności Stripe w celu generowania paragonów. Stripe przetwarza te dane zgodnie ze swoją polityką prywatności, co zapewnia użytkownikom przejrzystość i bezpieczeństwo w zakresie przetwarzania ich danych osobowych.',
+    'Dane osobowe użytkowników mogą być przetwarzane w celu realizacji domyślnych ustawień powiadomień drogą mailową, o których użytkownik został poinformowany i na które wyraził zgodę podczas procesu rejestracji. Administrator zobowiązuje się do zapewnienia, że takie przetwarzanie danych odbywa się zgodnie z obowiązującymi przepisami o ochronie danych osobowych.',
   ],
   'Zmiany w Polityce Prywatności': [
     'Administrator zastrzega sobie prawo do wprowadzania zmian w Polityce Prywatności. O wszelkich zmianach użytkownicy zostaną poinformowani poprzez e-mail lub powiadomienia w aplikacji.',

@@ -30,14 +30,17 @@ export interface Database {
     Tables: {
       roles: {
         Row: {
+          optional_notifications: boolean;
           role: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Insert: {
+          optional_notifications?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Update: {
+          optional_notifications?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id?: string;
         };
