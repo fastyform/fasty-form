@@ -100,6 +100,10 @@ const tosData = {
     'Wszelkie spory wynikające z korzystania z Aplikacji będą rozstrzygane zgodnie z prawem polskim.',
     'Regulamin wchodzi w życie z dniem 01.01.2024.',
   ],
+  'Domyślne ustawienia powiadomień drogą mailową': [
+    'Rejestrując konto w Aplikacji, użytkownik wyraża zgodę na domyślne ustawienia powiadomień drogą mailową, które obejmują otrzymywanie porad i wskazówek do lepszego korzystania z aplikacji, promocji specjalnych oraz informacji o aktualizacjach i nowych funkcjach Aplikacji.',
+    'Użytkownik ma możliwość zmiany ustawień powiadomień drogą mailową w dowolnym momencie w ustawieniach swojego konta.',
+  ],
 };
 
 export default tosData;

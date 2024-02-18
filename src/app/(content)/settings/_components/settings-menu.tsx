@@ -1,11 +1,14 @@
 'use client';
 
-import { SvgIconComponent } from '@mui/icons-material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import GavelIcon from '@mui/icons-material/Gavel';
-import PasswordIcon from '@mui/icons-material/Password';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import {
+  ArrowForwardIos,
+  Gavel,
+  NotificationsActiveRounded,
+  Password,
+  Payments,
+  SupportAgent,
+  SvgIconComponent,
+} from '@mui/icons-material';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
@@ -15,10 +18,11 @@ import SignOutButton from './sign-out-button';
 type MenuItem = [string, string, SvgIconComponent, string];
 
 const settingsMenuData: MenuItem[] = [
-  ['Zarobki', 'Sprawdź swoje saldo.', PaymentsIcon, 'payments'],
-  ['Hasło', 'Zmień swoje hasło.', PasswordIcon, 'update-password'],
-  ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgentIcon, 'support'],
-  ['Dokumenty Prawne', 'Przeczytaj nasze dokumenty', GavelIcon, 'legal'],
+  ['Zarobki', 'Sprawdź swoje saldo.', Payments, 'payments'],
+  ['Hasło', 'Zmień swoje hasło.', Password, 'update-password'],
+  ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgent, 'support'],
+  ['Dokumenty Prawne', 'Przeczytaj nasze dokumenty', Gavel, 'legal'],
+  ['Powiadomienia', 'Włącz lub wyłącz powiadomienia', NotificationsActiveRounded, 'notifications'],
 ];
 
 const SettingsMenu = ({ isTrainerAccount }: { isTrainerAccount: boolean }) => {
@@ -32,7 +36,7 @@ const SettingsMenu = ({ isTrainerAccount }: { isTrainerAccount: boolean }) => {
         return (
           <AppButton
             key={title}
-            endIcon={<ArrowForwardIosIcon className="w-4 fill-white lg:hidden" />}
+            endIcon={<ArrowForwardIos className="w-4 fill-white lg:hidden" />}
             href={`/settings/${settingLink}`}
             LinkComponent={Link}
             startIcon={<Icon className="w-8 fill-yellow-400" />}
