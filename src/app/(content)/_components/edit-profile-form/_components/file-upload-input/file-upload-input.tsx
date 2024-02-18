@@ -77,7 +77,7 @@ const FileUploadInput = ({
               Zmień
             </AppButton>
             <AppButton
-              classes={{ root: 'py-2 bg-transparent' }}
+              classes={{ contained: 'bg-transparent', root: 'py-2' }}
               className="text-sm text-white"
               onClick={() => {
                 setIsDeleting(true);
