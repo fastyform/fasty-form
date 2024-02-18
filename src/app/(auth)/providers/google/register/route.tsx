@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const role = searchParams.get('role');
   const redirectUrl = searchParams.get('redirectUrl');
+  const optional_notifications = searchParams.get('optional_notifications') === 'true';
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -56,7 +57,10 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('ALREADY_REGISTERED')}`);
   }
 
-  const updateRoleResponse = await supabase.from('roles').update({ role: parsedRole }).eq('user_id', userId);
+  const updateRoleResponse = await supabase
+    .from('roles')
+    .update({ role: parsedRole, optional_notifications })
+    .eq('user_id', userId);
 
   if (updateRoleResponse.error) {
     await supabase.auth.signOut();

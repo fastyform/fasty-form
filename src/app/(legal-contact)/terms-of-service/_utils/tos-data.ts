@@ -101,7 +101,7 @@ const tosData = {
     'Regulamin wchodzi w życie z dniem 01.01.2024.',
   ],
   'Domyślne ustawienia powiadomień drogą mailową': [
-    'Rejestrując konto w Aplikacji, użytkownik wyraża zgodę na domyślne ustawienia powiadomień drogą mailową, które obejmują otrzymywanie porad i wskazówek do lepszego korzystania z aplikacji, promocji specjalnych oraz informacji o aktualizacjach i nowych funkcjach Aplikacji.',
+    'Rejestrując konto w Aplikacji, użytkownik może dobrowolnie wyrazić zgodę na dodatkowe powiadomienia (powiadomienia, które nie są potrzebne do prawidłowego działania aplikacji) drogą mailową, które obejmują otrzymywanie porad i wskazówek do lepszego korzystania z aplikacji, promocji specjalnych oraz informacji o aktualizacjach i nowych funkcjach Aplikacji.',
     'Użytkownik ma możliwość zmiany ustawień powiadomień drogą mailową w dowolnym momencie w ustawieniach swojego konta.',
   ],
 };
