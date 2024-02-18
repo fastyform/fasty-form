@@ -53,7 +53,7 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
       loading={isLoading}
       startIcon={isLoading ? undefined : <Image alt="google" height={19} src="/google.svg" width={19} />}
       classes={{
-        root: 'bg-shark text-white font-normal py-[18px] text-base rounded-full tracking-normal normal-case transition-opacity hover:opacity-80 border border-gray-600 border-solid',
+        contained: 'bg-shark text-white font-normal border border-gray-600 border-solid',
       }}
       onClick={handleAuthAction}
     >

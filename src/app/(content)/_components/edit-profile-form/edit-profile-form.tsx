@@ -105,7 +105,7 @@ const EditProfileForm = ({
       </div>
       <div className="mt-auto flex flex-wrap gap-5">
         <AppButton
-          classes={{ root: 'py-2.5 bg-inherit grow' }}
+          classes={{ contained: 'bg-inherit grow', root: 'py-2.5' }}
           className="text-sm text-white"
           onClick={() => router.push(`/trainers/${trainerProfileSlug}` as Route)}
         >

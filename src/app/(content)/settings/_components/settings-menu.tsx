@@ -42,9 +42,10 @@ const SettingsMenu = ({ isTrainerAccount }: { isTrainerAccount: boolean }) => {
             startIcon={<Icon className="w-8 fill-yellow-400" />}
             classes={{
               root: twMerge(
-                'text-white p-0 py-5 font-normal rounded-none w-full items-start gap-2.5 bg-transparent border-b-[1px] border-b-[1px] border-gray-600 border-solid last:border-none',
-                active === settingLink && 'text-yellow-400',
+                'p-0 py-5 font-normal rounded-none w-full items-start gap-2.5',
+                active === settingLink && 'text-white text-yellow-400',
               ),
+              contained: 'bg-transparent text-white border-b-[1px] border-gray-600 border-solid last:border-none',
             }}
           >
             <div className="flex grow flex-col gap-1">

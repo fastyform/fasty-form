@@ -59,7 +59,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
                   Plik wideo nie jest wspierany przez Twoją przeglądarkę. Wspierane pliki to .mp4, .webm, .mov lub .qt.
                 </video>
                 <AppButton
-                  classes={{ root: 'py-2 bg-transparent' }}
+                  classes={{ root: 'py-2', contained: 'bg-transparent' }}
                   className="self-start text-sm text-white"
                   onClick={() => setVideoFile(null)}
                 >

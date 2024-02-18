@@ -68,9 +68,19 @@ const HomePage = () => (
             Dołącz do zaufanego grona trenerów <br /> analizuj, pomagaj, zarabiaj!
           </h2>
         </div>
-        <AppButton classes={{ root: 'xl:py-5 xl:px-[70px] xl:text-2xl' }} component={Link} href="/register/trainer">
-          Zarejestruj się jako trener
-        </AppButton>
+        <div className="flex flex-wrap justify-center gap-2">
+          <AppButton classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }} component={Link} href="/register/trainer">
+            Zarejestruj się jako trener
+          </AppButton>
+          <AppButton
+            classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }}
+            component={Link}
+            href="/register/client"
+            variant="outlined"
+          >
+            Jestem klientem
+          </AppButton>
+        </div>
       </Container.Content>
     </Container>
 
@@ -168,7 +178,11 @@ const HomePage = () => (
             {`Wrzuć link do swojego profilu ${Constants.APP_NAME} na social media. Pokaż wszystkim, jak możesz pomóc w perfekcyjnym
             wykonywaniu ćwiczeń. Prosto, łatwo i skutecznie!`}
           </p>
-          <AppButton classes={{ root: 'bg-shark text-white py-2.5' }} component={Link} href="/register/trainer">
+          <AppButton
+            classes={{ root: 'text-white py-2.5', contained: 'bg-shark' }}
+            component={Link}
+            href="/register/trainer"
+          >
             Zarejestruj konto trenera
           </AppButton>
         </div>
@@ -229,7 +243,7 @@ const HomePage = () => (
             Twoje opinie i pomysły są dla nas kluczowe. Czekamy na Twoje sugestie dotyczące nowych funkcjonalności i
             jesteśmy tu, aby odpowiadać na pytania oraz rozwiązywać problemy. Razem ulepszajmy naszą aplikację.
           </p>
-          <AppButton classes={{ root: 'bg-shark text-white py-2.5' }} component={Link} href="/contact">
+          <AppButton classes={{ root: 'text-white py-2.5', contained: 'bg-shark ' }} component={Link} href="/contact">
             Skontaktuj się z nami
           </AppButton>
         </div>

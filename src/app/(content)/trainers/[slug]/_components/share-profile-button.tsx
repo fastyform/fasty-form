@@ -48,9 +48,10 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
           disabled={isDisabled}
           classes={{
             root: twMerge(
-              'rounded-xl gap-2 border border-solid border-gray-600 bg-shark px-5 py-2.5 text-sm font-normal text-white',
+              'rounded-xl gap-2 border px-5 py-2.5 text-sm font-normal',
               isIconOnMobile && 'h-11 w-11 min-w-0 p-0 lg:h-[unset]t lg:w-[unset] lg:px-5 py-2.5',
             ),
+            contained: 'border-solid border-gray-600 bg-shark text-white',
           }}
           onClick={handleShare}
         >

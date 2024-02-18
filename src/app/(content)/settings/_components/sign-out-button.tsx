@@ -15,7 +15,8 @@ const SignOutButton = () => {
       endIcon={<ArrowForwardIosIcon className="w-4 fill-white lg:hidden" />}
       startIcon={<LogoutIcon className="w-8 fill-yellow-400" />}
       classes={{
-        root: 'text-white p-0 py-5 font-normal rounded-none w-full items-start gap-2.5 bg-transparent border-b-[1px] border-zinc-600 border-solid last:border-none text-left',
+        root: 'p-0 py-5 font-normal rounded-none w-full items-start gap-2.5 text-left',
+        contained: 'bg-transparent text-white',
       }}
       onClick={handleSignOut}
     >
