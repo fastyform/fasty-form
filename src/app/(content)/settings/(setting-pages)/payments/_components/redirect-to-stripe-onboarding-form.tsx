@@ -93,7 +93,7 @@ const RedirectToStripeOnboardingForm = () => {
         loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting}
         type="submit"
       >
-        Połącz
+        Połącz płatności
       </AppButton>
     </form>
   );

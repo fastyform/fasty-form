@@ -11,9 +11,8 @@ const RequirementsSentMailContent = ({ trainerName, submissionId }: { trainerNam
     albo:
     <br /> 1. Zaloguj się do swojego konta na {Constants.APP_NAME}.
     <br /> 2. Przejdź do zakładki &apos;Zgłoszenia&apos;.
-    <br /> 3. Wybierz zgłoszenie, które chcesz przeanalizować.
-    <br /> 4. Przejrzyj przesłane informacje i materiały.
-    <br /> 5. Skontaktuj się z klientem, aby rozpocząć współpracę.
+    <br /> 3. Wybierz nowe zgłoszenie.
+    <br /> 4. Wyślij informację zwrotną na temat przesłanego wideo.
     <br />
     <br /> Jesteśmy przekonani, że Twoja wiedza i doświadczenie będą kluczowe w osiąganiu celów Twoich podopiecznych.
     <br />

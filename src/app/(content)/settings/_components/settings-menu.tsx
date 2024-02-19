@@ -22,7 +22,7 @@ const settingsMenuData: MenuItem[] = [
   ['Hasło', 'Zmień swoje hasło.', Password, 'update-password'],
   ['Wsparcie', 'Skontaktuj się z obsługą klienta', SupportAgent, 'support'],
   ['Dokumenty Prawne', 'Przeczytaj nasze dokumenty', Gavel, 'legal'],
-  ['Powiadomienia', 'Włącz lub wyłącz dodatkowe powiadomienia', NotificationsActiveRounded, 'notifications'],
+  ['Powiadomienia', 'Włącz lub wyłącz powiadomienia', NotificationsActiveRounded, 'notifications'],
 ];
 
 const SettingsMenu = ({ isTrainerAccount }: { isTrainerAccount: boolean }) => {

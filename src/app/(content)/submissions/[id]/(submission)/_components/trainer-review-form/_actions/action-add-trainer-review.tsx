@@ -7,7 +7,7 @@ import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submi
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
-import sendMail from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionAddTrainerReview = async (
@@ -43,8 +43,8 @@ const actionAddTrainerReview = async (
 
     const user = await getUserAsAdminById(submission.client_id);
 
-    await sendMail({
-      to: user.email,
+    sendMail({
+      to: user.email as string,
       subject: 'Trener przeanalizował twoje wideo',
       html: render(
         <MailTemplate title="Twoja Analiza Wideo Jest Gotowa! Sprawdź, odpowiedź trenera.">

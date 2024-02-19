@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getQueryParamError } from '@/app/(auth)/_utils';
 import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
-import sendMail from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const role = searchParams.get('role');
   const redirectUrl = searchParams.get('redirectUrl');
-  const optional_notifications = searchParams.get('optional_notifications') === 'true';
+  const marketing_consent = searchParams.get('marketing_consent') === 'true';
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
 
   const updateRoleResponse = await supabase
     .from('roles')
-    .update({ role: parsedRole, optional_notifications })
+    .update({ role: parsedRole, marketing_consent })
     .eq('user_id', userId);
 
   if (updateRoleResponse.error) {
@@ -70,8 +70,8 @@ export async function GET(request: NextRequest) {
 
   const [title, description] = mailTexts[parsedRole];
 
-  await sendMail({
-    to: data.user.email,
+  sendMail({
+    to: data.user.email as string,
     subject: `Witaj w ${Constants.APP_NAME}!`,
     html: render(<MailTemplate title={title}>{description}</MailTemplate>),
   });

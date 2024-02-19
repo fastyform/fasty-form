@@ -16,7 +16,7 @@ export const registerSchema = z.object({
   email: emailValidator,
   password: newPasswordValidator,
   policy: checkboxCheckedValidator,
-  optional_notifications: z.boolean(),
+  marketing_consent: z.boolean(),
 });
 
 export type FormValues = z.infer<typeof registerSchema>;

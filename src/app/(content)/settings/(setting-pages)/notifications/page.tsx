@@ -7,7 +7,7 @@ const NotificationsPage = async () => {
   const supabase = getSupabaseServerComponentClient();
 
   const user = await getUserFromSession();
-  const { data, error } = await supabase.from('roles').select('optional_notifications').eq('user_id', user.id).single();
+  const { data, error } = await supabase.from('roles').select('marketing_consent').eq('user_id', user.id).single();
 
   if (!data || error) {
     return Constants.COMMON_ERROR_MESSAGE;
@@ -17,7 +17,7 @@ const NotificationsPage = async () => {
     <>
       <h1 className="text-2xl text-white">Powiadomienia</h1>
       <p className="text-white">Korzystaj więcej, oszczędzaj i bądź na bieżąco!</p>
-      <NotificationsForm key={`${data.optional_notifications}`} defaultValue={data.optional_notifications}>
+      <NotificationsForm key={`${data.marketing_consent}`} defaultValue={data.marketing_consent}>
         <div className="flex flex-col gap-2 text-sm text-white" color="pink">
           <span>Zaznaczając tę opcję, zgadzasz się na otrzymywanie:</span>
           <ul className="list-inside list-disc">

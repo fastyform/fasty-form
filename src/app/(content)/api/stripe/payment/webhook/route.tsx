@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import MailTemplate from '@/utils/mail/mail-template';
-import sendMail from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import SuccessfulPaymentMailContent from './_components/successful-payment-mail-content';
 
@@ -64,8 +64,8 @@ export async function POST(req: Request) {
 
       const user = await getUserAsAdminById(submission.client_id);
 
-      await sendMail({
-        to: user.email,
+      sendMail({
+        to: user.email as string,
         subject: 'Dziękujemy za zakup!',
         html: render(
           <MailTemplate title="Dzięki za zakup analizy! Jesteśmy gotowi na Twoje wideo.">

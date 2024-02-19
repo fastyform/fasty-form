@@ -20,7 +20,7 @@ const actionRegisterGoogle = async (
     return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
-  const optional_notifications = z.boolean().parse(optionalNotifications);
+  const marketing_consent = z.boolean().parse(optionalNotifications);
 
   const headersList = headers();
 
@@ -31,7 +31,7 @@ const actionRegisterGoogle = async (
     options: {
       redirectTo: `${headersList.get(
         'origin',
-      )}/providers/google/register?role=${role}${redirectUrl}&optional_notifications=${optional_notifications}`,
+      )}/providers/google/register?role=${role}${redirectUrl}&marketing_consent=${marketing_consent}`,
     },
   });
 

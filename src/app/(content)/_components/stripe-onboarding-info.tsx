@@ -10,20 +10,15 @@ import actionRevalidateRootLayout from '@/app/(content)/_actions/action-revalida
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import createQueryString from '@/utils/create-query-string';
-import { Database, Tables } from '@/utils/supabase/supabase';
+import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
+import { Database } from '@/utils/supabase/supabase';
 
 const paymentInformationTitles = {
   unverified: ' Wprowadź swoje dane płatności, aby aktywować konto.',
   pending_verification: ' Twoje konto jest w trakcie weryfikacji. Poinformujemy Cię o zmianie statusu.',
 };
 
-const StripeOnboardingInfo = ({
-  trainerDetails,
-  userId,
-}: {
-  trainerDetails: Omit<Tables<'trainers_details'>, 'created_at' | 'user_id'>;
-  userId: string;
-}) => {
+const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: TrainerDetails; userId: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createBrowserClient(

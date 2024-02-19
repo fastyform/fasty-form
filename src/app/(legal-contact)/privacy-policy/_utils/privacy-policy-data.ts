@@ -16,14 +16,18 @@ const privacyPolicyData = {
   'Cel przetwarzania danych': [
     'Dane osobowe są przetwarzane w celu świadczenia usług przez Aplikację, w tym analizy wideo, obsługi płatności, a także do celów administracyjnych i prawnych.',
     'Dane osobowe są przetwarzane na podstawie zgody użytkownika, w celu wykonania umowy między użytkownikiem a Administratorem, lub gdy przetwarzanie jest niezbędne do wypełnienia obowiązku prawnego ciążącego na Administratorze.',
-    'Dane osobowe mogą być również przetwarzane w celu wysyłania użytkownikowi powiadomień drogą mailową zgodnie z domyślnymi ustawieniami powiadomień, o których użytkownik zostaje poinformowany podczas procesu rejestracji. Powiadomienia te mogą obejmować porady i wskazówki do lepszego korzystania z aplikacji, promocje specjalne oraz informacje o aktualizacjach i nowych funkcjach Aplikacji.',
+    'Dane osobowe mogą być również przetwarzane w celu przesyłania użytkownikowi informacji marketingowych, pod warunkiem wyrażenia przez niego zgody. Obejmuje to informacje o promocjach, poradach i nowościach związanych z Aplikacją, wysyłane drogą mailową.',
   ],
   'Bezpieczeństwo danych': [
     'Administrator zobowiązuje się do ochrony danych osobowych zgodnie z obowiązującymi przepisami i najlepszymi praktykami. Stosowane są odpowiednie środki techniczne i organizacyjne.',
   ],
-  'Komunikacja E-mailowa': [
-    `Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez aplikację ${Constants.APP_NAME}. Ta komunikacja może obejmować powiadomienia dotyczące konta, transakcji, aktualizacji usług oraz innych ważnych informacji.`,
-    'Oprócz komunikacji niezbędnej do świadczenia usług, użytkownik może wyrazić zgodę na otrzymywanie materiałów marketingowych i informacyjnych związanych z aplikacją. Użytkownik ma możliwość w każdej chwili wycofania zgody na otrzymywanie takiej komunikacji.',
+  'Niezbędna Komunikacja E-mailowa': [
+    `Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez aplikację ${Constants.APP_NAME}. Ta komunikacja może obejmować powiadomienia dotyczące konta, przebiegu procesu rejestracji, przebiegu procesu podłączania płatności, transakcji, aktualizacji usług oraz innych ważnych informacji.`,
+  ],
+  'Komunikacja Marketingowa': [
+    'Użytkownik może wyrazić zgodę na otrzymywanie komunikacji marketingowej, w tym informacji o promocjach, poradach i nowościach związanych z Aplikacją, poprzez zaznaczenie odpowiedniego checkboxa podczas rejestracji lub w ustawieniach aplikacji.',
+    'Użytkownik ma prawo w każdej chwili cofnąć zgodę na przetwarzanie swoich danych osobowych w celach marketingowych. Może to zrobić, zmieniając ustawienia w zakładce powiadomień w aplikacji lub korzystając z linku do rezygnacji dostępnego w każdym e-mailu marketingowym.',
+    'Cofnięcie zgody na otrzymywanie komunikacji marketingowej nie wpływa na zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.',
   ],
   'Prawa użytkownika': [
     'Użytkownik ma prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania. W szczególności, na prośbę użytkownika, możliwe jest usunięcie danych i nagrań z aplikacji.',
@@ -36,7 +40,7 @@ const privacyPolicyData = {
     'Dane osobowe użytkowników są przechowywane przez okres niezbędny do realizacji celów, dla których zostały zebrane, w tym dla potrzeb wykonania umowy oraz zgodnie z obowiązującymi przepisami prawa. Po tym okresie dane są usuwane lub anonimizowane.',
     'Gdy użytkownik (konto Trenera lub konto Klienta) podaje dane osobowe w związku z Usługami płatniczymi Stripe, Stripe otrzymuje te dane osobowe i przetwarza je zgodnie z <a class="text-yellow-400" href="https://stripe.com/en-pl/privacy">Polityką prywatności Stripe</a>.',
     'Dane osobowe trenerów, takie jak imię i nazwisko osób fizycznych oraz NIP i adres firm, mogą być udostępniane dostawcy płatności Stripe w celu generowania paragonów. Stripe przetwarza te dane zgodnie ze swoją polityką prywatności, co zapewnia użytkownikom przejrzystość i bezpieczeństwo w zakresie przetwarzania ich danych osobowych.',
-    'Dane osobowe użytkowników mogą być przetwarzane w celu realizacji domyślnych ustawień powiadomień drogą mailową, o których użytkownik został poinformowany i na które wyraził zgodę podczas procesu rejestracji. Administrator zobowiązuje się do zapewnienia, że takie przetwarzanie danych odbywa się zgodnie z obowiązującymi przepisami o ochronie danych osobowych.',
+    'W celu realizacji komunikacji marketingowej, dane osobowe użytkowników mogą być udostępniane dostawcy usług zewnętrznych, takim jak SendGrid, który wspiera Właściciela Aplikacji w wysyłaniu e-maili. SendGrid przetwarza dane osobowe użytkowników zgodnie ze swoją polityką prywatności i w imieniu Administratora danych. Zachęcamy użytkowników do zapoznania się z polityką prywatności SendGrid, aby zrozumieć, jak są przetwarzane ich dane w ramach usług marketingowych.',
   ],
   'Zmiany w Polityce Prywatności': [
     'Administrator zastrzega sobie prawo do wprowadzania zmian w Polityce Prywatności. O wszelkich zmianach użytkownicy zostaną poinformowani poprzez e-mail lub powiadomienia w aplikacji.',

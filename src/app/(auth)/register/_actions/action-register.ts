@@ -21,7 +21,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     email: formData.get('email'),
     password: formData.get('password'),
     policy: formData.get('policy') === 'true',
-    optional_notifications: formData.get('optional_notifications') === 'true',
+    marketing_consent: formData.get('marketing_consent') === 'true',
   });
 
   if (!formSchemaParsed.success || !role) {
@@ -52,7 +52,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
 
   await supabase
     .from('roles')
-    .update({ role, optional_notifications: formSchemaParsed.data.optional_notifications })
+    .update({ role, marketing_consent: formSchemaParsed.data.marketing_consent })
     .eq('user_id', data.user.id);
 
   return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);

@@ -1,8 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/cron/payout",
       "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/complete-onboarding",
+      "schedule": "0 7 * * *"
     }
   ]
 }

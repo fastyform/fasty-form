@@ -29,7 +29,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
   const [state, formAction] = useFormState(actionRegister, formDefaultState);
   const { control, handleSubmit, formState, reset, getValues } = useForm<FormValues>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { email: '', password: '', policy: false, optional_notifications: false },
+    defaultValues: { email: '', password: '', policy: false, marketing_consent: false },
     mode: 'onTouched',
   });
 
@@ -85,7 +85,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
           />
           <Controller
             control={control}
-            name="optional_notifications"
+            name="marketing_consent"
             render={({ field, fieldState }) => (
               <FormControlLabel
                 classes={{ label: 'text-xs' }}
@@ -93,7 +93,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
                   <Checkbox
                     checked={field.value}
                     classes={{ root: twMerge('text-zinc-200', fieldState.invalid && 'text-red-400') }}
-                    name="optional_notifications"
+                    name="marketing_consent"
                     value={field.value}
                     onChange={(_, checked) => field.onChange(checked)}
                   />
@@ -114,7 +114,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
         <ButtonGoogle
-          authCallback={() => actionRegisterGoogle(userRole, redirectPathParam, getValues('optional_notifications'))}
+          authCallback={() => actionRegisterGoogle(userRole, redirectPathParam, getValues('marketing_consent'))}
         >
           Zarejestruj się
         </ButtonGoogle>
