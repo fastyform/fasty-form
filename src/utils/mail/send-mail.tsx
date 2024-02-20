@@ -11,10 +11,15 @@ interface SendMailData {
   shouldThrow?: boolean;
 }
 
+const from = {
+  name: Constants.APP_NAME,
+  email: Constants.SUPPORT_MAIL,
+} as const;
+
 export const sendMail = async ({ to, html, subject, shouldThrow = false }: SendMailData) => {
   try {
     await client.send({
-      from: Constants.SUPPORT_MAIL,
+      from,
       to,
       subject,
       html,
@@ -37,7 +42,7 @@ export const sendMultipleMails = async ({ mails, subject, html }: SendMultipleDa
   try {
     await client.sendMultiple({
       to: mails,
-      from: Constants.SUPPORT_MAIL,
+      from,
       subject,
       html,
     });
