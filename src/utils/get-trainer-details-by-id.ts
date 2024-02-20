@@ -1,7 +1,10 @@
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import { Database } from './supabase/supabase';
 
-export type TrainerDetails = Omit<Database['public']['Tables']['trainers_details']['Row'], 'created_at' | 'user_id'>;
+export type TrainerDetails = Omit<
+  Database['public']['Tables']['trainers_details']['Row'],
+  'created_at' | 'user_id' | 'email' | 'onboarded_at'
+>;
 
 const getTrainerDetailsById = async (trainerId: string): Promise<TrainerDetails> => {
   const supabase = getSupabaseServerComponentClient();

@@ -34,6 +34,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
       profile_name: profileName,
       profile_slug: profileSlug,
       is_onboarded: true,
+      onboarded_at: new Date().toISOString(),
     })
     .eq('user_id', userId);
 

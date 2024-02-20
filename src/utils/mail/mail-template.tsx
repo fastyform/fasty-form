@@ -3,7 +3,13 @@ import { ReactNode } from 'react';
 import { Tailwind } from '@react-email/tailwind';
 import Constants from '@/utils/constants';
 
-const MailTemplate = ({ title, children }: { title: string; children: ReactNode }) => (
+interface MailTemplateProps {
+  title: string;
+  children: ReactNode;
+  showReplyDiscouragedInfo?: boolean;
+}
+
+const MailTemplate = ({ title, children, showReplyDiscouragedInfo = true }: MailTemplateProps) => (
   <Tailwind>
     <table border={0} cellPadding={0} cellSpacing={0} className="bg-[#0F1216] p-10" width="100%">
       <tr>
@@ -30,7 +36,7 @@ const MailTemplate = ({ title, children }: { title: string; children: ReactNode 
       </tr>
       <tr>
         <td className="text-xs text-black/60">
-          E-mail został wygenerowany automatycznie. Prosimy na niego nie odpowiadać.
+          E-mail został wygenerowany automatycznie. {showReplyDiscouragedInfo ? 'Prosimy na niego nie odpowiadać.' : ''}
         </td>
       </tr>
     </table>

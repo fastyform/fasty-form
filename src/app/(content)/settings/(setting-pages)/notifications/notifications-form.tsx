@@ -15,10 +15,10 @@ interface NotificationsFormProps {
 }
 
 const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) => {
-  const form = useForm({ defaultValues: { optional_notifications: defaultValue } });
+  const form = useForm({ defaultValues: { marketing_consent: defaultValue } });
 
   const updateNotificationsMutation = useMutation({
-    mutationFn: (optional_notifications: boolean) => actionUpdateNotifications(optional_notifications),
+    mutationFn: (marketing_consent: boolean) => actionUpdateNotifications(marketing_consent),
     onError: () => notify.error(Constants.COMMON_ERROR_MESSAGE),
     onSuccess: () => notify.success('Zapisano zmiany'),
   });
@@ -28,7 +28,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
       <div className="flex flex-col items-start gap-2">
         <Controller
           control={form.control}
-          name="optional_notifications"
+          name="marketing_consent"
           render={({ field }) => (
             <FormControlLabel
               classes={{ label: 'text-white' }}
@@ -51,7 +51,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
         classes={{ root: 'py-2.5 self-start' }}
         disabled={!form.formState.isDirty}
         loading={updateNotificationsMutation.isPending}
-        onClick={form.handleSubmit((values) => updateNotificationsMutation.mutate(values.optional_notifications))}
+        onClick={form.handleSubmit((values) => updateNotificationsMutation.mutate(values.marketing_consent))}
       >
         Zapisz
       </AppButton>

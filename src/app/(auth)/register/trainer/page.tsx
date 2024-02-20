@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import SplitPageWithImage from '@/app/(auth)/_components/split-page-with-image';
+import RegisterForm from '@/app/(auth)/register/_components/register-form';
 import AuthLink from '@/components/auth-link';
 import Constants from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
-import RegisterFormTrainer from './_components/register-form-trainer';
 
 export const metadata: Metadata = {
   title: `Rejestracja Trenera - ${Constants.APP_NAME}`,
@@ -21,8 +21,10 @@ const RegisterTrainerPage = ({ searchParams }: { searchParams: SearchParams }) =
       </h1>
     </div>
     <div className="flex flex-col gap-6">
-      <h2 className="text-2xl font-bold text-white">Zarejestruj się jako trener</h2>
-      <RegisterFormTrainer redirectPathParam={searchParams.redirectUrl} />
+      <h2 className="text-2xl font-bold text-white">
+        Zarejestruj się jako <span className="text-yellow-400">trener</span>
+      </h2>
+      <RegisterForm redirectPathParam={searchParams.redirectUrl} userRole="trainer" />
     </div>
     <div className="flex flex-col gap-2">
       <AuthLink href="/register/client" redirectUrlParam={searchParams.redirectUrl}>
