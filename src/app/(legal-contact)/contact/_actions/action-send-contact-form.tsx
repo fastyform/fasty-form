@@ -3,11 +3,10 @@
 import { render } from '@react-email/render';
 import { contactFormSchema } from '@/app/(legal-contact)/contact/_utils';
 import { getResponse } from '@/utils';
+import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import MailTemplate from '@/utils/mail/mail-template';
-import sendMail from '@/utils/mail/send-mail';
-
-const SUPPORT_MAIL = process.env.NODEMAILER_EMAIL;
+import { sendMail } from '@/utils/mail/send-mail';
 
 const actionSendContactForm = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });
@@ -18,8 +17,8 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
 
   try {
     await sendMail({
-      to: SUPPORT_MAIL,
-      subject: 'Formularz kontatkowy',
+      to: Constants.SUPPORT_MAIL,
+      subject: 'Formularz kontaktowy',
       html: render(
         <MailTemplate title="Formularz kontaktowy">
           Email: {formSchemaParsed.data.email}
@@ -27,10 +26,11 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
           Wiadomość: {formSchemaParsed.data.message}
         </MailTemplate>,
       ),
+      shouldThrow: true,
     });
   } catch {
     return getResponse(
-      `Ups, wystąpił problem. Spróbuj jeszcze raz lub napisz do nas na adres: ${SUPPORT_MAIL} - chętnie pomożemy!`,
+      `Ups, wystąpił problem. Spróbuj jeszcze raz lub napisz do nas na adres: ${Constants.SUPPORT_MAIL} - chętnie pomożemy!`,
     );
   }
 

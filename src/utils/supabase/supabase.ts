@@ -30,14 +30,17 @@ export interface Database {
     Tables: {
       roles: {
         Row: {
+          marketing_consent: boolean;
           role: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Insert: {
+          marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Update: {
+          marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id?: string;
         };
@@ -108,7 +111,9 @@ export interface Database {
       trainers_details: {
         Row: {
           created_at: string;
+          email: string | null;
           is_onboarded: boolean;
+          onboarded_at: string | null;
           profile_image_url: string | null;
           profile_name: string | null;
           profile_slug: string | null;
@@ -120,7 +125,9 @@ export interface Database {
         };
         Insert: {
           created_at?: string;
+          email?: string | null;
           is_onboarded?: boolean;
+          onboarded_at?: string | null;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
@@ -132,7 +139,9 @@ export interface Database {
         };
         Update: {
           created_at?: string;
+          email?: string | null;
           is_onboarded?: boolean;
+          onboarded_at?: string | null;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;

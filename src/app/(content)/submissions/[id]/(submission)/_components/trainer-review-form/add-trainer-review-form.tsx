@@ -73,7 +73,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
                 Dodaj
               </AppButton>
               <AppButton
-                classes={{ root: 'py-2.5 bg-inherit' }}
+                classes={{ root: 'py-2.5', contained: 'bg-inherit' }}
                 className="text-sm text-white"
                 onClick={() => setIsConfirmModalOpen(false)}
               >

@@ -14,7 +14,7 @@ const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset
       </div>
       <div className="flex flex-wrap gap-5">
         <AppButton onClick={reset}>Odśwież</AppButton>
-        <AppButton classes={{ root: 'bg-shark text-white' }} component={Link} href="/">
+        <AppButton classes={{ contained: 'bg-shark text-white' }} component={Link} href="/">
           Strona główna
         </AppButton>
       </div>

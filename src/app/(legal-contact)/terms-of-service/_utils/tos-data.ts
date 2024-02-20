@@ -13,6 +13,7 @@ const tosData = {
     'Podczas rejestracji użytkownik jest zobowiązany do podania prawdziwych i aktualnych danych.',
     'Dodawanie zdjęcia profilowego jest opcjonalne. Jeśli użytkownik zdecyduje się dodać zdjęcie profilowe, będzie ono przechowywane na naszych serwerach i widoczne dla wszystkich użytkowników Aplikacji.',
     'Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez Aplikację, w tym powiadomień dotyczących konta, transakcji, aktualizacji usług oraz innych ważnych informacji związanych z użytkowaniem aplikacji.',
+    'Podczas procesu rejestracji, użytkownik może wyrazić zgodę na otrzymywanie informacji o promocjach, poradach, i nowościach drogą mailową poprzez zaznaczenie opcjonalnego checkboxa. Zgoda ta może być w każdej chwili cofnięta przez użytkownika.',
   ],
   'Bezpieczeństwo i odpowiedzialność za konto': [
     'Użytkownik jest odpowiedzialny za zachowanie poufności swoich danych logowania.',
@@ -35,6 +36,10 @@ const tosData = {
     'Minimalna kwota do wypłaty wynagrodzenia dla trenera przez system płatności Stripe wynosi 5 zł. Wypłaty poniżej tej kwoty będą akumulowane, dopóki łączna suma do wypłaty nie przekroczy minimalnej kwoty wymaganej.',
     `Usługi przetwarzania płatności dla Trenerów (Użytkownicy zakładający konto Trenera) na ${Constants.APP_NAME} są świadczone przez Stripe i podlegają <a class="text-yellow-400" href="https://stripe.com/en-pl/legal/connect-account">Umowie Stripe Connected Account Agreement</a>, która obejmuje <a class="text-yellow-400" href="https://stripe.com/en-pl/legal/ssa">Stripe Terms of Service</a> (razem  "Stripe Services Agreement"). Wyrażając zgodę na niniejsze warunki lub kontynuując działalność jako Trener (Użytkownik zakładający konto Trenera) na ${Constants.APP_NAME}, użytkownik wyraża zgodę na przestrzeganie Umowy "Stripe Services Agreement", która może być okresowo modyfikowana przez Stripe. Warunkiem udostępnienia przez ${Constants.APP_NAME} usług przetwarzania płatności za pośrednictwem Stripe jest wyrażenie zgody na przekazanie ${Constants.APP_NAME} dokładnych i pełnych informacji o użytkowniku i jego działalności oraz upoważnienie ${Constants.APP_NAME} do udostępniania tych informacji i informacji o transakcjach związanych z korzystaniem przez użytkownika z usług przetwarzania płatności świadczonych przez Stripe.`,
     'W przypadku konta trenera, aplikacja wymaga podania dodatkowych informacji osobistych w celu przetwarzania płatności przez system Stripe. Dla osób fizycznych jest to imię i nazwisko, natomiast dla firm – NIP oraz adres firmy. Zebrane dane są wykorzystywane do wygenerowania paragonów Stripe, na których, w zależności od statusu trenera (osoba fizyczna lub firma), wyświetlane są odpowiednio imię i nazwisko trenera lub NIP i adres firmy.',
+  ],
+  'Komunikacja Marketingowa': [
+    'Użytkownik, który wyraził zgodę na otrzymywanie informacji marketingowych, zgadza się na otrzymywanie od Właściciela Aplikacji, drogą mailową, informacji o promocjach, poradach i nowościach związanych z Aplikacją.',
+    'Użytkownik ma możliwość w każdej chwili wycofania zgody na otrzymywanie informacji marketingowych poprzez zmianę ustawień w zakładce powiadomień w aplikacji lub poprzez kliknięcie linku do rezygnacji znajdującego się w stopce każdego e-maila marketingowego.',
   ],
   'Prawa autorskie i użytkowanie materiałów wideo': [
     'Wszystkie materiały przesłane przez użytkowników pozostają ich własnością intelektualną. Aplikacja oraz trenerzy mogą wykorzystywać te materiały wyłącznie w celu świadczenia usług analizy.',

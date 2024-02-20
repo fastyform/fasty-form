@@ -73,7 +73,8 @@ const CookiesModal = () => {
         <div className="sticky bottom-0 flex flex-wrap justify-center gap-5 bg-shark p-5">
           <AppButton
             classes={{
-              root: 'bg-shark text-white font-normal py-2.5 text-base rounded-full border border-gray-600 border-solid text-sm',
+              root: 'text-white font-normal py-2.5 text-base rounded-full text-sm',
+              contained: 'bg-shark border border-gray-600 border-solid ',
             }}
             onClick={() => handleCookieAcceptance({ googleAnalytics: false, hotjar: false })}
           >

@@ -16,8 +16,8 @@ const AddReviewMailContent = ({
     umiejętności.
     <br />
     <br />
-    Aby zobaczyć analizę <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</a>, albo
-    wystarczy, że:
+    Aby zobaczyć analizę Twojej techniki{' '}
+    <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</a>, albo wystarczy, że:
     <br />
     <br />
     1.Zalogujesz się do {Constants.APP_NAME}.

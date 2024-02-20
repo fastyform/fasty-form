@@ -1,6 +1,6 @@
 'use server';
 
-import { formSchema } from '@/app/(auth)/register/_utils';
+import { registerSchema } from '@/app/(auth)/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -17,10 +17,11 @@ interface Payload {
 const actionRegister = async (prevState: FormState, { data: formData, role, redirectPathParam }: Payload) => {
   const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
-  const formSchemaParsed = formSchema.safeParse({
+  const formSchemaParsed = registerSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
     policy: formData.get('policy') === 'true',
+    marketing_consent: formData.get('marketing_consent') === 'true',
   });
 
   if (!formSchemaParsed.success || !role) {
@@ -49,7 +50,10 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
-  await supabase.from('roles').update({ role }).eq('user_id', data.user.id);
+  await supabase
+    .from('roles')
+    .update({ role, marketing_consent: formSchemaParsed.data.marketing_consent })
+    .eq('user_id', data.user.id);
 
   return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
 };

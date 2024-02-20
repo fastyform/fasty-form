@@ -47,7 +47,11 @@ const OnboardingStripeStatusDialog = () => {
           <p className="text-center text-sm">{description}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButton classes={{ root: 'py-2.5 bg-inherit text-white' }} className="text-sm" onClick={handleModalClose}>
+          <AppButton
+            classes={{ contained: 'bg-inherit text-white', root: 'py-2.5' }}
+            className="text-sm"
+            onClick={handleModalClose}
+          >
             Zamknij
           </AppButton>
         </div>
