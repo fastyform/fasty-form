@@ -61,7 +61,7 @@ export async function POST(req: Request) {
         throw new Error(error?.message);
       }
 
-      sendMail({
+      await sendMail({
         to: session.metadata.userEmail,
         subject: 'Dziękujemy za zakup!',
         html: render(

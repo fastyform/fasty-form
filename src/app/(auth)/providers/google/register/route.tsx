@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
 
   const [title, description] = mailTexts[parsedRole];
 
-  sendMail({
+  await sendMail({
     to: data.user.email as string,
     subject: `Witaj w ${Constants.APP_NAME}!`,
     html: render(<MailTemplate title={title}>{description}</MailTemplate>),
