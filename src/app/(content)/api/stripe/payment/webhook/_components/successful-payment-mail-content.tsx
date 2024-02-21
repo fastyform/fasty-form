@@ -20,7 +20,7 @@ const SuccessfulPaymentMailContent = ({
     które chcesz przekazać trenerowi.
     <br />
     <br /> Jeśli jeszcze nie wypełniłeś szczegółów, to proste,{' '}
-    <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</a>
+    <a href={`${Constants.ORIGIN_URL}/submissions/${submissionId}/requirements`}>kliknij tutaj</a>
     , albo:
     <br /> 1.Wejdź do zakładki &apos;Zgłoszenia&apos; w aplikacji.
     <br /> 2.Wybierz zgłoszenie, które Cię interesuje.

@@ -8,7 +8,6 @@ import RequirementsSentMailContent from '@/app/(content)/submissions/[id]/requir
 import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/requirements/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import Constants from '@/utils/constants';
 import MailTemplate from '@/utils/mail/mail-template';
 import { sendMail } from '@/utils/mail/send-mail';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
@@ -62,7 +61,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
 
   sendMail({
     to: trainer.email as string,
-    subject: `Pojawiło się nowe zgłoszenie - ${Constants.APP_NAME}`,
+    subject: 'Pojawiło się nowe zgłoszenie',
     html: render(
       <MailTemplate title="Pojawiło się nowe zgłoszenie.">
         <RequirementsSentMailContent
