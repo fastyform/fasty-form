@@ -35,3 +35,11 @@ body {
 #CybotCookiebotDialogPoweredbyCybot {
   display: none !important;
 }
+
+.CookieDeclarationTable {
+  word-break: break-word !important;
+}
+
+#CookieDeclarationUserStatusLabelConsentId {
+  word-break: break-word !important;
+}
