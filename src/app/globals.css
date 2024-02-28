@@ -26,3 +26,12 @@ body {
 .webkit-fill-white {
   -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
 }
+
+/* Cookiebot styles */
+
+.CybotCookiebotDialogBodyButton {
+  border-radius: 999px !important;
+}
+#CybotCookiebotDialogPoweredbyCybot {
+  display: none !important;
+}
