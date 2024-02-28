@@ -1,8 +1,8 @@
 import { ToastContainer } from 'react-toastify';
+import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
-import CookiesModal from '@/components/cookies-modal';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import Providers from './providers';
 
@@ -33,11 +33,11 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => (
   <html lang="pl">
     <body className={plusJakartaSans.className} id="body">
       <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
-      <CookiesModal />
       <Providers>
         <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
       </Providers>
     </body>
+    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
   </html>
 );
 
