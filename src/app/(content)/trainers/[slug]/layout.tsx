@@ -38,7 +38,7 @@ const TrainerPageLayout = async ({
             <div className="flex w-full flex-col items-center gap-10">
               <div className="flex flex-col items-center gap-2.5">
                 <AppSkeletonWrapper>
-                  <span className="invisible text-2xl font-bold sm:text-4xl md:text-6xl">Jan Kowalski</span>
+                  <span className="invisible text-center text-2xl font-bold sm:text-4xl md:text-6xl">Jan Kowalski</span>
                 </AppSkeletonWrapper>
                 <AppSkeletonWrapper>
                   <span className="invisible text-base lg:text-xl">
