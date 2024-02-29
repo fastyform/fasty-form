@@ -35,7 +35,9 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
 
       <div className="flex w-full flex-col items-center gap-10">
         <div className="flex flex-col items-center sm:gap-2.5">
-          <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-6xl ">{trainerDetails.profile_name}</h1>
+          <h1 className="text-center text-2xl font-bold text-white sm:text-4xl md:text-6xl">
+            {trainerDetails.profile_name}
+          </h1>
           <span className="text-base text-white lg:text-xl">
             Analiza techniki jednego wideo -{' '}
             <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
