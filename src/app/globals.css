@@ -43,3 +43,7 @@ body {
 #CookieDeclarationUserStatusLabelConsentId {
   word-break: break-word !important;
 }
+
+#CybotCookiebotDialogPoweredByText {
+  display: none !important;
+}
