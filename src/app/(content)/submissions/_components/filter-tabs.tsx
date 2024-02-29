@@ -13,8 +13,8 @@ type Filter = (typeof FILTER_VALUES)[number];
 
 const CustomTab = (props: TabProps) => (
   <Tab
-    classes={{ selected: '!text-black !font-bold !bg-yellow-400' }}
-    className="rounded-full bg-shark px-5 py-2.5 text-xs font-normal normal-case text-zinc-400 min-[400px]:text-sm min-[500px]:text-base sm:px-10 md:w-auto lg:transition-colors lg:hover:bg-yellow-400 lg:hover:text-black"
+    classes={{ selected: '!text-black !bg-yellow-400' }}
+    className="rounded-full bg-shark px-5 py-2.5 text-xs font-bold normal-case text-zinc-400 min-[400px]:text-sm min-[500px]:text-base sm:px-10 md:w-auto lg:transition-colors lg:hover:bg-yellow-400/70 lg:hover:text-black"
     {...props}
   />
 );
@@ -49,14 +49,14 @@ const FilterTabs = ({
         variant="scrollable"
         classes={{
           indicator: 'invisible',
-          flexContainer: 'w-full md:gap-10 gap-5',
+          flexContainer: 'w-full md:gap-4 gap-3',
           scrollButtons: 'text-white p-0 m-0 [&_.MuiSvgIcon-root]:!text-4xl [&_.MuiSvgIcon-root]:!rounded-full',
         }}
         onChange={handleChange}
       >
         <CustomTab label="Wszystkie" value="all" />
-        <CustomTab label="Sprawdzone" value="reviewed" />
         <CustomTab label="Oczekujące" value="unreviewed" />
+        <CustomTab label="Sprawdzone" value="reviewed" />
         {isTrainerAccount && <CustomTab label="Wypłacone" value="paidout" />}
       </TabList>
     </TabContext>
