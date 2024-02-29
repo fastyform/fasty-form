@@ -59,7 +59,7 @@ export interface Database {
           client_id: string | null;
           created_at: string;
           id: string;
-          price_in_grosz: number | null;
+          price_in_grosz: number;
           status: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -72,7 +72,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
-          price_in_grosz?: number | null;
+          price_in_grosz: number;
           status?: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -85,7 +85,7 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
-          price_in_grosz?: number | null;
+          price_in_grosz?: number;
           status?: Database['public']['Enums']['status'];
           stripe_session_id?: string;
           trainer_id?: string;
