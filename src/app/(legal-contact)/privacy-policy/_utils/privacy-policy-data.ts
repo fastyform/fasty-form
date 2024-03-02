@@ -9,7 +9,7 @@ const privacyPolicyData = {
     'Aplikacja przetwarza dane osobowe podane dobrowolnie przez użytkowników w procesie rejestracji, w tym dane logowania, typ konta (klient, trener)',
     'Dane zbierane podczas rejestracji to m.in. dane logowania, typ konta (klient, trener).',
     'W przypadku konta trenera, dodatkowo po zarejestrowaniu użytkownik przechodzi proces onboarding, podczas którego aplikacja zbiera takie informacje jak nazwa profilu trenera, cena oferowanych usług oraz link do zdjęcia profilowego.',
-    'Dane są przechowywane na serwerach dostawców usług: Vercel (frontend), Supabase (backend) oraz Stripe (płatności), którzy zapewniają odpowiednie zabezpieczenia danych.',
+    'Dane są przechowywane na serwerach dostawców usług: Vercel (frontend), Supabase (backend) oraz Stripe (płatności),  którzy zapewniają odpowiednie zabezpieczenia danych.',
     'Wszystkie dane przekazywane podmiotom trzecim, takim jak Stripe, Vercel, i Supabase, są chronione zgodnie z ich politykami prywatności. Zachęcamy użytkowników do zapoznania się z politykami prywatności tych usług, aby zrozumieć, jak przetwarzane są ich dane.',
     'Dla kont trenerów działających jako przedsiębiorstwa, aplikacja wymaga podania NIP oraz adresu firmy, które są zbierane dodatkowo poza procesem onboardingowym Stripe. Celem zebrania tych informacji jest ich wykorzystanie na paragonach Stripe, aby zapewnić zgodność z wymaganiami prawnymi oraz preferencjami użytkownika dotyczącymi dokumentów płatniczych. Imię i nazwisko trenerów będących osobami fizycznymi są zbierane w ramach standardowego procesu tworzenia konta i mogą być również używane na paragonach Stripe.',
   ],
@@ -47,6 +47,12 @@ const privacyPolicyData = {
   ],
   'Postępowanie w przypadku naruszenia bezpieczeństwa danych': [
     'W przypadku naruszenia bezpieczeństwa danych, użytkownicy zostaną niezwłocznie poinformowani drogą mailową. Naruszenie będzie również zgłoszone do odpowiednich organów zgodnie z obowiązującymi przepisami.',
+  ],
+  'Ciasteczka (Cookies)': [
+    `Aplikacja ${Constants.APP_NAME} używa ciasteczek (cookies) w celu poprawy doświadczeń użytkowników, analizy ruchu na stronie, personalizacji treści i reklam oraz zapewnienia funkcji mediów społecznościowych. Ciasteczka są małymi plikami tekstowymi, które są przechowywane na urządzeniu użytkownika przez strony internetowe, które odwiedzają.`,
+    `Używamy ciasteczek zarówno sesyjnych, jak i stałych. Ciasteczka sesyjne są tymczasowe i wygasają po zamknięciu przeglądarki. Ciasteczka stałe pozostają na urządzeniu użytkownika przez określony czas lub do momentu ich manualnego usunięcia.`,
+    `Użytkownicy mogą w każdej chwili dostosować ustawienia ciasteczek w swojej przeglądarce, jednak blokowanie niektórych typów ciasteczek może wpłynąć na korzystanie z pełnej funkcjonalności aplikacji.`,
+    `Szczegółowe informacje na temat ciasteczek używanych przez Aplikację ${Constants.APP_NAME}, ich celu, oraz instrukcje dotyczące zarządzania ciasteczkami, znajdują się na dedykowanej stronie z  <a class="text-yellow-400" href="${Constants.ORIGIN_URL}/cookies">ciasteczkami</a>.`,
   ],
   Kontakt: [
     'W przypadku pytań dotyczących przetwarzania danych osobowych, użytkownicy mogą kontaktować się z Administratorem poprzez formularz kontaktowy.',
