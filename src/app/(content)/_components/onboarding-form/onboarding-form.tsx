@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { InputAdornment } from '@mui/material';
+import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
 import slugify from 'slugify';
+import { twMerge } from 'tailwind-merge';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -23,7 +24,7 @@ const OnboardingForm = () => {
   const [shouldSlugify, setShouldSlugify] = useState(true);
   const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingFormSchema),
-    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '' },
+    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '', marketingConsent: false },
     mode: 'onTouched',
   });
 
@@ -96,6 +97,29 @@ const OnboardingForm = () => {
             }}
           />
         </div>
+        <Controller
+          control={control}
+          name="marketingConsent"
+          render={({ field, fieldState }) => (
+            <FormControlLabel
+              classes={{ label: 'text-xs' }}
+              control={
+                <Checkbox
+                  checked={field.value}
+                  classes={{ root: twMerge('text-zinc-200', fieldState.invalid && 'text-red-400') }}
+                  name="marketingConsent"
+                  value={field.value}
+                  onChange={(_, checked) => field.onChange(checked)}
+                />
+              }
+              label={
+                <span className={twMerge('text-zinc-200', fieldState.invalid && 'text-red-400')}>
+                  Chcę otrzymywać informacje o promocjach, poradach i nowościach drogą mailową.
+                </span>
+              }
+            />
+          )}
+        />
       </div>
       <AppButtonSubmit isValid={formState.isValid}>Przejdź dalej</AppButtonSubmit>
     </form>
