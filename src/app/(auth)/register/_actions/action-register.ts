@@ -20,7 +20,6 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   const formSchemaParsed = registerSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
-    policy: formData.get('policy') === 'true',
   });
 
   if (!formSchemaParsed.success || !role) {
