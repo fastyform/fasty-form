@@ -48,6 +48,8 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
+  await supabase.from('roles').update({ role }).eq('user_id', data.user.id);
+
   return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
 };
 
