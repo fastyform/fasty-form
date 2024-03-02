@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import Constants from '@/utils/constants';
-import { checkboxCheckedValidator, emailValidator, newPasswordValidator } from '@/utils/validators';
+import { emailValidator, newPasswordValidator } from '@/utils/validators';
 
 export const QUERY_PARAM_ERRORS = {
   ALREADY_REGISTERED: 'Konto o podanym adresie email zostało już zarejestrowane.',
@@ -15,8 +15,6 @@ export const getQueryParamError = (queryParam: QueryParamError) => `error=${quer
 export const registerSchema = z.object({
   email: emailValidator,
   password: newPasswordValidator,
-  policy: checkboxCheckedValidator,
-  marketing_consent: z.boolean(),
 });
 
 export type FormValues = z.infer<typeof registerSchema>;

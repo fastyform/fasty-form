@@ -13,6 +13,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
     servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
     profileName: data.get('profileName'),
     profileSlug: data.get('profileSlug'),
+    marketingConsent: data.get('marketingConsent') === 'true',
   });
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
@@ -26,7 +27,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
 
   const userId = session.session.user.id;
 
-  const { servicePrice, profileName, profileSlug } = formSchemaParsed.data;
+  const { servicePrice, profileName, profileSlug, marketingConsent } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
     .update({
@@ -38,11 +39,16 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
     })
     .eq('user_id', userId);
 
-  if (!error) {
+  const { error: errorMarketingConsent } = await supabase
+    .from('roles')
+    .update({ marketing_consent: marketingConsent })
+    .eq('user_id', userId);
+
+  if (!error && !errorMarketingConsent) {
     return redirect(`/trainers/${profileSlug}`);
   }
 
-  if (error.code === '23505') return getResponse('Twój link do profilu nie jest unikalny. Spróbuj inny.');
+  if (error && error.code === '23505') return getResponse('Twój link do profilu nie jest unikalny. Spróbuj inny.');
 
   return getResponse(Constants.COMMON_ERROR_MESSAGE);
 };

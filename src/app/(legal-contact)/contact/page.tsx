@@ -35,8 +35,8 @@ const ContactPage = async () => {
           </li>
           <li>
             <strong>E-mail:</strong> Możesz także wysłać do nas wiadomość bezpośrednio na{' '}
-            <Link className="font-bold text-yellow-400" href={`mailto:${process.env.NODEMAILER_EMAIL}`}>
-              {process.env.NODEMAILER_EMAIL}
+            <Link className="font-bold text-yellow-400" href={`mailto:${Constants.SUPPORT_MAIL}`}>
+              {Constants.SUPPORT_MAIL}
             </Link>
             .
           </li>

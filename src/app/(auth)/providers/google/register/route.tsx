@@ -23,7 +23,6 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const role = searchParams.get('role');
   const redirectUrl = searchParams.get('redirectUrl');
-  const marketing_consent = searchParams.get('marketing_consent') === 'true';
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -57,10 +56,7 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('ALREADY_REGISTERED')}`);
   }
 
-  const updateRoleResponse = await supabase
-    .from('roles')
-    .update({ role: parsedRole, marketing_consent })
-    .eq('user_id', userId);
+  const updateRoleResponse = await supabase.from('roles').update({ role: parsedRole }).eq('user_id', userId);
 
   if (updateRoleResponse.error) {
     await supabase.auth.signOut();

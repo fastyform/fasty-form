@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { InputAdornment } from '@mui/material';
+import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
 import slugify from 'slugify';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
@@ -23,7 +23,7 @@ const OnboardingForm = () => {
   const [shouldSlugify, setShouldSlugify] = useState(true);
   const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingFormSchema),
-    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '' },
+    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '', marketingConsent: false },
     mode: 'onTouched',
   });
 
@@ -96,6 +96,29 @@ const OnboardingForm = () => {
             }}
           />
         </div>
+        <Controller
+          control={control}
+          name="marketingConsent"
+          render={({ field }) => (
+            <FormControlLabel
+              classes={{ label: 'text-xs' }}
+              control={
+                <Checkbox
+                  checked={field.value}
+                  classes={{ root: 'text-zinc-200' }}
+                  name="marketingConsent"
+                  value={field.value}
+                  onChange={(_, checked) => field.onChange(checked)}
+                />
+              }
+              label={
+                <span className="text-zinc-200">
+                  Chcę być na bieżąco z ekskluzywnymi zniżkami, poradami oraz aktualizacjami. (opcjonalne)
+                </span>
+              }
+            />
+          )}
+        />
       </div>
       <AppButtonSubmit isValid={formState.isValid}>Przejdź dalej</AppButtonSubmit>
     </form>
