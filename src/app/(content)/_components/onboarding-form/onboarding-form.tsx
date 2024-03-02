@@ -6,7 +6,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
 import slugify from 'slugify';
-import { twMerge } from 'tailwind-merge';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -100,21 +99,21 @@ const OnboardingForm = () => {
         <Controller
           control={control}
           name="marketingConsent"
-          render={({ field, fieldState }) => (
+          render={({ field }) => (
             <FormControlLabel
               classes={{ label: 'text-xs' }}
               control={
                 <Checkbox
                   checked={field.value}
-                  classes={{ root: twMerge('text-zinc-200', fieldState.invalid && 'text-red-400') }}
+                  classes={{ root: 'text-zinc-200' }}
                   name="marketingConsent"
                   value={field.value}
                   onChange={(_, checked) => field.onChange(checked)}
                 />
               }
               label={
-                <span className={twMerge('text-zinc-200', fieldState.invalid && 'text-red-400')}>
-                  Chcę otrzymywać informacje o promocjach, poradach i nowościach drogą mailową.
+                <span className="text-zinc-200">
+                  Chcę być na bieżąco z ekskluzywnymi zniżkami, poradami oraz aktualizacjami. (opcjonalne)
                 </span>
               }
             />
