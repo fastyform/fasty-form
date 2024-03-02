@@ -30,16 +30,19 @@ export interface Database {
     Tables: {
       roles: {
         Row: {
+          consent_modal_displayed: boolean;
           marketing_consent: boolean;
           role: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Insert: {
+          consent_modal_displayed?: boolean;
           marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Update: {
+          consent_modal_displayed?: boolean;
           marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id?: string;

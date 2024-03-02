@@ -55,7 +55,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
           Zarejestruj się
         </ButtonGoogle>
       </div>
-      <span className="text-xs text-zinc-200">
+      <span className="text-center text-xs text-zinc-200">
         Kontynuując rejestrację, akceptujesz{' '}
         <Link className="font-bold" href="/terms-of-service" rel="noopener" target="_blank">
           regulamin
@@ -63,11 +63,8 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
         i&nbsp;potwierdzasz, że zapoznałeś się z&nbsp;
         <Link className="font-bold" href="/privacy-policy" rel="noopener" target="_blank">
           poityką prywatności
-        </Link>{' '}
-        oraz&nbsp;
-        <Link className="font-bold" href="/cookies" rel="noopener" target="_blank">
-          polityką cookies.
         </Link>
+        .
       </span>
     </form>
   );
