@@ -15,4 +15,5 @@ export const onboardingFormSchema = z.object({
     .regex(ALLOWED_SLUG_CHARS_REGEX, 'Link może zawierać wyłącznie małe litery, cyfry, łączniki (-) i podkreślenia (_)')
     .min(1, 'Wprowadź link do profilu.')
     .max(50, 'Link do profilu może zawierać maksymalnie 50 znaków.'),
+  marketingConsent: z.boolean(),
 });
