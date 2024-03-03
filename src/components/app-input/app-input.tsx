@@ -18,6 +18,7 @@ const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
     InputProps={{
       sx: {
         '& input:-webkit-autofill': {
+          caretColor: '#fff',
           WebkitTextFillColor: '#fff !important',
           transitionDelay: '9999s',
           transitionProperty: '-webkit-box-shadow, -webkit-text-fill-color, caret-color, background-color',
