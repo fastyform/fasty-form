@@ -10,11 +10,11 @@ const ResetPassword = () => (
     <MailTemplate.LineBreak />
     Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta <MailTemplate.AppLink />.
     <MailTemplate.LineBreak />
-    Jeśli nie wysłałeś tej prośby, możesz zignorować tę wiadomość. W przeciwnym razie, proszę kliknąć przycisk powyżej,
-    aby ustawić nowe hasło.
+    Jeśli nie wysłałeś tej prośby, możesz zignorować tę wiadomość.{' '}
+    <strong>W przeciwnym razie, proszę kliknąć przycisk powyżej, aby ustawić nowe hasło.</strong>
     <MailTemplate.LineBreak />
-    Pamiętaj, że link do resetowania hasła wygaśnie w ciągu 24 godzin. Po tym czasie będziesz musiał ponownie złożyć
-    wniosek o resetowanie hasła.
+    Pamiętaj, że link do resetowania hasła wygaśnie w ciągu <strong>24 godzin</strong>. Po tym czasie będziesz musiał
+    ponownie złożyć wniosek o resetowanie hasła.
     <MailTemplate.LineBreak /> Dziękujemy za korzystanie z FastFormy!
     <br />
     Zespół FastFormy.
