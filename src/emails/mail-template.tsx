@@ -47,12 +47,12 @@ const MailTemplate = ({ title, children }: MailTemplateProps) => (
       </Link>
     </Container>
     <Container className="p-5">
-      <Heading as="h2" className="m-0 text-center text-2xl text-[#1E1E1E]">
+      <Heading as="h2" className="m-0 text-center text-2xl !text-[#1E1E1E]">
         {title}
       </Heading>
-      <Text className="text-base text-[#1e1e1e]">{children}</Text>
+      <Text className="text-base !text-[#1e1e1e]">{children}</Text>
     </Container>
-    <Container className="text-center text-xs text-black/60">{COMPANY_INFO}</Container>
+    <Container className="text-center text-xs !text-black/60">{COMPANY_INFO}</Container>
   </Tailwind>
 );
 
