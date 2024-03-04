@@ -4,10 +4,10 @@ import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
 import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
+import AddedReview from '@/emails/added-review';
 import Constants from '@/utils/constants';
 import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import AddedReview from '@emails/added-review';
 
 const actionAddTrainerReview = async (
   prevState: { message: string },

@@ -9,7 +9,7 @@ interface MailTemplateProps {
 
 const AppLink = () => <Link href={Constants.ORIGIN_URL}>{Constants.APP_NAME}</Link>;
 
-const Break = () => (
+const LineBreak = () => (
   <>
     <br />
     <br />
@@ -57,7 +57,7 @@ const MailTemplate = ({ title, children }: MailTemplateProps) => (
 );
 
 MailTemplate.AppLink = AppLink;
-MailTemplate.Break = Break;
+MailTemplate.LineBreak = LineBreak;
 MailTemplate.CallToAction = CallToAction;
 
 export default MailTemplate;

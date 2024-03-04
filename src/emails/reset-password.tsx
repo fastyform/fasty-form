@@ -7,21 +7,21 @@ const ResetPassword = () => (
     <MailTemplate.CallToAction href="{{ .SiteURL }}/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}">
       Zresetuj hasło
     </MailTemplate.CallToAction>
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta <MailTemplate.AppLink />.
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Jeśli nie wysłałeś tej prośby, możesz zignorować tę wiadomość. W przeciwnym razie, proszę kliknąć przycisk powyżej,
     aby ustawić nowe hasło.
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Pamiętaj, że link do resetowania hasła wygaśnie w ciągu 24 godzin. Po tym czasie będziesz musiał ponownie złożyć
     wniosek o resetowanie hasła.
-    <MailTemplate.Break /> Dziękujemy za korzystanie z FastForm!
+    <MailTemplate.LineBreak /> Dziękujemy za korzystanie z FastFormy!
     <br />
-    Zespół FastForm.
+    Zespół FastFormy.
     <Text className="text-xs text-black/60">
       Jeśli masz problem z linkami, skopiuj i wklej następujący adres w przeglądarce:{' '}
       {'{{ .SiteURL }}/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
-      <MailTemplate.Break /> Możesz też skontaktować się z nami wysyłając wiadomość na adres:{' '}
+      <MailTemplate.LineBreak /> Możesz też skontaktować się z nami wysyłając wiadomość na adres:{' '}
       <Link href="mailto:support@fastyform.com">support@fastyform.com</Link>.
     </Text>
   </MailTemplate>

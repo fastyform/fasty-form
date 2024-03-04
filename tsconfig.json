@@ -18,8 +18,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@emails/*": ["./emails/*"]
+      "@/*": ["./src/*"]
     },
     "allowJs": true
   },

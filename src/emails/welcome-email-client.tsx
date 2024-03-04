@@ -6,11 +6,11 @@ const WelcomeMailClient = () => (
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions`}>
       Sprawdź swoje możliwości
     </MailTemplate.CallToAction>
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Super, że jesteś z nami.
-    <MailTemplate.Break /> W <MailTemplate.AppLink /> czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo.
+    <MailTemplate.LineBreak /> W <MailTemplate.AppLink /> czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo.
     Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę.
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!
   </MailTemplate>
 );
