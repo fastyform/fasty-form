@@ -6,11 +6,11 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/requirements/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
+import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { sendMail } from '@/utils/mail/send-mail';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import RequirementsSent from '@emails/requirements-sent';
 
 interface Payload {
   videoKey: string;

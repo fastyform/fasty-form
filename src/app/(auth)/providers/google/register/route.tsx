@@ -2,12 +2,12 @@ import { render } from '@react-email/render';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { getQueryParamError } from '@/app/(auth)/_utils';
+import WelcomeMailClient from '@/emails/welcome-email-client';
+import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
 import Constants from '@/utils/constants';
 import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
-import WelcomeMailClient from '@emails/welcome-email-client';
-import WelcomeMailTrainer from '@emails/welcome-email-trainer';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

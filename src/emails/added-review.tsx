@@ -11,30 +11,30 @@ const AddedReview = ({
   trainerProfileSlug: string;
   submissionId: string;
 }) => (
-  <MailTemplate title="Twoja Analiza Wideo Jest Gotowa!">
+  <MailTemplate title="Analiza twojej techniki jest gotowa!">
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>
       Sprawdź odpowiedź trenera
     </MailTemplate.CallToAction>
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Mamy świetne wieści - Twoja analiza wideo od{' '}
     <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</Link> jest już gotowa! Trener
     przyjrzał się dokładnie Twojemu nagraniu i ma kilka cennych wskazówek, które pomogą Ci doskonalić Twoje
     umiejętności.
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Aby zobaczyć analizę Twojej techniki{' '}
     <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</Link>, albo wystarczy, że:
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     1. Zalogujesz się do <MailTemplate.AppLink />
     <br />
-    2.Przejdź do zakładki &apos;Zgłoszenia&apos;. <br />
-    3.Kliknij w zgłoszenie, aby zobaczyć pełną analizę trenera.
-    <MailTemplate.Break />
+    2. Przejdź do zakładki &apos;Zgłoszenia&apos;. <br />
+    3. Kliknij w zgłoszenie, aby zobaczyć pełną analizę trenera.
+    <MailTemplate.LineBreak />
     Jesteśmy przekonani, że wskazówki od ekspertów będą dla Ciebie niezwykle wartościowe. Nie zapomnij podzielić się z
     nami swoimi wrażeniami!
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowej pomocy, nasz zespół jest tu dla Ciebie.{' '}
     <Link href={`${Constants.ORIGIN_URL}/contact`}>Napisz do nas</Link>, a z chęcią pomożemy.
-    <MailTemplate.Break />
+    <MailTemplate.LineBreak />
     Pozdrawiamy,
     <br />
     Zespół {Constants.APP_NAME}
