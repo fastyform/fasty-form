@@ -2,11 +2,10 @@
 
 import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
-import AddReviewMailContent from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_components/add-review-mail-conent';
 import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
+import AddedReview from '@/emails/added-review';
 import Constants from '@/utils/constants';
-import MailTemplate from '@/utils/mail/mail-template';
 import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
@@ -45,15 +44,13 @@ const actionAddTrainerReview = async (
 
     sendMail({
       to: user.email as string,
-      subject: 'Trener przeanalizował twoje wideo',
+      subject: `${submission.trainers_details.profile_name} - przeanalizował twoje wideo`,
       html: render(
-        <MailTemplate title="Twoja Analiza Wideo Jest Gotowa! Sprawdź, odpowiedź trenera.">
-          <AddReviewMailContent
-            profileName={submission.trainers_details.profile_name}
-            submissionId={payload.submissionId}
-            trainerProfileSlug={submission.trainers_details.profile_slug}
-          />
-        </MailTemplate>,
+        <AddedReview
+          profileName={submission.trainers_details.profile_name}
+          submissionId={payload.submissionId}
+          trainerProfileSlug={submission.trainers_details.profile_slug}
+        />,
       ),
     });
 

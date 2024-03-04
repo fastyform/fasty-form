@@ -37,7 +37,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   if (isReviewInputVisible) {
     return (
       <>
-        <SubmissionPartWithIcon icon="description">
+        <SubmissionPartWithIcon verticalLine icon="description">
           <h2 className="text-lg font-bold leading-5 text-white">Twoja odpowiedź</h2>
           <form ref={formRef} action={handleFormAction} className="flex flex-col gap-5">
             {state?.message && (
