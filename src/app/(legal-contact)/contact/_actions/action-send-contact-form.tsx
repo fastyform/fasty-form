@@ -5,8 +5,8 @@ import { contactFormSchema } from '@/app/(legal-contact)/contact/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
-import MailTemplate from '@/utils/mail/mail-template';
 import { sendMail } from '@/utils/mail/send-mail';
+import MailTemplate from '@emails/mail-template';
 
 const actionSendContactForm = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });

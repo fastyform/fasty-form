@@ -44,6 +44,7 @@ module.exports = {
     'no-relative-import-paths/no-relative-import-paths': [
       'error',
       { allowSameFolder: true, prefix: '@', rootDir: 'src' },
+      { allowSameFolder: true, prefix: '@emails', rootDir: 'emails' },
     ],
     'no-empty': ['error', { allowEmptyCatch: true }],
     'react/function-component-definition': [
