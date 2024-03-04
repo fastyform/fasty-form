@@ -4,14 +4,13 @@ import { CompletedPart, CompleteMultipartUploadCommand, CompleteMultipartUploadR
 import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import RequirementsSentMailContent from '@/app/(content)/submissions/[id]/requirements/_components/requirements-sent-mail-content';
 import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/requirements/_utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import MailTemplate from '@/utils/mail/mail-template';
 import { sendMail } from '@/utils/mail/send-mail';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import RequirementsSent from '@emails/requirements-sent';
 
 interface Payload {
   videoKey: string;
@@ -63,12 +62,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
     to: trainer.email as string,
     subject: 'Pojawiło się nowe zgłoszenie',
     html: render(
-      <MailTemplate title="Pojawiło się nowe zgłoszenie.">
-        <RequirementsSentMailContent
-          submissionId={submission.id}
-          trainerName={submission.trainers_details.profile_name}
-        />
-      </MailTemplate>,
+      <RequirementsSent submissionId={submission.id} trainerName={submission.trainers_details.profile_name} />,
     ),
   });
 

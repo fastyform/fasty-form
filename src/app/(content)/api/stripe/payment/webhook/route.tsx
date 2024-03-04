@@ -3,10 +3,9 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import MailTemplate from '@/utils/mail/mail-template';
 import { sendMail } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import SuccessfulPaymentMailContent from './_components/successful-payment-mail-content';
+import ThankYouBuy from '@emails/thank-you-buy';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -77,15 +76,13 @@ export async function POST(req: Request) {
 
       await sendMail({
         to: session.metadata.userEmail,
-        subject: 'Dziękujemy za zakup!',
+        subject: 'Jesteśmy gotowi na Twoje wideo.',
         html: render(
-          <MailTemplate title="Dzięki za zakup analizy! Jesteśmy gotowi na Twoje wideo.">
-            <SuccessfulPaymentMailContent
-              submissionId={submission.id}
-              trainerProfileName={submission.trainers_details.profile_name}
-              trainerProfileSlug={submission.trainers_details.profile_slug}
-            />
-          </MailTemplate>,
+          <ThankYouBuy
+            submissionId={submission.id}
+            trainerProfileName={submission.trainers_details.profile_name}
+            trainerProfileSlug={submission.trainers_details.profile_slug}
+          />,
         ),
       });
     } catch (error) {
