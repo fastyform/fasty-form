@@ -16,15 +16,15 @@ const ThankYouBuy = ({
       Dodaj wideo do swojego zgłoszenia
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
-    Cześć! Dziękujemy za dokonanie zakupu analizy wideo w <MailTemplate.AppLink />, u trenera{' '}
+    Cześć! <MailTemplate.LineBreak /> Dziękujemy za dokonanie zakupu analizy wideo w <MailTemplate.AppLink />, u trenera{' '}
     <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</Link>
     <MailTemplate.LineBreak />
     Wraz z trenerem chcielibyśmy Ci podziękować. Jesteśmy podekscytowani, że możemy pomóc Ci w osiągnięciu nowych celów!
-    Teraz wszystko, co musisz zrobić, to przesłać nam swoje wideo. <MailTemplate.LineBreak /> Swoje zgłoszenie
-    znajdziesz w zakładce &apos;Zgłoszenia&apos; w naszej aplikacji - tam będziesz mógł łatwo dodać swoje wideo i
-    wszelkie dodatkowe uwagi, które chcesz przekazać trenerowi.
+    Teraz wszystko, co musisz zrobić, to przesłać nam swoje wideo. <MailTemplate.LineBreak />{' '}
+    <strong>Swoje zgłoszenie znajdziesz w zakładce &apos;Zgłoszenia&apos; w naszej aplikacji</strong> - tam będziesz
+    mógł łatwo dodać swoje wideo i wszelkie dodatkowe uwagi, które chcesz przekazać trenerowi.
     <MailTemplate.LineBreak />
-    Jeśli jeszcze nie wypełniłeś szczegółów, to proste,{' '}
+    <strong> Jeśli jeszcze nie wypełniłeś szczegółów, to proste, </strong>
     <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}/requirements`}>kliknij tutaj</Link>
     , albo:
     <br /> 1. Wejdź do zakładki &apos;Zgłoszenia&apos; w aplikacji.
@@ -34,7 +34,8 @@ const ThankYouBuy = ({
     4.Wybierz wideo, które chcesz przesłać, i dodaj uwagi.
     <br /> 5.Kliknij &apos;Wyślij&apos;, a my zajmiemy się resztą!
     <MailTemplate.LineBreak />
-    Twoja analiza wideo będzie gotowa zanim się obejrzysz. Damy Ci znać, jak tylko wszystko będzie gotowe!
+    Twoja analiza wideo będzie gotowa zanim się obejrzysz.{' '}
+    <strong>Damy Ci znać, jak tylko wszystko będzie gotowe!</strong>
     <MailTemplate.LineBreak /> Masz pytania? Potrzebujesz pomocy?{' '}
     <Link href={`${Constants.ORIGIN_URL}/contact`}>Napisz do nas</Link>, chętnie pomożemy. Do zobaczenia w{' '}
     {Constants.APP_NAME}!

@@ -1,12 +1,10 @@
 import { render } from '@react-email/render';
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
+import OnboardingReminder from '@/emails/onboarding-reminder';
 import Constants from '@/utils/constants';
-import MailTemplate from '@/utils/mail/mail-template';
 import { sendMultipleMails } from '@/utils/mail/send-mail';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import AppOnboardingMailTemplateContent from './app-onboarding-mail-template-content';
-import StripeOnboardingMailTemplateContent from './stripe-onboarding-mail-template-content';
 
 const emailsData = {
   appOnboarding: [
@@ -56,11 +54,7 @@ export async function GET(request: NextRequest) {
       sendMultipleMails({
         mails: incompleteAppOnboardingEmailsData,
         subject,
-        html: render(
-          <MailTemplate showReplyDiscouragedInfo={false} title={title}>
-            <AppOnboardingMailTemplateContent />
-          </MailTemplate>,
-        ),
+        html: render(<OnboardingReminder title={title} />),
       }).then(() => {
         console.log(`Sent ${incompleteAppOnboardingEmailsData.length} emails`);
       });
@@ -99,11 +93,7 @@ export async function GET(request: NextRequest) {
       sendMultipleMails({
         mails: stripeReminderEmails,
         subject,
-        html: render(
-          <MailTemplate showReplyDiscouragedInfo={false} title={title}>
-            <StripeOnboardingMailTemplateContent />
-          </MailTemplate>,
-        ),
+        html: render(<OnboardingReminder title={title} />),
       }).then(() => {
         console.log(`Sent ${stripeReminderEmails.length} Stripe Onboarding emails`);
       });
