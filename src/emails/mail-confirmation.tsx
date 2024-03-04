@@ -12,8 +12,9 @@ const MailConfirmation = () => (
     Witaj w <MailTemplate.AppLink />!
     <MailTemplate.LineBreak />
     Dziękujemy za dołączenie do nas! Jesteśmy podekscytowani, że zdecydowałeś się być częścią naszej grupy. Twoje
-    doświadczenia, opinie i obecność są dla nas bardzo ważne. Zachęcamy do aktywnego udziału i dzielenia się swoimi
-    pomysłami. Pamiętaj, że zawsze jesteśmy tutaj, aby Ci pomóc.
+    doświadczenia, opinie i obecność są dla nas bardzo ważne.{' '}
+    <strong>Zachęcamy do aktywnego udziału i dzielenia się swoimi pomysłami.</strong> Pamiętaj, że zawsze jesteśmy
+    tutaj, aby Ci pomóc.
     <MailTemplate.LineBreak /> Jeśli masz jakiekolwiek pytania, wątpliwości lub potrzebujesz wsparcia, nasz zespół jest
     do Twojej dyspozycji. <Link href={`${PRODUCTION_ORIGIN_URL}/contact`}>Skontaktuj się</Link> z nami w dowolnym
     momencie - z radością odpowiemy na każde zapytanie.
