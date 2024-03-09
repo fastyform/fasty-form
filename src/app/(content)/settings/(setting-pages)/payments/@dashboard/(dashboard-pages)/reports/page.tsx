@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import ReportsForm from '@/app/(content)/settings/(setting-pages)/payments/@dashboard/(dashboard-pages)/reports/reports-form';
-import { ALLOWED_REPORT_TYPES } from '@/app/(content)/settings/(setting-pages)/payments/utils';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -16,9 +15,10 @@ const DashboardReports = async () => {
 
   if (!trainerDetails.stripe_account_id) throw new Error('No stripe account id');
 
-  const reportTypesPromise = stripe.reporting.reportTypes.list({
+  const sampleReportTypePromise = stripe.reporting.reportTypes.retrieve('balance_change_from_activity.itemized.3', {
     stripeAccount: trainerDetails.stripe_account_id,
   });
+
   const reportRunsPromise = stripe.reporting.reportRuns.list(
     { limit: 5 },
     {
@@ -26,12 +26,11 @@ const DashboardReports = async () => {
     },
   );
 
-  const [reportTypes, reportRuns] = await Promise.all([reportTypesPromise, reportRunsPromise]);
+  
+  const [sampleReportType, reportRuns] = await Promise.all([sampleReportTypePromise, reportRunsPromise]);
+  console.log(reportRuns);
 
-  const allowedReportTypes = reportTypes.data.filter((reportType) => ALLOWED_REPORT_TYPES.includes(reportType.id));
-  const [firstReport] = allowedReportTypes;
-
-  const dataAvailableStart = dayjs.unix(firstReport.data_available_start);
+  const dataAvailableStart = dayjs.unix(sampleReportType.data_available_start);
   const areReportsAvailable = dayjs().utc().diff(dataAvailableStart, 'day') > 0;
 
   return (
@@ -47,8 +46,8 @@ const DashboardReports = async () => {
         </div>
         {areReportsAvailable && (
           <ReportsForm
-            dataAvailableEnd={firstReport.data_available_end}
-            dataAvailableStart={firstReport.data_available_start}
+            dataAvailableEnd={sampleReportType.data_available_end}
+            dataAvailableStart={sampleReportType.data_available_start}
             stripeAccountId={trainerDetails.stripe_account_id}
           />
         )}

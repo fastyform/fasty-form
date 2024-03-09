@@ -15,15 +15,10 @@ const actionGenerateReport = async (payload: Payload) => {
   const { interval_start, interval_end, report_type, stripeAccountId } = payload;
   const stripe = getStripe();
 
-  await stripe.reporting.reportRuns.create(
-    {
-      report_type,
-      parameters: { interval_start, interval_end },
-    },
-    {
-      stripeAccount: stripeAccountId,
-    },
-  );
+  await stripe.reporting.reportRuns.create({
+    report_type,
+    parameters: { interval_start, interval_end, connected_account: stripeAccountId },
+  });
 
   revalidatePath('/settings/payments/reports');
 };

@@ -8,7 +8,6 @@ import { useMutation } from '@tanstack/react-query';
 import dayjs, { Dayjs } from 'dayjs';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
-import actionGenerateReport from '@/app/(content)/settings/(setting-pages)/payments/@dashboard/(dashboard-pages)/action-generate-report';
 import {
   ALLOWED_REPORT_TYPES,
   ReportType,
@@ -19,6 +18,7 @@ import AppDatePicker from '@/components/app-date-picker';
 import AppInput from '@/components/app-input/app-input';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
+import actionGenerateReport from './action-generate-report';
 
 interface PaymentReportFormProps {
   dataAvailableStart: number;
@@ -39,7 +39,7 @@ const formSchema = z
   });
 
 const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: PaymentReportFormProps) => {
-  const [reportType, setReportType] = useState<ReportType>('balance_change_from_activity.itemized.3');
+  const [reportType, setReportType] = useState<ReportType>('connected_account_balance_change_from_activity.itemized.3');
 
   const reportDataStart = dayjs.unix(dataAvailableStart).utc();
   const reportDataEnd = dayjs.unix(dataAvailableEnd).utc();
