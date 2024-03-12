@@ -124,6 +124,7 @@ export interface Database {
           stripe_account_id: string | null;
           stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id: string | null;
+          stripe_recent_report_id: string | null;
           user_id: string;
         };
         Insert: {
@@ -138,6 +139,7 @@ export interface Database {
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
+          stripe_recent_report_id?: string | null;
           user_id: string;
         };
         Update: {
@@ -152,6 +154,7 @@ export interface Database {
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
+          stripe_recent_report_id?: string | null;
           user_id?: string;
         };
         Relationships: [

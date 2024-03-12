@@ -2,6 +2,6 @@
 
 import { Tooltip, TooltipProps } from '@mui/material';
 
-const AppTooltip = (props: TooltipProps) => <Tooltip arrow {...props} />;
+const AppTooltip = (props: TooltipProps) => <Tooltip arrow enterTouchDelay={300} {...props} />;
 
 export default AppTooltip;

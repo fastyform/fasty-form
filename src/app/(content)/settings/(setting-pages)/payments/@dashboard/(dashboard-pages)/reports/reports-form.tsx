@@ -45,6 +45,8 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
   const reportDataEnd = dayjs.unix(dataAvailableEnd).utc();
   const firstDayOfCurrentMonthDate = dayjs().utc().startOf('month');
 
+  const isStartDateSkipped = reportType === 'connected_account_ending_balance_reconciliation.itemized.2';
+
   const form = useForm({
     defaultValues: {
       startDate:
@@ -59,7 +61,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
       const { startDate, endDate } = form.getValues();
 
       return actionGenerateReport({
-        interval_start: startDate.unix(),
+        interval_start: isStartDateSkipped ? undefined : startDate.unix(),
         interval_end: endDate.unix(),
         report_type: reportType,
         stripeAccountId,
@@ -93,29 +95,31 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
         ))}
       </AppInput>
       <div className="grid gap-4 sm:grid-cols-2 ">
-        <Controller
-          control={form.control}
-          name="startDate"
-          render={({ field, fieldState }) => (
-            <AppDatePicker
-              disableFuture
-              label="Data początkowa"
-              minDate={reportDataStart}
-              name={field.name}
-              value={field.value}
-              slotProps={{
-                textField: {
-                  error: fieldState.invalid,
-                  helperText: fieldState.error?.message,
-                  className: twJoin(
-                    fieldState.invalid && '[&_.MuiInputAdornment-root_.MuiButtonBase-root]:text-red-400',
-                  ),
-                },
-              }}
-              onChange={(value) => field.onChange(value)}
-            />
-          )}
-        />
+        {!isStartDateSkipped && (
+          <Controller
+            control={form.control}
+            name="startDate"
+            render={({ field, fieldState }) => (
+              <AppDatePicker
+                disableFuture
+                label="Data początkowa"
+                minDate={reportDataStart}
+                name={field.name}
+                value={field.value}
+                slotProps={{
+                  textField: {
+                    error: fieldState.invalid,
+                    helperText: fieldState.error?.message,
+                    className: twJoin(
+                      fieldState.invalid && '[&_.MuiInputAdornment-root_.MuiButtonBase-root]:text-red-400',
+                    ),
+                  },
+                }}
+                onChange={(value) => field.onChange(value)}
+              />
+            )}
+          />
+        )}
         <Controller
           control={form.control}
           name="endDate"

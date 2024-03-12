@@ -4,20 +4,12 @@ import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 
 interface Payload {
   fileId: string;
-  stripeAccountId: string;
 }
 
-const actionGenerateFileLink = async ({ fileId, stripeAccountId }: Payload) => {
+const actionGenerateFileLink = async ({ fileId }: Payload) => {
   const stripe = getStripe();
 
-  const fileLink = await stripe.fileLinks.create(
-    {
-      file: fileId,
-    },
-    {
-      stripeAccount: stripeAccountId,
-    },
-  );
+  const fileLink = await stripe.fileLinks.create({ file: fileId });
 
   return fileLink.url as string;
 };
