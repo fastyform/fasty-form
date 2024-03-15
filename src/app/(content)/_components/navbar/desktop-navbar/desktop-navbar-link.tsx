@@ -1,50 +1,46 @@
 'use client';
 
-import { Button, ButtonProps } from '@mui/material';
+import { ButtonProps } from '@mui/material';
 import Link from 'next/link';
-import { useParams, useSelectedLayoutSegment } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
+import { usePathname } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
 import navbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
+import AppButton from '@/components/app-button';
 
 interface Props extends ButtonProps {
   icon: keyof typeof navbarIcons;
 }
 
-const DesktopNavbarLink = ({ children, icon, ...props }: Props) => {
-  const active = useSelectedLayoutSegment();
-  const params = useParams();
-
-  const checkIsActive = () => {
-    const href = props.href?.split('?')[0];
-
-    if (typeof params.slug === 'string') return href?.includes(params.slug);
-
-    return href?.split('?')[0].includes(active || '');
-  };
-
-  const isActive = checkIsActive();
+const DesktopNavbarLink = ({ icon, children, variant = 'text', className, ...props }: Props) => {
+  const pathname = usePathname();
+  const isActive = pathname.includes(props.href as string);
   const NavbarIcon = navbarIcons[icon];
 
   return (
-    <Button
+    <AppButton
       disableElevation
+      classes={{ root: 'py-1 text-sm px-4 gap-1' }}
       color="inherit"
       LinkComponent={Link}
-      className={twMerge(
-        'group relative flex h-full items-center gap-2.5 font-normal text-zinc-400 transition-colors hover:text-yellow-100 hover:transition-colors',
-        isActive &&
-          'text-yellow-400 after:absolute after:bottom-0  after:left-1/2 after:h-1 after:w-[calc(100%+20px)] after:-translate-x-1/2 after:rounded-full after:bg-yellow-400 after:content-[""]',
+      variant={variant}
+      className={twJoin(
+        variant === 'contained'
+          ? 'fade animate-[fade_16s_linear_infinite] bg-yellow-400 bg-[length:600%] font-bold text-bunker'
+          : 'text-zinc-400 hover:text-yellow-100',
+        isActive && variant === 'text' && '!text-yellow-400',
+        className,
       )}
       {...props}
     >
       <NavbarIcon
-        className={twMerge(
-          isActive ? 'fill-yellow-400' : 'fill-zinc-400',
-          'transition-colors group-hover:fill-yellow-200 group-hover:transition-colors',
+        className={twJoin(
+          variant === 'contained' && 'fill-bunker',
+          isActive && variant === 'text' && '!fill-yellow-400',
+          'group-hover:fill-yellow-200 group-hover:transition-colors',
         )}
       />
       {children}
-    </Button>
+    </AppButton>
   );
 };
 

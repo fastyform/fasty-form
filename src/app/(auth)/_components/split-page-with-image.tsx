@@ -14,7 +14,7 @@ const SplitPageWithImage = ({
   <main className="min-h-screen-responsive relative m-auto grid p-5 pt-10 lg:grid-cols-2 lg:place-items-center lg:p-0">
     <div className="relative flex h-full w-full max-w-md grow flex-col justify-self-center lg:py-5">
       <div className="my-auto flex flex-col gap-10">
-        <AppLogo className="self-center" />
+        <AppLogo linkContainerClassName="self-center" />
         {children}
       </div>
       <AuthFooter shouldNavigateBack className="pt-10" />

@@ -47,3 +47,8 @@ body {
 #CybotCookiebotDialogPoweredByText {
   display: none !important;
 }
+
+
+.fade {
+  background: linear-gradient(-45deg, #fefce8, #fef9c3, #fde047, #facc15);
+}

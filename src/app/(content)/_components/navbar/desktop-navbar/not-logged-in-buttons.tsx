@@ -16,7 +16,7 @@ const NotLoggedInButtons = ({ user }: { user: User | null }) => {
           <DesktopNavbarLink href={`/login${redirectUrlParam}` as Route} icon="login">
             Zaloguj się
           </DesktopNavbarLink>
-          <DesktopNavbarLink href={`/register/client${redirectUrlParam}` as Route} icon="register">
+          <DesktopNavbarLink href={`/register/client${redirectUrlParam}` as Route} icon="register" variant="contained">
             Zarejestruj się
           </DesktopNavbarLink>
         </>
