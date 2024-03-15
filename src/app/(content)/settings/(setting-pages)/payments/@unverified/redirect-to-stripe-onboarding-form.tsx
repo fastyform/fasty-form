@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormControlLabel, InputAdornment, Radio, RadioGroup, RadioProps } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import actionPaymentOnboardingRedirect from '@/app/(content)/settings/(setting-pages)/payments/_actions/action-payment-onboarding-redirect';
+import actionPaymentOnboardingRedirect from '@/app/(content)/settings/(setting-pages)/payments/@unverified/action-payment-onboarding-redirect';
 import {
   stripeOnboardingSchema,
   StripeOnboardingValues,

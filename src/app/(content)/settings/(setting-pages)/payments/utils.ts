@@ -21,3 +21,15 @@ export const stripeOnboardingSchema = z
   });
 
 export type StripeOnboardingValues = z.infer<typeof stripeOnboardingSchema>;
+
+const reportTypeToLabel = {
+  'connected_account_balance_change_from_activity.itemized.3': 'Szczegółowa rozpiska zmian salda',
+  'connected_account_payouts.itemized.3': 'Szczegółowa rozpiska wypłat',
+  'connected_account_ending_balance_reconciliation.itemized.2': 'Szczegółowe rozliczenie salda końcowego',
+} as const;
+
+export type ReportType = keyof typeof reportTypeToLabel;
+
+export { reportTypeToLabel };
+
+export const ALLOWED_REPORT_TYPES = Object.keys(reportTypeToLabel) as ReportType[];

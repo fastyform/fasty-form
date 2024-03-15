@@ -4,7 +4,8 @@ import { useReducer } from 'react';
 import { FieldValues } from 'react-hook-form';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { IconButton, InputAdornment, Tooltip } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
+import AppTooltip from '@/components/app-tooltip';
 import AppInputForm, { Props as AppInputFormPasswordProps } from './app-input-form';
 
 const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPasswordProps<T>) => {
@@ -17,11 +18,11 @@ const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPassword
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <Tooltip arrow title={isPasswordVisible ? 'Ukryj hasło' : 'Pokaż hasło'}>
+            <AppTooltip title={isPasswordVisible ? 'Ukryj hasło' : 'Pokaż hasło'}>
               <IconButton className="text-white" onClick={toggleIsPasswordVisible}>
                 {isPasswordVisible ? <VisibilityOff /> : <Visibility />}
               </IconButton>
-            </Tooltip>
+            </AppTooltip>
           </InputAdornment>
         ),
       }}

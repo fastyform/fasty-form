@@ -62,7 +62,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
         </Link>{' '}
         i&nbsp;potwierdzasz, że zapoznałeś się z&nbsp;
         <Link className="font-bold" href="/privacy-policy" rel="noopener" target="_blank">
-          poityką prywatności
+          polityką prywatności
         </Link>
         .
       </span>

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import actionPaymentOnboardingRedirect from '@/app/(content)/settings/(setting-pages)/payments/_actions/action-payment-onboarding-redirect';
+import actionPaymentOnboardingRedirect from '@/app/(content)/settings/(setting-pages)/payments/@unverified/action-payment-onboarding-redirect';
 import { stripeOnboardingSchema } from '@/app/(content)/settings/(setting-pages)/payments/utils';
 
 export async function GET(request: Request) {
