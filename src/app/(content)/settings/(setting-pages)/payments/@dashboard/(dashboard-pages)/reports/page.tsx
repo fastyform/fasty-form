@@ -18,11 +18,7 @@ const DashboardReports = async () => {
   const sampleReportType = await stripe.reporting.reportTypes.retrieve('balance_change_from_activity.itemized.3', {
     stripeAccount: trainerDetails.stripe_account_id,
   });
-
-  const recentReportRun = trainerDetails.stripe_recent_report_id
-    ? await stripe.reporting.reportRuns.retrieve(trainerDetails.stripe_recent_report_id)
-    : null;
-
+  
   const dataAvailableStart = dayjs.unix(sampleReportType.data_available_start);
   const isReportingAvailable = dayjs().utc().diff(dataAvailableStart, 'day') > 0;
 

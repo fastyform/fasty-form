@@ -9,7 +9,7 @@ import { twJoin } from 'tailwind-merge';
 import { ReportType, reportTypeToLabel } from '@/app/(content)/settings/(setting-pages)/payments/utils';
 import DownloadIcon from '@/assets/download-icon';
 import AppTooltip from '@/components/app-tooltip';
-import Constants from '@/utils/constants';
+import Constants, { DATE_FORMAT } from '@/utils/constants';
 import { ensureNotNull } from '@/utils/index';
 import notify from '@/utils/notify';
 import actionGenerateFileLink from './action-generate-file-link';
@@ -58,12 +58,12 @@ const ReportRunIcon = ({ reportRun }: { reportRun: Stripe.Reporting.ReportRun })
 
 const createDateRange = ({ parameters, report_type }: Stripe.Reporting.ReportRun) => {
   if (report_type === 'connected_account_ending_balance_reconciliation.itemized.2') {
-    return dayjs.unix(parameters.interval_end as number).format('DD.MM.YY');
+    return dayjs.unix(parameters.interval_end as number).format(DATE_FORMAT);
   }
 
-  return `${dayjs.unix(parameters.interval_start as number).format('DD.MM.YY')} - ${dayjs
+  return `${dayjs.unix(parameters.interval_start as number).format(DATE_FORMAT)} - ${dayjs
     .unix(parameters.interval_end as number)
-    .format('DD.MM.YY')}`;
+    .format(DATE_FORMAT)}`;
 };
 
 interface ReportRunProps {
