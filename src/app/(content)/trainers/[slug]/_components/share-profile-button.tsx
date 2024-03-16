@@ -1,10 +1,10 @@
 'use client';
 
-import { Tooltip } from '@mui/material';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { twJoin, twMerge } from 'tailwind-merge';
 import ShareIcon from '@/app/(content)/trainers/[slug]/_assets/share-icon';
 import AppButton from '@/components/app-button';
+import AppTooltip from '@/components/app-tooltip';
 import Constants from '@/utils/constants';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
 import notify from '@/utils/notify';
@@ -42,7 +42,7 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
   const isDisabled = trainerDetails.stripe_onboarding_status !== 'verified';
 
   return (
-    <Tooltip arrow title={isDisabled ? 'Twój profil trenera będzie widoczny po podłączeniu płatności.' : undefined}>
+    <AppTooltip title={isDisabled ? 'Twój profil trenera będzie widoczny po podłączeniu płatności.' : undefined}>
       <div>
         <AppButton
           disabled={isDisabled}
@@ -59,7 +59,7 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
           <span className={twJoin(isIconOnMobile && 'hidden lg:block')}>Udostępnij swój profil</span>
         </AppButton>
       </div>
-    </Tooltip>
+    </AppTooltip>
   );
 };
 
