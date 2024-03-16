@@ -1,4 +1,5 @@
 import { Link, Text } from '@react-email/components';
+import Constants from '@/utils/constants';
 import MailTemplate from './mail-template';
 
 // EXPORT AS HTML FROM 'npm run email' AND THEN PUT IT IN SUPABASE
@@ -22,7 +23,7 @@ const ResetPassword = () => (
       Jeśli masz problem z linkami, skopiuj i wklej następujący adres w przeglądarce:{' '}
       {'{{ .SiteURL }}/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
       <MailTemplate.LineBreak /> Możesz też skontaktować się z nami wysyłając wiadomość na adres:{' '}
-      <Link href="mailto:support@fastyform.com">support@fastyform.com</Link>.
+      <Link href={`mailto:${Constants.SUPPORT_MAIL}`}>{Constants.SUPPORT_MAIL}</Link>.
     </Text>
   </MailTemplate>
 );
