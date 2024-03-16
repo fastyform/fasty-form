@@ -3,7 +3,7 @@
 import { ButtonProps, IconButton } from '@mui/material';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import navbarIcons from '@/app/(content)/_components/navbar/assets/navbar-icons';
+import navbarIcons from '@/components/app-navbar/assets/navbar-icons';
 
 interface Props extends ButtonProps {
   icon: Exclude<keyof typeof navbarIcons, 'submissions'>;

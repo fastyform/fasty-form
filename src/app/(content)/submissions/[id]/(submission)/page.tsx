@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import dayjs from 'dayjs';
+import dayjsUtc from 'dayjs/plugin/utc';
 import { redirect } from 'next/navigation';
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
@@ -9,6 +10,10 @@ import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import getSubmissionById from './_utils/get-submission-by-id';
 import { VideoSkeleton } from './loading';
+import 'dayjs/locale/pl';
+
+dayjs.extend(dayjsUtc);
+dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
   const user = await getUserFromSession();

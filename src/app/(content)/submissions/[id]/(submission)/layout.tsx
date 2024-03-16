@@ -1,6 +1,6 @@
 import { ReactNode, Suspense } from 'react';
-import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
+import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import {
   SubmissionStatusBadge,
   SubmissionTrainerName,
