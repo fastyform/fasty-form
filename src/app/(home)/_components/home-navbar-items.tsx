@@ -1,5 +1,5 @@
-import DesktopNavbarLink from '@/app/(content)/_components/navbar/desktop-navbar/desktop-navbar-link';
-import NotLoggedInButtons from '@/app/(content)/_components/navbar/desktop-navbar/not-logged-in-buttons';
+import NotLoggedInButtons from '@/components/app-navbar/desktop-navbar/not-logged-in-buttons';
+import NavbarLink from '@/components/app-navbar/navbar-link';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const HomeNavbarItems = async () => {
@@ -7,11 +7,11 @@ const HomeNavbarItems = async () => {
 
   return (
     <>
-      <NotLoggedInButtons user={user} />
+      <NotLoggedInButtons isHomePage user={user} />
       {user && (
-        <DesktopNavbarLink href="/submissions" icon="submissions" variant="contained">
+        <NavbarLink href="/submissions" variant="contained">
           Aplikacja
-        </DesktopNavbarLink>
+        </NavbarLink>
       )}
     </>
   );

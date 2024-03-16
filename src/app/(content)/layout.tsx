@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
+import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import DesktopNavbarApp from './_components/desktop-navbar-app';
 import MarketingConsentDialog from './_components/marketing-consent-dialog/marketing-consent-dialog';
-import DesktopNavbar from './_components/navbar/desktop-navbar/desktop-navbar';
-import DesktopNavbarLink from './_components/navbar/desktop-navbar/desktop-navbar-link';
-import NotLoggedInButtons from './_components/navbar/desktop-navbar/not-logged-in-buttons';
+import MobileNavbarContent from './_components/mobile-navbar-content';
 import OnboardingForm from './_components/onboarding-form/onboarding-form';
 import OnboardingStripeStatusDialog from './_components/onboarding-stripe-status-dialog';
 import StripeOnboardingInfo from './_components/stripe-onboarding-info';
@@ -33,32 +33,15 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen-responsive flex flex-col">
       {isOnboarded && (
-        <DesktopNavbar innerContainerClassName="p-5">
-          <NotLoggedInButtons user={user} />
-          {user && (
-            <>
-              <DesktopNavbarLink href="/submissions" icon="submissions">
-                Zgłoszenia
-              </DesktopNavbarLink>
-              <DesktopNavbarLink
-                href={`/settings/${isTrainerAccount ? 'payments' : 'update-password'}`}
-                icon="settings"
-              >
-                Ustawienia
-              </DesktopNavbarLink>
-              {trainerDetails && trainerDetails.profile_slug && (
-                <DesktopNavbarLink href={`/trainers/${trainerDetails.profile_slug}`} icon="profile">
-                  Profil
-                </DesktopNavbarLink>
-              )}
-              <DesktopNavbarLink className="ml-2" href="/settings/feedback" icon="feedback" variant="contained">
-                Zostaw opinię
-              </DesktopNavbarLink>
-            </>
-          )}
-        </DesktopNavbar>
+        <>
+          <DesktopNavbarApp />
+          <MobileNavbar>
+            <MobileNavbarContent trainerDetails={trainerDetails} user={user} />
+          </MobileNavbar>
+        </>
       )}
-      <div className="ml-auto mr-auto flex w-full max-w-screen-2xl flex-col px-5">
+
+      <div className="ml-auto mr-auto flex w-full max-w-screen-2xl flex-col px-5 pt-12">
         <main className="flex grow lg:pt-10">
           {isOnboarded ? (
             children

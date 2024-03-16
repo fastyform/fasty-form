@@ -23,6 +23,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
 }
+
 .webkit-fill-white {
   -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
 }
@@ -48,7 +49,18 @@ body {
   display: none !important;
 }
 
+@keyframes fade-animation {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  75% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 .fade {
   background: linear-gradient(-45deg, #fefce8, #fef9c3, #fde047, #facc15);
+  background-size: 400% 400%;
+  animation: fade-animation 16s ease infinite;
 }
+
+

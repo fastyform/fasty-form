@@ -53,7 +53,7 @@ const HomePage = () => (
       width={1036}
     />
 
-    <Container className="z-[1] mb-10 pt-28 xl:mb-0">
+    <Container className="z-[1] mb-10 pt-20 xl:mb-0">
       <Container.Content className="flex-col items-center xl:items-start">
         <div className="mb-10 flex max-w-[360px] flex-col gap-5 text-center lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
           <h1 className="text-4xl font-bold text-white xl:text-7xl">

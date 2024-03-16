@@ -1,14 +1,17 @@
 import { ReactNode, Suspense } from 'react';
-import DesktopNavbar from '@/app/(content)/_components/navbar/desktop-navbar/desktop-navbar';
+import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
+import DesktopNavbarHome from './_components/desktop-navbar-home';
 import HomeNavbarItems from './_components/home-navbar-items';
 
 const HomeLayout = ({ children }: { children: ReactNode }) => (
   <>
-    <DesktopNavbar className="fixed left-1/2 -translate-x-1/2" innerContainerClassName="max-w-screen-xl">
+    <DesktopNavbarHome />
+    <MobileNavbar>
+      <hr className="border-zinc-400/30" />
       <Suspense>
         <HomeNavbarItems />
       </Suspense>
-    </DesktopNavbar>
+    </MobileNavbar>
     {children}
   </>
 );

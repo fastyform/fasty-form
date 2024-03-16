@@ -1,5 +1,4 @@
 import { ReactNode, Suspense } from 'react';
-import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
 import ActionButtonsProfile from './_components/action-buttons-profile';
@@ -23,8 +22,7 @@ const TrainerPageLayout = async ({
           <ActionButtonsProfile trainerId={trainerId} />
         </div>
       </Suspense>
-      <div className="relative z-30 flex justify-between lg:hidden">
-        <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
+      <div className="relative z-30 flex justify-end lg:hidden">
         <Suspense>
           <div className="flex-gap flex gap-2.5 lg:hidden">
             <ActionButtonsProfile trainerId={trainerId} />
