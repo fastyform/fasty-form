@@ -79,5 +79,6 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
     'react/jsx-props-no-spreading': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
 };

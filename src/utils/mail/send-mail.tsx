@@ -9,6 +9,7 @@ interface SendMailData {
   subject: string;
   to: string;
   shouldThrow?: boolean;
+  attachments?: client.MailDataRequired['attachments'];
 }
 
 const from = {
@@ -16,13 +17,14 @@ const from = {
   email: Constants.SUPPORT_MAIL,
 } as const;
 
-export const sendMail = async ({ to, html, subject, shouldThrow = false }: SendMailData) => {
+export const sendMail = async ({ to, html, subject, shouldThrow = false, attachments }: SendMailData) => {
   try {
     await client.send({
       from,
       to,
       subject,
       html,
+      attachments,
     });
   } catch (error) {
     if (shouldThrow) {
