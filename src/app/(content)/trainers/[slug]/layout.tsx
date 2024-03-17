@@ -16,7 +16,7 @@ const TrainerPageLayout = async ({
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
 
   return (
-    <section className="relative flex w-full flex-col justify-between py-5 lg:h-auto">
+    <section className="relative flex w-full flex-col justify-between lg:h-auto">
       <Suspense>
         <div className="absolute left-0 top-0 hidden gap-2.5 lg:flex">
           <ActionButtonsProfile trainerId={trainerId} />

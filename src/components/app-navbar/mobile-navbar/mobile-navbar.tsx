@@ -5,9 +5,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer, IconButton } from '@mui/material';
 import { usePathname } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 import AppLogo from '@/components/app-logo';
 
-const MobileNavbar = ({ children }: { children: ReactNode }) => {
+const MobileNavbar = ({ children, className }: { className?: string; children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
 
@@ -21,7 +22,12 @@ const MobileNavbar = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <header className="fixed left-0 top-0 z-30 flex h-[50px] w-full items-center justify-start gap-4 border-b border-solid border-gray-600 bg-shark px-5 lg:hidden">
+      <header
+        className={twMerge(
+          'z-30 flex h-[50px] w-full items-center justify-start gap-4 border-b border-solid border-gray-600 bg-shark px-5 lg:hidden',
+          className,
+        )}
+      >
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>

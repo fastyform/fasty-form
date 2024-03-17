@@ -24,7 +24,7 @@ const PaymentsVerified = async () => {
   const isReportingAvailable = dayjs().utc().diff(dataAvailableStart, 'day') > 0;
 
   return (
-    <div className="my-5 grid grow grid-cols-1 gap-12 text-white md:grid-cols-2">
+    <div className="grid grow grid-cols-1 gap-12 text-white md:grid-cols-2">
       <div className="flex flex-col gap-8">
         <div className="flex max-w-lg flex-col gap-2.5">
           <h2 className="text-2xl font-semibold">Twoje saldo</h2>
