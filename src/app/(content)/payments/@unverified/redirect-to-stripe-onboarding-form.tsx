@@ -5,15 +5,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormControlLabel, InputAdornment, Radio, RadioGroup, RadioProps } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import actionPaymentOnboardingRedirect from '@/app/(content)/settings/(setting-pages)/payments/@unverified/action-payment-onboarding-redirect';
-import {
-  stripeOnboardingSchema,
-  StripeOnboardingValues,
-} from '@/app/(content)/settings/(setting-pages)/payments/utils';
+import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/(content)/payments/utils';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
+import actionPaymentOnboardingRedirect from './action-payment-onboarding-redirect';
 
 const RadioButton = (props: RadioProps) => <Radio {...props} className="text-yellow-400" />;
 
@@ -66,7 +63,7 @@ const RedirectToStripeOnboardingForm = () => {
           )}
         />
       </div>
-      <div className="flex w-full max-w-[400px] flex-col gap-4">
+      <div className="flex w-full flex-col gap-4">
         {watch('businessType') === 'individual' ? (
           <>
             <AppInputForm control={control} fieldName="firstName" label="Imię" />

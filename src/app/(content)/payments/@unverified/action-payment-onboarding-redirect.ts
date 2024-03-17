@@ -1,10 +1,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import {
-  stripeOnboardingSchema,
-  StripeOnboardingValues,
-} from '@/app/(content)/settings/(setting-pages)/payments/utils';
+
+import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/(content)/payments/utils';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';

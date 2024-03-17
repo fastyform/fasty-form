@@ -54,7 +54,7 @@ export async function GET() {
     isError = true;
   }
 
-  revalidatePath('/settings/payments');
+  revalidatePath('/payments');
 
   const getRedirectParam = () => {
     if (isOnboardedStripe) return '?stripe_onboarding_status=verified';
@@ -64,5 +64,5 @@ export async function GET() {
     return '';
   };
 
-  return redirect(`/settings/payments${getRedirectParam()}`);
+  return redirect(`/payments${getRedirectParam()}`);
 }

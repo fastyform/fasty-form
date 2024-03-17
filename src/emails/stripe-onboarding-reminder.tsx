@@ -3,9 +3,7 @@ import MailTemplate from './mail-template';
 
 const StripeOnboardingReminder = ({ title }: { title: string }) => (
   <MailTemplate title={title}>
-    <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/settings/payments`}>
-      Aktywuj płatności
-    </MailTemplate.CallToAction>
+    <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/payments`}>Aktywuj płatności</MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
     Cześć!
     <MailTemplate.LineBreak />

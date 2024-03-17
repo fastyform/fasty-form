@@ -8,11 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import dayjs, { Dayjs } from 'dayjs';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
-import {
-  ALLOWED_REPORT_TYPES,
-  ReportType,
-  reportTypeToLabel,
-} from '@/app/(content)/settings/(setting-pages)/payments/utils';
+import { ALLOWED_REPORT_TYPES, ReportType, reportTypeToLabel } from '@/app/(content)/payments/utils';
 import AppButton from '@/components/app-button';
 import AppDatePicker from '@/components/app-date-picker';
 import AppInput from '@/components/app-input/app-input';

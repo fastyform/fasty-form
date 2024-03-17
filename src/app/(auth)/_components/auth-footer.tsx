@@ -8,7 +8,7 @@ interface Props {
 }
 
 const AuthFooter = ({ shouldNavigateBack, className }: Props) => {
-  const getHrefFormatted = (href: Route) => (shouldNavigateBack ? `${href}?should-navigate-back=true` : href) as Route;
+  const getHrefFormatted = (href: Route) => (shouldNavigateBack ? `${href}?should-navigate-back=true` : href);
 
   return (
     <div className={twMerge('flex flex-wrap justify-center gap-5 text-sm text-white', className)}>

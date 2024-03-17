@@ -1,4 +1,3 @@
-import { Route } from 'next';
 import Link, { LinkProps } from 'next/link';
 import { SearchParam } from '@/utils/types';
 
@@ -13,7 +12,7 @@ const AuthLink = (props: Props) => {
   return (
     <Link
       className="w-fit self-center text-white transition-opacity hover:opacity-80"
-      href={`${href}${redirectUrl}` as Route}
+      href={`${href}${redirectUrl}`}
       {...rest}
     />
   );

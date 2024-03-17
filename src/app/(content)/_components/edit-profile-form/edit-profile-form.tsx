@@ -5,7 +5,6 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButtonProps } from '@mui/lab';
-import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import {
   editProfileSchema,
@@ -64,7 +63,7 @@ const EditProfileForm = ({
     const handleAfterFormSubmit = async () => {
       if (state.isSuccess) {
         setIsRedirecting(true);
-        router.push(`/trainers/${trainerProfileSlug}` as Route);
+        router.push(`/trainers/${trainerProfileSlug}`);
         notify.success('Zapisano zmiany');
       }
     };
@@ -107,7 +106,7 @@ const EditProfileForm = ({
         <AppButton
           classes={{ contained: 'bg-inherit grow', root: 'py-2.5' }}
           className="text-sm text-white"
-          onClick={() => router.push(`/trainers/${trainerProfileSlug}` as Route)}
+          onClick={() => router.push(`/trainers/${trainerProfileSlug}`)}
         >
           Anuluj
         </AppButton>

@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import AppButtonLink from '@/components/app-button-link';
+import AppButton from '@/components/app-button';
 import { SearchParams } from '@/utils/types';
 
 const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) => {
@@ -18,9 +19,9 @@ const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) =>
           <p className="text-center text-sm lg:text-base">Spróbuj ponownie lub skontaktuj się z nami.</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonLink className="py-2.5 text-sm" href={`/trainers/${trainerProfileSlug}`}>
+          <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href={`/trainers/${trainerProfileSlug}`}>
             Wróć na stronę trenera
-          </AppButtonLink>
+          </AppButton>
         </div>
       </div>
     </div>
