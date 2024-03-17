@@ -34,7 +34,7 @@ const DesktopNavbarApp = async () => {
                   Profil
                 </NavbarLink>
               )}
-              <NavbarLink className="ml-2" href="/settings/feedback" icon="feedback" variant="contained">
+              <NavbarLink className="ml-2" href="/feedback" icon="feedback" variant="contained">
                 Zostaw opinię
               </NavbarLink>
             </>
