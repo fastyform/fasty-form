@@ -41,7 +41,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
         </>
       )}
 
-      <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 py-8 md:py-12">
+      <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 pt-24 lg:pb-12 lg:pt-28">
         <main className="flex grow">
           {isOnboarded ? (
             children

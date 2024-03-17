@@ -11,7 +11,7 @@ const DesktopNavbarApp = async () => {
   const trainerDetails = isTrainerAccount && user && (await getTrainerDetailsById(user.id));
 
   return (
-    <header className="z-50 hidden h-[68px] w-full items-center justify-center border-b border-gray-600 bg-shark lg:flex">
+    <header className="fixed left-0 top-0 z-50 hidden h-[68px] w-full items-center justify-center border-b border-gray-600 bg-shark lg:flex">
       <div className="flex w-full max-w-screen-2xl items-center justify-between lg:px-5">
         <AppLogo className="w-[100px]" />
         <div className="flex h-full items-center px-5">
