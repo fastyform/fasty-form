@@ -2,6 +2,7 @@ import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutl
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import PaymentOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
@@ -14,6 +15,7 @@ const navbarIcons = {
   login: LoginOutlinedIcon,
   register: AppRegistrationOutlinedIcon,
   feedback: RateReviewOutlinedIcon,
+  payments: PaymentOutlinedIcon,
 };
 
 export default navbarIcons;

@@ -1,7 +1,7 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { ReportType, reportTypeToLabel } from '@/app/(content)/settings/(setting-pages)/payments/utils';
+import { ReportType, reportTypeToLabel } from '@/app/(content)/payments/utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import ReportReady from '@/emails/report-ready';

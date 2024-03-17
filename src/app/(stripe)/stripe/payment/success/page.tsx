@@ -3,13 +3,13 @@
 import { useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
-import { Route } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import AppButtonLink from '@/components/app-button-link';
+import AppButton from '@/components/app-button';
 import { Database } from '@/utils/supabase/supabase';
 
-const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements` as Route;
+const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements`;
 
 const SuccessPaymentPage = () => {
   const supabase = createBrowserClient(
@@ -82,9 +82,9 @@ const SuccessPaymentPage = () => {
           </p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonLink className="py-2.5 text-sm" href="/submissions">
+          <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href="/submissions">
             Twoje zgłoszenia
-          </AppButtonLink>
+          </AppButton>
         </div>
       </div>
     </div>

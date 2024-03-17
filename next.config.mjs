@@ -5,9 +5,6 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    typedRoutes: true,
-  },
   redirects: async () => [{ source: '/register', destination: '/register/client', permanent: false }],
   images: {
     remotePatterns: [

@@ -35,7 +35,7 @@ const OnboardingStripeStatusDialog = () => {
   const [icon, title, description] = dialogData[successParam as SuccessParamType];
 
   const handleModalClose = () => {
-    router.replace('/settings/payments');
+    router.replace('/payments');
   };
 
   return (

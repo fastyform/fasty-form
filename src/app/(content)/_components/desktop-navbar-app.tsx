@@ -21,7 +21,12 @@ const DesktopNavbarApp = async () => {
               <NavbarLink href="/submissions" icon="submissions">
                 Zgłoszenia
               </NavbarLink>
-              <NavbarLink href={`/settings/${isTrainerAccount ? 'payments' : 'update-password'}`} icon="settings">
+              {isTrainerAccount && (
+                <NavbarLink href="/payments" icon="payments">
+                  Płatności
+                </NavbarLink>
+              )}
+              <NavbarLink href="/settings/update-password" icon="settings">
                 Ustawienia
               </NavbarLink>
               {trainerDetails && trainerDetails.profile_slug && (

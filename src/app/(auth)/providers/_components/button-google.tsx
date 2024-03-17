@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { Route } from 'next';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { QUERY_PARAM_ERRORS, QueryParamError } from '@/app/(auth)/_utils';
@@ -28,7 +27,7 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
 
   useEffect(() => {
     if (!errorParam) return;
-    replace(pathname as Route);
+    replace(pathname);
 
     if (errorParam in QUERY_PARAM_ERRORS) {
       notify.error(QUERY_PARAM_ERRORS[errorParam as QueryParamError], {

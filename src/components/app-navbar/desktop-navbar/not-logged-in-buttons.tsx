@@ -1,7 +1,6 @@
 'use client';
 
 import { User } from '@supabase/supabase-js';
-import { Route } from 'next';
 import { useParams } from 'next/navigation';
 import NavbarLink from '@/components/app-navbar/navbar-link';
 
@@ -13,11 +12,11 @@ const NotLoggedInButtons = ({ user, isHomePage }: { user: User | null; isHomePag
     <>
       {!user && (
         <>
-          <NavbarLink href={`/login${redirectUrlParam}` as Route} icon={isHomePage ? undefined : 'login'}>
+          <NavbarLink href={`/login${redirectUrlParam}`} icon={isHomePage ? undefined : 'login'}>
             Zaloguj się
           </NavbarLink>
           <NavbarLink
-            href={`/register/client${redirectUrlParam}` as Route}
+            href={`/register/client${redirectUrlParam}`}
             icon={isHomePage ? undefined : 'register'}
             variant="contained"
           >

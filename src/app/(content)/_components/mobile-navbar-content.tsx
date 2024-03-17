@@ -39,6 +39,11 @@ const MobileNavbarContent = ({
         <MobileNavbarLink href="/submissions" icon="submissions">
           Zgłoszenia
         </MobileNavbarLink>
+        {trainerDetails && (
+          <MobileNavbarLink href="/payments" icon="payments">
+            Płatności
+          </MobileNavbarLink>
+        )}
         {trainerDetails && trainerDetails.profile_slug && (
           <MobileNavbarLink href={`/trainers/${trainerDetails.profile_slug}`} icon="profile">
             Profil
@@ -48,11 +53,6 @@ const MobileNavbarContent = ({
           Ustawienia
         </MobileNavbarLink>
         <Hr />
-        {trainerDetails && (
-          <MobileNavbarLink className="text-xs font-medium" href="/settings/payments">
-            Płatności
-          </MobileNavbarLink>
-        )}
         <MobileNavbarLink className="text-xs font-medium" href="/contact">
           Wsparcie
         </MobileNavbarLink>

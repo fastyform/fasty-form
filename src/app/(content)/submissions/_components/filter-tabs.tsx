@@ -3,7 +3,6 @@
 import { SyntheticEvent, useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import { Tab, TabProps } from '@mui/material';
-import { Route } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import createQueryString from '@/utils/create-query-string';
 import { SearchParam } from '@/utils/types';
@@ -36,7 +35,7 @@ const FilterTabs = ({
   const [value, setValue] = useState<Filter>(defaultTabValue || 'all');
 
   const handleChange = (_: SyntheticEvent, newValue: Filter) => {
-    router.replace(`?${createQueryString('filter', newValue, searchParams)}` as Route);
+    router.replace(`?${createQueryString('filter', newValue, searchParams)}`);
     setValue(newValue);
   };
 
