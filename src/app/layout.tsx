@@ -1,9 +1,12 @@
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
+import theme from '@/utils/theme';
 import Providers from './providers';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
@@ -33,11 +36,15 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => (
   <html lang="pl">
     <body className={plusJakartaSans.className} id="body">
       <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
-      <Providers>
-        <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
-      </Providers>
+      <AppRouterCacheProvider>
+        <ThemeProvider theme={theme}>
+          <Providers>
+            <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
+          </Providers>
+        </ThemeProvider>
+      </AppRouterCacheProvider>
     </body>
-    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
+    {process.env.NODE_ENV !== 'development' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
   </html>
 );
 

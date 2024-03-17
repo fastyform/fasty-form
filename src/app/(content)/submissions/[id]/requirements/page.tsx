@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation';
-import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
-import AppLogo from '@/components/app-logo';
+import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import { triggerRootNotFound } from '@/utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserFromSession from '@/utils/get-user-from-session';
@@ -27,11 +26,8 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }
 
   return (
     <div className="flex w-full max-w-[500px] flex-col gap-8 self-center">
-      <div className="relative flex justify-center lg:hidden">
-        <MobileNavbarLink aria-label="Zgłoszenia" className="absolute left-0" href="/submissions" icon="back" />
-        <AppLogo />
-      </div>
       <div className="flex flex-col gap-5">
+        <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
         <h1 className="text-2xl font-bold text-white">Szczegóły zamówienia</h1>
         <span className="text-white">
           Analiza techniki -{' '}

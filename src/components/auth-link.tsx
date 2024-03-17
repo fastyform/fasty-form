@@ -1,10 +1,12 @@
-import { Route } from 'next';
+import { AnchorHTMLAttributes, ReactNode } from 'react';
 import Link, { LinkProps } from 'next/link';
 import { SearchParam } from '@/utils/types';
 
-interface Props extends LinkProps<any> {
-  redirectUrlParam: SearchParam;
-}
+type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
+  LinkProps & {
+    children?: ReactNode;
+    redirectUrlParam: SearchParam;
+  };
 
 const AuthLink = (props: Props) => {
   const { href, redirectUrlParam, ...rest } = props;
@@ -13,7 +15,7 @@ const AuthLink = (props: Props) => {
   return (
     <Link
       className="w-fit self-center text-white transition-opacity hover:opacity-80"
-      href={`${href}${redirectUrl}` as Route}
+      href={`${href}${redirectUrl}`}
       {...rest}
     />
   );

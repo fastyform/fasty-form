@@ -1,4 +1,3 @@
-import { Route } from 'next';
 import { redirect } from 'next/navigation';
 import { EditProfileValues } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
 import EditProfileForm from '@/app/(content)/_components/edit-profile-form/edit-profile-form';
@@ -25,7 +24,7 @@ const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
   };
 
   return (
-    <AppModal redirectUrl={`/trainers/${params.slug}` as Route}>
+    <AppModal redirectUrl={`/trainers/${params.slug}`}>
       <section className="min-h-screen-responsive flex w-screen max-w-2xl flex-col gap-5 border border-gray-600 bg-shark px-5 py-10 min-[672px]:min-h-0 min-[672px]:rounded-xl min-[672px]:px-10">
         <h1 className="text-xl font-bold text-white">Edytuj swój profil</h1>
         <EditProfileForm

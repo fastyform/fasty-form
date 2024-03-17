@@ -6,18 +6,25 @@ import { TextFieldProps } from '@mui/material';
 import ErrorIcon from '@/assets/error-icon';
 import AppInput from '@/components/app-input/app-input';
 
-export interface Props<T extends FieldValues> extends Omit<TextFieldProps, 'name' | 'onChange' | 'inputRef'> {
+export interface Props<T extends FieldValues> extends Omit<TextFieldProps, 'name' | 'inputRef'> {
   fieldName: Path<T>;
   control: Control<T>;
 }
 
-const AppInputForm = <T extends FieldValues>({ fieldName, control, onBlur, ...props }: Props<T>) => {
+const AppInputForm = <T extends FieldValues>({ fieldName, control, onBlur, onChange, ...props }: Props<T>) => {
   const { field, fieldState } = useController({ name: fieldName, control });
 
   const handleBlur: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     field.onBlur();
     if (onBlur) {
       onBlur(e);
+    }
+  };
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    field.onChange(e);
+    if (onChange) {
+      onChange(e);
     }
   };
 
@@ -36,7 +43,7 @@ const AppInputForm = <T extends FieldValues>({ fieldName, control, onBlur, ...pr
         )
       }
       onBlur={handleBlur}
-      onChange={field.onChange}
+      onChange={handleOnChange}
       {...props}
     />
   );

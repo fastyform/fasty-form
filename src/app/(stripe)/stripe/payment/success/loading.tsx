@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import AppButtonLink from '@/components/app-button-link';
+import Link from 'next/link';
+import AppButton from '@/components/app-button';
 
 const LoadingPageSuccess = () => (
   <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">
@@ -12,9 +13,9 @@ const LoadingPageSuccess = () => (
         </p>
       </div>
       <div className="flex flex-wrap gap-5">
-        <AppButtonLink className="py-2.5 text-sm" href="/submissions">
+        <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href="/submissions">
           Twoje zgłoszenia
-        </AppButtonLink>
+        </AppButton>
       </div>
     </div>
   </div>

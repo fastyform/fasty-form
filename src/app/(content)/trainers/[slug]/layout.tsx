@@ -1,5 +1,4 @@
 import { ReactNode, Suspense } from 'react';
-import MobileNavbarLink from '@/app/(content)/_components/navbar/mobile-navbar/mobile-navbar-link';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
 import ActionButtonsProfile from './_components/action-buttons-profile';
@@ -17,14 +16,13 @@ const TrainerPageLayout = async ({
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
 
   return (
-    <section className="relative flex w-full flex-col justify-between py-5 lg:h-auto">
+    <section className="relative flex w-full flex-col justify-between lg:h-auto">
       <Suspense>
         <div className="absolute left-0 top-0 hidden gap-2.5 lg:flex">
           <ActionButtonsProfile trainerId={trainerId} />
         </div>
       </Suspense>
-      <div className="relative z-30 flex justify-between lg:hidden">
-        <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
+      <div className="relative z-30 flex justify-end lg:hidden">
         <Suspense>
           <div className="flex-gap flex gap-2.5 lg:hidden">
             <ActionButtonsProfile trainerId={trainerId} />

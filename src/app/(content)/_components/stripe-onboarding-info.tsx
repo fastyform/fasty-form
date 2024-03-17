@@ -59,7 +59,7 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
   return (
     <Link
       className="sticky bottom-0 right-0 mt-auto flex w-full items-center gap-2.5 border border-gray-600 bg-shark p-5 text-sm text-white shadow-xl"
-      href="/settings/payments"
+      href="/payments"
     >
       {trainerDetails.stripe_onboarding_status === 'pending_verification' ? (
         <CircularProgress classes={{ root: 'text-yellow-400 min-w-[26px]' }} size={26} />

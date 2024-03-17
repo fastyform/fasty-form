@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import actionUpdatePassword from '@/app/(content)/settings/(setting-pages)/update-password/_actions/action-update-password';
 import {
@@ -42,7 +41,7 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
   useEffect(() => {
     if (state?.isSuccess) {
       reset();
-      if (typeof redirectPathParam === 'string') router.push(redirectPathParam as Route);
+      if (typeof redirectPathParam === 'string') router.push(redirectPathParam);
     }
   }, [state, reset, redirectPathParam, router]);
 

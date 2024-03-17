@@ -1,5 +1,4 @@
 import { ReactNode, Suspense } from 'react';
-import { Route } from 'next';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
@@ -37,7 +36,7 @@ const SubmissionCard = async ({
   const user = await getUserFromSession();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
-  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}` as Route;
+  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}`;
 
   return (
     <SubmissionCardContainer>

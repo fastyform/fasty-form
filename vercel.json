@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/complete-onboarding",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/invoice",
+      "schedule": "0 6 1 * *"
     }
   ]
 }

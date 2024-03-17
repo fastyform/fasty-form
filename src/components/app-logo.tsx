@@ -1,9 +1,20 @@
 import { SVGProps } from 'react';
 import Link from 'next/link';
+import { twMerge } from 'tailwind-merge';
 
-const AppLogo = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
-  <Link className={className} href="/submissions">
-    <svg className="h-auto w-[120px]" fill="none" viewBox="0 0 120 38" xmlns="http://www.w3.org/2000/svg" {...props}>
+interface Props extends SVGProps<SVGSVGElement> {
+  linkContainerClassName?: string;
+}
+
+const AppLogo = ({ linkContainerClassName, className, ...props }: Props) => (
+  <Link className={linkContainerClassName} href="/submissions">
+    <svg
+      className={twMerge('h-auto w-[120px]', className)}
+      fill="none"
+      viewBox="0 0 120 38"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <path
         d="M100.383 16.2699L86.8129 2.45327C86.3194 2.04206 85.3325 0.109401 87.5531 0.109375C90.8839 0.109375 97.8415 0.134048 99.0258 0.232738C100.21 0.331428 100.835 0.685068 101 0.849552C105.811 5.29061 115.729 14.6168 116.913 16.3933C118.098 18.1697 117.407 19.6829 116.913 20.2175C112.308 24.6586 103.133 34.2509 101.616 35.5145C100.136 36.7481 98.8202 37.4061 98.1623 37.365H86.6895C84.5183 37.365 84.7157 36.2958 85.0858 35.7612L100.383 20.4642C102.258 18.5891 101.164 16.8867 100.383 16.2699Z"
         fill="#FACC15"
