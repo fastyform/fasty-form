@@ -1,8 +1,12 @@
 'use client';
 
 import { TextField, TextFieldProps } from '@mui/material';
+import { twMerge } from 'tailwind-merge';
 
-const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
+const AppInput = ({
+  InputProps: { classes: { input = '', root = '', ...classes } = {}, ...InputProps } = {},
+  ...props
+}: TextFieldProps) => (
   <TextField
     FormHelperTextProps={{
       classes: {
@@ -25,12 +29,16 @@ const AppInput = ({ InputProps, ...props }: TextFieldProps) => (
         },
       },
       classes: {
-        input: 'text-white',
-        root: 'rounded-2xl [&:not(.Mui-error):not(.Mui-disabled):not(.Mui-focused)_fieldset]:hover:border-gray-500 bg-shark',
+        input: twMerge('text-white', input),
+        root: twMerge(
+          'rounded-2xl [&:not(.Mui-error):not(.Mui-disabled):not(.Mui-focused)_fieldset]:hover:border-gray-500 bg-shark',
+          root,
+        ),
         notchedOutline: 'border-gray-600',
         focused: '[&:not(.Mui-error)_fieldset]:border-gray-400',
         error: '[&_.MuiInputBase-input]:text-red-400 [&_fieldset]:border-red-400',
         disabled: 'webkit-fill-white',
+        ...classes,
       },
       ...InputProps,
     }}
