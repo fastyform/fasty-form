@@ -31,39 +31,42 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div className="min-h-screen-responsive flex flex-col">
-      {isOnboarded && (
-        <>
-          <DesktopNavbarApp />
-          <MobileNavbar>
-            <MobileNavbarContent trainerDetails={trainerDetails} user={user} />
-          </MobileNavbar>
-        </>
-      )}
+    <>
+      <div className="min-h-screen-responsive flex flex-col">
+        {isOnboarded && (
+          <>
+            <DesktopNavbarApp />
+            <MobileNavbar>
+              <MobileNavbarContent trainerDetails={trainerDetails} user={user} />
+            </MobileNavbar>
+          </>
+        )}
 
-      <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 pt-24 lg:pb-12 lg:pt-28">
-        <main className="flex grow">
-          {isOnboarded ? (
-            children
-          ) : (
-            <section className="mx-auto flex w-[500px] max-w-full flex-col gap-10">
-              <div className="flex flex-col gap-2.5 text-white  min-[500px]:text-center">
-                <h1 className="text-2xl font-bold md:text-3xl">Wprowadź swoje dane</h1>
-                <p className=" text-xl">
-                  Aby rozpocząć korzystanie z portalu, prosimy o uzupełnienie wszystkich wymaganych pól.
-                </p>
-              </div>
-              <OnboardingForm />
-            </section>
-          )}
-        </main>
+        <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 pt-24 lg:pb-12 lg:pt-28">
+          <main className="flex grow">
+            {isOnboarded ? (
+              children
+            ) : (
+              <section className="mx-auto flex w-[500px] max-w-full flex-col gap-10">
+                <div className="flex flex-col gap-2.5 text-white  min-[500px]:text-center">
+                  <h1 className="text-2xl font-bold md:text-3xl">Wprowadź swoje dane</h1>
+                  <p className=" text-xl">
+                    Aby rozpocząć korzystanie z portalu, prosimy o uzupełnienie wszystkich wymaganych pól.
+                  </p>
+                </div>
+                <OnboardingForm />
+              </section>
+            )}
+          </main>
+        </div>
+        {trainerDetails && trainerDetails.stripe_onboarding_status !== 'verified' && isOnboarded && (
+          <StripeOnboardingInfo trainerDetails={trainerDetails} userId={user.id} />
+        )}
+        <OnboardingStripeStatusDialog />
+        <MarketingConsentDialog shouldDisplayMarketingConsentModal={shouldDisplayMarketingConsentModal} />
       </div>
-      {trainerDetails && trainerDetails.stripe_onboarding_status !== 'verified' && isOnboarded && (
-        <StripeOnboardingInfo trainerDetails={trainerDetails} userId={user.id} />
-      )}
-      <OnboardingStripeStatusDialog />
-      <MarketingConsentDialog shouldDisplayMarketingConsentModal={shouldDisplayMarketingConsentModal} />
-    </div>
+      <div id="portal-root" />
+    </>
   );
 };
 
