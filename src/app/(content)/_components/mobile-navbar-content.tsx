@@ -56,7 +56,7 @@ const MobileNavbarContent = ({
         <MobileNavbarLink className="text-xs font-medium" href="/contact">
           Wsparcie
         </MobileNavbarLink>
-        <NavbarLink className="mt-auto" href="/submissions" icon="submissions" variant="contained">
+        <NavbarLink className="mt-auto" href="/feedback" icon="submissions" variant="contained">
           Zostaw opinię
         </NavbarLink>
       </>
