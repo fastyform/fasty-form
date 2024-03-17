@@ -21,9 +21,9 @@ const actionSendFeedback = async (data: FeedbackValues) => {
         <br />
         Odczucia aplikacji opis dodatkowy: {data.appFeelingDescription || 'nie wybrano'}
         <br />
-        Featery radio: {data.features.radio}
+        Featery radio: {data.radio}
         <br />
-        Featery inne: {data.features.other}
+        Featery inne: {data.other}
       </MailTemplate>,
     ),
     shouldThrow: true,

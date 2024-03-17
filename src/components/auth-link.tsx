@@ -1,9 +1,12 @@
+import { AnchorHTMLAttributes, ReactNode } from 'react';
 import Link, { LinkProps } from 'next/link';
 import { SearchParam } from '@/utils/types';
 
-interface Props extends LinkProps<any> {
-  redirectUrlParam: SearchParam;
-}
+type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
+  LinkProps & {
+    children?: ReactNode;
+    redirectUrlParam: SearchParam;
+  };
 
 const AuthLink = (props: Props) => {
   const { href, redirectUrlParam, ...rest } = props;
