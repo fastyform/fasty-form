@@ -41,12 +41,12 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
         </>
       )}
 
-      <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pt-12">
-        <main className="flex grow lg:pt-10">
+      <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 py-8 md:py-12">
+        <main className="flex grow">
           {isOnboarded ? (
             children
           ) : (
-            <section className="mx-auto my-5 flex w-[500px] max-w-full flex-col gap-10">
+            <section className="mx-auto flex w-[500px] max-w-full flex-col gap-10">
               <div className="flex flex-col gap-2.5 text-white  min-[500px]:text-center">
                 <h1 className="text-2xl font-bold md:text-3xl">Wprowadź swoje dane</h1>
                 <p className=" text-xl">

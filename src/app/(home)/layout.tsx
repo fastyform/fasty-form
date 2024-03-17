@@ -6,7 +6,7 @@ import HomeNavbarItems from './_components/home-navbar-items';
 const HomeLayout = ({ children }: { children: ReactNode }) => (
   <>
     <DesktopNavbarHome />
-    <MobileNavbar>
+    <MobileNavbar className="fixed left-0 top-0">
       <hr className="border-zinc-400/30" />
       <Suspense>
         <HomeNavbarItems />
