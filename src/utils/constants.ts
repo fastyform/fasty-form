@@ -7,7 +7,7 @@ const Constants = {
   SUPPORT_MAIL: 'support@fastyform.com',
 } as const;
 
-export const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile', '/stripe'];
+export const PROTECTED_ROUTES = ['/submissions', '/settings', '/onboarding', '/edit-profile', '/stripe', '/payments'];
 export const UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS = ['/login', '/register', '/forgot-password'];
 export const ALLOWED_ROUTES_FOR_INDEXING = [
   '/',
