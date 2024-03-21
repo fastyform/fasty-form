@@ -46,12 +46,14 @@ const tosData = {
     'Użytkownik udziela Aplikacji niewyłącznego, bezterminowego prawa do korzystania z przesłanych materiałów wideo w ramach działalności Aplikacji.',
     'Użytkownik, wysyłając materiał wideo w celu weryfikacji techniki, wyraża zgodę na przetwarzanie swojego wizerunku przez trenera wyłącznie w celu świadczenia usługi analizy techniki ćwiczeń.',
   ],
-  'Zasady anulowania i zmiany zamówień': [
-    'Użytkownik ma prawo anulować zamówienie na usługi trenera, jeżeli usługa nie została jeszcze rozpoczęta. Aby anulować zamówienie, użytkownik musi skontaktować się z naszym działem pomocy za pośrednictwem oficjalnych kanałów komunikacji podanych w aplikacji.',
-    `Prośba o anulowanie zostanie rozpatrzona przez ${Constants.APP_NAME} w ciągu 48 godzin od momentu otrzymania. W przypadku potwierdzenia, że usługa nie została jeszcze rozpoczęta przez trenera, zamówienie zostanie anulowane, a użytkownikowi zostaną zwrócone pełne środki za niezrealizowaną usługę.`,
-    `W przypadku, gdy użytkownik złoży prośbę o anulowanie zamówienia, ale trener rozpocznie realizację usługi przed przetworzeniem tej prośby przez ${Constants.APP_NAME}, zamówienie nie zostanie anulowane, a płatność nie podlega zwrotowi. Użytkownik zostanie poinformowany o statusie zamówienia oraz o tym, że usługa jest w trakcie realizacji lub została zakończona.`,
-    `${Constants.APP_NAME} dokłada wszelkich starań, aby prośby o anulowanie były przetwarzane w możliwie najkrótszym czasie, jednakże nie gwarantuje anulowania zamówienia, jeśli trener rozpocznie jego realizację przed przetworzeniem prośby o anulowanie przez ${Constants.APP_NAME}.`,
-    'Szczegóły dotyczące procesu anulowania i zmiany zamówień można znaleźć kontaktując się z naszym działem pomocy.',
+  'Zwroty pieniędzy i anulowanie zamówienia': [
+    'Użytkownik ma prawo do żądania zwrotu pieniędzy wyłącznie w przypadku, gdy usługa nie została wykonana przez trenera w ciągu 14 dni od daty zakupu, lub gdy wykonana usługa nie jest zgodna z umową lub posiada istotne wady.',
+    'Prośba o zwrot pieniędzy z powodu niewykonania usługi przez trenera lub jej niezgodności z umową musi zostać złożona przez użytkownika w terminie 14 dni od planowanego terminu wykonania usługi lub od dnia otrzymania wyników usługi.',
+    'W przypadku akceptacji prośby, użytkownik otrzyma pełny zwrot kosztów za niezrealizowaną lub niewłaściwie wykonaną usługę. Trenerowi nie zostanie zwrócona prowizja pobrana przez Aplikację od transakcji.',
+    'Decyzje o zwrotach pieniędzy będą podejmowane przez Właścicieli na podstawie indywidualnej oceny każdego przypadku. Zwrot zostanie przekazany na konto użytkownika w ciągu około 5-10 dni roboczych od daty akceptacji wniosku.',
+    'Anulowanie zamówienia po jego dokonaniu nie jest możliwe, ponieważ realizacja usługi rozpoczyna się natychmiast po zakupie. Użytkownik akceptując niniejszy regulamin, potwierdza świadomość tego faktu i wyraża zgodę na rozpoczęcie świadczenia usługi bez możliwości jej anulowania.',
+    'Wszystkie wnioski o zwrot pieniędzy powinny być kierowane do działu obsługi klienta za pośrednictwem oficjalnych kanałów komunikacji podanych w aplikacji.',
+    'Właściciel Aplikacji nie ponosi odpowiedzialności za opóźnienia w przetwarzaniu zwrotów przez zewnętrzne systemy płatności.',
   ],
   'Prawa i obowiązki użytkownika': [
     'Użytkownik zobowiązany jest do korzystania z Aplikacji zgodnie z prawem i dobrymi obyczajami.',
@@ -71,14 +73,6 @@ const tosData = {
     'Aplikacja dostarczana jest "jak jest", bez gwarancji działania bez błędów.',
     'Właściciel oraz trenerzy nie ponoszą odpowiedzialności za ewentualne szkody wynikające z niewłaściwego stosowania porad lub analiz trenerów.',
     'Użytkownik ponosi pełną odpowiedzialność za wszelkie przesłane materiały, które naruszają prawa osób trzecich, w tym prawa autorskie, prawa do znaków towarowych, prawo do prywatności lub inne prawa własności intelektualnej lub osobiste. Właściciel Aplikacji nie jest odpowiedzialny za treści przesyłane przez użytkowników, ale zobowiązuje się do działania w ramach obowiązujących przepisów w przypadku otrzymania powiadomienia o możliwym naruszeniu.',
-  ],
-  'Zwroty pieniędzy': [
-    'Użytkownik ma prawo do złożenia wniosku o zwrot pieniędzy w przypadku, gdy usługa nie została wykonana zgodnie z umową lub posiada istotne wady.',
-    'Wniosek o zwrot pieniędzy musi zostać złożony w terminie 14 dni od daty zakupu usługi.',
-    'Decyzja o zwrocie pieniędzy będzie podejmowana przez Właścicieli na podstawie indywidualnej oceny każdego przypadku.',
-    'W przypadku akceptacji wniosku, zwrot zostanie przekazany na konto użytkownika w przybliżeniu 5-10 dni roboczych od daty akceptacji wniosku. ',
-    'Właściciel Aplikacji nie ponosi odpowiedzialności za opóźnienia w przetwarzaniu zwrotów przez zewnętrzne systemy płatności.',
-    'Użytkownik, dokonując zakupu usługi weryfikacji techniki ćwiczeń na podstawie wideo, rezygnuje z prawa do odstąpienia od umowy po wykonaniu usługi przez trenera, zgodnie z art. 38 pkt 13 ustawy o prawach konsumenta, ponieważ usługa ta polega na wykonywaniu czynności na wyraźne żądanie konsumenta przed upływem terminu do odstąpienia od umowy.',
   ],
   'Konta trenerów i dodanie do bazy trenerów': [
     'Użytkownicy rejestrujący się w Aplikacji jako trenerzy wyrażają zgodę na dodanie swoich kont do publicznie dostępnej bazy trenerów.',
@@ -104,6 +98,10 @@ const tosData = {
   'Postanowienia końcowe': [
     'Wszelkie spory wynikające z korzystania z Aplikacji będą rozstrzygane zgodnie z prawem polskim.',
     'Regulamin wchodzi w życie z dniem 01.01.2024.',
+  ],
+  'Faktury za prowizje': [
+    'Trener otrzyma co miesiąc na adres mailowy przypisany do jego konta, podany podczas rejestracji, fakturę za pobrane prowizje, wystawioną na jego firmę lub na osobę fizyczną. Faktura ta będzie odzwierciedlać wszelkie prowizje naliczone przez Aplikację za korzystanie z platformy w danym miesiącu.',
+    'Właściciel Aplikacji zobowiązuje się do przesyłania faktur w terminie do 15 dni po zakończeniu miesiąca, za który naliczane są prowizje.',
   ],
 };
 
