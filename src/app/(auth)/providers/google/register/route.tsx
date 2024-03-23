@@ -5,7 +5,7 @@ import { getQueryParamError } from '@/app/(auth)/_utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
 import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
 import Constants from '@/utils/constants';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
 

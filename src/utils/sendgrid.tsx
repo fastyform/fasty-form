@@ -1,15 +1,17 @@
 import 'server-only';
-import client from '@sendgrid/mail';
+import requestClient from '@sendgrid/client';
+import mailClient from '@sendgrid/mail';
 import Constants from '@/utils/constants';
 
-client.setApiKey(process.env.SENDGRID_API_KEY!);
+mailClient.setApiKey(process.env.SENDGRID_API_KEY!);
+requestClient.setApiKey(process.env.SENDGRID_API_KEY!);
 
 interface SendMailData {
   html: string;
   subject: string;
   to: string;
   shouldThrow?: boolean;
-  attachments?: client.MailDataRequired['attachments'];
+  attachments?: mailClient.MailDataRequired['attachments'];
 }
 
 const from = {
@@ -19,7 +21,7 @@ const from = {
 
 export const sendMail = async ({ to, html, subject, shouldThrow = false, attachments }: SendMailData) => {
   try {
-    await client.send({
+    await mailClient.send({
       from,
       to,
       subject,
@@ -42,7 +44,7 @@ interface SendMultipleData {
 
 export const sendMultipleMails = async ({ mails, subject, html }: SendMultipleData) => {
   try {
-    await client.sendMultiple({
+    await mailClient.sendMultiple({
       to: mails,
       from,
       subject,
@@ -51,4 +53,15 @@ export const sendMultipleMails = async ({ mails, subject, html }: SendMultipleDa
   } catch (error) {
     console.error(error);
   }
+};
+
+export const addContactToList = async (email: string) => {
+  await requestClient.request({
+    url: '/v3/marketing/contacts',
+    method: 'PUT',
+    body: {
+      list_ids: [process.env.SENDGRID_AMBASSADOR_LIST_ID!],
+      contacts: [{ email }],
+    },
+  });
 };

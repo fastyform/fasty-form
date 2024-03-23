@@ -6,7 +6,7 @@ import MailTemplate from '@/emails/mail-template';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 
 const actionSendContactForm = async (prevState: FormState, data: FormData) => {
   const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });

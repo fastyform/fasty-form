@@ -8,8 +8,8 @@ import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/r
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import { sendMail } from '@/utils/mail/send-mail';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
+import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {
