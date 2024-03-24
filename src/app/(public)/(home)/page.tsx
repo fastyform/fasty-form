@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
 import PublicContainer from '@/app/(public)/_components/public-container';
+import PublicNavbarPlaceholder from '@/app/(public)/_components/public-navbar-placeholder';
 import AppButton from '@/components/app-button';
 import Constants from '@/utils/constants';
 import Chevron from './_assets/chevron';
@@ -14,10 +15,11 @@ import { appBenefits, heroBenefits, stepsData } from './data';
 
 const HomePage = () => (
   <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden text-white">
+    <PublicNavbarPlaceholder />
     <HomeArrow className="absolute right-0 z-0 hidden h-auto translate-x-[10%] translate-y-[-16%] xl:block xl:w-[800px] 2xl:w-[1024px]" />
     <Image
       alt={`Aplikacja ${Constants.APP_NAME} - screen shot widoku zgłoszenia aplikacji`}
-      className="absolute right-[-150px] top-[100px] z-[1] hidden xl:block xl:w-[850px] 2xl:w-[1036px]"
+      className="absolute right-[-150px] top-[168px] z-[1] hidden xl:block xl:w-[850px] 2xl:w-[1036px]"
       height={722}
       src="/home/main-section-mock-desktop.png"
       width={1036}

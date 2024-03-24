@@ -6,7 +6,7 @@ import PublicNavbarItems from './_components/public-navbar-items';
 const PublicLayout = ({ children }: { children: ReactNode }) => (
   <>
     <PublicDesktopNavbar />
-    <MobileNavbar className="sticky left-0 top-0">
+    <MobileNavbar className="left-0 top-0 h-[--public-mobile-navbar-height]">
       <hr className="border-zinc-400/30" />
       <Suspense>
         <PublicNavbarItems />
