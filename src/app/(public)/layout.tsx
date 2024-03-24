@@ -1,7 +1,7 @@
 import { ReactNode, Suspense } from 'react';
 import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
-import DesktopNavbarHome from './(home)/_components/desktop-navbar-home';
-import HomeNavbarItems from './(home)/_components/home-navbar-items';
+import DesktopNavbarHome from './_components/desktop-navbar-home';
+import HomeNavbarItems from './_components/home-navbar-items';
 
 const HomeLayout = ({ children }: { children: ReactNode }) => (
   <>

@@ -4,10 +4,11 @@ import { twMerge } from 'tailwind-merge';
 
 interface Props extends SVGProps<SVGSVGElement> {
   linkContainerClassName?: string;
+  href?: string;
 }
 
-const AppLogo = ({ linkContainerClassName, className, ...props }: Props) => (
-  <Link className={linkContainerClassName} href="/submissions">
+const AppLogo = ({ linkContainerClassName, className, href = '/submissions', ...props }: Props) => (
+  <Link className={linkContainerClassName} href={href}>
     <svg
       className={twMerge('h-auto w-[120px]', className)}
       fill="none"

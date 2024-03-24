@@ -240,7 +240,7 @@ const HomePage = () => (
     </Container>
     <Container>
       <Container.Content className="gap-5 py-5 ">
-        <AuthFooter shouldNavigateBack />
+        <AuthFooter />
       </Container.Content>
     </Container>
   </div>

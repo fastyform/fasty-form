@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import actionJoinAmbassadorProgram from '@/app/(public)/(home)/action-join-ambassador-program';
+import actionJoinAmbassadorProgram from '@/app/(public)/action-join-ambassador-program';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import Constants from '@/utils/constants';

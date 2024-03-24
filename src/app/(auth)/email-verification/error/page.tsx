@@ -27,7 +27,7 @@ const EmailVerificationErrorPage = () => (
         Przejdź na stronę logowania
       </Link>
     </div>
-    <AuthFooter shouldNavigateBack className="pt-10" />
+    <AuthFooter className="pt-10" />
   </div>
 );
 
