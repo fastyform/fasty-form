@@ -7,13 +7,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import actionJoinAmbassadorProgram from '@/app/(home)/action-join-ambassador-program';
+import actionJoinAmbassadorProgram from '@/app/(public)/(home)/action-join-ambassador-program';
+import PublicContainer from '@/app/(public)/_components/public-container';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 import { emailValidator } from '@/utils/validators';
-import { Container } from './container';
 
 interface AmbassadorProgramSectionProps {
   className?: string;
@@ -44,13 +44,13 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
         objectPosition="center"
         src="/home/ambassador-program-bg.png"
       />
-      <Container className="relative z-[1]">
-        <Container.Content className="flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+      <PublicContainer className="relative z-[1]">
+        <PublicContainer.Content className="flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex max-w-md flex-col gap-2.5 lg:text-center">
             <h2 className="text-2xl font-bold lg:text-3xl">Zostań naszym ambasadorem!</h2>
             <p>
               Dołącz do naszego programu. Zostaw swój adres email i skontaktujemy się z Tobą.{' '}
-              <Link className="font-bold text-yellow-400" href="/#">
+              <Link className="font-bold text-yellow-400" href="/ambassador-program">
                 Dowiedz się więcej.
               </Link>
             </p>
@@ -69,8 +69,8 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
               marketingowych.
             </p>
           </div>
-        </Container.Content>
-      </Container>
+        </PublicContainer.Content>
+      </PublicContainer>
     </div>
   );
 };

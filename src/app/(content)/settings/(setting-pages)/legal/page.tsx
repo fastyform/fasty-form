@@ -1,22 +1,18 @@
 import Link from 'next/link';
 
-const LegalPage = () => {
-  const shouldNavigateBackParam = '?should-navigate-back=true';
-
-  return (
-    <>
-      <h1 className="text-2xl text-white">Dokumenty Prawne</h1>
-      <Link className="text-sm text-white" href={`/terms-of-service${shouldNavigateBackParam}`}>
-        Regulamin
-      </Link>
-      <Link className="text-sm text-white" href={`/privacy-policy${shouldNavigateBackParam}`}>
-        Polityka prywatności
-      </Link>
-      <Link className="text-sm text-white" href={`/cookies${shouldNavigateBackParam}`}>
-        Ciasteczka
-      </Link>
-    </>
-  );
-};
+const LegalPage = () => (
+  <>
+    <h1 className="text-2xl text-white">Dokumenty Prawne</h1>
+    <Link className="text-sm text-white" href="/terms-of-service">
+      Regulamin
+    </Link>
+    <Link className="text-sm text-white" href="/privacy-policy">
+      Polityka prywatności
+    </Link>
+    <Link className="text-sm text-white" href="/cookies">
+      Ciasteczka
+    </Link>
+  </>
+);
 
 export default LegalPage;

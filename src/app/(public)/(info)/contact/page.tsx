@@ -7,7 +7,7 @@ const ContactPage = async () => {
   const user = await getUserWithNull();
 
   return (
-    <div className="flex flex-col justify-around gap-10 self-center lg:flex-row lg:self-auto">
+    <div className="flex flex-col justify-between gap-10 self-center lg:flex-row lg:self-auto">
       <div className="flex max-w-md flex-1 flex-col gap-5">
         <h2 className="text-2xl font-bold text-white">Formularz kontaktowy</h2>
         <ContactForm userEmail={user?.email} />
@@ -40,13 +40,6 @@ const ContactPage = async () => {
             </Link>
             .
           </li>
-          {/* <li>
-            <strong>Telefon:</strong> Jeśli wolisz rozmowę telefoniczną, zadzwoń do nas pod numer{' '}
-            <Link className="whitespace-nowrap font-bold text-yellow-400" href={`tel:${process.env.CONTACT_PHONE}`}>
-              {process.env.CONTACT_PHONE}
-            </Link>
-            . Jesteśmy dostępni 24/7.
-          </li> */}
         </ul>
 
         <p>

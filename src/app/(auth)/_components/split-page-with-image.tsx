@@ -17,7 +17,7 @@ const SplitPageWithImage = ({
         <AppLogo linkContainerClassName="self-center" />
         {children}
       </div>
-      <AuthFooter shouldNavigateBack className="pt-10" />
+      <AuthFooter className="pt-10" />
     </div>
     <div className="absolute right-0 top-0 hidden h-full w-1/2 lg:block">
       <Image fill className={twMerge('object-cover', className)} {...imageProps} />
