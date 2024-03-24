@@ -7,7 +7,7 @@ import Stripe from 'stripe';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import FeeInvoiceSent from '@/emails/fee-invoice-sent';
 import Constants from '@/utils/constants';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 import { getGoogleDriveClient, getGoogleDriveMonthFolderId, savePdfToGoogleDrive } from './google-drive-utils';
 import { generateInvoice, getInvoiceData } from './utils';
 

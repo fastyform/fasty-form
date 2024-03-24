@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import ThankYouBuy from '@/emails/thank-you-buy';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;

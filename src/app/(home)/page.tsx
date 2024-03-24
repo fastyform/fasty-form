@@ -1,49 +1,20 @@
-import { ReactNode } from 'react';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import Image from 'next/image';
 import Link from 'next/link';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
 import AppButton from '@/components/app-button';
 import Constants from '@/utils/constants';
 import Chevron from './_assets/chevron';
 import ContactStroke from './_assets/contact-stroke';
 import HomeArrow from './_assets/home-arrow';
-import One from './_assets/one';
-import Three from './_assets/three';
-import Two from './_assets/two';
 import './styles.css';
-
-const Container = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <section className={twMerge('flex justify-center px-5', className)}>{children}</section>
-);
-
-Container.Content = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <div className={twMerge('flex max-w-screen-xl grow', className)}>{children}</div>
-);
-
-const stepsData = [
-  [
-    One,
-    'Załóż konto <br/> <span class="text-yellow-400">trenera</span> bez <br/> żadnych opłat.',
-    `Założenie konta w ${Constants.APP_NAME} jest w pełni darmowe. Pobieramy jedynie niewielką prowizję od każdej płatności.`,
-    'sm:ml-0',
-  ],
-  [
-    Two,
-    '<span class="text-yellow-400">Wypełnij</span> dane <br/> na profilu',
-    'Wybierz nazwę swojego profilu, cenę, oraz zdjęcie profilowe, które możesz zmienić w dowolnym momencie.',
-    'sm:ml-[10vw] xl:ml-[8vw]',
-  ],
-  [
-    Three,
-    '<span class="text-yellow-400">Podziel</span> się <br/> swoim profilem',
-    `Wrzuć link do Twojego profilu ${Constants.APP_NAME} na Twoich social mediach - niech ludzie zobaczą, co masz do zaoferowania!`,
-    'sm:ml-[20vw] xl:ml-[16vw]',
-  ],
-] as const;
+import AmbassadorProgramSection from './_components/ambassador-section';
+import { Container } from './_components/container';
+import { appBenefits, heroBenefits, stepsData } from './data';
 
 const HomePage = () => (
-  <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden pt-5 xl:pt-[60px]">
+  <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden pt-5 text-white xl:pt-[60px]">
     <HomeArrow className="absolute right-0 z-0 hidden h-auto translate-x-[10%] translate-y-[-16%] xl:block xl:w-[800px] 2xl:w-[1024px]" />
     <Image
       alt={`Aplikacja ${Constants.APP_NAME} - screen shot widoku zgłoszenia aplikacji`}
@@ -52,19 +23,23 @@ const HomePage = () => (
       src="/home/main-section-mock-desktop.png"
       width={1036}
     />
-
-    <Container className="z-[1] mb-10 pt-20 xl:mb-0">
-      <Container.Content className="flex-col items-center xl:items-start">
-        <div className="mb-10 flex max-w-[360px] flex-col gap-5 text-center lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
-          <h1 className="text-4xl font-bold text-white xl:text-7xl">
-            Zarabiaj jako <span className="text-yellow-400">trener</span> na analizie techniki swoich{' '}
-            <span className="text-yellow-400">klientów</span> z FastyForm!
+    <Container className="z-[1] mb-10 pt-20 xl:mb-0 2xl:pt-48">
+      <Container.Content className="grow flex-col md:grow-0 xl:grow xl:items-start">
+        <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
+          <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">
+            Podnieś swoje <span className="text-yellow-400">dochody</span> i zyskaj{' '}
+            <span className="text-yellow-400">więcej czasu</span> dla siebie
           </h1>
-          <h2 className="text-sm text-white xl:text-3xl">
-            Dołącz do zaufanego grona trenerów <br /> analizuj, pomagaj, zarabiaj!
-          </h2>
+          <div className="flex flex-col gap-1 text-sm lg:text-base xl:text-xl">
+            {heroBenefits.map((benefit) => (
+              <div key={benefit} className="flex items-center gap-3 font-medium">
+                <CheckCircleOutlineRoundedIcon className="text-yellow-400" />
+                <p>{benefit}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap gap-3">
           <AppButton classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }} component={Link} href="/register/trainer">
             Zarejestruj się jako trener
           </AppButton>
@@ -89,6 +64,29 @@ const HomePage = () => (
       />
     </section>
 
+    <AmbassadorProgramSection className="2xl:mt-78 z-[1] mt-10 xl:mt-[270px]" />
+
+    <Container>
+      <Container.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px]">
+        <h3 className="text-center text-3xl font-bold lg:text-4xl">
+          Co Ci daje <span className="font-bold text-yellow-400">{Constants.APP_NAME}</span>?
+        </h3>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {appBenefits.map(([Icon, title, description]) => (
+            <div key={title} className="flex flex-col items-center gap-2.5">
+              <div className="flex size-[184px] flex-col items-center  justify-center gap-2.5 rounded-full border border-yellow-400 bg-shark p-2 text-base lg:size-60 lg:p-8 lg:text-xl">
+                <Icon className="size-12 text-xl lg:size-[70px]" />
+                <span className="text-center font-bold">{title}</span>
+              </div>
+              <p className="max-w-80 text-center" dangerouslySetInnerHTML={{ __html: description }} />
+            </div>
+          ))}
+        </div>
+      </Container.Content>
+    </Container>
+
+    <AmbassadorProgramSection />
+
     <Container className="z-[1] mt-10 xl:mt-20">
       <Container.Content className="flex-col justify-between gap-10 xl:flex-row xl:items-center xl:gap-0">
         <div className="flex grow flex-col gap-10">
@@ -97,10 +95,10 @@ const HomePage = () => (
               <Number className="h-[200px] basis-[231px] opacity-60 sm:h-[230px] xl:h-[330px]" height={330} />
               <div
                 key={title}
-                className="absolute left-[7.5rem] top-1/2 flex -translate-y-1/2 flex-col gap-2.5 text-white sm:gap-5"
+                className="absolute left-[7.5rem] top-1/2 flex -translate-y-1/2 flex-col gap-2.5  sm:gap-5"
               >
                 <p className="text-4xl font-bold xl:text-6xl" dangerouslySetInnerHTML={{ __html: title }} />
-                {description && <p className="max-w-96 text-sm xl:font-bold">{description}</p>}
+                {description && <p className="max-w-96 text-sm xl:text-base">{description}</p>}
               </div>
             </div>
           ))}
@@ -116,19 +114,17 @@ const HomePage = () => (
         />
       </Container.Content>
     </Container>
-
     <Container className="my-20 mb-4 lg:mb-10 xl:my-36">
       <Container.Content className="items-center justify-center gap-5 sm:gap-8 xl:justify-between">
         <HomeArrow className="hidden h-auto w-6 sm:block sm:w-10 lg:w-16 xl:w-32" />
-        <div className="text-sm font-bold uppercase text-white lg:text-xl xl:text-4xl">analizuj</div>
+        <div className="text-sm font-bold uppercase  lg:text-xl xl:text-4xl">analizuj</div>
         <HomeArrow className="h-auto w-6 sm:w-10 lg:w-16 xl:w-32" />
-        <div className="text-sm font-bold uppercase text-white lg:text-xl xl:text-4xl">pomagaj</div>
+        <div className="text-sm font-bold uppercase  lg:text-xl xl:text-4xl">pomagaj</div>
         <HomeArrow className="h-auto w-6 sm:w-10 lg:w-16 xl:w-32" />
-        <div className="text-sm font-bold uppercase text-white lg:text-xl xl:text-4xl">zarabiaj</div>
+        <div className="text-sm font-bold uppercase  lg:text-xl xl:text-4xl">zarabiaj</div>
         <HomeArrow className="hidden h-auto w-6 sm:block sm:w-10 lg:w-16 xl:w-32" />
       </Container.Content>
     </Container>
-
     <Container className="z-[2]">
       <Container.Content className="flex-col items-center justify-between xl:flex-row xl:gap-24">
         <div className="relative">
@@ -142,17 +138,16 @@ const HomePage = () => (
           />
           <div className="section-profile-gradient absolute inset-0 xl:left-[-2px] xl:bg-[linear-gradient(90deg,_rgba(13,17,22,1)_0%,rgba(255,255,255,0)_100%)]" />
         </div>
-        <div className="sm:-mt-18 z-[1] -mt-12 flex max-w-sm flex-col	gap-2.5 text-white lg:gap-5 xl:max-w-md">
+        <div className="sm:-mt-18 z-[1] -mt-12 flex max-w-sm flex-col	gap-2.5  lg:gap-5 xl:max-w-md">
           <h3 className="text-4xl font-bold md:text-5xl xl:text-6xl">
             Edytuj w <span className="font-bold text-yellow-400">dowolnej</span> chwili
           </h3>
-          <p className="text-sm md:text-base xl:font-bold">
+          <p className="text-sm md:text-base">
             Nazwa profilu, cena, oraz zdjęcie - są to elementy, które możesz zmienić w każdej chwili używania aplikacji.
           </p>
         </div>
       </Container.Content>
     </Container>
-
     <Container className="relative z-[1]  mt-32 bg-yellow-400 px-0 xl:px-5">
       <Container.Content className="relative mt-[-9vw] flex-col gap-5 overflow-x-hidden pb-20 md:-mt-12 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:overflow-x-visible lg:px-5 lg:pt-20">
         <Chevron className="absolute left-[15%] top-0 hidden -translate-y-1/2 xl:block" />
@@ -199,11 +194,10 @@ const HomePage = () => (
         />
       </Container.Content>
     </Container>
-
     <section className="mb-10 flex flex-col items-center gap-20 py-20 lg:mb-20 xl:mb-32 xl:gap-32">
       <Container className="lg:self-stretch">
         <Container.Content className="justify-end">
-          <h3 className="max-w-md text-center text-4xl font-bold text-white lg:max-w-[600px] lg:text-left lg:text-5xl xl:max-w-[700px] xl:text-6xl">
+          <h3 className="max-w-md text-center text-4xl font-bold  lg:max-w-[600px] lg:text-left lg:text-5xl xl:max-w-[700px] xl:text-6xl">
             Po analizie otrzymasz <br /> pieniądze na swoje konto w ciągu
             <span className="text-yellow-400"> 3-7 dni roboczych</span>
           </h3>
@@ -226,7 +220,6 @@ const HomePage = () => (
         />
       </div>
     </section>
-
     <Container className="relative bg-yellow-400 pb-20 pt-20 md:pb-0 lg:pt-32">
       <ContactStroke className="absolute top-0 h-[clamp(75px,10vw,240px)] w-full -translate-y-1/2" />
       <Container.Content className="items-center sm:justify-center md:justify-between">
@@ -235,7 +228,7 @@ const HomePage = () => (
         </div>
         <div className="max-w-sm text-bunker lg:max-w-[26rem] xl:max-w-[39rem]">
           <h3 className="mb-2.5 text-4xl font-bold lg:mb-5 lg:text-5xl xl:text-6xl">{`Tworzymy ${Constants.APP_NAME} z myślą o Tobie`}</h3>
-          <p className="mb-5 text-sm lg:mb-10 lg:font-bold xl:text-base">
+          <p className="mb-5 text-sm lg:mb-10 xl:text-base">
             Twoje opinie i pomysły są dla nas kluczowe. Czekamy na Twoje sugestie dotyczące nowych funkcjonalności i
             jesteśmy tu, aby odpowiadać na pytania oraz rozwiązywać problemy. Razem ulepszajmy naszą aplikację.
           </p>
@@ -245,9 +238,8 @@ const HomePage = () => (
         </div>
       </Container.Content>
     </Container>
-
     <Container>
-      <Container.Content className="gap-5 py-5 text-white">
+      <Container.Content className="gap-5 py-5 ">
         <AuthFooter shouldNavigateBack />
       </Container.Content>
     </Container>
