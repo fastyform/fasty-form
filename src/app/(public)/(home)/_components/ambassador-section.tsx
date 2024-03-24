@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import actionJoinAmbassadorProgram from '@/app/(home)/action-join-ambassador-program';
+import actionJoinAmbassadorProgram from '@/app/(public)/(home)/action-join-ambassador-program';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import Constants from '@/utils/constants';
@@ -50,7 +50,7 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
             <h2 className="text-2xl font-bold lg:text-3xl">Zostań naszym ambasadorem!</h2>
             <p>
               Dołącz do naszego programu. Zostaw swój adres email i skontaktujemy się z Tobą.{' '}
-              <Link className="font-bold text-yellow-400" href="/#">
+              <Link className="font-bold text-yellow-400" href="/ambassador-program?should-navigate-back=true">
                 Dowiedz się więcej.
               </Link>
             </p>

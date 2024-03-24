@@ -14,16 +14,16 @@ import { Container } from './_components/container';
 import { appBenefits, heroBenefits, stepsData } from './data';
 
 const HomePage = () => (
-  <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden pt-5 text-white xl:pt-[60px]">
+  <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden text-white">
     <HomeArrow className="absolute right-0 z-0 hidden h-auto translate-x-[10%] translate-y-[-16%] xl:block xl:w-[800px] 2xl:w-[1024px]" />
     <Image
       alt={`Aplikacja ${Constants.APP_NAME} - screen shot widoku zgłoszenia aplikacji`}
-      className="absolute right-[-150px] top-[160px] z-[1] hidden xl:block xl:w-[850px] 2xl:w-[1036px]"
+      className="absolute right-[-150px] top-[100px] z-[1] hidden xl:block xl:w-[850px] 2xl:w-[1036px]"
       height={722}
       src="/home/main-section-mock-desktop.png"
       width={1036}
     />
-    <Container className="z-[1] mb-10 pt-20 xl:mb-0 2xl:pt-48">
+    <Container className="z-[1] mb-10 pt-10 xl:mb-0 xl:pt-24 2xl:pt-48">
       <Container.Content className="grow flex-col md:grow-0 xl:grow xl:items-start">
         <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
           <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">
@@ -148,8 +148,8 @@ const HomePage = () => (
         </div>
       </Container.Content>
     </Container>
-    <Container className="relative z-[1]  mt-32 bg-yellow-400 px-0 xl:px-5">
-      <Container.Content className="relative mt-[-9vw] flex-col gap-5 overflow-x-hidden pb-20 md:-mt-12 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:overflow-x-visible lg:px-5 lg:pt-20">
+    <Container className="relative z-[1]  mt-32 bg-yellow-400 px-0 lg:px-5">
+      <Container.Content className="relative mt-[-9vw] flex-col gap-5 overflow-x-hidden pb-20 md:-mt-12 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:overflow-x-visible lg:pt-20  xl:justify-between">
         <Chevron className="absolute left-[15%] top-0 hidden -translate-y-1/2 xl:block" />
         <Image
           alt="Profil trenera i widok szczegółów zamówienia na Iphone."
@@ -165,7 +165,7 @@ const HomePage = () => (
             <br />
             klientom zakup
           </h3>
-          <p className="mb-5 text-sm md:text-base lg:mb-10 lg:font-bold">
+          <p className="mb-5 text-sm md:text-base lg:mb-10 lg:font-semibold">
             {`Wrzuć link do swojego profilu ${Constants.APP_NAME} na social media. Pokaż wszystkim, jak możesz pomóc w perfekcyjnym
             wykonywaniu ćwiczeń. Prosto, łatwo i skutecznie!`}
           </p>
@@ -228,7 +228,7 @@ const HomePage = () => (
         </div>
         <div className="max-w-sm text-bunker lg:max-w-[26rem] xl:max-w-[39rem]">
           <h3 className="mb-2.5 text-4xl font-bold lg:mb-5 lg:text-5xl xl:text-6xl">{`Tworzymy ${Constants.APP_NAME} z myślą o Tobie`}</h3>
-          <p className="mb-5 text-sm lg:mb-10 xl:text-base">
+          <p className="mb-5 text-sm lg:mb-10 xl:text-base xl:font-semibold">
             Twoje opinie i pomysły są dla nas kluczowe. Czekamy na Twoje sugestie dotyczące nowych funkcjonalności i
             jesteśmy tu, aby odpowiadać na pytania oraz rozwiązywać problemy. Razem ulepszajmy naszą aplikację.
           </p>

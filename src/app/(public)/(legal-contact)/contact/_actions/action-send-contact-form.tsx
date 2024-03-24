@@ -1,7 +1,7 @@
 'use server';
 
 import { render } from '@react-email/render';
-import { contactFormSchema } from '@/app/(legal-contact)/contact/_utils';
+import { contactFormSchema } from '@/app/(public)/(legal-contact)/contact/_utils';
 import MailTemplate from '@/emails/mail-template';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
