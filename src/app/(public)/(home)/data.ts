@@ -8,7 +8,6 @@ import Lightning from './_assets/benefits/lightning';
 import One from './_assets/one';
 import Three from './_assets/three';
 import Two from './_assets/two';
-import './styles.css';
 
 export const stepsData = [
   [

@@ -1,16 +1,16 @@
 import { twMerge } from 'tailwind-merge';
 
-interface ContainerProps {
+interface PublicContainerProps {
   children: React.ReactNode;
   className?: string;
 }
 
-const Container = ({ children, className }: ContainerProps) => (
+const PublicContainer = ({ children, className }: PublicContainerProps) => (
   <section className={twMerge('flex justify-center px-5', className)}>{children}</section>
 );
 
-Container.Content = ({ children, className }: ContainerProps) => (
+PublicContainer.Content = ({ children, className }: PublicContainerProps) => (
   <div className={twMerge('flex max-w-screen-xl grow', className)}>{children}</div>
 );
 
-export { Container };
+export default PublicContainer;

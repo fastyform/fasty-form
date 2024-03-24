@@ -66,7 +66,7 @@ module.exports = {
         shorthandLast: false,
       },
     ],
-    // 'react/no-danger': 'off',
+    'react/no-danger': 'off',
     'react/require-default-props': 'off',
     'react-hooks/exhaustive-deps': 'error',
     'sort-imports': [

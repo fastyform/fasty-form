@@ -3,7 +3,7 @@ import NavbarLink from '@/components/app-navbar/navbar-link';
 import Constants from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
 
-const HomeNavbarItems = async () => {
+const PublicNavbarItems = async () => {
   const user = await getUserWithNull();
 
   return (
@@ -18,4 +18,4 @@ const HomeNavbarItems = async () => {
   );
 };
 
-export default HomeNavbarItems;
+export default PublicNavbarItems;

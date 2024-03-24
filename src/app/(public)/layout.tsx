@@ -1,19 +1,19 @@
 import { ReactNode, Suspense } from 'react';
 import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
-import DesktopNavbarHome from './_components/desktop-navbar-home';
-import HomeNavbarItems from './_components/home-navbar-items';
+import PublicDesktopNavbar from './_components/public-desktop-navbar';
+import PublicNavbarItems from './_components/public-navbar-items';
 
-const HomeLayout = ({ children }: { children: ReactNode }) => (
+const PublicLayout = ({ children }: { children: ReactNode }) => (
   <>
-    <DesktopNavbarHome />
+    <PublicDesktopNavbar />
     <MobileNavbar className="sticky left-0 top-0">
       <hr className="border-zinc-400/30" />
       <Suspense>
-        <HomeNavbarItems />
+        <PublicNavbarItems />
       </Suspense>
     </MobileNavbar>
     {children}
   </>
 );
 
-export default HomeLayout;
+export default PublicLayout;

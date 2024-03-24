@@ -3,14 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import AuthFooter from '@/app/(auth)/_components/auth-footer';
+import PublicContainer from '@/app/(public)/_components/public-container';
 import AppButton from '@/components/app-button';
 import Constants from '@/utils/constants';
 import Chevron from './_assets/chevron';
 import ContactStroke from './_assets/contact-stroke';
 import HomeArrow from './_assets/home-arrow';
-import './styles.css';
-import AmbassadorProgramSection from './_components/ambassador-section';
-import { Container } from './_components/container';
+import AmbassadorProgramSection from './ambassador-section';
 import { appBenefits, heroBenefits, stepsData } from './data';
 
 const HomePage = () => (
@@ -23,8 +22,8 @@ const HomePage = () => (
       src="/home/main-section-mock-desktop.png"
       width={1036}
     />
-    <Container className="z-[1] mb-10 pt-10 xl:mb-0 xl:pt-24 2xl:pt-48">
-      <Container.Content className="grow flex-col md:grow-0 xl:grow xl:items-start">
+    <PublicContainer className="z-[1] mb-10 pt-10 xl:mb-0 xl:pt-24 2xl:pt-48">
+      <PublicContainer.Content className="grow flex-col md:grow-0 xl:grow xl:items-start">
         <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
           <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">
             Podnieś swoje <span className="text-yellow-400">dochody</span> i zyskaj{' '}
@@ -52,8 +51,8 @@ const HomePage = () => (
             Jestem klientem
           </AppButton>
         </div>
-      </Container.Content>
-    </Container>
+      </PublicContainer.Content>
+    </PublicContainer>
 
     <section className="flex translate-x-12 justify-end md:translate-x-0 md:justify-center xl:hidden">
       <Image
@@ -66,8 +65,8 @@ const HomePage = () => (
 
     <AmbassadorProgramSection className="2xl:mt-78 z-[1] mt-10 xl:mt-[270px]" />
 
-    <Container>
-      <Container.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px]">
+    <PublicContainer>
+      <PublicContainer.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px]">
         <h3 className="text-center text-3xl font-bold lg:text-4xl">
           Co Ci daje <span className="font-bold text-yellow-400">{Constants.APP_NAME}</span>?
         </h3>
@@ -82,13 +81,13 @@ const HomePage = () => (
             </div>
           ))}
         </div>
-      </Container.Content>
-    </Container>
+      </PublicContainer.Content>
+    </PublicContainer>
 
     <AmbassadorProgramSection />
 
-    <Container className="z-[1] mt-10 xl:mt-20">
-      <Container.Content className="flex-col justify-between gap-10 xl:flex-row xl:items-center xl:gap-0">
+    <PublicContainer className="z-[1] mt-10 xl:mt-20">
+      <PublicContainer.Content className="flex-col justify-between gap-10 xl:flex-row xl:items-center xl:gap-0">
         <div className="flex grow flex-col gap-10">
           {stepsData.map(([Number, title, description, className]) => (
             <div key={title} className={twJoin('relative -ml-20 flex sm:translate-x-0 xl:block', className)}>
@@ -112,10 +111,10 @@ const HomePage = () => (
           src="/home/iphone-app-onboarding.png"
           width={337}
         />
-      </Container.Content>
-    </Container>
-    <Container className="my-20 mb-4 lg:mb-10 xl:my-36">
-      <Container.Content className="items-center justify-center gap-5 sm:gap-8 xl:justify-between">
+      </PublicContainer.Content>
+    </PublicContainer>
+    <PublicContainer className="my-20 mb-4 lg:mb-10 xl:my-36">
+      <PublicContainer.Content className="items-center justify-center gap-5 sm:gap-8 xl:justify-between">
         <HomeArrow className="hidden h-auto w-6 sm:block sm:w-10 lg:w-16 xl:w-32" />
         <div className="text-sm font-bold uppercase  lg:text-xl xl:text-4xl">analizuj</div>
         <HomeArrow className="h-auto w-6 sm:w-10 lg:w-16 xl:w-32" />
@@ -123,10 +122,10 @@ const HomePage = () => (
         <HomeArrow className="h-auto w-6 sm:w-10 lg:w-16 xl:w-32" />
         <div className="text-sm font-bold uppercase  lg:text-xl xl:text-4xl">zarabiaj</div>
         <HomeArrow className="hidden h-auto w-6 sm:block sm:w-10 lg:w-16 xl:w-32" />
-      </Container.Content>
-    </Container>
-    <Container className="z-[2]">
-      <Container.Content className="flex-col items-center justify-between xl:flex-row xl:gap-24">
+      </PublicContainer.Content>
+    </PublicContainer>
+    <PublicContainer className="z-[2]">
+      <PublicContainer.Content className="flex-col items-center justify-between xl:flex-row xl:gap-24">
         <div className="relative">
           <Image
             alt={`Widok edytowania profilu ${Constants.APP_NAME}`}
@@ -146,10 +145,10 @@ const HomePage = () => (
             Nazwa profilu, cena, oraz zdjęcie - są to elementy, które możesz zmienić w każdej chwili używania aplikacji.
           </p>
         </div>
-      </Container.Content>
-    </Container>
-    <Container className="relative z-[1]  mt-32 bg-yellow-400 px-0 lg:px-5">
-      <Container.Content className="relative mt-[-9vw] flex-col gap-5 overflow-x-hidden pb-20 md:-mt-12 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:overflow-x-visible lg:pt-20  xl:justify-between">
+      </PublicContainer.Content>
+    </PublicContainer>
+    <PublicContainer className="relative z-[1]  mt-32 bg-yellow-400 px-0 lg:px-5">
+      <PublicContainer.Content className="relative mt-[-9vw] flex-col gap-5 overflow-x-hidden pb-20 md:-mt-12 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:overflow-x-visible lg:pt-20  xl:justify-between">
         <Chevron className="absolute left-[15%] top-0 hidden -translate-y-1/2 xl:block" />
         <Image
           alt="Profil trenera i widok szczegółów zamówienia na Iphone."
@@ -192,17 +191,17 @@ const HomePage = () => (
           src="/home/iphone-order-details.png"
           width={319}
         />
-      </Container.Content>
-    </Container>
+      </PublicContainer.Content>
+    </PublicContainer>
     <section className="mb-10 flex flex-col items-center gap-20 py-20 lg:mb-20 xl:mb-32 xl:gap-32">
-      <Container className="lg:self-stretch">
-        <Container.Content className="justify-end">
+      <PublicContainer className="lg:self-stretch">
+        <PublicContainer.Content className="justify-end">
           <h3 className="max-w-md text-center text-4xl font-bold  lg:max-w-[600px] lg:text-left lg:text-5xl xl:max-w-[700px] xl:text-6xl">
             Po analizie otrzymasz <br /> pieniądze na swoje konto w ciągu
             <span className="text-yellow-400"> 3-7 dni roboczych</span>
           </h3>
-        </Container.Content>
-      </Container>
+        </PublicContainer.Content>
+      </PublicContainer>
       <div className="relative">
         <Image
           alt="Widok wysyłania analizy zgłoszenia"
@@ -220,9 +219,9 @@ const HomePage = () => (
         />
       </div>
     </section>
-    <Container className="relative bg-yellow-400 pb-20 pt-20 md:pb-0 lg:pt-32">
+    <PublicContainer className="relative bg-yellow-400 pb-20 pt-20 md:pb-0 lg:pt-32">
       <ContactStroke className="absolute top-0 h-[clamp(75px,10vw,240px)] w-full -translate-y-1/2" />
-      <Container.Content className="items-center sm:justify-center md:justify-between">
+      <PublicContainer.Content className="items-center sm:justify-center md:justify-between">
         <div className="hidden h-[300px] overflow-hidden md:block lg:h-[500px]">
           <HomeArrow className="h-auto w-[300px] lg:w-[480px] xl:w-[580px] [&_path]:fill-bunker" />
         </div>
@@ -236,13 +235,13 @@ const HomePage = () => (
             Skontaktuj się z nami
           </AppButton>
         </div>
-      </Container.Content>
-    </Container>
-    <Container>
-      <Container.Content className="gap-5 py-5 ">
+      </PublicContainer.Content>
+    </PublicContainer>
+    <PublicContainer>
+      <PublicContainer.Content className="gap-5 py-5 ">
         <AuthFooter />
-      </Container.Content>
-    </Container>
+      </PublicContainer.Content>
+    </PublicContainer>
   </div>
 );
 
