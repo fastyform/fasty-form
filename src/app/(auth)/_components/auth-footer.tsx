@@ -11,6 +11,7 @@ const FOOTER_LINKS = [
   ['/contact', 'Kontakt'],
   ['/cookies', 'Ciasteczka'],
   ['/ambassador-program', 'Program Ambasadorski'],
+  ['/', 'Strona główna'],
 ] as const;
 
 const AuthFooter = ({ className }: Props) => (

@@ -26,6 +26,7 @@ const NEW_FEATURES = [
   'Baza trenerów z możliwością wyszukiwania i filtrowania',
   'Zaznaczanie błędów na wideo (np. rysowanie po wideo)',
   'Większa ilość usług (np. plany treningowe, diety)',
+  'Możliwość dodania plików do odpowiedzi na zgłoszenie',
 ];
 
 const FeedbackToggleButton = (props: Omit<ToggleButtonProps, 'classes'>) => (
