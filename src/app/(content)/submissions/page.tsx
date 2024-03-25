@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import { SearchParams } from '@/utils/types';
 import FilterTabs from './_components/filter-tabs';
 import SubmissionCardSkeleton from './_components/submission-card/submissions-skeleton';
 import Submissions from './_components/submissions';
 
 const SubmissionsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const { id: userId } = await getUserFromSession();
+  const { id: userId } = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(userId);
   const key = JSON.stringify(searchParams);
 

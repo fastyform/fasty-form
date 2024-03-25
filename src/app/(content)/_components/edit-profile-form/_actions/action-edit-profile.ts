@@ -8,8 +8,8 @@ import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {
@@ -28,7 +28,7 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting, train
     const imageBlob = data.get('imageBlob');
 
     const supabase = getSupabaseServerClient();
-    const user = await getUserFromSession();
+    const user = await getLoggedInUser();
     const trainerDetails = await getTrainerDetailsById(user.id);
 
     const getImageUrl = async () => {

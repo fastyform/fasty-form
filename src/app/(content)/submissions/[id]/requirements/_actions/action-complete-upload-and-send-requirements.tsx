@@ -8,6 +8,7 @@ import { submissionRequirementsSchema } from '@/app/(content)/submissions/[id]/r
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -25,10 +26,9 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
 
   submissionRequirementsSchema.parse({ clientDescription });
   const supabase = getSupabaseServerClient();
-  const { data: session, error: sessionError } = await supabase.auth.getSession();
-  if (sessionError || !session.session) throw new Error();
+  const user = await getLoggedInUser();
 
-  const isTrainerAccount = await checkIsTrainerAccount(session.session.user.id);
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   if (isTrainerAccount) {
     throw new Error('Trainer account cannot upload videos');

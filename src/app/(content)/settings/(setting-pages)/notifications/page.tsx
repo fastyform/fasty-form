@@ -1,12 +1,12 @@
 import Constants from '@/utils/constants';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
 import NotificationsForm from './notifications-form';
 
 const NotificationsPage = async () => {
   const supabase = getSupabaseServerComponentClient();
 
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const { data, error } = await supabase.from('roles').select('marketing_consent').eq('user_id', user.id).single();
 
   if (!data || error) {

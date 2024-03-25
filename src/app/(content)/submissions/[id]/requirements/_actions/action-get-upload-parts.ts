@@ -5,7 +5,7 @@ import path from 'path';
 import { CreateMultipartUploadCommand, UploadPartCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 
 const UPLOAD_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60; // 1 hour
@@ -16,7 +16,7 @@ interface Payload {
 }
 
 const actionGetUploadParts = async ({ fileName, totalParts }: Payload) => {
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   if (isTrainerAccount) {

@@ -20,12 +20,12 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   }
 
   const supabase = getSupabaseServerClient();
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) {
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) {
     return getResponse(Constants.COMMON_ERROR_MESSAGE);
   }
 
-  const userId = session.session.user.id;
+  const userId = userData.user.id;
 
   const { servicePrice, profileName, profileSlug, marketingConsent } = formSchemaParsed.data;
   const { error } = await supabase
