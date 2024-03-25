@@ -23,7 +23,7 @@ const OnboardingForm = () => {
   const [shouldSlugify, setShouldSlugify] = useState(true);
   const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingFormSchema),
-    defaultValues: { servicePrice: 30, profileName: '', profileSlug: '', marketingConsent: false },
+    defaultValues: { servicePrice: 20, profileName: '', profileSlug: '', marketingConsent: false },
     mode: 'onTouched',
   });
 
