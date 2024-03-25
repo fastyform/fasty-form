@@ -2,7 +2,7 @@ import { ReactNode, Suspense } from 'react';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import { SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
 
@@ -33,7 +33,7 @@ const SubmissionCard = async ({
   submissionStatus: SubmissionStatus;
   videoKey: string | null;
 }) => {
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}`;

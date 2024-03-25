@@ -4,7 +4,7 @@ import dayjsUtc from 'dayjs/plugin/utc';
 import { redirect } from 'next/navigation';
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
@@ -16,7 +16,7 @@ dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string } }) => {
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const [isTrainerAccount, submission] = await Promise.all([
     checkIsTrainerAccount(user.id),
     getSubmissionById(params.id),

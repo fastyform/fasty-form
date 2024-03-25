@@ -2,8 +2,8 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
   let isError: boolean;
   const supabase = getSupabaseServerClient();
 
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
   if (!trainerDetails.stripe_account_id || !trainerDetails.service_price_in_grosz) throw new Error();
 

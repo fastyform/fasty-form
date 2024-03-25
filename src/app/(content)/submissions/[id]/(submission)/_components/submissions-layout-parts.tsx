@@ -3,7 +3,7 @@ import getSubmissionById from '@/app/(content)/submissions/[id]/(submission)/_ut
 import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 
 export const SubmissionUpdateDate = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
@@ -33,7 +33,7 @@ export const SubmissionTrainerName = async ({ submissionId }: { submissionId: st
 
 export const SubmissionStatusBadge = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   if (!submission) return;

@@ -6,14 +6,14 @@ import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/(content)/
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import getUserFromSession from '@/utils/get-user-from-session';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const STRIPE_MERCHANT_CATEGORY_CODE = '7392';
 
 const actionPaymentOnboardingRedirect = async (payload: StripeOnboardingValues) => {
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
   const stripe = getStripe();
   const supabase = getSupabaseServerClient();
