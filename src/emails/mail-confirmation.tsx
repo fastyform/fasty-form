@@ -5,7 +5,7 @@ import MailTemplate from './mail-template';
 // EXPORT AS HTML FROM 'npm run email' AND THEN PUT IT IN SUPABASE
 const MailConfirmation = () => (
   <MailTemplate title="Ostatni krok do zakończenia rejestracji!">
-    <MailTemplate.CallToAction href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}">
+    <MailTemplate.CallToAction href="{{ .SiteURL }}/api/auth/verify?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}">
       Potwierdź swój adres e-mail
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
@@ -28,7 +28,7 @@ const MailConfirmation = () => (
     </Text>
     <Text className="text-xs text-black/60">
       Jeśli masz problem z linkami, skopiuj i wklej następujący adres w przeglądarce:{' '}
-      {'{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
+      {'{{ .SiteURL }}/api/auth/verify/callback?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
       <MailTemplate.LineBreak /> Możesz też skontaktować się z nami wysyłając wiadomość na adres:{' '}
       <Link href={`mailto:${Constants.SUPPORT_MAIL}`}>{Constants.SUPPORT_MAIL}</Link>.
     </Text>

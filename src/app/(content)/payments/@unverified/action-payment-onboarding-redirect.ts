@@ -67,10 +67,10 @@ const actionPaymentOnboardingRedirect = async (payload: StripeOnboardingValues) 
 
   const accountLink = await stripe.accountLinks.create({
     account: stripeAccountId,
-    refresh_url: `${Constants.ORIGIN_URL}/stripe/onboarding/refresh?payload=${encodeURIComponent(
+    refresh_url: `${Constants.ORIGIN_URL}/api/stripe/onboarding/refresh?payload=${encodeURIComponent(
       JSON.stringify(parsedPayload),
     )}`,
-    return_url: `${Constants.ORIGIN_URL}/stripe/onboarding/return`,
+    return_url: `${Constants.ORIGIN_URL}/api/stripe/onboarding/return`,
     type: 'account_onboarding',
   });
 
