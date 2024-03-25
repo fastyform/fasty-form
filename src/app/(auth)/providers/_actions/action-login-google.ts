@@ -14,7 +14,7 @@ const actionLoginGoogle = async (redirectUrlParam: SearchParam) => {
 
   const response = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: `${headersList.get('origin')}/providers/google/login${redirectUrl}` },
+    options: { redirectTo: `${headersList.get('origin')}/api/auth/providers/google/login${redirectUrl}` },
   });
 
   if (!response.error) {
