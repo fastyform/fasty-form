@@ -1,11 +1,12 @@
+import 'server-only';
+
 import { getSupabaseServerComponentClient } from './supabase/client';
 
 const getUserWithNull = async () => {
   const supabase = getSupabaseServerComponentClient();
-  const { data: session, error } = await supabase.auth.getSession();
-  if (error) throw new Error();
+  const { data } = await supabase.auth.getUser();
 
-  return session.session ? session.session.user : null;
+  return data.user;
 };
 
 export default getUserWithNull;

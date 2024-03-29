@@ -29,7 +29,8 @@ const HomePage = () => (
         <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
           <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">
             Podnieś swoje <span className="text-yellow-400">dochody</span> i zyskaj{' '}
-            <span className="text-yellow-400">więcej czasu</span> dla siebie
+            <span className="text-yellow-400">więcej czasu</span> dla siebie dzięki{' '}
+            <span className="text-yellow-400">szybkiej</span> weryfikacji techniki
           </h1>
           <div className="flex flex-col gap-1 text-sm lg:text-base xl:text-xl">
             {heroBenefits.map((benefit) => (
