@@ -8,6 +8,6 @@
     "reset.d.ts",
     "next.config.mjs",
     "next-env.d.ts",
-    "commitlint.config.js"
+    "commitlint.config.mjs"
   ]
 }

@@ -32,8 +32,8 @@ export const stepsData = [
 
 export const heroBenefits = [
   'Dodatkowe źródło zarobków',
-  'Proste narzędzie do analizy wideo',
-  'Oszczędność czasu i organizacja pracy',
+  'Proste narzędzie do szybkiej analizy wideo',
+  'Skaluj biznes trenera, gdy nie masz czasu',
 ] as const;
 
 export const appBenefits = [

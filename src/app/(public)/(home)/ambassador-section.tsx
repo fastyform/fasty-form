@@ -37,13 +37,7 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
 
   return (
     <div className={twMerge('relative border-y border-y-gray-600 py-8 lg:py-10', className)}>
-      <Image
-        fill
-        alt="Zdjęcie siłowni z hantlami"
-        objectFit="cover"
-        objectPosition="center"
-        src="/home/ambassador-program-bg.png"
-      />
+      <Image fill alt="Zdjęcie siłowni z hantlami" className="object-cover" src="/home/ambassador-program-bg.png" />
       <PublicContainer className="relative z-[1]">
         <PublicContainer.Content className="flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex max-w-md flex-col gap-2.5 lg:text-center">
