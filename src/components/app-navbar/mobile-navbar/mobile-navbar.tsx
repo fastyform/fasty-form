@@ -8,7 +8,15 @@ import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import AppLogo from '@/components/app-logo';
 
-const MobileNavbar = ({ children, className }: { className?: string; children: ReactNode }) => {
+const MobileNavbar = ({
+  children,
+  className,
+  logoHref,
+}: {
+  className?: string;
+  children: ReactNode;
+  logoHref?: string;
+}) => {
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
 
@@ -31,7 +39,7 @@ const MobileNavbar = ({ children, className }: { className?: string; children: R
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>
-        <AppLogo className="w-[100px]" />
+        <AppLogo className="w-[100px]" href={logoHref} />
       </header>
       <Drawer
         anchor="left"
