@@ -59,8 +59,11 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
               Wyślij
             </AppButton>
             <p className="text-xs">
-              Wysyłając swój adres email zgadzasz się na kontakt drogą mailową oraz otrzymywanie wiadomości
-              marketingowych.
+              Wysyłając swój adres email zgadzasz się na kontakt drogą mailową oraz akceptujesz{' '}
+              <Link className="font-semibold text-yellow-400" href="/ambassador-program">
+                Regulamin Programu
+              </Link>
+              .
             </p>
           </div>
         </PublicContainer.Content>
