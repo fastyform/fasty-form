@@ -6,7 +6,7 @@ import { trainerReviewFormSchema } from '@/app/(content)/submissions/[id]/(submi
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
 import AddedReview from '@/emails/added-review';
 import Constants from '@/utils/constants';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionAddTrainerReview = async (

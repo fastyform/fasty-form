@@ -36,7 +36,7 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
         {isOnboarded && (
           <>
             <DesktopNavbarApp />
-            <MobileNavbar>
+            <MobileNavbar className="h-[50px]">
               <MobileNavbarContent trainerDetails={trainerDetails} user={user} />
             </MobileNavbar>
           </>

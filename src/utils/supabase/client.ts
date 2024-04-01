@@ -1,5 +1,4 @@
-'use server';
-
+import 'server-only';
 import { CookieMethods, CookieOptions, createServerClient } from '@supabase/ssr';
 import { SupabaseClientOptions } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';

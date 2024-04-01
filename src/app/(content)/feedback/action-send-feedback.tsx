@@ -4,7 +4,7 @@ import { render } from '@react-email/render';
 import MailTemplate from '@/emails/mail-template';
 import Constants from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
-import { sendMail } from '@/utils/mail/send-mail';
+import { sendMail } from '@/utils/sendgrid';
 import { FeedbackValues } from './utils';
 
 const actionSendFeedback = async (data: FeedbackValues) => {

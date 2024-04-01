@@ -22,7 +22,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
   const response = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${headersList.get('origin')}/providers/google/register?role=${role}${redirectUrl}`,
+      redirectTo: `${headersList.get('origin')}/api/auth/providers/google/register?role=${role}${redirectUrl}`,
     },
   });
 

@@ -1,8 +1,9 @@
 import { ReactNode, Suspense } from 'react';
 import Link from 'next/link';
 import StatusBadge from '@/app/(content)/submissions/_components/status-badge';
+import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import { SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
 
@@ -22,18 +23,20 @@ const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boo
   return 'Szczegóły';
 };
 
+interface SubmissionCardProps {
+  submissionId: string;
+  trainerProfileName: string | undefined;
+  submissionStatus: SubmissionStatus;
+  videoKey: string | null;
+}
+
 const SubmissionCard = async ({
   submissionId,
   trainerProfileName,
   submissionStatus,
   videoKey,
-}: {
-  submissionId: string;
-  trainerProfileName: string | undefined;
-  submissionStatus: SubmissionStatus;
-  videoKey: string | null;
-}) => {
-  const user = await getUserFromSession();
+}: SubmissionCardProps) => {
+  const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
   const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}`;
@@ -57,12 +60,9 @@ const SubmissionCard = async ({
           )}
         </div>
       </Link>
-      <Link
-        className="w-full rounded-full bg-yellow-400 py-[10px] text-center text-xs font-bold text-black lg:text-base lg:transition-opacity lg:hover:opacity-80"
-        href={href}
-      >
+      <AppButton classes={{ root: 'py-2.5' }} component={Link} href={href}>
         {getButtonText(submissionStatus, isTrainerAccount)}
-      </Link>
+      </AppButton>
     </SubmissionCardContainer>
   );
 };

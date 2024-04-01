@@ -25,16 +25,16 @@ export const middleware = async (request: NextRequest) => {
   });
 
   try {
-    const { data } = await supabase.auth.getSession();
+    const { data } = await supabase.auth.getUser();
 
     if (
-      data.session &&
+      data.user &&
       UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS.some((route) => request.nextUrl.pathname.startsWith(route))
     ) {
       return NextResponse.redirect(new URL('/submissions', request.url));
     }
 
-    if (!data.session && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+    if (!data.user && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
   } catch (error) {
@@ -54,6 +54,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - *.svg (SVG files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.svg).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

@@ -55,7 +55,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               type="button"
               onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
             >
-              Dodaj ocenę wideo
+              Dodaj ocenę techniki
             </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>

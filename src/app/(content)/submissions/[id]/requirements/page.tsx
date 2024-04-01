@@ -4,11 +4,11 @@ import TrainerProfileNameLink from '@/app/(content)/submissions/[id]/_components
 import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import { triggerRootNotFound } from '@/utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import SubmissionRequirementsForm from './_components/submission-requirements-form';
 
 const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }) => {
-  const [user, submission] = await Promise.all([getUserFromSession(), getSubmissionById(params.id)]);
+  const [user, submission] = await Promise.all([getLoggedInUser(), getSubmissionById(params.id)]);
 
   if (submission.status !== 'paid') {
     return redirect(`/submissions/${params.id}`);

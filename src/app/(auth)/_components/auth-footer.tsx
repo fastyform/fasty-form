@@ -1,23 +1,27 @@
-import { Route } from 'next';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
-  shouldNavigateBack?: boolean;
   className?: string;
 }
 
-const AuthFooter = ({ shouldNavigateBack, className }: Props) => {
-  const getHrefFormatted = (href: Route) => (shouldNavigateBack ? `${href}?should-navigate-back=true` : href);
+const FOOTER_LINKS = [
+  ['/terms-of-service', 'Regulamin'],
+  ['/privacy-policy', 'Polityka prywatności'],
+  ['/contact', 'Kontakt'],
+  ['/cookies', 'Ciasteczka'],
+  ['/ambassador-program', 'Program Ambasadorski'],
+  ['/', 'Strona główna'],
+] as const;
 
-  return (
-    <div className={twMerge('flex flex-wrap justify-center gap-5 text-sm text-white', className)}>
-      <Link href={getHrefFormatted('/terms-of-service')}>Regulamin</Link>
-      <Link href={getHrefFormatted('/privacy-policy')}>Polityka prywatności</Link>
-      <Link href={getHrefFormatted('/contact')}>Kontakt</Link>{' '}
-      <Link href={getHrefFormatted('/cookies')}>Ciasteczka</Link>
-    </div>
-  );
-};
+const AuthFooter = ({ className }: Props) => (
+  <div className={twMerge('flex flex-wrap justify-center gap-5 text-sm text-white', className)}>
+    {FOOTER_LINKS.map(([href, label]) => (
+      <Link key={href} href={href}>
+        {label}
+      </Link>
+    ))}
+  </div>
+);
 
 export default AuthFooter;

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import getUserFromSession from '@/utils/get-user-from-session';
 
 const PaymentsLayout = async ({
   verified,
@@ -11,7 +11,7 @@ const PaymentsLayout = async ({
   unverified: ReactNode;
   pending_verification: ReactNode;
 }) => {
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
 
   const onboardingStatusToRoute = { unverified, pending_verification, verified };

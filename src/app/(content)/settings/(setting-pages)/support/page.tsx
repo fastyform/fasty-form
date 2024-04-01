@@ -4,7 +4,7 @@ import AppButton from '@/components/app-button';
 const SupportPage = () => (
   <>
     <h1 className="text-2xl text-white">Wsparcie</h1>
-    <AppButton classes={{ root: 'py-2.5 self-start' }} href="/contact?should-navigate-back=true" LinkComponent={Link}>
+    <AppButton classes={{ root: 'py-2.5 self-start text-sm sm:text-base' }} href="/contact" LinkComponent={Link}>
       Przejdź do formularza kontaktowego
     </AppButton>
   </>

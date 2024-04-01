@@ -5,7 +5,7 @@ import MailTemplate from './mail-template';
 // EXPORT AS HTML FROM 'npm run email' AND THEN PUT IT IN SUPABASE
 const ResetPassword = () => (
   <MailTemplate title="Resetowanie hasła">
-    <MailTemplate.CallToAction href="{{ .SiteURL }}/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}">
+    <MailTemplate.CallToAction href="{{ .SiteURL }}/api/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}">
       Zresetuj hasło
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
@@ -21,7 +21,7 @@ const ResetPassword = () => (
     Zespół FastFormy.
     <Text className="text-xs text-black/60">
       Jeśli masz problem z linkami, skopiuj i wklej następujący adres w przeglądarce:{' '}
-      {'{{ .SiteURL }}/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
+      {'{{ .SiteURL }}/api/auth/password-reset?token_hash={{ .TokenHash }}&redirect_to={{ .RedirectTo }}'}
       <MailTemplate.LineBreak /> Możesz też skontaktować się z nami wysyłając wiadomość na adres:{' '}
       <Link href={`mailto:${Constants.SUPPORT_MAIL}`}>{Constants.SUPPORT_MAIL}</Link>.
     </Text>

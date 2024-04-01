@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import getUserFromSession from '@/utils/get-user-from-session';
 import AccountBalance from './account-balance';
 import ReportsForm from './reports-form';
 
@@ -10,7 +10,7 @@ dayjs.extend(utc);
 
 const PaymentsVerified = async () => {
   const stripe = getStripe();
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
 
   if (!trainerDetails.stripe_account_id) throw new Error('No stripe account id');

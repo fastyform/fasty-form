@@ -1,13 +1,13 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import getUserFromSession from '@/utils/get-user-from-session';
+import getLoggedInUser from '@/utils/get-logged-in-user';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionUpdateMarketingConsent = async (marketing_consent: boolean) => {
   const supabase = getSupabaseServerClient();
 
-  const user = await getUserFromSession();
+  const user = await getLoggedInUser();
 
   const { error } = await supabase
     .from('roles')

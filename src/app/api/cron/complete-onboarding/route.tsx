@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
 import OnboardingReminder from '@/emails/onboarding-reminder';
 import Constants from '@/utils/constants';
-import { sendMultipleMails } from '@/utils/mail/send-mail';
+import { sendMultipleMails } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const emailsData = {
