@@ -1,6 +1,7 @@
 import fs from 'fs';
+import path from 'path';
 import fontkit from '@pdf-lib/fontkit';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { PDFDocument, PDFFont } from 'pdf-lib';
 import Stripe from 'stripe';
 import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
@@ -20,7 +21,7 @@ export type InvoiceData = {
 interface InvoiceDataParams {
   account: Stripe.Account;
   balanceTransactions: Stripe.BalanceTransaction[];
-  invoiceMonthDate: Dayjs;
+  previousMonthDate: Dayjs;
 }
 
 const currency = 'PLN';
@@ -30,7 +31,7 @@ const createReadableAmountFormat = (amountInGrosz: number) =>
 export const getInvoiceData = ({
   account,
   balanceTransactions,
-  invoiceMonthDate,
+  previousMonthDate,
 }: InvoiceDataParams): Omit<InvoiceData, 'invoice_number'> => {
   const accountIdField = `Identyfikator konta: ${account.id}`;
 
@@ -59,8 +60,8 @@ export const getInvoiceData = ({
   const vat_value = gross_value - net_value;
 
   return {
-    invoice_date: invoiceMonthDate.format('DD/MM/YYYY'),
-    invoice_period: invoiceMonthDate.format('MM/YYYY'),
+    invoice_date: dayjs().format('DD/MM/YYYY'),
+    invoice_period: previousMonthDate.format('MM/YYYY'),
     recipient,
     transaction_count: balanceTransactions.length.toString(),
     transaction_total: createReadableAmountFormat(balanceTransactions.reduce((acc, curr) => acc + curr.amount, 0)),
@@ -72,13 +73,15 @@ export const getInvoiceData = ({
 
 export const generateInvoice = async (invoiceData: InvoiceData) => {
   // Load the PDF with the template fields
-  const formPdfBytes = fs.readFileSync('public/invoice/invoice-ff-form.pdf');
+  const formPdfBytes = fs.readFileSync(path.join(process.cwd(), 'public/invoice/invoice-ff-form.pdf'));
   const pdfDoc = await PDFDocument.load(formPdfBytes);
 
   // Register fontkit instance with PDFDocument
   pdfDoc.registerFontkit(fontkit);
 
-  const readFontFile = (weight: string) => fs.readFileSync(`public/invoice/roboto-font/${weight}.ttf`);
+  const readFontFile = (weight: string) =>
+    fs.readFileSync(path.join(process.cwd(), `public/invoice/roboto-font/${weight}.ttf`));
+
   const robotoBlackFont = await pdfDoc.embedFont(readFontFile('black'));
   const robotoRegularFont = await pdfDoc.embedFont(readFontFile('regular'));
   const robotoBoldFont = await pdfDoc.embedFont(readFontFile('bold'));
