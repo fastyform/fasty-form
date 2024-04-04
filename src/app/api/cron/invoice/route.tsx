@@ -78,7 +78,7 @@ export const GET = async (request: NextRequest) => {
       return null;
     }
 
-    const invoiceData = getInvoiceData({ account, balanceTransactions, invoiceMonthDate: previousMonthDate });
+    const invoiceData = getInvoiceData({ account, balanceTransactions, previousMonthDate });
 
     return { invoiceData, account: { id: account.id, email: account.email } };
   });
@@ -87,7 +87,7 @@ export const GET = async (request: NextRequest) => {
   const preparedAccountsInvoicesData = accountsInvoicesData.map(({ invoiceData, account }, index) => ({
     invoiceData: {
       ...invoiceData,
-      invoice_number: `ff/${String(index).padStart(4, '0')}/${previousMonthDate.format('MM/YYYY')}`,
+      invoice_number: `ff/${String(index + 1).padStart(4, '0')}/${dayjs().format('MM/YYYY')}`,
     },
     account,
   }));
