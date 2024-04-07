@@ -43,14 +43,10 @@ export const GET = async (request: NextRequest) => {
   const drive = await getGoogleDriveClient();
   const monthFolderId = await getGoogleDriveMonthFolderId(drive);
 
-  const getAllBalanceTransactions = async (
-    accountId: string,
-    startingAfter?: string,
-  ): Promise<Stripe.BalanceTransaction[]> => {
-    const transactions = await stripe.balanceTransactions.list(
+  const getAllChargesFromAccount = async (accountId: string, startingAfter?: string): Promise<Stripe.Charge[]> => {
+    const transactions = await stripe.charges.list(
       {
         limit: 100,
-        type: 'charge',
         created: { gte: startOfPreviousMonthTimestamp, lte: endOfPreviousMonthTimestamp },
         starting_after: startingAfter,
       },
@@ -60,7 +56,7 @@ export const GET = async (request: NextRequest) => {
     );
 
     if (transactions.has_more) {
-      const nextTransactions = await getAllBalanceTransactions(
+      const nextTransactions = await getAllChargesFromAccount(
         accountId,
         transactions.data[transactions.data.length - 1].id,
       );
@@ -72,7 +68,9 @@ export const GET = async (request: NextRequest) => {
   };
 
   const accountsInvoiceDataPromises = accounts.map(async (account) => {
-    const balanceTransactions = await getAllBalanceTransactions(account.id);
+    const balanceTransactions = (await getAllChargesFromAccount(account.id)).filter(
+      ({ status }) => status === 'succeeded',
+    );
 
     if (!balanceTransactions.length) {
       return null;
@@ -82,8 +80,7 @@ export const GET = async (request: NextRequest) => {
 
     return { invoiceData, account: { id: account.id, email: account.email } };
   });
-
-  const accountsInvoicesData = (await Promise.all(accountsInvoiceDataPromises)).filter(Boolean).slice(0, 1);
+  const accountsInvoicesData = (await Promise.all(accountsInvoiceDataPromises)).filter(Boolean);
   const preparedAccountsInvoicesData = accountsInvoicesData.map(({ invoiceData, account }, index) => ({
     invoiceData: {
       ...invoiceData,
