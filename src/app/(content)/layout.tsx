@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { twJoin } from 'tailwind-merge';
 import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
@@ -42,7 +43,12 @@ const ContentLayout = async ({ children }: { children: ReactNode }) => {
           </>
         )}
 
-        <div className="z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 pt-24 lg:pb-12 lg:pt-28">
+        <div
+          className={twJoin(
+            'z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 lg:pb-12 lg:pt-28',
+            isOnboarded ? 'pt-20' : 'pt-4',
+          )}
+        >
           <main className="flex grow">
             {isOnboarded ? (
               children
