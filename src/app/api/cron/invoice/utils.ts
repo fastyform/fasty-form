@@ -20,7 +20,7 @@ export type InvoiceData = {
 
 interface InvoiceDataParams {
   account: Stripe.Account;
-  balanceTransactions: Stripe.BalanceTransaction[];
+  balanceTransactions: Stripe.Charge[];
   previousMonthDate: Dayjs;
 }
 
@@ -55,7 +55,7 @@ export const getInvoiceData = ({
     .join('\n');
 
   const roundUp = (value: number) => Math.round(value * 100) / 100;
-  const gross_value = balanceTransactions.reduce((acc, curr) => acc + curr.fee_details[1].amount, 0);
+  const gross_value = balanceTransactions.reduce((acc, curr) => acc + (curr.application_fee_amount || 0), 0);
   const net_value = roundUp(gross_value / 1.23);
   const vat_value = gross_value - net_value;
 
