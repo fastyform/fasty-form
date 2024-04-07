@@ -66,7 +66,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
         <div
           {...getRootProps({
             className: twMerge(
-              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone gap-2.5 text-sm transition-colors',
+              'flex h-36 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-yellow-400 bg-shark dropzone gap-2.5 text-sm transition-colors p-2',
               isFocused && 'border-yellow-100',
               isDragAccept && 'border-green-400',
               isDragReject && 'border-red-400',
@@ -85,13 +85,14 @@ const VideoFileInput = ({ onFileSet }: Props) => {
           />
           <span
             className={twMerge(
-              'text-yellow-400',
+              'text-center text-yellow-400',
               isFocused && 'text-yellow-100',
               isDragAccept && 'text-green-400',
               isDragReject && 'text-red-400',
             )}
           >
-            Przeciągnij i upuść plik wideo, lub kliknij, aby wybrać.
+            <span className="hidden md:block">Przeciągnij i upuść plik wideo, lub kliknij, aby wybrać.</span>
+            <span className="md:hidden">Kliknij, aby wybrać wideo.</span>
           </span>
         </div>
         {fileInputErrors.map((error) => (
