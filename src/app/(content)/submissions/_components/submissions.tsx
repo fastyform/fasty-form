@@ -20,7 +20,7 @@ export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) =>
   </div>
 );
 
-const clientStatusesPriorities = ['paid', 'reviewed', 'unreviewed', 'paidout'];
+const clientStatusesPriorities = ['paid', 'reviewed', 'paidout', 'unreviewed'];
 const trainerStatusesPriorities = ['unreviewed', 'paidout', 'reviewed'];
 const ALLOWED_FILTERS = clientStatusesPriorities;
 
