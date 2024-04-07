@@ -32,7 +32,7 @@ export const stepsData = [
 
 export const heroBenefits = [
   'Dodatkowe źródło zarobków',
-  'Proste narzędzie do szybkiej analizy wideo',
+  'Proste narzędzie do szybkiej analizy techniki',
   'Skaluj biznes trenera, gdy nie masz czasu',
 ] as const;
 

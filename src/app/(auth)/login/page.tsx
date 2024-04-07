@@ -7,7 +7,7 @@ import LoginForm from './_components/login-form';
 
 export const metadata: Metadata = {
   title: `Logowanie - ${Constants.APP_NAME}`,
-  description: `Zaloguj się do swojego konta ${Constants.APP_NAME}, aby korzystać z pełnej gamy usług analizy wideo.`,
+  description: `Zaloguj się do swojego konta ${Constants.APP_NAME}, aby korzystać z pełnej gamy usług analizy techniki.`,
 };
 
 const LoginPage = ({ searchParams }: { searchParams: SearchParams }) => (

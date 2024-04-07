@@ -7,7 +7,7 @@ import { SearchParams } from '@/utils/types';
 
 export const metadata: Metadata = {
   title: `Rejestracja Klienta - ${Constants.APP_NAME}`,
-  description: `Dołącz do ${Constants.APP_NAME} jako klient. Zarejestruj się, aby mieć dostęp do zakupu personalizowanych analiz wideo od Twojego ulubionego trenera.`,
+  description: `Dołącz do ${Constants.APP_NAME} jako klient. Zarejestruj się, aby mieć dostęp do zakupu personalizowanych analiz techniki od Twojego ulubionego trenera.`,
 };
 
 const RegisterClientPage = ({ searchParams }: { searchParams: SearchParams }) => (

@@ -44,7 +44,7 @@ const actionAddTrainerReview = async (
 
     sendMail({
       to: user.email as string,
-      subject: `${submission.trainers_details.profile_name} - przeanalizował twoje wideo`,
+      subject: `${submission.trainers_details.profile_name} - przeanalizował twoją technikę`,
       html: render(
         <AddedReview
           profileName={submission.trainers_details.profile_name}

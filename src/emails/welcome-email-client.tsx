@@ -8,8 +8,8 @@ const WelcomeMailClient = () => (
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
     Super, że jesteś z nami.
-    <MailTemplate.LineBreak /> W <MailTemplate.AppLink /> czekają na Ciebie trenerzy gotowi przeanalizować Twoje wideo.
-    Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę.
+    <MailTemplate.LineBreak /> W <MailTemplate.AppLink /> czekają na Ciebie trenerzy gotowi przeanalizować Twoją
+    technikę. Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę.
     <MailTemplate.LineBreak />
     Będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!
   </MailTemplate>
