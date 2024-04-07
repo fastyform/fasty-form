@@ -32,7 +32,9 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
         await navigator.share(shareData);
 
         return;
-      } catch {}
+      } catch {
+        return;
+      }
     }
 
     copyToClipboard(trainerProfileUrl);
