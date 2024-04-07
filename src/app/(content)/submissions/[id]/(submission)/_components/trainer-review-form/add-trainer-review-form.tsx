@@ -93,7 +93,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
         color="inherit"
         onClick={() => setIsReviewInputVisible(true)}
       >
-        <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać swoją analizę techniki</h2>
+        <h2 className="text-lg font-bold leading-5 text-white">Kliknij tutaj, aby dodać analizę techniki</h2>
       </Button>
     </SubmissionPartWithIcon>
   );

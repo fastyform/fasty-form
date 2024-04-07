@@ -18,6 +18,7 @@ interface Props {
 }
 
 const INSTRUCTIONS = [
+  'Na nagraniu powinno być <strong>widoczne całe ciało</strong>.',
   'Maksymalny rozmiar pliku wideo: <strong>200 MB</strong>.',
   'Maksymalna długość wideo: <strong>60 sekund</strong>.',
   'Akceptowane formaty pliku wideo: <strong>.mp4, .webm, .qt, .mov</strong>.',

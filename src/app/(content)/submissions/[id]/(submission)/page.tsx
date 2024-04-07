@@ -37,11 +37,13 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
         <span className="font-bold">Ostatnia zmiana: </span>
         <span className="capitalize">{formattedUpdateDate}</span>
       </p>
-      <TrainerProfileNameLink
-        className="lg:hidden"
-        profileName={submission.trainers_details.profile_name}
-        trainerProfileSlug={submission.trainers_details.profile_slug}
-      />
+      {!isTrainerAccount && (
+        <TrainerProfileNameLink
+          className="lg:hidden"
+          profileName={submission.trainers_details.profile_name}
+          trainerProfileSlug={submission.trainers_details.profile_slug}
+        />
+      )}
       <Suspense fallback={<VideoSkeleton />}>
         <SubmissionVideo submissionId={params.id} />
       </Suspense>
