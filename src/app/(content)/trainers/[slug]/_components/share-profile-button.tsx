@@ -23,7 +23,7 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
   const handleShare = async () => {
     const shareData = {
       title: `${Constants.APP_NAME} - Profil Trenera - ${trainerDetails}`,
-      text: `Zakup u mnie analizę wideo w ${Constants.APP_NAME}.`,
+      text: `Zakup u mnie analizę techniki w ${Constants.APP_NAME}.`,
       url: trainerProfileUrl,
     };
 

@@ -26,7 +26,7 @@ export async function GET() {
     if (isOnboardedStripe || isRequiredDataFilled) {
       const product = await stripe.products.create(
         {
-          name: 'Ocena techniki - 1 wideo',
+          name: 'Analiza techniki - 1 wideo',
           default_price_data: {
             currency: StripeConstants.CURRENCY,
             unit_amount: trainerDetails.service_price_in_grosz,

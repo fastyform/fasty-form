@@ -29,8 +29,8 @@ const PaymentsVerified = async () => {
         <div className="flex max-w-lg flex-col gap-2.5">
           <h2 className="text-2xl font-semibold">Twoje saldo</h2>
           <p>
-            Wypłata na konto bankowe trafia zazwyczaj w 3 do 7 dni roboczych po zakończonej i ocenionej przez Ciebie
-            analizie wideo.
+            Wypłata na konto bankowe trafia zazwyczaj w 3 do 7 dni roboczych po zakończonej i wykonanej przez Ciebie
+            analizie techniki.
           </p>
         </div>
         <AccountBalance />

@@ -40,7 +40,7 @@ const TrainerPageLayout = async ({
                 </AppSkeletonWrapper>
                 <AppSkeletonWrapper>
                   <span className="invisible text-base lg:text-xl">
-                    Analiza techniki jednego wideo - <span className="font-bold">25zł </span>
+                    Analiza techniki (jedno wideo) - <span className="font-bold">25zł </span>
                   </span>
                 </AppSkeletonWrapper>
               </div>

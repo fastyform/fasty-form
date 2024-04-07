@@ -47,7 +47,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
       {/* NOTE: This textarea size is hardcoded because of the jumping form bug on first render */}
       <form className="flex flex-col gap-5 [&_textarea]:!h-[115px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2 flex flex-col gap-2.5">
-          <span className="text-white">Wideo ćwiczenia</span>
+          <span className="text-white">Wideo wykonywanego ćwiczenia</span>
           {videoSrc ? (
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2">

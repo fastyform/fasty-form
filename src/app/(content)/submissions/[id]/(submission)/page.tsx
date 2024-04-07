@@ -81,7 +81,7 @@ const SubmissionPage = async ({ params }: { params: { id: string } }) => {
             <SubmissionPartWithIcon containerStyles="opacity-50" icon="submission">
               <h2 className="text-lg font-bold leading-5 text-white">Oczekiwanie na odpowiedź trenera...</h2>
               <p className="text-sm text-white">
-                Po tym, jak trener oceni Twoje wideo, znajdziesz tutaj jego komentarz i sugestie.
+                Po tym, jak trener przeanalizuje Twoją technikę, znajdziesz tutaj jego komentarz i sugestie.
               </p>
             </SubmissionPartWithIcon>
           ))}
