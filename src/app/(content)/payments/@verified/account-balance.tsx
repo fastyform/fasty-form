@@ -1,7 +1,7 @@
-import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
+import { groszToPLN } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 
 const AccountBalance = async () => {
   const stripe = getStripe();

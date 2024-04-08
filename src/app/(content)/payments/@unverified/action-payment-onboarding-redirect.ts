@@ -3,11 +3,11 @@
 import { redirect } from 'next/navigation';
 
 import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/(content)/payments/utils';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
+import { StripeConstants } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const STRIPE_MERCHANT_CATEGORY_CODE = '7392';

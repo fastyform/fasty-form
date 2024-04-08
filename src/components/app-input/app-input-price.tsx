@@ -4,8 +4,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
-import { groszToPLN, PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
-import { calculateStripeFee } from '@/app/(stripe)/stripe/_utils/calculate-fees';
+import { calculateStripeFee, groszToPLN, PLNToGrosz } from '@/utils/stripe';
 
 const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) => {
   const priceAfterFee =

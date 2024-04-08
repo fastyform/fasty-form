@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
+import getStripe from '@/utils/stripe/get-stripe';
 import AccountBalance from './account-balance';
 import ReportsForm from './reports-form';
 

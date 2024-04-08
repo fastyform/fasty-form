@@ -4,13 +4,12 @@ import crypto from 'crypto';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
-import { calculateAppFee } from '@/app/(stripe)/stripe/_utils/calculate-fees';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
+import { calculateAppFee, StripeConstants } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 
 const getReceiptDescription = (trainerStripeAccount: Stripe.Account) => {
   const { business_type } = trainerStripeAccount;
@@ -81,10 +80,8 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
       },
       customer_email: user.email,
       mode: 'payment',
-      success_url: `${headersList.get('origin')}/stripe/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/stripe/payment/failure?trainer_profile_slug=${
-        trainerDetails.profile_slug
-      }`,
+      success_url: `${headersList.get('origin')}/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${headersList.get('origin')}/payment/failure?trainer_profile_slug=${trainerDetails.profile_slug}`,
       locale: 'pl',
       currency: StripeConstants.CURRENCY,
     },

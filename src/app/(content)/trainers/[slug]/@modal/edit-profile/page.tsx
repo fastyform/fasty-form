@@ -3,10 +3,10 @@ import { EditProfileValues } from '@/app/(content)/_components/edit-profile-form
 import EditProfileForm from '@/app/(content)/_components/edit-profile-form/edit-profile-form';
 import checkIsTrainerProfileOwner from '@/app/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from '@/app/(content)/trainers/[slug]/_utils/get-trainer-id-by-slug';
-import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
 import AppModal from '@/components/app-modal';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
+import { groszToPLN } from '@/utils/stripe';
 
 const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
   const user = await getUserWithNull();

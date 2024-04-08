@@ -4,10 +4,10 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import FeeInvoiceSent from '@/emails/fee-invoice-sent';
 import Constants from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getGoogleDriveClient, getGoogleDriveMonthFolderId, savePdfToGoogleDrive } from './google-drive-utils';
 import { generateInvoice, getInvoiceData } from './utils';
 

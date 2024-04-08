@@ -2,9 +2,9 @@ import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import ThankYouBuy from '@/emails/thank-you-buy';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;

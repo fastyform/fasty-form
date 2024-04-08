@@ -3,9 +3,9 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { ReportType, reportTypeToLabel } from '@/app/(content)/payments/utils';
 import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import ReportReady from '@/emails/report-ready';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const secret = process.env.STRIPE_WEBHOOK_INVOICE_SECRET!;
