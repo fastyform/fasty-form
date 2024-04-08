@@ -9,7 +9,7 @@ const dialogData = {
   verified: [
     'success',
     'Gratulacje!',
-    'Sukces! Twoje połączenie z kontem Stripe zostało zrealizowane. Od teraz jesteś aktywnym trenerem na naszej platformie. Twoja strona profilowa jest już dostępna dla użytkowników, a Ty możesz rozpocząć przyjmowanie płatności.',
+    'Sukces! Od teraz jesteś aktywnym trenerem na naszej platformie. Twoja strona profilowa jest już dostępna dla użytkowników, a Ty możesz rozpocząć przyjmowanie płatności.',
   ],
   error: [
     'fail',

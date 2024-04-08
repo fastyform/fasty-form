@@ -39,7 +39,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
             {trainerDetails.profile_name}
           </h1>
           <span className="text-base text-white lg:text-xl">
-            Analiza techniki jednego wideo -{' '}
+            Analiza techniki (jedno wideo) -{' '}
             <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
           </span>
         </div>
@@ -65,11 +65,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!trainer || error || !trainer.profile_name)
     return {
       title: `Profil Trenera - ${Constants.APP_NAME}`,
-      description: `Zakup analizę wideo u trenera w ${Constants.APP_NAME}.`,
+      description: `Zakup analizę techniki u trenera w ${Constants.APP_NAME}.`,
     };
 
   return {
     title: `Profil Trenera ${trainer.profile_name} - ${Constants.APP_NAME}`,
-    description: `Zakup analizę wideo u trenera ${trainer.profile_name} w ${Constants.APP_NAME}.`,
+    description: `Zakup analizę techniki u trenera ${trainer.profile_name} w ${Constants.APP_NAME}.`,
   };
 }

@@ -47,7 +47,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               </span>
             )}
             <p className="text-sm text-white">
-              Pamiętaj, po dodaniu oceny do wideo nie będziesz mógł jej już edytować.
+              Pamiętaj, po dodaniu analizy techniki nie będziesz mógł jej już edytować.
             </p>
             <AppInputForm multiline className="w-full" control={control} fieldName="trainerReview" minRows={10} />
             <AppButtonSubmit
@@ -55,7 +55,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               type="button"
               onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
             >
-              Dodaj ocenę techniki
+              Dodaj analizę techniki
             </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>
@@ -65,7 +65,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             <div>
               <h4 className="text-center text-base font-bold text-white">Czy chcesz dodać swoją ocenę?</h4>
               <p className="text-center text-sm text-white">
-                Pamiętaj, po dodaniu oceny do wideo nie będziesz mógł jej już edytować.
+                Pamiętaj, po dodaniu analizy techniki nie będziesz mógł jej już edytować.
               </p>
             </div>
             <div className="flex flex-wrap gap-5">

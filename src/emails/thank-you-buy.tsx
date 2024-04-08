@@ -16,8 +16,8 @@ const ThankYouBuy = ({
       Dodaj wideo do swojego zgłoszenia
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
-    Cześć! <MailTemplate.LineBreak /> Dziękujemy za dokonanie zakupu analizy wideo w <MailTemplate.AppLink />, u trenera{' '}
-    <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</Link>
+    Cześć! <MailTemplate.LineBreak /> Dziękujemy za dokonanie zakupu analizy techniki w <MailTemplate.AppLink />, u
+    trenera <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</Link>
     <MailTemplate.LineBreak />
     Wraz z trenerem chcielibyśmy Ci podziękować. Jesteśmy podekscytowani, że możemy pomóc Ci w osiągnięciu nowych celów!
     Teraz wszystko, co musisz zrobić, to przesłać nam swoje wideo. <MailTemplate.LineBreak />{' '}
@@ -34,7 +34,7 @@ const ThankYouBuy = ({
     4.Wybierz wideo, które chcesz przesłać, i dodaj uwagi.
     <br /> 5.Kliknij &apos;Wyślij&apos;, a my zajmiemy się resztą!
     <MailTemplate.LineBreak />
-    Twoja analiza wideo będzie gotowa zanim się obejrzysz.{' '}
+    Twoja analiza techniki będzie gotowa zanim się obejrzysz.{' '}
     <strong>Damy Ci znać, jak tylko wszystko będzie gotowe!</strong>
     <MailTemplate.LineBreak /> Masz pytania? Potrzebujesz pomocy?{' '}
     <Link href={`${Constants.ORIGIN_URL}/contact`}>Napisz do nas</Link>, chętnie pomożemy. Do zobaczenia w{' '}

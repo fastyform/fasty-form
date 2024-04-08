@@ -18,8 +18,8 @@ const AddedReview = ({
     <MailTemplate.LineBreak />
     Mamy świetne wieści -{' '}
     <strong>
-      Twoja analiza wideo od <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</Link>{' '}
-      jest już gotowa!
+      Twoja analiza techniki od{' '}
+      <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</Link> jest już gotowa!
     </strong>{' '}
     Trener przyjrzał się dokładnie Twojemu nagraniu i ma kilka cennych wskazówek, które pomogą Ci doskonalić Twoje
     umiejętności.

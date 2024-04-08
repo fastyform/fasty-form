@@ -22,10 +22,10 @@ const tosData = {
   ],
 
   'Usługi i płatności': [
-    'Aplikacja umożliwia zakup analiz wideo od trenerów.',
+    'Aplikacja umożliwia zakup analiz techniki od trenerów.',
     'Płatności za usługi realizowane są za pośrednictwem systemu płatności Stripe.',
     'Po dokonaniu płatności użytkownik może przesłać materiał wideo wraz z opcjonalnymi uwagami.',
-    'Po zakończonej i ocenionej przez trenera analizie wideo, przysługujące trenerowi wynagrodzenie jest automatycznie wypłacane.',
+    'Po zakończonej i wykonanej przez trenera analizie techniki, przysługujące trenerowi wynagrodzenie jest automatycznie wypłacane.',
     'Czas dostępności środków zależy od dostawcy usług płatniczych i może wynosić od 3 do 7 dni. Po tym okresie środki są automatycznie przelewane na konto bankowe trenera.',
     'Właściciel Aplikacji nie ponosi odpowiedzialności za opóźnienia w przetwarzaniu płatności przez zewnętrzne systemy płatności.',
     `W ramach naszej aplikacji pobieramy prowizję w wysokości ${
