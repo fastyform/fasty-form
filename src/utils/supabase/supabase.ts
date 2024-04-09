@@ -165,7 +165,116 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      ordered_submissions_client: {
+        Row: {
+          client_description: string | null;
+          client_id: string | null;
+          created_at: string | null;
+          id: string | null;
+          price_in_grosz: number | null;
+          status: Database['public']['Enums']['status'] | null;
+          stripe_session_id: string | null;
+          trainer_id: string | null;
+          trainer_review: string | null;
+          updated_at: string | null;
+          video_key: string | null;
+        };
+        Insert: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Update: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'submissions_client_id_fkey';
+            columns: ['client_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'submissions_trainer_id_fkey';
+            columns: ['trainer_id'];
+            referencedRelation: 'trainers_details';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      ordered_submissions_trainer: {
+        Row: {
+          client_description: string | null;
+          client_id: string | null;
+          created_at: string | null;
+          id: string | null;
+          price_in_grosz: number | null;
+          status: Database['public']['Enums']['status'] | null;
+          stripe_session_id: string | null;
+          trainer_id: string | null;
+          trainer_review: string | null;
+          updated_at: string | null;
+          video_key: string | null;
+        };
+        Insert: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Update: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'submissions_client_id_fkey';
+            columns: ['client_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'submissions_trainer_id_fkey';
+            columns: ['trainer_id'];
+            referencedRelation: 'trainers_details';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
     };
     Functions: {
       delete_claim: {
