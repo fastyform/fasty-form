@@ -36,7 +36,9 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
     ) => {
       if (payload.new.stripe_onboarding_status === 'verified') {
         await actionRevalidateRootLayout();
-        router.replace(`?${createQueryString('stripe_onboarding_status', 'verified', searchParams)}`);
+        router.replace(
+          `?${createQueryString([{ name: 'stripe_onboarding_status', value: 'verified', action: 'add' }], searchParams)}`,
+        );
       }
     };
 
