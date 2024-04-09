@@ -1,6 +1,6 @@
 'use client';
 
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import { Tab, TabProps } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -34,8 +34,16 @@ const FilterTabs = ({
       : 'all';
   const [value, setValue] = useState<Filter>(defaultTabValue || 'all');
 
-  const handleChange = (_: SyntheticEvent, newValue: Filter) => {
-    router.replace(`?${createQueryString('filter', newValue, searchParams)}`);
+  const handleChange = (_: unknown, newValue: Filter) => {
+    router.replace(
+      `?${createQueryString(
+        [
+          { name: 'filter', value: newValue, action: 'add' },
+          { name: 'page', action: 'delete' },
+        ],
+        searchParams,
+      )}`,
+    );
     setValue(newValue);
   };
 

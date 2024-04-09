@@ -1,43 +1,18 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
 import NotFoundIcon from '@/app/(content)/submissions/_assets/not-found-icon';
+import getSubmissions, { SUBMISSIONS_PAGE_SIZE } from '@/app/(content)/submissions/_utils/get-submissions';
 import ShareProfileButton from '@/app/(content)/trainers/[slug]/_components/share-profile-button';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
-import { Database } from '@/utils/supabase/supabase';
 import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
-
-type Submission = Pick<Database['public']['Tables']['submissions']['Row'], 'id' | 'status' | 'video_key'> & {
-  trainers_details: {
-    profile_name: string | null;
-  } | null;
-};
+import SubmissionsPagination from './submissions-pagination';
 
 export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) => (
   <div className="grid grid-cols-1 gap-5 min-[450px]:grid-cols-2 md:grid-cols-3 md:gap-10 xl:grid-cols-4">
     {children}
   </div>
 );
-
-const clientStatusesPriorities = ['paid', 'reviewed', 'paidout', 'unreviewed'];
-const trainerStatusesPriorities = ['unreviewed', 'paidout', 'reviewed'];
-const ALLOWED_FILTERS = clientStatusesPriorities;
-
-const orderSubmissions = (submissions: Submission[], isTrainerAccount: boolean) => {
-  const statusesPriorities = isTrainerAccount ? trainerStatusesPriorities : clientStatusesPriorities;
-
-  return submissions.toSorted((a, b) => {
-    const priorityA = statusesPriorities.indexOf(a.status);
-    const priorityB = statusesPriorities.indexOf(b.status);
-
-    if (priorityA !== priorityB) {
-      return priorityA - priorityB;
-    }
-
-    return 0;
-  });
-};
 
 interface SubmissionsProps {
   searchParams: SearchParams;
@@ -46,27 +21,9 @@ interface SubmissionsProps {
 }
 
 const Submissions = async ({ searchParams, isTrainerAccount, userId }: SubmissionsProps) => {
-  const supabase = getSupabaseServerComponentClient();
+  const { submissions, submissionsCount } = await getSubmissions(searchParams, isTrainerAccount);
 
-  let query = supabase
-    .from('submissions')
-    .select('id, status, video_key, trainers_details (profile_name)')
-    .order('created_at', { ascending: false });
-
-  if (isTrainerAccount) {
-    query = query.neq('status', 'paid');
-  }
-
-  if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
-    const status =
-      !isTrainerAccount && searchParams.filter === 'reviewed' ? '("reviewed","paidout")' : `(${searchParams.filter})`;
-
-    query = query.filter('status', 'in', status);
-  }
-
-  const { data: submissions, error } = await query;
-
-  if (error)
+  if (submissions.error || submissionsCount.error)
     return (
       <h2 className="text-base text-white">
         Napotkaliśmy problem przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub, jeśli to nie pomoże,
@@ -74,7 +31,7 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
       </h2>
     );
 
-  const hasSubmissions = submissions.length > 0;
+  const hasSubmissions = submissions.data.length > 0;
 
   if (!hasSubmissions && !isTrainerAccount)
     return (
@@ -114,22 +71,30 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
   }
 
   return (
-    <SubmissionsGridWrapper>
-      {!!submissions &&
-        orderSubmissions(submissions, isTrainerAccount).map(({ id, trainers_details, status, video_key }) => {
-          if (!trainers_details || !trainers_details.profile_name) return;
+    <>
+      <SubmissionsGridWrapper>
+        {!!submissions && (
+          <>
+            {submissions.data.map(({ id, trainers_details, status, video_key }) => {
+              if (!trainers_details || !trainers_details.profile_name) return;
 
-          return (
-            <SubmissionCard
-              key={id}
-              submissionId={id}
-              submissionStatus={status}
-              trainerProfileName={trainers_details.profile_name}
-              videoKey={video_key}
-            />
-          );
-        })}
-    </SubmissionsGridWrapper>
+              return (
+                <SubmissionCard
+                  key={id}
+                  submissionId={id}
+                  submissionStatus={status}
+                  trainerProfileName={trainers_details.profile_name}
+                  videoKey={video_key}
+                />
+              );
+            })}
+          </>
+        )}
+      </SubmissionsGridWrapper>
+      {submissionsCount.count && submissionsCount.count / SUBMISSIONS_PAGE_SIZE > 1 && (
+        <SubmissionsPagination submissionsCount={submissionsCount.count / SUBMISSIONS_PAGE_SIZE} />
+      )}
+    </>
   );
 };
 
