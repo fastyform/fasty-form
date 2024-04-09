@@ -4,7 +4,7 @@ import { Pagination } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import createQueryString from '@/utils/create-query-string';
 
-const SubmissionsPagination = ({ submissionsCount }: { submissionsCount: number }) => {
+const SubmissionsPagination = ({ pageCount }: { pageCount: number }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pageParam = searchParams.get('page');
@@ -14,7 +14,7 @@ const SubmissionsPagination = ({ submissionsCount }: { submissionsCount: number 
     router.replace(`?${newQueryParams}`);
   };
 
-  return <Pagination count={submissionsCount} page={Number(pageParam) || 1} onChange={handlePaginationChange} />;
+  return <Pagination count={pageCount} page={Number(pageParam) || 1} onChange={handlePaginationChange} />;
 };
 
 export default SubmissionsPagination;

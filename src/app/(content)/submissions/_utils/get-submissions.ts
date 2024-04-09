@@ -15,16 +15,13 @@ const getSubmissions = async (searchParams: SearchParams, isTrainerAccount: bool
   };
 
   let submissionsQuery = supabase
-    .from('submissions')
+    .from(isTrainerAccount ? 'ordered_submissions_trainer' : 'ordered_submissions_client')
     .select('id, status, video_key, trainers_details (profile_name)')
-    .order('created_at', { ascending: false })
     .range(range.start, range.end);
-  let submissionsCountQuery = supabase.from('submissions').select('*', { count: 'exact', head: true });
 
-  if (isTrainerAccount) {
-    submissionsQuery = submissionsQuery.neq('status', 'paid');
-    submissionsCountQuery = submissionsCountQuery.neq('status', 'paid');
-  }
+  let submissionsCountQuery = supabase
+    .from(isTrainerAccount ? 'ordered_submissions_trainer' : 'ordered_submissions_client')
+    .select('*', { count: 'exact', head: true });
 
   if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
     const status =
