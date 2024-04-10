@@ -30,7 +30,7 @@ const privacyPolicyData = {
     'Cofnięcie zgody na otrzymywanie komunikacji marketingowej nie wpływa na zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.',
   ],
   'Prawa użytkownika': [
-    'Użytkownik ma prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania. W szczególności, na prośbę użytkownika, możliwe jest usunięcie danych i nagrań z aplikacji.',
+    'Użytkownik ma prawo dostępu do swoich danych, ich sprostowania, usunięcia (prawo do bycia zapomnianym) lub ograniczenia przetwarzania. Użytkownik może zażądać usunięcia swojego konta w aplikacji, co skutkuje trwałym usunięciem wszystkich jego danych osobowych. W celu usunięcia wszystkich nagrań wideo powiązanych z kontem, użytkownik jest zobowiązany do bezpośredniego kontaktu z obsługą aplikacji.',
     'Użytkownik ma prawo wniesienia sprzeciwu co do przetwarzania jego danych osobowych.',
     'Użytkownik ma prawo do przenoszenia danych, czyli otrzymania od Administratora swoich danych osobowych w ustrukturyzowanym, powszechnie używanym formacie nadającym się do odczytu maszynowego. Użytkownik może przesłać te dane innemu administratorowi.',
     'Użytkownik ma prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (UODO), jeśli uważa, że przetwarzanie danych osobowych narusza przepisy ogólnego rozporządzenia o ochronie danych osobowych z dnia 27 kwietnia 2016 r.',

@@ -14,6 +14,7 @@ const tosData = {
     'Dodawanie zdjęcia profilowego jest opcjonalne. Jeśli użytkownik zdecyduje się dodać zdjęcie profilowe, będzie ono przechowywane na naszych serwerach i widoczne dla wszystkich użytkowników Aplikacji.',
     'Użytkownik wyraża zgodę na otrzymywanie komunikacji e-mailowej niezbędnej do świadczenia usług przez Aplikację, w tym powiadomień dotyczących konta, transakcji, aktualizacji usług oraz innych ważnych informacji związanych z użytkowaniem aplikacji.',
     'Podczas procesu rejestracji, użytkownik może wyrazić zgodę na otrzymywanie informacji o promocjach, poradach, i nowościach drogą mailową poprzez zaznaczenie opcjonalnego checkboxa. Zgoda ta może być w każdej chwili cofnięta przez użytkownika.',
+    'Użytkownik ma możliwość usunięcia swojego konta w aplikacji w dowolnym momencie poprzez opcję dostępną w ustawieniach konta lub kontaktując się bezpośrednio z obsługą aplikacji za pomocą oficjalnych kanałów komunikacji. Proces usunięcia konta skutkuje trwałym usunięciem danych użytkownika z bazy danych aplikacji.',
   ],
   'Bezpieczeństwo i odpowiedzialność za konto': [
     'Użytkownik jest odpowiedzialny za zachowanie poufności swoich danych logowania.',

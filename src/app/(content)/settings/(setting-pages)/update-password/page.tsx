@@ -1,5 +1,5 @@
 import { SearchParams } from '@/utils/types';
-import UpdatePasswordForm from './_components/update-password-form';
+import UpdatePasswordForm from './update-password-form';
 
 const UpdatePassword = ({ searchParams }: { searchParams: SearchParams }) => (
   <>
