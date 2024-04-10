@@ -1,7 +1,11 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
 import NotFoundIcon from '@/app/(content)/submissions/_assets/not-found-icon';
-import getSubmissions, { SUBMISSIONS_PAGE_SIZE } from '@/app/(content)/submissions/_utils/get-submissions';
+import {
+  getClientSubmissions,
+  getTrainerSubmissions,
+  SUBMISSIONS_PAGE_SIZE,
+} from '@/app/(content)/submissions/_utils/get-submissions';
 import ShareProfileButton from '@/app/(content)/trainers/[slug]/_components/share-profile-button';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import { SearchParams } from '@/utils/types';
@@ -21,7 +25,9 @@ interface SubmissionsProps {
 }
 
 const Submissions = async ({ searchParams, isTrainerAccount, userId }: SubmissionsProps) => {
-  const { submissions, submissionsCount } = await getSubmissions(searchParams, isTrainerAccount);
+  const { submissions, submissionsCount } = isTrainerAccount
+    ? await getTrainerSubmissions(searchParams)
+    : await getClientSubmissions(searchParams);
 
   if (submissions.error || submissionsCount.error)
     return (
