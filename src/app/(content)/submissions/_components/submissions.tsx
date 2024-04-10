@@ -79,23 +79,19 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
   return (
     <>
       <SubmissionsGridWrapper>
-        {!!submissions && (
-          <>
-            {submissions.data.map(({ id, trainers_details, status, video_key }) => {
-              if (!trainers_details || !trainers_details.profile_name || !id || !status) return;
+        {submissions.data.map(({ id, trainers_details, status, video_key }) => {
+          if (!trainers_details || !trainers_details.profile_name || !id || !status) return;
 
-              return (
-                <SubmissionCard
-                  key={id}
-                  submissionId={id}
-                  submissionStatus={status}
-                  trainerProfileName={trainers_details.profile_name}
-                  videoKey={video_key}
-                />
-              );
-            })}
-          </>
-        )}
+          return (
+            <SubmissionCard
+              key={id}
+              submissionId={id}
+              submissionStatus={status}
+              trainerProfileName={trainers_details.profile_name}
+              videoKey={video_key}
+            />
+          );
+        })}
       </SubmissionsGridWrapper>
       {submissionsCount.count && submissionsCount.count / SUBMISSIONS_PAGE_SIZE > 1 && (
         <SubmissionsPagination pageCount={Math.ceil(submissionsCount.count / SUBMISSIONS_PAGE_SIZE)} />
