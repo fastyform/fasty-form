@@ -25,7 +25,7 @@ export const middleware = async (request: NextRequest) => {
   });
 
   try {
-    const { data } = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getUser();
 
     if (
       data.user &&
@@ -35,6 +35,10 @@ export const middleware = async (request: NextRequest) => {
     }
 
     if (!data.user && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+      if (error) {
+        await supabase.auth.signOut();
+      }
+
       return NextResponse.redirect(new URL('/login', request.url));
     }
   } catch (error) {

@@ -8,6 +8,7 @@ import {
   SupportAgent,
   SvgIconComponent,
 } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
@@ -21,6 +22,7 @@ const settingsMenuData: MenuItem[] = [
   ['Wsparcie', 'Skontaktuj się z nami', SupportAgent, 'support'],
   ['Dokumenty Prawne', 'Przeczytaj nasze dokumenty', Gavel, 'legal'],
   ['Powiadomienia', 'Włącz lub wyłącz powiadomienia', NotificationsActiveRounded, 'notifications'],
+  ['Konto', 'Zarządzaj swoim kontem', PersonIcon, 'account'],
 ];
 
 const SettingsMenu = () => {

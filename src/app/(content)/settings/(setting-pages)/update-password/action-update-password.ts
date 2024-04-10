@@ -1,6 +1,6 @@
 'use server';
 
-import { updatePasswordSchema } from '@/app/(content)/settings/(setting-pages)/update-password/_utils';
+import { updatePasswordSchema } from '@/app/(content)/settings/(setting-pages)/update-password/utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';

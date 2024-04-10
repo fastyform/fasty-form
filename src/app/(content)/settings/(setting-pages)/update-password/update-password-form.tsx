@@ -5,11 +5,11 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import actionUpdatePassword from '@/app/(content)/settings/(setting-pages)/update-password/_actions/action-update-password';
+import actionUpdatePassword from '@/app/(content)/settings/(setting-pages)/update-password/action-update-password';
 import {
   UpdatePasswordFormValues,
   updatePasswordSchema,
-} from '@/app/(content)/settings/(setting-pages)/update-password/_utils';
+} from '@/app/(content)/settings/(setting-pages)/update-password/utils';
 import QuestionMarkIcon from '@/app/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_assets/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
