@@ -1,7 +1,7 @@
 import { render } from '@react-email/render';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
-import { getQueryParamError } from '@/app/(auth)/_utils';
+import { getQueryParamError } from '@/app/[locale]/(auth)/_utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
 import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
 import Constants from '@/utils/constants';

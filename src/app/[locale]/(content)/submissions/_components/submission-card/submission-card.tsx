@@ -1,0 +1,70 @@
+import { ReactNode, Suspense } from 'react';
+import Link from 'next/link';
+import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
+import AppButton from '@/components/app-button';
+import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import getLoggedInUser from '@/utils/get-logged-in-user';
+import { SubmissionStatus } from '@/utils/types';
+import SubmissionCardImage from './submission-card-image';
+
+export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
+  <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>
+);
+
+const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {
+  if (submissionStatus === 'paid') {
+    return 'Wyślij wideo';
+  }
+
+  if (isTrainerAccount && submissionStatus === 'unreviewed') {
+    return 'Oceń technikę';
+  }
+
+  return 'Szczegóły';
+};
+
+interface SubmissionCardProps {
+  submissionId: string;
+  trainerProfileName: string | undefined;
+  submissionStatus: SubmissionStatus;
+  videoKey: string | null;
+}
+
+const SubmissionCard = async ({
+  submissionId,
+  trainerProfileName,
+  submissionStatus,
+  videoKey,
+}: SubmissionCardProps) => {
+  const user = await getLoggedInUser();
+  const isTrainerAccount = await checkIsTrainerAccount(user.id);
+
+  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}`;
+
+  return (
+    <SubmissionCardContainer>
+      <Link className=" lg:transition-opacity lg:hover:opacity-80" href={href}>
+        <div className="flex w-full flex-col items-start gap-5 rounded-xl">
+          <div className="relative h-60 w-full rounded-xl bg-bunker min-[450px]:h-40 lg:h-60">
+            <Suspense>
+              <SubmissionCardImage submissionStatus={submissionStatus} videoKey={videoKey} />
+            </Suspense>
+            <StatusBadge
+              className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5"
+              isTrainerAccount={isTrainerAccount}
+              type={submissionStatus}
+            />
+          </div>
+          {!isTrainerAccount && trainerProfileName && (
+            <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
+          )}
+        </div>
+      </Link>
+      <AppButton classes={{ root: 'py-2.5' }} component={Link} href={href}>
+        {getButtonText(submissionStatus, isTrainerAccount)}
+      </AppButton>
+    </SubmissionCardContainer>
+  );
+};
+
+export default SubmissionCard;
