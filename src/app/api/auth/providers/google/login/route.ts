@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
-import { getQueryParamError } from '@/app/(auth)/_utils';
+import { getQueryParamError } from '@/app/[locale]/(auth)/_utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 export async function GET(request: NextRequest) {

@@ -1,8 +1,8 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { ReportType, reportTypeToLabel } from '@/app/(content)/payments/utils';
-import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
+import { ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
+import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import ReportReady from '@/emails/report-ready';
 import { sendMail } from '@/utils/sendgrid';
 import getStripe from '@/utils/stripe/get-stripe';

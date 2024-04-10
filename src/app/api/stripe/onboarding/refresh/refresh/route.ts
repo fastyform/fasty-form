@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import actionPaymentOnboardingRedirect from '@/app/(content)/payments/@unverified/action-payment-onboarding-redirect';
-import { stripeOnboardingSchema } from '@/app/(content)/payments/utils';
+import actionPaymentOnboardingRedirect from '@/app/[locale]/(content)/payments/@unverified/action-payment-onboarding-redirect';
+import { stripeOnboardingSchema } from '@/app/[locale]/(content)/payments/utils';
 
 export async function GET(request: Request) {
   try {
