@@ -3,13 +3,12 @@
 import dayjs from 'dayjs';
 import { revalidatePath } from 'next/cache';
 import { editProfileSchema } from '@/app/(content)/_components/edit-profile-form/_utils/edit-profile-form';
-import { PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
+import { PLNToGrosz, StripeConstants } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 interface Payload {

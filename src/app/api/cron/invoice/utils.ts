@@ -4,7 +4,7 @@ import fontkit from '@pdf-lib/fontkit';
 import dayjs, { Dayjs } from 'dayjs';
 import { PDFDocument, PDFFont } from 'pdf-lib';
 import Stripe from 'stripe';
-import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
+import { groszToPLN } from '@/utils/stripe';
 
 export type InvoiceData = {
   invoice_number: string;

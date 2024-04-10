@@ -2,10 +2,10 @@
 
 import { redirect } from 'next/navigation';
 import { onboardingFormSchema } from '@/app/(content)/_components/onboarding-form/_utils';
-import { PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
+import { PLNToGrosz } from '@/utils/stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionOnBoarding = async (prevState: FormState, data: FormData) => {

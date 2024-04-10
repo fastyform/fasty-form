@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server';
-import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import { groszToPLN, StripeConstants } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 type Accumulator = {

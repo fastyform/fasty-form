@@ -1,5 +1,5 @@
-import { APP_FEE } from '@/app/(stripe)/stripe/_utils/calculate-fees';
 import Constants from '@/utils/constants';
+import { APP_FEE } from '@/utils/stripe';
 
 const tosData = {
   Wstęp: [
