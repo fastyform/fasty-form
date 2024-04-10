@@ -36,7 +36,7 @@ export const getTrainerSubmissions = async (searchParams: SearchParams) => {
   let { submissionsQuery, submissionsCountQuery } = getSubmissionQueries(range, 'ordered_submissions_trainer');
 
   if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
-    const status = searchParams.filter;
+    const status = `(${searchParams.filter})`;
 
     submissionsQuery = submissionsQuery.filter('status', 'in', status);
     submissionsCountQuery = submissionsCountQuery.filter('status', 'in', status);
@@ -52,7 +52,7 @@ export const getClientSubmissions = async (searchParams: SearchParams) => {
   let { submissionsQuery, submissionsCountQuery } = getSubmissionQueries(range, 'ordered_submissions_client');
 
   if (typeof searchParams.filter === 'string' && ALLOWED_FILTERS.includes(searchParams.filter)) {
-    const status = searchParams.filter === 'reviewed' ? '("reviewed","paidout")' : searchParams.filter;
+    const status = searchParams.filter === 'reviewed' ? '("reviewed","paidout")' : `(${searchParams.filter})`;
 
     submissionsQuery = submissionsQuery.filter('status', 'in', status);
     submissionsCountQuery = submissionsCountQuery.filter('status', 'in', status);
