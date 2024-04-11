@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import NotFoundIcon from '@/app/[locale]/(content)/submissions/_assets/not-found-icon';
 import {
   getClientSubmissions,
@@ -25,17 +26,13 @@ interface SubmissionsProps {
 }
 
 const Submissions = async ({ searchParams, isTrainerAccount, userId }: SubmissionsProps) => {
+  const t = await getTranslations();
   const { submissions, submissionsCount } = isTrainerAccount
     ? await getTrainerSubmissions(searchParams)
     : await getClientSubmissions(searchParams);
 
   if (submissions.error || submissionsCount.error)
-    return (
-      <h2 className="text-base text-white">
-        Napotkaliśmy problem przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub, jeśli to nie pomoże,
-        skontaktuj się z nami.
-      </h2>
-    );
+    return <h2 className="text-base text-white">{t('SUBMISSIONS_ERROR')}</h2>;
 
   const hasSubmissions = submissions.data.length > 0;
 
@@ -46,8 +43,8 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
           <NotFoundIcon className="w-full" />
         </div>
         <div className="flex max-w-sm flex-col justify-center gap-2.5 text-center text-white">
-          <h2 className="text-xl font-bold md:text-2xl">Nic tu jeszcze nie ma!</h2>
-          <p>Twoje zgłoszenia pojawią się tutaj, gdy wykupisz weryfikację techniki u wybranego trenera!</p>
+          <h2 className="text-xl font-bold md:text-2xl">{t('SUBMISSIONS_EMPTY_CLIENT_TITLE')}</h2>
+          <p>{t('SUBMISSIONS_EMPTY_CLIENT_DESCRIPTION')}</p>
         </div>
       </div>
     );
@@ -65,11 +62,8 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
           width={409}
         />
         <div className="flex max-w-md flex-col items-center justify-center text-center text-white">
-          <h2 className="mb-2.5 text-xl font-bold md:text-2xl">Udostępnij swój profil trenera!</h2>
-          <p className="mb-5">
-            Twoje zgłoszenia pojawią się tutaj, gdy klienci wykupią u Ciebie analizę techniki. Zdobądź klientów
-            udostępniając profil na twoich social mediach.
-          </p>
+          <h2 className="mb-2.5 text-xl font-bold md:text-2xl">{t('SUBMISSIONS_EMPTY_TRAINER_TITLE')}</h2>
+          <p className="mb-5">{t('SUBMISSIONS_EMPTY_TRAINER_DESCRIPTION')}</p>
           <ShareProfileButton isIconOnMobile={false} trainerDetails={trainerDetails} />
         </div>
       </div>

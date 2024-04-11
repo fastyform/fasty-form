@@ -63,10 +63,10 @@ const FilterTabs = ({
         }}
         onChange={handleChange}
       >
-        <CustomTab label={t('SUBMISSIONS_ALL')} value="all" />
-        <CustomTab label="Oczekujące" value="unreviewed" />
-        <CustomTab label="Sprawdzone" value="reviewed" />
-        {isTrainerAccount && <CustomTab label="Wypłacone" value="paidout" />}
+        {(['all', 'unreviewed', 'reviewed'] as const).map((filter) => (
+          <CustomTab key={filter} label={t(`SUBMISSIONS_${filter}`)} value={filter} />
+        ))}
+        {isTrainerAccount && <CustomTab label={t('SUBMISSIONS_paidout')} value="paidout" />}
       </TabList>
     </TabContext>
   );

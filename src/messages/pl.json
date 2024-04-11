@@ -1,4 +1,20 @@
 {
-  "SUBMISSIONS_ALL": "Wszystkie",
-  "SUBMISSIONS_YOURS": "Twoje zgłoszenia analizy techniki"
+  "SUBMISSIONS_EMPTY_CLIENT_DESCRIPTION": "Twoje zgłoszenia pojawią się tutaj, gdy wykupisz weryfikację techniki u wybranego trenera!",
+  "SUBMISSIONS_EMPTY_CLIENT_TITLE": "Nic tu jeszcze nie ma!",
+  "SUBMISSIONS_EMPTY_TRAINER_DESCRIPTION": "Twoje zgłoszenia pojawią się tutaj, gdy klienci wykupią u Ciebie analizę techniki. Zdobądź klientów udostępniając profil na twoich social mediach.",
+  "SUBMISSIONS_EMPTY_TRAINER_TITLE": "Udostępnij swój profil trenera!",
+  "SUBMISSIONS_ERROR": "Napotkaliśmy problem przy pobieraniu twoich zgłoszeń. Spróbuj odświeżyć stronę lub, jeśli to nie pomoże, skontaktuj się z nami.",
+  "SUBMISSIONS_YOURS": "Twoje zgłoszenia analizy techniki",
+  "SUBMISSIONS_all": "Wszystkie",
+  "SUBMISSIONS_paid": "Zapłacone",
+  "SUBMISSIONS_paidout": "Wypłacone",
+  "SUBMISSIONS_reviewed": "Sprawdzone",
+  "SUBMISSIONS_skeleton": "Oczekujące",
+  "SUBMISSIONS_unreviewed": "Oczekujące",
+  "SUBMISSION_ASSES": "Oceń technikę",
+  "SUBMISSION_DETAILS": "Szczegóły",
+  "SUBMISSION_FINISH_ORDER": "Dokończ <NewLine></NewLine> zamówienie",
+  "SUBMISSION_SEND": "Wyślij wideo",
+  "SUBMISSION_THUMBNAIL_EMPTY_IMG_ALT": "Brak miniaturki zgłoszenia",
+  "SUBMISSION_THUMBNAIL_IMG_ALT": "Miniaturka zgłoszenia wideo"
 }

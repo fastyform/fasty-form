@@ -1,26 +1,28 @@
 import { ReactNode, Suspense } from 'react';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-import { SubmissionStatus } from '@/utils/types';
+
+import { MessageKey, SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
   <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>
 );
 
-const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean) => {
+const getButtonText = (submissionStatus: SubmissionStatus, isTrainerAccount: boolean): MessageKey => {
   if (submissionStatus === 'paid') {
-    return 'Wyślij wideo';
+    return 'SUBMISSION_SEND';
   }
 
   if (isTrainerAccount && submissionStatus === 'unreviewed') {
-    return 'Oceń technikę';
+    return 'SUBMISSION_ASSES';
   }
 
-  return 'Szczegóły';
+  return 'SUBMISSION_DETAILS';
 };
 
 interface SubmissionCardProps {
@@ -36,6 +38,7 @@ const SubmissionCard = async ({
   submissionStatus,
   videoKey,
 }: SubmissionCardProps) => {
+  const t = await getTranslations();
   const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
@@ -61,7 +64,7 @@ const SubmissionCard = async ({
         </div>
       </Link>
       <AppButton classes={{ root: 'py-2.5' }} component={Link} href={href}>
-        {getButtonText(submissionStatus, isTrainerAccount)}
+        {t(getButtonText(submissionStatus, isTrainerAccount))}
       </AppButton>
     </SubmissionCardContainer>
   );

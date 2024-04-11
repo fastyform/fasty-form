@@ -5,10 +5,11 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { useMessages } from 'next-intl';
 import Providers from '@/app/[locale]/providers';
 import Constants, { Locale, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import theme from '@/utils/theme';
+import NextIntlProvider from './next-intl-provider';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
@@ -39,7 +40,7 @@ const RootLayout = ({ children, params: { locale } }: { children: React.ReactNod
   return (
     <html lang={locale}>
       <body className={plusJakartaSans.className} id="body">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlProvider locale={locale} messages={messages}>
           <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
@@ -48,7 +49,7 @@ const RootLayout = ({ children, params: { locale } }: { children: React.ReactNod
               </Providers>
             </ThemeProvider>
           </AppRouterCacheProvider>
-        </NextIntlClientProvider>
+        </NextIntlProvider>
       </body>
       {process.env.NODE_ENV !== 'development' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
     </html>
