@@ -1,4 +1,4 @@
-create view "public"."ordered_submissions_client" as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_client" with (security_invoker = on) as  SELECT submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
@@ -20,7 +20,7 @@ create view "public"."ordered_submissions_client" as  SELECT submissions.created
         END;
 
 
-create view "public"."ordered_submissions_trainer" as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_trainer" with (security_invoker = on) as  SELECT submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
