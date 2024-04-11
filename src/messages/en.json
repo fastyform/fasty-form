@@ -1,4 +1,7 @@
 {
-  "SUBMISSIONS_ALL": "All",
-  "SUBMISSIONS_YOURS": "Your form analysis submissions"
+  "SUBMISSIONS_YOURS": "Your form analysis submissions",
+  "SUBMISSIONS_all": "All",
+  "SUBMISSIONS_paidout": "",
+  "SUBMISSIONS_reviewed": "",
+  "SUBMISSIONS_unreviewed": ""
 }
