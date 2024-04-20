@@ -1,11 +1,15 @@
 'use client';
 
-import Constants from '@/utils/constants';
+import { useTranslations } from 'next-intl';
 
-const TrainerError = () => (
-  <div className="lg:mt-10">
-    <h2 className="text-white">{Constants.COMMON_ERROR_MESSAGE}</h2>
-  </div>
-);
+const TrainerError = () => {
+  const t = useTranslations();
+
+  return (
+    <div className="lg:mt-10">
+      <h2 className="text-white">{t('COMMON_ERROR')}</h2>
+    </div>
+  );
+};
 
 export default TrainerError;

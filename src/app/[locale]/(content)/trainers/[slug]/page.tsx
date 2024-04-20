@@ -3,13 +3,14 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
 import { Database } from '@/utils/supabase/supabase';
-import BuyButton from './_components/buy-form/buy-button';
+import BuyButton from './_components/buy-button';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
@@ -19,6 +20,8 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
   const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
   const stripeOnboardingRedirect = trainerDetails.stripe_onboarding_status !== 'verified' && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
+  const t = await getTranslations();
+
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
 
@@ -27,7 +30,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
       <div className="relative mb-auto mt-auto aspect-square w-full max-w-sm rounded-full border border-gray-600 object-cover lg:mb-0 lg:mt-0">
         <Image
           fill
-          alt={`${trainerDetails.profile_name} profile image`}
+          alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
           className="rounded-full"
           src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
         />
@@ -39,7 +42,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
             {trainerDetails.profile_name}
           </h1>
           <span className="text-base text-white lg:text-xl">
-            Analiza techniki (jedno wideo) -{' '}
+            {t('TRAINERS_PAGE_SERVICE_NAME')}
             <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
           </span>
         </div>
@@ -51,25 +54,28 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
 
 export default TrainerPage;
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+interface MetadataParams {
+  params: { slug: string; locale: string };
+}
+
+export async function generateMetadata({ params: { slug, locale } }: MetadataParams): Promise<Metadata> {
   const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
-  const { data: trainer, error } = await supabase
+  const { data: trainer } = await supabase
     .from('trainers_details')
     .select('profile_name')
-    .eq('profile_slug', params.slug)
+    .eq('profile_slug', slug)
     .single();
 
-  if (!trainer || error || !trainer.profile_name)
-    return {
-      title: `Profil Trenera - ${Constants.APP_NAME}`,
-      description: `Zakup analizę techniki u trenera w ${Constants.APP_NAME}.`,
-    };
+  const t = await getTranslations({ locale });
 
   return {
-    title: `Profil Trenera ${trainer.profile_name} - ${Constants.APP_NAME}`,
-    description: `Zakup analizę techniki u trenera ${trainer.profile_name} w ${Constants.APP_NAME}.`,
+    title: t('TRAINERS_PAGE_METADATA_TITLE', { profileName: trainer?.profile_name, appName: Constants.APP_NAME }),
+    description: t('TRAINERS_PAGE_METADATA_DESCRIPTION', {
+      profileName: trainer?.profile_name,
+      appName: Constants.APP_NAME,
+    }),
   };
 }

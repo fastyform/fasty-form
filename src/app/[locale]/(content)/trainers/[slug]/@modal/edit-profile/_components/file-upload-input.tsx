@@ -4,18 +4,25 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import prettyBytes from 'pretty-bytes';
 import { twMerge } from 'tailwind-merge';
+import readFile from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/_utils/read-files';
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
-import CropperDialog from './_components/cropper-dialog';
-import readFile from './_utils/read-files';
+import CropperDialog from './cropper-dialog';
 
-const MAX_FILE_SIZE = 20971520;
-const ERROR_MESSAGES: { [key: string]: string } = {
-  'file-invalid-type': 'Akceptowalne typy plików to: .jgp, .jpeg, .png, .webp',
-  'file-too-large': 'Maksymalna wielkość pliku to 20MB.',
-  'too-many-files': 'Maksymalnie jedno zdjęcie',
-};
+const MAX_FILE_SIZE = 20000000;
+const ERROR_MESSAGES = ['file-invalid-type', 'file-too-large', 'too-many-files'] as const;
+const ACCEPTED_FILE_EXTENSIONS = '.jgp, .jpeg, .png, .webp';
+
+interface FileUploadInputProps {
+  setImageBlob: Dispatch<SetStateAction<Blob | null>>;
+  imageBlob: Blob | null;
+  profileImageUrl: string | null;
+  setIsDeleting: Dispatch<SetStateAction<boolean>>;
+  isDeleting: boolean;
+}
 
 const FileUploadInput = ({
   setImageBlob,
@@ -23,13 +30,8 @@ const FileUploadInput = ({
   profileImageUrl,
   setIsDeleting,
   isDeleting,
-}: {
-  setImageBlob: Dispatch<SetStateAction<Blob | null>>;
-  imageBlob: Blob | null;
-  profileImageUrl: string | null;
-  setIsDeleting: Dispatch<SetStateAction<boolean>>;
-  isDeleting: boolean;
-}) => {
+}: FileUploadInputProps) => {
+  const t = useTranslations();
   const [file, setFile] = useState<string>('');
   const { getRootProps, getInputProps, open } = useDropzone({
     maxSize: MAX_FILE_SIZE,
@@ -40,7 +42,16 @@ const FileUploadInput = ({
       'image/webp': ['.webp'],
     },
     onDropRejected: (filesRejected) => {
-      filesRejected[0].errors.map((error) => notify.error(ERROR_MESSAGES[error.code]));
+      filesRejected[0].errors.forEach((error) => {
+        if (ERROR_MESSAGES.includes(error.code)) {
+          notify.error(
+            t(`TRAINERS_EDIT_PROFILE_IMAGE_INPUT_ERROR_${error.code as (typeof ERROR_MESSAGES)[number]}` as const, {
+              fileExtensions: ACCEPTED_FILE_EXTENSIONS,
+              maxSize: prettyBytes(MAX_FILE_SIZE),
+            }),
+          );
+        }
+      });
     },
     onDropAccepted: async (filesAccepted) => {
       const imageDataUrl = await readFile(filesAccepted[0]);
@@ -67,14 +78,14 @@ const FileUploadInput = ({
       >
         <input {...getInputProps()} />
         <CloudUploadIcon className="fill-yellow-400" fontSize="large" />
-        <span className=" text-yellow-400">Wgraj zdjęcie </span>
+        <span className=" text-yellow-400">{t('TRAINERS_EDIT_PROFILE_IMAGE_UPLOAD')}</span>
       </div>
 
       {!shouldInputBeVisible && (
         <>
           <div className="flex flex-wrap">
             <AppButton classes={{ root: 'py-2' }} className="text-sm" onClick={open}>
-              Zmień
+              {t('COMMON_CHANGE')}
             </AppButton>
             <AppButton
               classes={{ contained: 'bg-transparent', root: 'py-2' }}
@@ -85,7 +96,7 @@ const FileUploadInput = ({
                 setImageBlob(null);
               }}
             >
-              Usuń
+              {t('COMMON_DELETE')}
             </AppButton>
           </div>
           <div className="relative aspect-square h-36">

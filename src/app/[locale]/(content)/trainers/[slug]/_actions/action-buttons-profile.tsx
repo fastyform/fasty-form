@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import EditIcon from '@/app/[locale]/(content)/trainers/[slug]/_assets/edit-icon';
+import ShareProfileButton from '@/app/[locale]/(content)/trainers/[slug]/_components/share-profile-button';
 import checkIsTrainerProfileOwner from '@/app/[locale]/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
-import ShareProfileButton from './share-profile-button';
 
 const EditProfileButton = async ({ trainerProfileSlug }: { trainerProfileSlug: string }) => (
   <Link
