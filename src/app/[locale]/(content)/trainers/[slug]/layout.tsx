@@ -1,7 +1,8 @@
 import { ReactNode, Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
-import ActionButtonsProfile from './_components/action-buttons-profile';
+import ActionButtonsProfile from './_actions/action-buttons-profile';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
 const TrainerPageLayout = async ({
@@ -13,6 +14,7 @@ const TrainerPageLayout = async ({
   modal: ReactNode;
   params: { slug: string };
 }) => {
+  const t = await getTranslations();
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
 
   return (
@@ -36,15 +38,18 @@ const TrainerPageLayout = async ({
             <div className="flex w-full flex-col items-center gap-10">
               <div className="flex flex-col items-center gap-2.5">
                 <AppSkeletonWrapper>
-                  <span className="invisible text-center text-2xl font-bold sm:text-4xl md:text-6xl">Jan Kowalski</span>
+                  <span className="invisible text-center text-2xl font-bold sm:text-4xl md:text-6xl">
+                    Lorem ipsum dolor
+                  </span>
                 </AppSkeletonWrapper>
                 <AppSkeletonWrapper>
                   <span className="invisible text-base lg:text-xl">
-                    Analiza techniki (jedno wideo) - <span className="font-bold">25zł </span>
+                    {t('TRAINERS_PAGE_SERVICE_NAME')}
+                    <span className="font-bold">25 zł</span>
                   </span>
                 </AppSkeletonWrapper>
               </div>
-              <AppSkeletonButton>Kup analizę techniki</AppSkeletonButton>
+              <AppSkeletonButton>{t('TRAINERS_PAGE_BUY_BUTTON')}</AppSkeletonButton>
             </div>
           </div>
         }

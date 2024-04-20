@@ -6,18 +6,19 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButtonProps } from '@mui/lab';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import {
-  editProfileSchema,
   EditProfileValues,
-} from '@/app/[locale]/(content)/_components/edit-profile-form/_utils/edit-profile-form';
+  getEditProfileSchema,
+} from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/_utils/edit-profile';
+import actionEditProfile from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/action-edit-profile';
 import AppButton from '@/components/app-button';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
 import notify from '@/utils/notify';
-import actionEditProfile from './_actions/action-edit-profile';
-import FileUploadInput from './_components/file-upload-input/file-upload-input';
+import FileUploadInput from './file-upload-input';
 
 interface Props extends LoadingButtonProps {
   isValid: boolean;
@@ -30,22 +31,21 @@ const SaveProfileButton = ({ isValid, isLoading, ...props }: Props) => {
   return <AppButton loading={(pending && isValid) || isLoading} type="submit" {...props} />;
 };
 
-const EditProfileForm = ({
-  defaultFormData,
-  profileImageUrl,
-  trainerProfileSlug,
-}: {
+interface EditProfileFormProps {
   defaultFormData: EditProfileValues;
   profileImageUrl: string | null;
   trainerProfileSlug: string;
-}) => {
+}
+
+const EditProfileForm = ({ defaultFormData, profileImageUrl, trainerProfileSlug }: EditProfileFormProps) => {
+  const t = useTranslations();
   const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
   const [state, formAction] = useFormState(actionEditProfile, formDefaultState);
   const { control, handleSubmit, formState } = useForm<EditProfileValues>({
-    resolver: zodResolver(editProfileSchema),
+    resolver: zodResolver(getEditProfileSchema(t)),
     defaultValues: defaultFormData,
     mode: 'onTouched',
   });
@@ -64,12 +64,12 @@ const EditProfileForm = ({
       if (state.isSuccess) {
         setIsRedirecting(true);
         router.push(`/trainers/${trainerProfileSlug}`);
-        notify.success('Zapisano zmiany');
+        notify.success(t('COMMON_CHANGES_SAVED'));
       }
     };
 
     handleAfterFormSubmit();
-  }, [router, state.isSuccess, trainerProfileSlug]);
+  }, [router, state.isSuccess, trainerProfileSlug, t]);
 
   return (
     <form action={handleFormAction} className="flex grow flex-col gap-5">
@@ -77,7 +77,7 @@ const EditProfileForm = ({
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
           <span className="text-white">
-            Cena za analizę techniki jednego wideo <span className="text-yellow-400">(PLN)</span>
+            {t('TRAINERS_EDIT_PROFILE_PRICE_LABEL')} <span className="text-yellow-400">(PLN)</span>
           </span>
           <Controller
             control={control}
@@ -88,11 +88,11 @@ const EditProfileForm = ({
           />
         </div>
         <div className="flex flex-col gap-2.5">
-          <span className="text-white">Nazwa profilu</span>
+          <span className="text-white">{t('TRAINERS_EDIT_PROFILE_NAME_LABEL')}</span>
           <AppInputForm control={control} fieldName="profileName" />
         </div>
         <div className="flex flex-col items-center gap-2.5">
-          <span className="mr-auto text-white">Zdjęcie profilowe</span>
+          <span className="mr-auto text-white">{t('TRAINERS_EDIT_PROFILE_IMAGE_LABEL')}</span>
           <FileUploadInput
             imageBlob={imageBlob}
             isDeleting={isDeleting}
@@ -108,7 +108,7 @@ const EditProfileForm = ({
           className="text-sm text-white"
           onClick={() => router.push(`/trainers/${trainerProfileSlug}`)}
         >
-          Anuluj
+          {t('COMMON_CANCEL')}
         </AppButton>
         <SaveProfileButton
           classes={{ root: 'grow' }}
@@ -116,7 +116,7 @@ const EditProfileForm = ({
           isLoading={isRedirecting}
           isValid={formState.isValid}
         >
-          Zapisz
+          {t('COMMON_SAVE')}
         </SaveProfileButton>
       </div>
     </form>

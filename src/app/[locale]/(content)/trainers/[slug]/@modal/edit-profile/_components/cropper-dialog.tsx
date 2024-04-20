@@ -1,21 +1,20 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Cropper, { Area, Point } from 'react-easy-crop';
-import getCroppedImg from '@/app/[locale]/(content)/_components/edit-profile-form/_components/file-upload-input/_utils/get-cropped-img';
+import { useTranslations } from 'next-intl';
+import getCroppedImg from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/_utils/get-cropped-img';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
 import FileUploadSlider from './file-upload-slider';
 
-const CropperDialog = ({
-  setImageBlob,
-  file,
-  setFile,
-  setIsDeleting,
-}: {
+interface CropperDialogProps {
   setImageBlob: Dispatch<SetStateAction<Blob | null>>;
   file: string;
   setFile: Dispatch<SetStateAction<string>>;
   setIsDeleting: Dispatch<SetStateAction<boolean>>;
-}) => {
+}
+
+const CropperDialog = ({ setImageBlob, file, setFile, setIsDeleting }: CropperDialogProps) => {
+  const t = useTranslations();
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -51,9 +50,9 @@ const CropperDialog = ({
         />
         <div>
           <div>
-            <span className="text-sm text-white">Przybliżenie</span>
+            <span className="text-sm text-white">{t('TRAINERS_EDIT_PROFILE_CROPPER_ZOOM')}</span>
             <FileUploadSlider
-              aria-labelledby="Przybliż"
+              aria-labelledby={t('TRAINERS_EDIT_PROFILE_CROPPER_ZOOM')}
               max={3}
               min={1}
               step={0.1}
@@ -62,9 +61,9 @@ const CropperDialog = ({
             />
           </div>
           <div>
-            <span className="text-sm text-white">Rotacja</span>
+            <span className="text-sm text-white">{t('TRAINERS_EDIT_PROFILE_CROPPER_ROTATION')}</span>
             <FileUploadSlider
-              aria-labelledby="Rotacja"
+              aria-labelledby={t('TRAINERS_EDIT_PROFILE_CROPPER_ROTATION')}
               max={360}
               min={0}
               step={1}
@@ -73,7 +72,7 @@ const CropperDialog = ({
             />
           </div>
           <AppButton className="w-full" onClick={handleImageCrop}>
-            Przytnij zdjęcie
+            {t('TRAINERS_EDIT_PROFILE_CROPPER_CROP_IMAGE')}
           </AppButton>
         </div>
       </div>

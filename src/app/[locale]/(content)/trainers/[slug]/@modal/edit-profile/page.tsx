@@ -1,14 +1,16 @@
 import { redirect } from 'next/navigation';
-import { EditProfileValues } from '@/app/[locale]/(content)/_components/edit-profile-form/_utils/edit-profile-form';
-import EditProfileForm from '@/app/[locale]/(content)/_components/edit-profile-form/edit-profile-form';
+import { getTranslations } from 'next-intl/server';
 import checkIsTrainerProfileOwner from '@/app/[locale]/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from '@/app/[locale]/(content)/trainers/[slug]/_utils/get-trainer-id-by-slug';
 import AppModal from '@/components/app-modal';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
+import EditProfileForm from './_components/edit-profile-form';
+import { EditProfileValues } from './_utils/edit-profile';
 
 const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
+  const t = await getTranslations();
   const user = await getUserWithNull();
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
   const trainerDetails = await getTrainerDetailsById(trainerId);
@@ -26,7 +28,7 @@ const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
   return (
     <AppModal redirectUrl={`/trainers/${params.slug}`}>
       <section className="min-h-screen-responsive flex w-screen max-w-2xl flex-col gap-5 border border-gray-600 bg-shark px-5 py-10 min-[672px]:min-h-0 min-[672px]:rounded-xl min-[672px]:px-10">
-        <h1 className="text-xl font-bold text-white">Edytuj swój profil</h1>
+        <h1 className="text-xl font-bold text-white">{t('TRAINERS_EDIT_PROFILE_TITLE')}</h1>
         <EditProfileForm
           defaultFormData={defaultFormData}
           profileImageUrl={trainerDetails.profile_image_url}

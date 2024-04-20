@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs';
 import { revalidatePath } from 'next/cache';
-import { editProfileSchema } from '@/app/[locale]/(content)/_components/edit-profile-form/_utils/edit-profile-form';
+import { getTranslations } from 'next-intl/server';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import getLoggedInUser from '@/utils/get-logged-in-user';
@@ -10,6 +10,7 @@ import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import { PLNToGrosz, StripeConstants } from '@/utils/stripe';
 import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import { getEditProfileSchema } from './_utils/edit-profile';
 
 interface Payload {
   data: FormData;
@@ -18,9 +19,10 @@ interface Payload {
 }
 
 const actionEditProfile = async (prevState: FormState, { data, isDeleting, trainerProfileSlug }: Payload) => {
+  const t = await getTranslations();
   try {
     const stripe = getStripe();
-    const formSchemaParsed = editProfileSchema.parse({
+    const formSchemaParsed = getEditProfileSchema(t).parse({
       servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
       profileName: data.get('profileName'),
     });
@@ -85,7 +87,7 @@ const actionEditProfile = async (prevState: FormState, { data, isDeleting, train
 
     return getResponse('', true);
   } catch {
-    return getResponse('Coś poszło nie tak podczas zapisywania profilu. Spróbuj ponownie lub skontaktuj się z nami.');
+    return getResponse(t('TRAINERS_EDIT_PROFILE_ERROR_SAVE'));
   }
 };
 
