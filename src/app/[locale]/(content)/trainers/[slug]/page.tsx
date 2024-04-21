@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
@@ -72,10 +71,9 @@ export async function generateMetadata({ params: { slug, locale } }: MetadataPar
   const t = await getTranslations({ locale });
 
   return {
-    title: t('TRAINERS_PAGE_METADATA_TITLE', { profileName: trainer?.profile_name, appName: Constants.APP_NAME }),
+    title: t('TRAINERS_PAGE_METADATA_TITLE'),
     description: t('TRAINERS_PAGE_METADATA_DESCRIPTION', {
       profileName: trainer?.profile_name,
-      appName: Constants.APP_NAME,
     }),
   };
 }
