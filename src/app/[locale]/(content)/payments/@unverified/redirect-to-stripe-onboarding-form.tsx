@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormControlLabel, InputAdornment, Radio, RadioGroup, RadioProps } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/[locale]/(content)/payments/utils';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -15,6 +16,7 @@ import actionPaymentOnboardingRedirect from './action-payment-onboarding-redirec
 const RadioButton = (props: RadioProps) => <Radio {...props} className="text-yellow-400" />;
 
 const RedirectToStripeOnboardingForm = () => {
+  const t = useTranslations();
   const [isRedirecting, setIsRedirecting] = useState(false);
   const actionPaymentOnboardingRedirectMutation = useMutation({
     mutationFn: (values: StripeOnboardingValues) => actionPaymentOnboardingRedirect(values),
@@ -32,7 +34,7 @@ const RedirectToStripeOnboardingForm = () => {
       lastName: '',
       nip: '',
     },
-    resolver: zodResolver(stripeOnboardingSchema),
+    resolver: zodResolver(stripeOnboardingSchema(t)),
   });
 
   return (
@@ -41,7 +43,7 @@ const RedirectToStripeOnboardingForm = () => {
       onSubmit={handleSubmit((values) => actionPaymentOnboardingRedirectMutation.mutate(values))}
     >
       <div className="flex flex-col items-start gap-1">
-        <span className="text-white">Typ biznesu</span>
+        <span className="text-white">{t('PAYMENTS_ACTIVATE_FORM_BUSINESS_TYPE_LABEL')}</span>
         <Controller
           control={control}
           name="businessType"
@@ -50,13 +52,13 @@ const RedirectToStripeOnboardingForm = () => {
               <FormControlLabel
                 classes={{ label: 'text-white' }}
                 control={<RadioButton />}
-                label="Osoba fizyczna"
+                label={t('PAYMENTS_ACTIVATE_FORM_INDIVIDUAL_LABEL')}
                 value="individual"
               />
               <FormControlLabel
                 classes={{ label: 'text-white' }}
                 control={<RadioButton />}
-                label="Firma"
+                label={t('PAYMENTS_ACTIVATE_FORM_COMPANY_LABEL')}
                 value="company"
               />
             </RadioGroup>
@@ -66,14 +68,18 @@ const RedirectToStripeOnboardingForm = () => {
       <div className="flex w-full flex-col gap-4">
         {watch('businessType') === 'individual' ? (
           <>
-            <AppInputForm control={control} fieldName="firstName" label="Imię" />
-            <AppInputForm control={control} fieldName="lastName" label="Nazwisko" />
+            <AppInputForm
+              control={control}
+              fieldName="firstName"
+              label={t('PAYMENTS_ACTIVATE_FORM_FIRST_NAME_LABEL')}
+            />
+            <AppInputForm control={control} fieldName="lastName" label={t('PAYMENTS_ACTIVATE_FORM_LAST_NAME_LABEL')} />
           </>
         ) : (
           <AppInputForm
             control={control}
             fieldName="nip"
-            label="Nip"
+            label={t('PAYMENTS_ACTIVATE_FORM_TAX_ID_LABEL')}
             placeholder="0123456789"
             InputProps={{
               startAdornment: (
@@ -90,7 +96,7 @@ const RedirectToStripeOnboardingForm = () => {
         loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting}
         type="submit"
       >
-        Aktywuj płatności
+        {t('PAYMENTS_ACTIVATE_FORM_BUTTON')}
       </AppButton>
     </form>
   );

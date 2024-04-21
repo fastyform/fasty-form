@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
-import Constants, { DATE_FORMAT } from '@/utils/constants';
+import { DATE_FORMAT } from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
 interface ReportReadyProps {
@@ -8,25 +9,24 @@ interface ReportReadyProps {
   reportType: ReportType;
   startDateTimestamp?: number;
   endDateTimestamp: number;
+  t: IntlShape;
 }
 
-const ReportReady = ({ downloadUrl, reportType, startDateTimestamp, endDateTimestamp }: ReportReadyProps) => (
-  <MailTemplate title={`Twój raport "${reportTypeToLabel[reportType]}" jest już gotowy!`}>
-    <MailTemplate.CallToAction href={downloadUrl}>Pobierz raport</MailTemplate.CallToAction>
-    <MailTemplate.LineBreak />
-    Cześć!
-    <MailTemplate.LineBreak />
-    Twój raport <strong>{reportTypeToLabel[reportType]}</strong>{' '}
-    <strong>
-      ({startDateTimestamp && `${dayjs.unix(startDateTimestamp).format(DATE_FORMAT)} -`}
-      {dayjs.unix(endDateTimestamp).format(DATE_FORMAT)})
-    </strong>{' '}
-    jest już gotowy do pobrania. Możesz pobrać go klikając w przycisk powyżej.
-    <MailTemplate.LineBreak />
-    Pozdrawiamy,
-    <br />
-    Zespół {Constants.APP_NAME}
-  </MailTemplate>
-);
+const ReportReady = ({ downloadUrl, reportType, startDateTimestamp, endDateTimestamp, t }: ReportReadyProps) => {
+  const reportName = `(${startDateTimestamp && `${dayjs.unix(startDateTimestamp).format(DATE_FORMAT)}`} - ${dayjs.unix(endDateTimestamp).format(DATE_FORMAT)})`;
+
+  return (
+    <MailTemplate title={t('MAIL_TEMPLATE_REPORT_READY_SUBJECT', { report: t(reportTypeToLabel[reportType]) })}>
+      <MailTemplate.CallToAction href={downloadUrl}>
+        {t('MAIL_TEMPLATE_REPORT_READY_DOWNLOAD')}
+      </MailTemplate.CallToAction>
+      <MailTemplate.LineBreak />
+      {t('MAIL_TEMPLATE_REPORT_READY_OPENING')}
+      <MailTemplate.LineBreak />
+      {t.rich('MAIL_TEMPLATE_REPORT_READY_CONTENT', { reportType: t(reportTypeToLabel[reportType]), reportName })}
+      <MailTemplate.Greetings t={t} />
+    </MailTemplate>
+  );
+};
 
 export default ReportReady;

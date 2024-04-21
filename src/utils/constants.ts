@@ -25,6 +25,7 @@ export const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 export const DATE_FORMAT = 'DD.MM.YY';
 
 export const LOCALES = ['pl'] as const;
+export const INTL_TIMEZONE = 'Europe/Warsaw';
 export type Locale = (typeof LOCALES)[number];
 
 export default Constants;

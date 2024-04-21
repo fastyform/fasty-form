@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
 import { z } from 'zod';
+import { IntlShape } from '@/utils/types';
 
 export type EditProfileValues = z.infer<ReturnType<typeof getEditProfileSchema>>;
 
-export const getEditProfileSchema = (t: ReturnType<typeof useTranslations>) =>
+export const getEditProfileSchema = (t: IntlShape) =>
   z.object({
     servicePrice: z.number().min(2).max(10000),
     profileName: z

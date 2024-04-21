@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { MenuItem } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import dayjs, { Dayjs } from 'dayjs';
+import { useTranslations } from 'next-intl';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { ALLOWED_REPORT_TYPES, ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
@@ -14,6 +15,7 @@ import AppDatePicker from '@/components/app-date-picker';
 import AppInput from '@/components/app-input/app-input';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
+import { IntlShape } from '@/utils/types';
 import actionGenerateReport from './action-generate-report';
 
 interface PaymentReportFormProps {
@@ -24,19 +26,21 @@ interface PaymentReportFormProps {
 
 const zodDay = z.custom<Dayjs>((val) => val instanceof dayjs, 'Invalid date');
 
-const formSchema = z
-  .object({
-    startDate: zodDay,
-    endDate: zodDay,
-  })
-  .refine((data) => data.startDate.isBefore(data.endDate, 'day'), {
-    message: 'Data początkowa musi być wcześniejsza niż data końcowa',
-    path: ['startDate'],
-  });
+const getFormSchema = (t: IntlShape) =>
+  z
+    .object({
+      startDate: zodDay,
+      endDate: zodDay,
+    })
+    .refine((data) => data.startDate.isBefore(data.endDate, 'day'), {
+      message: t('REPORT_DATE_SELECT_INVALID'),
+      path: ['startDate'],
+    });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<ReturnType<typeof getFormSchema>>;
 
 const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: PaymentReportFormProps) => {
+  const t = useTranslations();
   const [reportType, setReportType] = useState<ReportType>('connected_account_balance_change_from_activity.itemized.3');
 
   const reportDataStart = dayjs.unix(dataAvailableStart).utc();
@@ -51,7 +55,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
         firstDayOfCurrentMonthDate.unix() < reportDataStart.unix() ? reportDataStart : firstDayOfCurrentMonthDate,
       endDate: reportDataEnd,
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(getFormSchema(t)),
   });
 
   const generateReportMutation = useMutation({
@@ -63,7 +67,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
         stripeAccountId,
       }),
     onSuccess: () => {
-      notify.success('Rozpoczęto generowanie raportu');
+      notify.success(t('REPORT_SUCCESS_TOAST'));
     },
     onError: () => {
       notify.error(Constants.COMMON_ERROR_MESSAGE);
@@ -74,7 +78,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
     <div className="flex max-w-lg flex-col gap-6">
       <AppInput
         select
-        label="Raport"
+        label={t('REPORT_TYPE_SELECT_LABEL')}
         value={reportType}
         SelectProps={{
           MenuProps: {
@@ -85,7 +89,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
       >
         {ALLOWED_REPORT_TYPES.map((type) => (
           <MenuItem key={type} color="inherit" value={type}>
-            {reportTypeToLabel[type]}
+            {t(reportTypeToLabel[type])}
           </MenuItem>
         ))}
       </AppInput>
@@ -97,7 +101,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
             render={({ field, fieldState }) => (
               <AppDatePicker
                 disableFuture
-                label="Data początkowa"
+                label={t('REPORT_DATE_SELECT_START')}
                 minDate={reportDataStart}
                 name={field.name}
                 value={field.value}
@@ -121,7 +125,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
           render={({ field }) => (
             <AppDatePicker
               disableFuture
-              label="Data końcowa"
+              label={t('REPORT_DATE_SELECT_START')}
               maxDate={reportDataEnd}
               minDate={reportDataStart}
               name={field.name}
@@ -136,11 +140,9 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
         loading={generateReportMutation.isPending}
         onClick={form.handleSubmit((values) => generateReportMutation.mutate(values))}
       >
-        Wygeneruj raport
+        {t('REPORT_GENERATE')}
       </AppButton>
-      <p>
-        Kiedy raport będzie gotowy, dostaniesz <strong>wiadomość mailową</strong> z linkiem do pobrania.
-      </p>
+      <p>{t.rich('REPORT_CAPTION')}</p>
     </div>
   );
 };
