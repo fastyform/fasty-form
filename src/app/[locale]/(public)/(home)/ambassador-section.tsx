@@ -5,12 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import PublicContainer from '@/app/[locale]/(public)/_components/public-container';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
-import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 import { emailValidator } from '@/utils/validators';
 import actionJoinAmbassadorProgram from './action-join-ambassador-program';
@@ -20,6 +20,7 @@ interface AmbassadorProgramSectionProps {
 }
 
 const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) => {
+  const t = useTranslations();
   const form = useForm({
     defaultValues: { email: '' },
     resolver: zodResolver(z.object({ email: emailValidator })),
@@ -28,10 +29,10 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
   const joinAmbassadorProgramMutation = useMutation({
     mutationFn: (email: string) => actionJoinAmbassadorProgram(email),
     onSuccess: () => {
-      notify.success('Dziękujemy za wysłanie zgłoszenia!');
+      notify.success(t('HOME_AMBASSADOR_SUCCESS_MESSAGE'));
     },
     onError: () => {
-      notify.error(Constants.COMMON_ERROR_MESSAGE);
+      notify.error(t('COMMON_ERROR'));
     },
   });
 
@@ -41,11 +42,11 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
       <PublicContainer className="relative z-[1]">
         <PublicContainer.Content className="flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex max-w-md flex-col gap-2.5 lg:text-center">
-            <h2 className="text-2xl font-bold lg:text-3xl">Zostań naszym ambasadorem!</h2>
+            <h2 className="text-2xl font-bold lg:text-3xl">{t('HOME_AMBASSADOR_TITLE')}</h2>
             <p>
-              Dołącz do naszego programu. Zostaw swój adres email i skontaktujemy się z Tobą.{' '}
+              {t('HOME_AMBASSADOR_DESCRIPTION')}{' '}
               <Link className="font-bold text-yellow-400" href="/ambassador-program">
-                Dowiedz się więcej.
+                {t('HOME_AMBASSADOR_LEARN_MORE')}
               </Link>
             </p>
           </div>
@@ -59,9 +60,9 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
               Wyślij
             </AppButton>
             <p className="text-xs">
-              Wysyłając swój adres email zgadzasz się na kontakt drogą mailową oraz akceptujesz{' '}
+              {t('HOME_AMBASSADOR_ACCEPT_TERMS')}{' '}
               <Link className="font-semibold text-yellow-400" href="/ambassador-program">
-                Regulamin Programu
+                {t('HOME_AMBASSADOR_TERMS')}
               </Link>
               .
             </p>
