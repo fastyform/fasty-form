@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { FormControlLabel, Switch } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
@@ -15,12 +16,13 @@ interface NotificationsFormProps {
 }
 
 const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) => {
+  const t = useTranslations();
   const form = useForm({ defaultValues: { marketing_consent: defaultValue } });
 
   const updateNotificationsMutation = useMutation({
     mutationFn: (marketing_consent: boolean) => actionUpdateNotifications(marketing_consent),
     onError: () => notify.error(Constants.COMMON_ERROR_MESSAGE),
-    onSuccess: () => notify.success('Zapisano zmiany'),
+    onSuccess: () => notify.success(t('COMMON_CHANGES_SAVED')),
   });
 
   return (
@@ -32,7 +34,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
           render={({ field }) => (
             <FormControlLabel
               classes={{ label: 'text-white' }}
-              label="Dodatkowe powiadomienia"
+              label={t('SETTINGS_NOTIFICATIONS_LABEL')}
               name={field.name}
               control={
                 <Switch
@@ -53,7 +55,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
         loading={updateNotificationsMutation.isPending}
         onClick={form.handleSubmit((values) => updateNotificationsMutation.mutate(values.marketing_consent))}
       >
-        Zapisz
+        {t('COMMON_SAVE')}
       </AppButton>
     </>
   );
