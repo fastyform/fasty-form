@@ -1,4 +1,5 @@
 {
+  "AMBASSADOR_TOS_PAGE_TITLE": "Regulamin programu ambasadorskiego",
   "COMMON_CANCEL": "Anuluj",
   "COMMON_CHANGE": "Zmień",
   "COMMON_CHANGES_SAVED": "Zapisano zmiany",
@@ -84,6 +85,7 @@
   "PAYMENTS_STRIPE_ONBOARDING_ERROR_LAST_NAME": "Nazwisko jest wymagane",
   "PAYMENTS_STRIPE_ONBOARDING_ERROR_TAX_ID_REQUIRED": "Wymagany jest poprawny numer NIP",
   "PAYMENTS_UNVERIFIED_TITLE": "Twoje płatności",
+  "PRIVACY_POLICY_PAGE_TITLE": "Polityka prywatności",
   "PUBLIC_NAVBAR_GO_TO_APP_BUTTON": "Przejdź do",
   "REPORT_CAPTION": "Kiedy raport będzie gotowy, dostaniesz <Strong>wiadomość mailową</Strong> z linkiem do pobrania.",
   "REPORT_DATE_SELECT_END": "Data końcowa",
