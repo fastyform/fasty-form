@@ -1,10 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import AppButton from '@/components/app-button';
+import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 
-const FailurePaymentPage = ({ searchParams }: { searchParams: SearchParams }) => {
+const FailurePaymentPage = ({
+  searchParams,
+  params: { locale },
+}: {
+  searchParams: SearchParams;
+  params: { locale: Locale };
+}) => {
+  unstable_setRequestLocale(locale);
+
   const trainerProfileSlug = searchParams.trainer_profile_slug;
   if (!trainerProfileSlug) redirect('/submissions');
 

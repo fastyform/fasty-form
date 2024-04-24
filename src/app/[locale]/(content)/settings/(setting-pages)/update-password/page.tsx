@@ -1,8 +1,17 @@
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 import UpdatePasswordForm from './update-password-form';
 
-const UpdatePassword = ({ searchParams }: { searchParams: SearchParams }) => {
+const UpdatePassword = ({
+  searchParams,
+  params: { locale },
+}: {
+  searchParams: SearchParams;
+  params: { locale: Locale };
+}) => {
+  unstable_setRequestLocale(locale);
   const t = useTranslations();
 
   return (

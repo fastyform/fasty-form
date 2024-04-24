@@ -1,3 +1,5 @@
+import { ComponentType } from 'react';
+
 export const PRODUCTION_ORIGIN_URL = 'https://www.fastyform.com';
 
 const Constants = {
@@ -27,5 +29,8 @@ export const DATE_FORMAT = 'DD.MM.YY';
 export const LOCALES = ['pl'] as const;
 export const INTL_TIMEZONE = 'Europe/Warsaw';
 export type Locale = (typeof LOCALES)[number];
+export type LocaleComponents = {
+  [key in Locale]: ComponentType;
+};
 
 export default Constants;

@@ -1,7 +1,8 @@
 import { ReactNode, Suspense } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
+import { Locale } from '@/utils/constants';
 import ActionButtonsProfile from './_actions/action-buttons-profile';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
@@ -12,8 +13,10 @@ const TrainerPageLayout = async ({
 }: {
   children: ReactNode;
   modal: ReactNode;
-  params: { slug: string };
+  params: { slug: string; locale: Locale };
 }) => {
+  unstable_setRequestLocale(params.locale);
+
   const t = await getTranslations();
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
 

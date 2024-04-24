@@ -1,9 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import AppButton from '@/components/app-button';
+import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 
-const EmailVerificationSuccessPage = ({ searchParams }: { searchParams: SearchParams }) => {
+const EmailVerificationSuccessPage = ({
+  searchParams,
+  params: { locale },
+}: {
+  searchParams: SearchParams;
+  params: { locale: Locale };
+}) => {
+  unstable_setRequestLocale(locale);
+
   const hasRedirectPathParam = typeof searchParams.redirectPath === 'string';
 
   return (

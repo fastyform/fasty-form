@@ -1,32 +1,35 @@
-import Constants, { COMPANY_INFO } from '@/utils/constants';
-import tosData from './_utils/tos-data';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import Constants, { COMPANY_INFO, Locale, LocaleComponents } from '@/utils/constants';
+import TosPL from './translations/pl.mdx';
 
-const TermsOfServicePage = () => (
-  <>
-    <h1 className="text-2xl font-bold">
-      Regulamin <span className="text-yellow-400">{Constants.APP_NAME}</span>
-    </h1>
+const components: LocaleComponents = {
+  pl: TosPL,
+};
 
-    <div className="flex flex-col gap-5">
-      <h2 className="text-2xl">Definicje</h2>
-      <p>
-        <strong>Właściciel:</strong> {COMPANY_INFO}
-      </p>
-      <p>
-        <strong>Aplikacja:</strong> {Constants.APP_NAME}
-      </p>
-    </div>
-    {Object.entries(tosData).map(([title, descriptionPoints], index) => (
-      <div key={title} className="flex flex-col gap-5">
-        <h2 className="text-2xl">
-          {index + 1}. {title}
-        </h2>
-        {descriptionPoints.map((el, i) => (
-          <p key={el} className="ml-5" dangerouslySetInnerHTML={{ __html: `${index + 1}.${i + 1}. ${el}` }} />
-        ))}
+const TermsOfServicePage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+  const Component = components[locale];
+
+  const t = await getTranslations();
+
+  return (
+    <>
+      <h1 className="text-2xl font-bold">
+        {t('TOS_TITLE')} <span className="text-yellow-400">{Constants.APP_NAME}</span>
+      </h1>
+
+      <div className="flex flex-col gap-5">
+        <h2 className="text-2xl">{t('TOS_DEFINITION')}</h2>
+        <p>
+          <strong>{t('TOS_OWNER')}:</strong> {COMPANY_INFO}
+        </p>
+        <p>
+          <strong>{t('TOS_APP')}:</strong> {Constants.APP_NAME}
+        </p>
       </div>
-    ))}
-  </>
-);
+      <Component />
+    </>
+  );
+};
 
 export default TermsOfServicePage;

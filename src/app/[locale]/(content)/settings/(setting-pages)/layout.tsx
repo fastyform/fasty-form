@@ -1,9 +1,13 @@
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import SettingsMenu from '@/app/[locale]/(content)/settings/_components/settings-menu';
 import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
+import { Locale } from '@/utils/constants';
 
-const SettingPagesLayout = ({ children }: { children: ReactNode }) => {
+const SettingPagesLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = useTranslations();
 
   return (

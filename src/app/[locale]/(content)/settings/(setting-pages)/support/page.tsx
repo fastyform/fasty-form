@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import AppButton from '@/components/app-button';
+import { Locale } from '@/utils/constants';
 
-const SupportPage = () => {
+const SupportPage = ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = useTranslations();
 
   return (

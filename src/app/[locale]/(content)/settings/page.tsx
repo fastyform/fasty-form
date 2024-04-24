@@ -1,7 +1,11 @@
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Locale } from '@/utils/constants';
 import SettingsMenu from './_components/settings-menu';
 
-const SettingsPage = () => {
+const SettingsPage = ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = useTranslations();
 
   return (

@@ -1,13 +1,17 @@
 import { redirect } from 'next/navigation';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import { triggerRootNotFound } from '@/utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import SubmissionRequirementsForm from './_components/submission-requirements-form';
 
-const SubmissionRequirementsPage = async ({ params }: { params: { id: string } }) => {
+const SubmissionRequirementsPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
+  unstable_setRequestLocale(params.locale);
+
   const [user, submission] = await Promise.all([getLoggedInUser(), getSubmissionById(params.id)]);
 
   if (submission.status !== 'paid') {

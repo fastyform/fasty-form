@@ -2,8 +2,10 @@ import { Suspense } from 'react';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { redirect } from 'next/navigation';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/_components/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
@@ -15,7 +17,9 @@ import 'dayjs/locale/pl';
 dayjs.extend(dayjsUtc);
 dayjs.locale('pl');
 
-const SubmissionPage = async ({ params }: { params: { id: string } }) => {
+const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
+  unstable_setRequestLocale(params.locale);
+
   const user = await getLoggedInUser();
   const [isTrainerAccount, submission] = await Promise.all([
     checkIsTrainerAccount(user.id),
