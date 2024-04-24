@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getStripe from '@/utils/stripe/get-stripe';
@@ -9,7 +10,9 @@ import ReportsForm from './reports-form';
 
 dayjs.extend(utc);
 
-const PaymentsVerified = async () => {
+const PaymentsVerified = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = await getTranslations();
   const stripe = getStripe();
   const user = await getLoggedInUser();

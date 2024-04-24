@@ -1,15 +1,18 @@
 import { redirect } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import checkIsTrainerProfileOwner from '@/app/[locale]/(content)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from '@/app/[locale]/(content)/trainers/[slug]/_utils/get-trainer-id-by-slug';
 import AppModal from '@/components/app-modal';
+import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
 import EditProfileForm from './_components/edit-profile-form';
 import { EditProfileValues } from './_utils/edit-profile';
 
-const EditProfileModal = async ({ params }: { params: { slug: string } }) => {
+const EditProfileModal = async ({ params }: { params: { slug: string; locale: Locale } }) => {
+  unstable_setRequestLocale(params.locale);
+
   const t = await getTranslations();
   const user = await getUserWithNull();
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;

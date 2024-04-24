@@ -1,7 +1,11 @@
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Locale } from '@/utils/constants';
 import RedirectToStripeOnboardingForm from './redirect-to-stripe-onboarding-form';
 
-const PaymentsUnverified = () => {
+const PaymentsUnverified = ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = useTranslations();
 
   return (

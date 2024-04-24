@@ -1,7 +1,9 @@
 import { ReactNode, Suspense } from 'react';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import {
   SubmissionStatusBadge,
@@ -9,7 +11,15 @@ import {
   SubmissionUpdateDate,
 } from './_components/submissions-layout-parts';
 
-const SubmissionLayout = async ({ children, params }: { children: ReactNode; params: { id: string } }) => {
+const SubmissionLayout = async ({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { id: string; locale: Locale };
+}) => {
+  unstable_setRequestLocale(params.locale);
+
   const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 

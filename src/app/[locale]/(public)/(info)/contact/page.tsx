@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import Constants from '@/utils/constants';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import Constants, { Locale } from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
 import ContactForm from './_components/contact-form';
 
-const ContactPage = async () => {
+const ContactPage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const user = await getUserWithNull();
 
   return (

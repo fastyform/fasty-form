@@ -1,20 +1,22 @@
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { twJoin } from 'tailwind-merge';
 import AuthFooter from '@/app/[locale]/(auth)/_components/auth-footer';
 import PublicContainer from '@/app/[locale]/(public)/_components/public-container';
 import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-navbar-placeholder';
 import AppButton from '@/components/app-button';
-import Constants from '@/utils/constants';
+import Constants, { Locale } from '@/utils/constants';
 import Chevron from './_assets/chevron';
 import ContactStroke from './_assets/contact-stroke';
 import HomeArrow from './_assets/home-arrow';
 import AmbassadorProgramSection from './ambassador-section';
 import { appBenefitsIcons, appBenefitsKeys, heroBenefits, stepsData, stepsDataKeys } from './data';
 
-const HomePage = async () => {
+const HomePage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const t = await getTranslations();
 
   return (

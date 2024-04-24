@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { twJoin } from 'tailwind-merge';
 import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
@@ -12,7 +14,9 @@ import OnboardingForm from './_components/onboarding-form/onboarding-form';
 import OnboardingStripeStatusDialog from './_components/onboarding-stripe-status-dialog';
 import StripeOnboardingInfo from './_components/stripe-onboarding-info';
 
-const ContentLayout = async ({ children }: { children: ReactNode }) => {
+const ContentLayout = async ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
   const supabase = getSupabaseServerComponentClient();
   const user = await getUserWithNull();
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;

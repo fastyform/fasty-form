@@ -1,10 +1,16 @@
-import dynamic from 'next/dynamic';
-import { getTranslations } from 'next-intl/server';
-import Constants from '@/utils/constants';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import Constants, { Locale, LocaleComponents } from '@/utils/constants';
+import AmbassadorPL from './translations/pl.mdx';
 
-const AmbassadorProgram = async ({ params: { locale } }: { params: { locale: string } }) => {
+const components: LocaleComponents = {
+  pl: AmbassadorPL,
+};
+
+const AmbassadorProgram = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+  const Component = components[locale];
+
   const t = await getTranslations();
-  const Component = dynamic(() => import(`./translations/${locale}.mdx`));
 
   return (
     <>

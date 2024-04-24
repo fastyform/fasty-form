@@ -3,8 +3,9 @@ import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
+import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
@@ -13,7 +14,9 @@ import BuyButton from './_components/buy-button';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 
-const TrainerPage = async ({ params }: { params: { slug: string } }) => {
+const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale } }) => {
+  unstable_setRequestLocale(params.locale);
+
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
   const [trainerDetails, user] = await Promise.all([getTrainerDetailsById(trainerId), getUserWithNull()]);
   const isUserOwner = await checkIsTrainerProfileOwner(user, trainerId);
@@ -54,7 +57,7 @@ const TrainerPage = async ({ params }: { params: { slug: string } }) => {
 export default TrainerPage;
 
 interface MetadataParams {
-  params: { slug: string; locale: string };
+  params: { slug: string; locale: Locale };
 }
 
 export async function generateMetadata({ params: { slug, locale } }: MetadataParams): Promise<Metadata> {

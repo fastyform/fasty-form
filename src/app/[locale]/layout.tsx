@@ -6,8 +6,9 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { useMessages } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Providers from '@/app/[locale]/providers';
-import Constants, { Locale, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
+import Constants, { Locale, LOCALES, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import theme from '@/utils/theme';
 import NextIntlProvider from './next-intl-provider';
 
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children, params: { locale } }: { children: React.ReactNode; params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
   const messages = useMessages();
 
   return (
@@ -55,5 +57,9 @@ const RootLayout = ({ children, params: { locale } }: { children: React.ReactNod
     </html>
   );
 };
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
 
 export default RootLayout;
