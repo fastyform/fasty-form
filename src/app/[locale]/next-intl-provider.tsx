@@ -2,6 +2,8 @@
 
 import { ReactNode } from 'react';
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
+import { INTL_TIMEZONE } from '@/utils/constants';
+import defaultTranslationValues from '@/utils/default-translation-values';
 
 interface Props {
   children: ReactNode;
@@ -10,7 +12,12 @@ interface Props {
 }
 
 const NextIntlProvider = ({ children, locale, messages }: Props) => (
-  <NextIntlClientProvider locale={locale} messages={messages}>
+  <NextIntlClientProvider
+    defaultTranslationValues={defaultTranslationValues}
+    locale={locale}
+    messages={messages}
+    timeZone={INTL_TIMEZONE}
+  >
     {children}
   </NextIntlClientProvider>
 );

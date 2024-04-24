@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { getTranslations } from 'next-intl/server';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getStripe from '@/utils/stripe/get-stripe';
@@ -9,6 +10,7 @@ import ReportsForm from './reports-form';
 dayjs.extend(utc);
 
 const PaymentsVerified = async () => {
+  const t = await getTranslations();
   const stripe = getStripe();
   const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
@@ -27,22 +29,15 @@ const PaymentsVerified = async () => {
     <div className="grid grow grid-cols-1 gap-12 text-white md:grid-cols-2">
       <div className="flex flex-col gap-8">
         <div className="flex max-w-lg flex-col gap-2.5">
-          <h2 className="text-2xl font-semibold">Twoje saldo</h2>
-          <p>
-            Wypłata na konto bankowe trafia zazwyczaj w 3 do 7 dni roboczych po zakończonej i wykonanej przez Ciebie
-            analizie techniki.
-          </p>
+          <h2 className="text-2xl font-semibold">{t('PAYMENTS_BALANCE_YOURS')}</h2>
+          <p>{t('PAYMENTS_BALANCE_DESCRIPTION')}</p>
         </div>
         <AccountBalance />
       </div>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-2.5">
-          <h2 className="text-2xl font-semibold">Raport finansowy</h2>
-          <p>
-            {isReportingAvailable
-              ? 'Generuj raporty finansowe, aby kontrolować liczbę transakcji i wypłat.'
-              : 'Generowanie raportów finansowych jest możliwe po upływie 24 godzin od podłączenia płatności.'}
-          </p>
+          <h2 className="text-2xl font-semibold">{t('REPORT_TITLE')}</h2>
+          <p>{t(isReportingAvailable ? 'REPORT_DESCRIPTION_AVAILABLE' : 'REPORT_DESCRIPTION_NOT_AVAILABLE')}</p>
         </div>
         {isReportingAvailable && (
           <ReportsForm

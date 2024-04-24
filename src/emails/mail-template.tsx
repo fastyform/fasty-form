@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Button, Container, Font, Heading, Img, Link, Tailwind, Text } from '@react-email/components';
 import Constants, { COMPANY_INFO, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 
 interface MailTemplateProps {
   title: string;
@@ -23,6 +24,14 @@ const CallToAction = ({ href, children }: { href: string; children: ReactNode })
   >
     {children}
   </Button>
+);
+
+const Greetings = ({ t }: { t: IntlShape }) => (
+  <>
+    <br />
+    <br />
+    {t.rich('MAIL_TEMPLATE_GREETINGS')}
+  </>
 );
 
 const MailTemplate = ({ title, children }: MailTemplateProps) => (
@@ -56,6 +65,7 @@ const MailTemplate = ({ title, children }: MailTemplateProps) => (
   </Tailwind>
 );
 
+MailTemplate.Greetings = Greetings;
 MailTemplate.AppLink = AppLink;
 MailTemplate.LineBreak = LineBreak;
 MailTemplate.CallToAction = CallToAction;

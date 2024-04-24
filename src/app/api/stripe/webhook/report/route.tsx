@@ -1,6 +1,7 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import { ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import ReportReady from '@/emails/report-ready';
@@ -70,15 +71,17 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
+    const t = await getTranslations({ locale: 'pl' });
     await sendMail({
       to: user.email as string,
-      subject: `Twój raport - "${reportTypeToLabel[reportType]}" jest gotowy!`,
+      subject: t('MAIL_TEMPLATE_REPORT_READY_SUBJECT', { report: t(reportTypeToLabel[reportType]) }),
       html: render(
         <ReportReady
           downloadUrl={reportFileLink.url}
           endDateTimestamp={object.parameters.interval_end as number}
           reportType={reportType}
           startDateTimestamp={object.parameters.interval_start}
+          t={t}
         />,
       ),
     });

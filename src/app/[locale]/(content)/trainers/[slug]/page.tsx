@@ -70,10 +70,10 @@ export async function generateMetadata({ params: { slug, locale } }: MetadataPar
 
   const t = await getTranslations({ locale });
 
+  const variables = { profileName: trainer?.profile_name || '' };
+
   return {
-    title: t('TRAINERS_PAGE_METADATA_TITLE'),
-    description: t('TRAINERS_PAGE_METADATA_DESCRIPTION', {
-      profileName: trainer?.profile_name,
-    }),
+    title: t('TRAINERS_PAGE_METADATA_TITLE', variables),
+    description: t('TRAINERS_PAGE_METADATA_DESCRIPTION', variables),
   };
 }

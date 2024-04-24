@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
+import { getTranslations } from 'next-intl/server';
 import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/[locale]/(content)/payments/utils';
 import Constants, { PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
@@ -15,10 +16,10 @@ const STRIPE_MERCHANT_CATEGORY_CODE = '7392';
 const actionPaymentOnboardingRedirect = async (payload: StripeOnboardingValues) => {
   const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
+  const t = await getTranslations();
   const stripe = getStripe();
   const supabase = getSupabaseServerClient();
-
-  const parsedPayload = stripeOnboardingSchema.parse(payload);
+  const parsedPayload = stripeOnboardingSchema(t).parse(payload);
 
   if (!trainerDetails.service_price_in_grosz || !trainerDetails.profile_slug) throw new Error();
 
