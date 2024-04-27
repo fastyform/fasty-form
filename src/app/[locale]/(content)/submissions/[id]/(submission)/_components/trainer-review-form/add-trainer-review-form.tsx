@@ -37,7 +37,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   if (isReviewInputVisible) {
     return (
       <>
-        <SubmissionPartWithIcon verticalLine icon="description">
+        <SubmissionPartWithIcon verticalLine icon="description" verticalLineClassName="mb-20">
           <h2 className="text-lg font-bold leading-5 text-white">Twoja odpowiedź</h2>
           <form ref={formRef} action={handleFormAction} className="flex flex-col gap-5">
             {state?.message && (
@@ -87,7 +87,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   }
 
   return (
-    <SubmissionPartWithIcon containerStyles="opacity-50" icon="description">
+    <SubmissionPartWithIcon className="opacity-50" icon="description">
       <Button
         className=" flex justify-start p-0 text-left normal-case"
         color="inherit"

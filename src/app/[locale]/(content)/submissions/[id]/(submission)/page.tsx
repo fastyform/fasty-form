@@ -82,7 +82,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           (isTrainerAccount ? (
             <AddTrainerReviewForm submissionId={params.id} />
           ) : (
-            <SubmissionPartWithIcon containerStyles="opacity-50" icon="submission">
+            <SubmissionPartWithIcon className="opacity-50" icon="submission">
               <h2 className="text-lg font-bold leading-5 text-white">Oczekiwanie na odpowiedź trenera...</h2>
               <p className="text-sm text-white">
                 Po tym, jak trener przeanalizuje Twoją technikę, znajdziesz tutaj jego komentarz i sugestie.
