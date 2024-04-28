@@ -5,24 +5,26 @@ import { useFormState } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import slugify from 'slugify';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
 import { formDefaultState } from '@/utils/form';
-import actionOnBoarding from './_actions/action-onboarding';
-import { onboardingFormSchema, OnboardingFormValues } from './_utils';
+import actionOnboarding from './action-onboarding';
+import { onboardingFormSchema, OnboardingFormValues } from './utils';
 
 export const NOT_ALLOWED_SLUG_CHARS_REGEX = /[*+~.()'"!:@#^`=[{\]}\\]/g;
 const slugifyWithOptions = (text: string) =>
   slugify(text, { replacement: '-', lower: true, remove: NOT_ALLOWED_SLUG_CHARS_REGEX });
 
 const OnboardingForm = () => {
-  const [state, formAction] = useFormState(actionOnBoarding, formDefaultState);
+  const t = useTranslations();
+  const [state, formAction] = useFormState(actionOnboarding, formDefaultState);
   const [shouldSlugify, setShouldSlugify] = useState(true);
   const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
-    resolver: zodResolver(onboardingFormSchema),
+    resolver: zodResolver(onboardingFormSchema(t)),
     defaultValues: { servicePrice: 20, profileName: '', profileSlug: '', marketingConsent: false },
     mode: 'onTouched',
   });
@@ -32,19 +34,17 @@ const OnboardingForm = () => {
   const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
 
   useEffect(() => {
-    if (state.message === 'Twój link do profilu nie jest unikalny. Spróbuj inny.') {
+    if (state.message === t('ONBOARDING_ERROR_LINK_EXISTS')) {
       setError('profileSlug', {}, { shouldFocus: true });
     }
-  }, [setError, state.message]);
+  }, [setError, state.message, t]);
 
   return (
     <form action={handleFormAction} className="flex w-full flex-col gap-5">
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">
-            Cena za analizę techniki jednego wideo <span className="text-yellow-400">(PLN)</span>
-          </span>
+          <span className="text-white">{t.rich('ONBOARDING_FORM_SERVICE_PRICE_LABEL')}</span>
           <Controller
             control={control}
             name="servicePrice"
@@ -54,25 +54,20 @@ const OnboardingForm = () => {
           />
         </div>
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">Nazwa profilu</span>
+          <span className="text-white">{t('COMMON_PROFILE_NAME')}</span>
           <AppInputForm
             control={control}
             fieldName="profileName"
             onBlur={(e) => {
               if (shouldSlugify) {
-                setValue('profileSlug', slugifyWithOptions(e.target.value), {
-                  shouldValidate: true,
-                });
+                setValue('profileSlug', slugifyWithOptions(e.target.value), { shouldValidate: true });
               }
             }}
           />
         </div>
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">Link do profilu</span>
-          <span className="text-xs text-white">
-            Pamiętaj, że link do Twojego profilu jest stały i nie podlega zmianie. Możesz go swobodnie udostępniać swoim
-            klientom, dlatego wybierz go mądrze!
-          </span>
+          <span className="text-white">{t('ONBOARDING_LINK_LABEL')}</span>
+          <span className="text-xs text-white">{t('ONBOARDING_LINK_CAPTION')}</span>
           <AppInputForm
             control={control}
             fieldName="profileSlug"
@@ -102,6 +97,7 @@ const OnboardingForm = () => {
           render={({ field }) => (
             <FormControlLabel
               classes={{ label: 'text-xs' }}
+              label={<span className="text-zinc-200">{t('ONBOARDING_MARKETING_CONSENT_LABEL')}</span>}
               control={
                 <Checkbox
                   checked={field.value}
@@ -111,16 +107,11 @@ const OnboardingForm = () => {
                   onChange={(_, checked) => field.onChange(checked)}
                 />
               }
-              label={
-                <span className="text-zinc-200">
-                  Chcę być na bieżąco z ekskluzywnymi zniżkami, poradami oraz aktualizacjami. (opcjonalne)
-                </span>
-              }
             />
           )}
         />
       </div>
-      <AppButtonSubmit isValid={formState.isValid}>Przejdź dalej</AppButtonSubmit>
+      <AppButtonSubmit isValid={formState.isValid}>{t('ONBOARDING_BUTTON_SUBMIT')}</AppButtonSubmit>
     </form>
   );
 };

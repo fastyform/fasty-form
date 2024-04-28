@@ -8,10 +8,10 @@ import VideoFileInput from '@/app/[locale]/(content)/submissions/[id]/requiremen
 import {
   SubmissionRequirements,
   submissionRequirementsSchema,
-} from '@/app/[locale]/(content)/submissions/[id]/requirements/_utils';
+} from '@/app/[locale]/(content)/submissions/[id]/requirements/utils';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
-import ProgressCircular from './_components/progress-circular';
+import ProgressCircular from './progress-circular';
 import useOnSubmit from './use-on-submit';
 
 interface Props {

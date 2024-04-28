@@ -13,21 +13,15 @@ import {
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import actionSendFeedback from '@/app/[locale]/(content)/feedback/action-send-feedback';
 import { feedbackFormSchema, FeedbackValues } from '@/app/[locale]/(content)/feedback/utils';
 import AppButton from '@/components/app-button';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
-import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 
 const FEEDBACK_TOGGLE_BUTTON_DATA = ['bad', 'mixed', 'good'];
-const NEW_FEATURES = [
-  'Baza trenerów z możliwością wyszukiwania i filtrowania',
-  'Zaznaczanie błędów na wideo (np. rysowanie po wideo)',
-  'Większa ilość usług (np. plany treningowe, diety)',
-  'Możliwość dodania plików do odpowiedzi na zgłoszenie',
-];
 
 const FeedbackToggleButton = (props: Omit<ToggleButtonProps, 'classes'>) => (
   <ToggleButton
@@ -43,22 +37,23 @@ const FeedbackToggleButton = (props: Omit<ToggleButtonProps, 'classes'>) => (
 const RadioButton = (props: RadioProps) => <Radio {...props} className="text-yellow-400" />;
 
 const FeedbackForm = () => {
+  const t = useTranslations();
   const { handleSubmit, control, reset, setValue } = useForm<FeedbackValues>({
     defaultValues: {
       appFeelingDescription: '',
       radio: '',
       other: '',
     },
-    resolver: zodResolver(feedbackFormSchema),
+    resolver: zodResolver(feedbackFormSchema(t)),
   });
 
   const sendFeedbackMutation = useMutation({
     mutationFn: (data: FeedbackValues) => actionSendFeedback(data),
     onError: () => {
-      notify.error(Constants.COMMON_ERROR_MESSAGE);
+      notify.error(t('COMMON_ERROR'));
     },
     onSuccess: () => {
-      notify.success('Dziękujemy za przesłanie opinii!');
+      notify.success(t('FEEDBACK_SENT_SUCCESS'));
       reset();
     },
   });
@@ -69,7 +64,7 @@ const FeedbackForm = () => {
       onSubmit={handleSubmit((data: FeedbackValues) => sendFeedbackMutation.mutate(data))}
     >
       <div className="flex flex-col gap-5">
-        <p>Jak się czujesz, korzystając z naszej aplikacji? Podziel się swoimi emocjami!</p>
+        <p>{t('FEEDBACK_FEELINGS_TITLE')}</p>
         <Controller
           control={control}
           name="appFeeling"
@@ -91,14 +86,11 @@ const FeedbackForm = () => {
         />
       </div>
       <div className="flex flex-col gap-5">
-        <p>
-          Czy możesz nam powiedzieć więcej? Każdy szczegół jest dla nas cenny! (To pole jest opcjonalne, ale bardzo
-          doceniamy Twoją otwartość)
-        </p>
+        <p>{t('FEEDBACK_FEELINGS_DESCRIPTION')}</p>
         <AppInputForm fullWidth multiline control={control} fieldName="appFeelingDescription" minRows={5} />
       </div>
       <div className="flex flex-col gap-5">
-        <p>Które nowości wzbudzają Twoje zainteresowanie? Pomóż nam kształtować przyszłość naszej aplikacji!</p>
+        <p>{t('FEEDBACK_FEATURES_TITLE')}</p>
         <Controller
           control={control}
           name="radio"
@@ -108,20 +100,20 @@ const FeedbackForm = () => {
                 <AppFormState state={{ isSuccess: false, message: fieldState.error.message }} />
               )}
               <RadioGroup value={field.value} onChange={(_, value) => field.onChange(value)}>
-                {NEW_FEATURES.map((value) => (
+                {(['0', '1', '2', '3'] as const).map((value) => (
                   <FormControlLabel
                     key={value}
                     classes={{ label: 'font-light text-sm' }}
                     control={<RadioButton />}
-                    label={value}
-                    value={value}
+                    label={t(`FEEDBACK_FEATURES_${value}`)}
+                    value={t(`FEEDBACK_FEATURES_${value}`)}
                   />
                 ))}
                 <div className="flex items-start gap-2">
                   <FormControlLabel
                     classes={{ label: 'font-light text-sm' }}
                     control={<RadioButton />}
-                    label="Inne"
+                    label={t('FEEDBACK_FEATURES_OTHER')}
                     value="other"
                   />
                   <AppInputForm
@@ -139,7 +131,7 @@ const FeedbackForm = () => {
         />
       </div>
       <AppButton classes={{ root: 'w-fit py-2.5' }} loading={sendFeedbackMutation.isPending} type="submit">
-        Wyślij swoją opinię
+        {t('FEEDBACK_SEND')}
       </AppButton>
     </form>
   );

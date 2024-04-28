@@ -2,37 +2,30 @@
 
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
 
-const dialogData = {
-  verified: [
-    'success',
-    'Gratulacje!',
-    'Sukces! Od teraz jesteś aktywnym trenerem na naszej platformie. Twoja strona profilowa jest już dostępna dla użytkowników, a Ty możesz rozpocząć przyjmowanie płatności.',
-  ],
-  error: [
-    'fail',
-    'Przykro nam!',
-    'Ups, coś poszło nie tak. Twoje konto trenera wciąż pozostaje nieaktywne. Spróbuj jeszcze raz, a jeśli problem będzie się powtarzał, skontaktuj się z nami.',
-  ],
-  pending_verification: [
-    'success',
-    'Gratulacje!',
-    'Twoje konto jest w trakcie weryfikacji. Jeszcze chwila, a będziesz mógł rozpocząć przyjmowanie płatności. W międzyczasie możesz już korzystać z pozostałych funkcji portalu.',
-  ],
-};
+const paramToIconPath = {
+  verified: 'success',
+  error: 'fail',
+  pending_verification: 'success',
+} as const;
 
-type SuccessParamType = keyof typeof dialogData;
+type FinishedOnboardingParamType = keyof typeof paramToIconPath;
+
+const isFinishedOnboardingParam = (param: string): param is FinishedOnboardingParamType =>
+  Object.keys(paramToIconPath).includes(param);
 
 const OnboardingStripeStatusDialog = () => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const router = useRouter();
   const successParam = searchParams.get('stripe_onboarding_status');
 
-  if (!Object.keys(dialogData).includes(successParam || '') || !successParam) return;
+  if (!successParam || !isFinishedOnboardingParam(successParam)) return null;
 
-  const [icon, title, description] = dialogData[successParam as SuccessParamType];
+  const icon = paramToIconPath[successParam];
 
   const handleModalClose = () => {
     router.replace('/payments');
@@ -43,8 +36,10 @@ const OnboardingStripeStatusDialog = () => {
       <div className="flex flex-col items-center gap-5 text-white">
         <Image alt="Ikonka stanu" className="h-[90px] w-[90px]" height={90} src={`/${icon}.svg`} width={90} />
         <div className="flex flex-col gap-2.5">
-          <h2 className="text-center text-base font-bold">{title}</h2>
-          <p className="text-center text-sm">{description}</p>
+          <h2 className="text-center text-base font-bold">
+            {t(`PAYMENTS_ONBOARDING_STATUS_DIALOG_TITLE_${successParam}`)}
+          </h2>
+          <p className="text-center text-sm">{t(`PAYMENTS_ONBOARDING_STATUS_DIALOG_DESCRIPTION_${successParam}`)}</p>
         </div>
         <div className="flex flex-wrap gap-5">
           <AppButton
@@ -52,7 +47,7 @@ const OnboardingStripeStatusDialog = () => {
             className="text-sm"
             onClick={handleModalClose}
           >
-            Zamknij
+            {t('COMMON_CLOSE')}
           </AppButton>
         </div>
       </div>

@@ -88,7 +88,7 @@ const EditProfileForm = ({ defaultFormData, profileImageUrl, trainerProfileSlug 
           />
         </div>
         <div className="flex flex-col gap-2.5">
-          <span className="text-white">{t('TRAINERS_EDIT_PROFILE_NAME_LABEL')}</span>
+          <span className="text-white">{t('COMMON_PROFILE_NAME')}</span>
           <AppInputForm control={control} fieldName="profileName" />
         </div>
         <div className="flex flex-col items-center gap-2.5">

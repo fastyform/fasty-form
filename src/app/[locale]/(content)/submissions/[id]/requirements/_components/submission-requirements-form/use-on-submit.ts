@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import { useTranslations } from 'next-intl';
 import actionCompleteUploadAndSendRequirements from '@/app/[locale]/(content)/submissions/[id]/requirements/_actions/action-complete-upload-and-send-requirements';
 import actionGetUploadParts from '@/app/[locale]/(content)/submissions/[id]/requirements/_actions/action-get-upload-parts';
-import { SubmissionRequirements } from '@/app/[locale]/(content)/submissions/[id]/requirements/_utils';
-import Constants from '@/utils/constants';
+import { SubmissionRequirements } from '@/app/[locale]/(content)/submissions/[id]/requirements/utils';
 import notify from '@/utils/notify';
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunk size
@@ -16,6 +16,7 @@ type UploadData = {
 } | null;
 
 const useOnSubmit = (videoFile: File | null, submissionId: string) => {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
   const [totalProgress, setTotalProgress] = useState(0);
 
@@ -70,7 +71,7 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
       if (abortData) {
         axios.delete('/api/video/upload', { data: abortData }).catch(() => {});
       }
-      notify.error(Constants.COMMON_ERROR_MESSAGE);
+      notify.error(t('COMMON_ERROR'));
       setIsLoading(false);
     }
   };

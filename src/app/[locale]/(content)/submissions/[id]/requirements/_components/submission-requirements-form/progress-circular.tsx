@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import CircleIcon from '@/app/[locale]/(content)/submissions/[id]/requirements/_assets/circle-icon';
+import CircleIcon from '@/app/[locale]/(content)/submissions/[id]/requirements/circle-icon';
 import AppReactPortalWrapper from '@/components/app-react-portal-wrapper';
 
 const ProgressCircular = ({ progress }: { progress: number }) => {

@@ -17,13 +17,13 @@ const actionSendFeedback = async (data: FeedbackValues) => {
       <MailTemplate title="Feedback">
         Email: {user?.email}
         <br />
-        Odczucia aplikacji: {data.appFeeling || 'nie wybrano'}
+        App feelings: {data.appFeeling || 'EMPTY'}
         <br />
-        Odczucia aplikacji opis dodatkowy: {data.appFeelingDescription || 'nie wybrano'}
+        App feelings additional info: {data.appFeelingDescription || 'EMPTY'}
         <br />
-        Featery radio: {data.radio}
+        Features radio: {data.radio}
         <br />
-        Featery inne: {data.other}
+        Features other: {data.other}
       </MailTemplate>,
     ),
     shouldThrow: true,

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import AppLogo from '@/components/app-logo';
 import NotLoggedInButtons from '@/components/app-navbar/desktop-navbar/not-logged-in-buttons';
 import NavbarLink from '@/components/app-navbar/navbar-link';
@@ -6,6 +7,7 @@ import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const DesktopNavbarApp = async () => {
+  const t = await getTranslations();
   const user = await getUserWithNull();
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   const trainerDetails = isTrainerAccount && user && (await getTrainerDetailsById(user.id));
@@ -19,23 +21,23 @@ const DesktopNavbarApp = async () => {
           {user && (
             <>
               <NavbarLink href="/submissions" icon="submissions">
-                Zgłoszenia
+                {t('NAV_SUBMISSIONS')}
               </NavbarLink>
               {isTrainerAccount && (
                 <NavbarLink href="/payments" icon="payments">
-                  Płatności
+                  {t('NAV_PAYMENTS')}
                 </NavbarLink>
               )}
               <NavbarLink href="/settings/update-password" icon="settings">
-                Ustawienia
+                {t('NAV_SETTINGS')}
               </NavbarLink>
               {trainerDetails && trainerDetails.profile_slug && (
                 <NavbarLink href={`/trainers/${trainerDetails.profile_slug}`} icon="profile">
-                  Profil
+                  {t('NAV_PROFILE')}
                 </NavbarLink>
               )}
               <NavbarLink className="ml-2" href="/feedback" icon="feedback" variant="contained">
-                Zostaw opinię
+                {t('NAV_FEEDBACK')}
               </NavbarLink>
             </>
           )}

@@ -6,6 +6,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresUpdatePayload } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import actionRevalidateRootLayout from '@/app/[locale]/(content)/_actions/action-revalidate-root-layout';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
@@ -13,12 +14,8 @@ import createQueryString from '@/utils/create-query-string';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
 import { Database } from '@/utils/supabase/supabase';
 
-const paymentInformationTitles = {
-  unverified: ' Wprowadź swoje dane płatności, aby aktywować konto.',
-  pending_verification: ' Twoje konto jest w trakcie weryfikacji. Poinformujemy Cię o zmianie statusu.',
-};
-
 const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: TrainerDetails; userId: string }) => {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createBrowserClient(
@@ -69,8 +66,10 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
         <ErrorIcon className="h-auto w-10 shrink-0 grow-0 basis-10" />
       )}
       <div className="flex flex-wrap items-center gap-2.5">
-        <span>{paymentInformationTitles[trainerDetails.stripe_onboarding_status]}</span>
-        <AppButton classes={{ root: 'py-2.5 text-sm' }}>Przejdź do ustawień płatności</AppButton>
+        <span>{t(`PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_${trainerDetails.stripe_onboarding_status}`)}</span>
+        <AppButton classes={{ root: 'py-2.5 text-sm' }}>
+          {t('PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_BUTTON')}
+        </AppButton>
       </div>
     </Link>
   );
