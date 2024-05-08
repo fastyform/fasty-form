@@ -7,7 +7,7 @@ import { triggerRootNotFound } from '@/utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-import SubmissionRequirementsForm from './_components/submission-requirements-form';
+import SubmissionRequirementsForm from './_components/submission-requirements-form/submission-requirements-form';
 
 const SubmissionRequirementsPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);

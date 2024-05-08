@@ -1,15 +1,16 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { onboardingFormSchema } from '@/app/[locale]/(content)/_components/onboarding-form/_utils';
+import { getTranslations } from 'next-intl/server';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { PLNToGrosz } from '@/utils/stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import { onboardingFormSchema } from './utils';
 
-const actionOnBoarding = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = onboardingFormSchema.safeParse({
+const actionOnboarding = async (prevState: FormState, data: FormData) => {
+  const t = await getTranslations();
+  const formSchemaParsed = onboardingFormSchema(t).safeParse({
     servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
     profileName: data.get('profileName'),
     profileSlug: data.get('profileSlug'),
@@ -22,7 +23,7 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
   const supabase = getSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) {
-    return getResponse(Constants.COMMON_ERROR_MESSAGE);
+    return getResponse(t('COMMON_ERROR'));
   }
 
   const userId = userData.user.id;
@@ -48,9 +49,9 @@ const actionOnBoarding = async (prevState: FormState, data: FormData) => {
     return redirect(`/trainers/${profileSlug}`);
   }
 
-  if (error && error.code === '23505') return getResponse('Twój link do profilu nie jest unikalny. Spróbuj inny.');
+  if (error && error.code === '23505') return getResponse(t('ONBOARDING_ERROR_LINK_EXISTS'));
 
-  return getResponse(Constants.COMMON_ERROR_MESSAGE);
+  return getResponse(t('COMMON_ERROR'));
 };
 
-export default actionOnBoarding;
+export default actionOnboarding;
