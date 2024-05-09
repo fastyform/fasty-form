@@ -23,7 +23,7 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
   const t = useTranslations();
   const form = useForm({
     defaultValues: { email: '' },
-    resolver: zodResolver(z.object({ email: emailValidator })),
+    resolver: zodResolver(z.object({ email: emailValidator(t) })),
   });
 
   const joinAmbassadorProgramMutation = useMutation({

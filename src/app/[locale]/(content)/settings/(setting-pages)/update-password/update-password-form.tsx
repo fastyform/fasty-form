@@ -27,7 +27,7 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [state, formAction] = useFormState(actionUpdatePassword, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<UpdatePasswordFormValues>({
-    resolver: zodResolver(updatePasswordSchema),
+    resolver: zodResolver(updatePasswordSchema(t)),
     defaultValues: { password: '' },
     mode: 'onTouched',
   });

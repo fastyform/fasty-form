@@ -1,16 +1,17 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { formSchema } from '@/app/[locale]/(auth)/login/_utils';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { SearchParam } from '@/utils/types';
 
 const actionLogin = async (prevState: FormState, payload: { data: FormData; redirectUrlParam: SearchParam }) => {
+  const t = await getTranslations();
   const { data, redirectUrlParam: redirectUrl } = payload;
-  const formSchemaParsed = formSchema.safeParse({ email: data.get('email'), password: data.get('password') });
+  const formSchemaParsed = formSchema(t).safeParse({ email: data.get('email'), password: data.get('password') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
@@ -25,16 +26,14 @@ const actionLogin = async (prevState: FormState, payload: { data: FormData; redi
   }
 
   if (error.message === 'Email not confirmed') {
-    return getResponse(
-      'Twoje konto jeszcze czeka na aktywację. Sprawdź swój email, aby dokończyć proces aktywacji konta.',
-    );
+    return getResponse(t('LOGIN_ACTION_NOT_CONFIRMED'));
   }
 
   if (error.message === 'Invalid login credentials') {
-    return getResponse('Nieprawidłowe dane logowania, spróbuj ponownie.');
+    return getResponse(t('LOGIN_ACTION_WRONG_EMAIL_OR_PASSWORD'));
   }
 
-  return getResponse(Constants.COMMON_ERROR_MESSAGE);
+  return getResponse(t('COMMON_ERROR'));
 };
 
 export default actionLogin;

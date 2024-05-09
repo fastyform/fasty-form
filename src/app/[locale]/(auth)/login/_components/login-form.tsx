@@ -3,6 +3,7 @@
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import actionLogin from '@/app/[locale]/(auth)/login/_actions/action-login';
 import { formSchema, FormValues } from '@/app/[locale]/(auth)/login/_utils';
 import actionLoginGoogle from '@/app/[locale]/(auth)/providers/_actions/action-login-google';
@@ -16,9 +17,10 @@ import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
 const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
+  const t = useTranslations();
   const [state, formAction] = useFormState(actionLogin, formDefaultState);
   const { control, handleSubmit, formState } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema(t)),
     defaultValues: { email: '', password: '' },
     mode: 'onTouched',
   });
