@@ -1,5 +1,6 @@
 'use server';
 
+import { getTranslations } from 'next-intl/server';
 import { forgotPasswordFormSchema } from '@/app/[locale]/(auth)/forgot-password/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
@@ -11,11 +12,12 @@ const actionForgotPassword = async (
   prevState: FormState,
   payload: { data: FormData; redirectPathParam: SearchParam },
 ) => {
+  const t = await getTranslations();
   const { data, redirectPathParam } = payload;
 
   const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
-  const formSchemaParsed = forgotPasswordFormSchema.safeParse({ email: data.get('email') });
+  const formSchemaParsed = forgotPasswordFormSchema(t).safeParse({ email: data.get('email') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');

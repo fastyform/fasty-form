@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import { emailValidator, newPasswordValidator } from '@/utils/validators';
 
 export const QUERY_PARAM_ERRORS = {
@@ -12,9 +13,10 @@ export type QueryParamError = keyof typeof QUERY_PARAM_ERRORS;
 
 export const getQueryParamError = (queryParam: QueryParamError) => `error=${queryParam}`;
 
-export const registerSchema = z.object({
-  email: emailValidator,
-  password: newPasswordValidator,
-});
+export const registerSchema = (t: IntlShape) =>
+  z.object({
+    email: emailValidator(t),
+    password: newPasswordValidator(t),
+  });
 
-export type FormValues = z.infer<typeof registerSchema>;
+export type FormValues = z.infer<ReturnType<typeof registerSchema>>;

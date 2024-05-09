@@ -8,7 +8,7 @@ import { updatePasswordSchema } from './utils';
 
 const actionUpdatePassword = async (prevState: FormState, data: FormData) => {
   const t = await getTranslations();
-  const formSchemaParsed = updatePasswordSchema.safeParse({ password: data.get('password') });
+  const formSchemaParsed = updatePasswordSchema(t).safeParse({ password: data.get('password') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');

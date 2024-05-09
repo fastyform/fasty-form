@@ -1,5 +1,6 @@
 'use server';
 
+import { getTranslations } from 'next-intl/server';
 import { registerSchema } from '@/app/[locale]/(auth)/_utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
@@ -15,9 +16,10 @@ interface Payload {
 }
 
 const actionRegister = async (prevState: FormState, { data: formData, role, redirectPathParam }: Payload) => {
+  const t = await getTranslations();
   const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
-  const formSchemaParsed = registerSchema.safeParse({
+  const formSchemaParsed = registerSchema(t).safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
   });

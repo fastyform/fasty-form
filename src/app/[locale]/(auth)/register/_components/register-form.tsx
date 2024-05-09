@@ -5,6 +5,7 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { FormValues, registerSchema } from '@/app/[locale]/(auth)/_utils';
 import actionRegisterGoogle from '@/app/[locale]/(auth)/providers/_actions/action-register-google';
 import ButtonGoogle from '@/app/[locale]/(auth)/providers/_components/button-google';
@@ -23,9 +24,10 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
+  const t = useTranslations();
   const [state, formAction] = useFormState(actionRegister, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<FormValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema(t)),
     defaultValues: { email: '', password: '' },
     mode: 'onTouched',
   });

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import actionForgotPassword from '@/app/[locale]/(auth)/forgot-password/_actions/action-forgot-password';
 import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '@/app/[locale]/(auth)/forgot-password/_utils';
 import AppButtonSubmit from '@/components/app-button-submit';
@@ -13,9 +14,10 @@ import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
 const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchParam }) => {
+  const t = useTranslations();
   const [state, formAction] = useFormState(actionForgotPassword, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordFormSchema),
+    resolver: zodResolver(forgotPasswordFormSchema(t)),
     defaultValues: { email: '' },
     mode: 'onTouched',
   });

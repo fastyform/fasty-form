@@ -1,6 +1,7 @@
 'use server';
 
 import { render } from '@react-email/render';
+import { getTranslations } from 'next-intl/server';
 import { contactFormSchema } from '@/app/[locale]/(public)/(info)/contact/_utils';
 import MailTemplate from '@/emails/mail-template';
 import { getResponse } from '@/utils';
@@ -9,7 +10,8 @@ import { FormState } from '@/utils/form';
 import { sendMail } from '@/utils/sendgrid';
 
 const actionSendContactForm = async (prevState: FormState, data: FormData) => {
-  const formSchemaParsed = contactFormSchema.safeParse({ message: data.get('message'), email: data.get('email') });
+  const t = await getTranslations();
+  const formSchemaParsed = contactFormSchema(t).safeParse({ message: data.get('message'), email: data.get('email') });
 
   if (!formSchemaParsed.success) {
     return getResponse('Bad request.');
