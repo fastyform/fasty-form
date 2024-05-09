@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
+import { useTranslations } from 'next-intl';
 import VideoFileInput from '@/app/[locale]/(content)/submissions/[id]/requirements/_components/video-file-input';
 import {
   SubmissionRequirements,
@@ -19,8 +20,9 @@ interface Props {
 }
 
 const SubmissionRequirementsForm = ({ submissionId }: Props) => {
+  const t = useTranslations();
   const { control, handleSubmit } = useForm({
-    resolver: zodResolver(submissionRequirementsSchema),
+    resolver: zodResolver(submissionRequirementsSchema(t)),
     defaultValues: { clientDescription: '' },
     mode: 'onTouched',
   });
