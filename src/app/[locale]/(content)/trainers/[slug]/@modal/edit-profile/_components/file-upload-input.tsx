@@ -100,7 +100,12 @@ const FileUploadInput = ({
             </AppButton>
           </div>
           <div className="relative aspect-square h-36">
-            <Image fill alt="Zdjęcie profilowe" className="rounded-full" src={(blobUrl || profileImageUrl)!} />
+            <Image
+              fill
+              alt={t('TRAINERS_EDIT_PROFILE_IMAGE_LABEL')}
+              className="rounded-full"
+              src={(blobUrl || profileImageUrl)!}
+            />
           </div>
         </>
       )}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCopyToClipboard } from '@uidotdev/usehooks';
+import { useTranslations } from 'next-intl';
 import { twJoin, twMerge } from 'tailwind-merge';
 import ShareIcon from '@/app/[locale]/(content)/trainers/[slug]/_assets/share-icon';
 import AppButton from '@/components/app-button';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) => {
+  const t = useTranslations();
   const [, copyToClipboard] = useCopyToClipboard();
   if (!trainerDetails.profile_slug || !trainerDetails.profile_name || !trainerDetails.is_onboarded) return null;
 
@@ -22,8 +24,8 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
 
   const handleShare = async () => {
     const shareData = {
-      title: `${Constants.APP_NAME} - Profil Trenera - ${trainerDetails}`,
-      text: `Zakup u mnie analizę techniki w ${Constants.APP_NAME}.`,
+      title: t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT_DATA_TITLE', { profileName: trainerDetails.profile_name }),
+      text: t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT_DATA_DESCRIPTION'),
       url: trainerProfileUrl,
     };
 
@@ -38,13 +40,13 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
     }
 
     copyToClipboard(trainerProfileUrl);
-    notify.success('Skopiowano link do profilu do schowka');
+    notify.success(t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_SUCCESS'));
   };
 
   const isDisabled = trainerDetails.stripe_onboarding_status !== 'verified';
 
   return (
-    <AppTooltip title={isDisabled ? 'Twój profil trenera będzie widoczny po podłączeniu płatności.' : undefined}>
+    <AppTooltip title={isDisabled ? t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_DISABLED_TEXT') : undefined}>
       <div>
         <AppButton
           disabled={isDisabled}
@@ -58,7 +60,9 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
           onClick={handleShare}
         >
           <ShareIcon className="fill-white" />
-          <span className={twJoin(isIconOnMobile && 'hidden lg:block')}>Udostępnij swój profil</span>
+          <span className={twJoin(isIconOnMobile && 'hidden lg:block')}>
+            {t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT')}
+          </span>
         </AppButton>
       </div>
     </AppTooltip>

@@ -126,6 +126,9 @@
   "PAYMENTS_ONBOARDING_STATUS_DIALOG_TITLE_verified": "Gratulacje!",
   "PAYMENTS_PENDING_BUTTON": "Trwa weryfikacja",
   "PAYMENTS_PENDING_DESCRIPTION": "Twoje konto jest w trakcie weryfikacji.",
+  "PAYMENTS_RECEIPT_ADDRESS": "Adres:",
+  "PAYMENTS_RECEIPT_DESCRIPTION": "Zakup analizy techniki na podstawie wideo od: ",
+  "PAYMENTS_RECEIPT_NIP": "NIP:",
   "PAYMENTS_STRIPE_ONBOARDING_ERROR_FIRST_NAME_REQUIRED": "Imię jest wymagane",
   "PAYMENTS_STRIPE_ONBOARDING_ERROR_LAST_NAME": "Nazwisko jest wymagane",
   "PAYMENTS_STRIPE_ONBOARDING_ERROR_TAX_ID_REQUIRED": "Wymagany jest poprawny numer NIP",
@@ -225,5 +228,10 @@
   "TRAINERS_PAGE_METADATA_DESCRIPTION": "Zakup analizę techniki u trenera {profileName} w <AppName></AppName>.",
   "TRAINERS_PAGE_METADATA_TITLE": "Profil Trenera {profileName} - <AppName></AppName>",
   "TRAINERS_PAGE_PROFILE_IMAGE": "Zdjęcie profilowe",
-  "TRAINERS_PAGE_SERVICE_NAME": "Analiza techniki (jedno wideo) - "
+  "TRAINERS_PAGE_SERVICE_NAME": "Analiza techniki (jedno wideo) - ",
+  "TRAINERS_PAGE_SHARE_PROFILE_BUTTON_DISABLED_TEXT": "Twój profil trenera będzie widoczny po podłączeniu płatności.",
+  "TRAINERS_PAGE_SHARE_PROFILE_BUTTON_SUCCESS": "Skopiowano link do profilu do schowka",
+  "TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT": "Udostępnij swój profil",
+  "TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT_DATA_DESCRIPTION": "Zakup u mnie analizę techniki w <AppName></AppName>",
+  "TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT_DATA_TITLE": "<AppName></AppName> - Profil Trenera - {profileName}"
 }

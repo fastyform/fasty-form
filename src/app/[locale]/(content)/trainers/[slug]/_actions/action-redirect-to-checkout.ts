@@ -3,6 +3,7 @@
 import crypto from 'crypto';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
@@ -10,10 +11,11 @@ import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { calculateAppFee, StripeConstants } from '@/utils/stripe';
 import getStripe from '@/utils/stripe/get-stripe';
+import { IntlShape } from '@/utils/types';
 
-const getReceiptDescription = (trainerStripeAccount: Stripe.Account) => {
+const getReceiptDescription = (trainerStripeAccount: Stripe.Account, t: IntlShape) => {
   const { business_type } = trainerStripeAccount;
-  let description = 'Zakup analizy techniki na podstawie wideo od: ';
+  let description = t('PAYMENTS_RECEIPT_DESCRIPTION');
 
   if (business_type === 'individual') {
     description += `${trainerStripeAccount.business_profile?.name}`;
@@ -21,8 +23,8 @@ const getReceiptDescription = (trainerStripeAccount: Stripe.Account) => {
 
   if (business_type === 'company') {
     const { company: { name, address } = {}, metadata } = trainerStripeAccount;
-    const companyAddress = `Adres: ${address?.city}, ${address?.line1} ${address?.line2} ${address?.postal_code}`;
-    const companyNIP = `NIP: ${metadata?.nip}`;
+    const companyAddress = `${t('PAYMENTS_RECEIPT_ADDRESS')} ${address?.city}, ${address?.line1} ${address?.line2} ${address?.postal_code}`;
+    const companyNIP = `${t('PAYMENTS_RECEIPT_NIP')} ${metadata?.nip}`;
     const companyDescription = [name, companyNIP, companyAddress];
     description += companyDescription.join('; ');
   }
@@ -32,6 +34,7 @@ const getReceiptDescription = (trainerStripeAccount: Stripe.Account) => {
 
 const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerAccount: boolean }) => {
   const headersList = headers();
+  const t = await getTranslations();
   const { trainerId, isTrainerAccount } = payload;
   if (isTrainerAccount) getResponse(Constants.COMMON_ERROR_MESSAGE);
 
@@ -64,7 +67,7 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
         },
       ],
       payment_intent_data: {
-        description: getReceiptDescription(trainerStripeAccount),
+        description: getReceiptDescription(trainerStripeAccount, t),
         application_fee_amount: appFee,
         receipt_email: user.email,
         metadata: {
