@@ -4,7 +4,8 @@ import { CompletedPart, CompleteMultipartUploadCommand, CompleteMultipartUploadR
 import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { submissionRequirementsSchema } from '@/app/[locale]/(content)/submissions/[id]/requirements/_utils';
+import { getTranslations } from 'next-intl/server';
+import { submissionRequirementsSchema } from '@/app/[locale]/(content)/submissions/[id]/requirements/utils';
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
@@ -23,8 +24,9 @@ interface Payload {
 
 const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
   const { videoKey, uploadId, parts, submissionId, clientDescription } = payload;
+  const t = await getTranslations();
 
-  submissionRequirementsSchema.parse({ clientDescription });
+  submissionRequirementsSchema(t).parse({ clientDescription });
   const supabase = getSupabaseServerClient();
   const user = await getLoggedInUser();
 
