@@ -1,6 +1,6 @@
 import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/(submission)/_utils/get-submission-by-id';
+import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/get-submission-by-id';
 import { removeFileExtension } from '@/utils';
 import s3Client, { BUCKET_NAME_PROCESSED, BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 

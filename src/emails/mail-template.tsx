@@ -28,8 +28,7 @@ const CallToAction = ({ href, children }: { href: string; children: ReactNode })
 
 const Greetings = ({ t }: { t: IntlShape }) => (
   <>
-    <br />
-    <br />
+    <LineBreak />
     {t.rich('MAIL_TEMPLATE_GREETINGS')}
   </>
 );

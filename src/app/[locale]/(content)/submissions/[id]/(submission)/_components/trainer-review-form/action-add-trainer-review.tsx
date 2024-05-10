@@ -2,20 +2,20 @@
 
 import { render } from '@react-email/render';
 import { revalidatePath } from 'next/cache';
-import { trainerReviewFormSchema } from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_utils';
+import { getTranslations } from 'next-intl/server';
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import AddedReview from '@/emails/added-review';
-import Constants from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
+import { trainerReviewFormSchema } from './utils';
 
 const actionAddTrainerReview = async (
   prevState: { message: string },
   payload: { data: FormData; submissionId: string },
 ) => {
   const supabase = getSupabaseServerClient();
-
-  const formSchemaParsed = trainerReviewFormSchema.safeParse({ trainerReview: payload.data.get('trainerReview') });
+  const t = await getTranslations();
+  const formSchemaParsed = trainerReviewFormSchema(t).safeParse({ trainerReview: payload.data.get('trainerReview') });
 
   if (!formSchemaParsed.success) {
     return { message: 'Bad request.' };
@@ -58,7 +58,7 @@ const actionAddTrainerReview = async (
   }
 
   return {
-    message: Constants.COMMON_ERROR_MESSAGE,
+    message: t('COMMON_ERROR'),
   };
 };
 
