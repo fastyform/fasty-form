@@ -6,7 +6,6 @@ import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { calculateAppFee, StripeConstants } from '@/utils/stripe';
@@ -36,7 +35,7 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
   const headersList = headers();
   const t = await getTranslations();
   const { trainerId, isTrainerAccount } = payload;
-  if (isTrainerAccount) getResponse(Constants.COMMON_ERROR_MESSAGE);
+  if (isTrainerAccount) getResponse(t('COMMON_ERROR'));
 
   const trainerDetails = await getTrainerDetailsById(trainerId);
   const stripe = getStripe();

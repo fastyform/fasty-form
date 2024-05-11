@@ -6,7 +6,6 @@ import { FormControlLabel, Switch } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
-import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 import actionUpdateNotifications from './action-update-notifications';
 
@@ -21,7 +20,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
 
   const updateNotificationsMutation = useMutation({
     mutationFn: (marketing_consent: boolean) => actionUpdateNotifications(marketing_consent),
-    onError: () => notify.error(Constants.COMMON_ERROR_MESSAGE),
+    onError: () => notify.error(t('COMMON_ERROR')),
     onSuccess: () => notify.success(t('COMMON_CHANGES_SAVED')),
   });
 
