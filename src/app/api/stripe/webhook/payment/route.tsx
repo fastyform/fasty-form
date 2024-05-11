@@ -1,6 +1,7 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import ThankYouBuy from '@/emails/thank-you-buy';
 import { sendMail } from '@/utils/sendgrid';
@@ -74,12 +75,14 @@ export async function POST(req: Request) {
         throw new Error(error?.message);
       }
 
+      const t = await getTranslations({ locale: 'pl' });
       await sendMail({
         to: session.metadata.userEmail,
         subject: 'Jesteśmy gotowi na Twoje wideo.',
         html: render(
           <ThankYouBuy
             submissionId={submission.id}
+            t={t}
             trainerProfileName={submission.trainers_details.profile_name}
             trainerProfileSlug={submission.trainers_details.profile_slug}
           />,

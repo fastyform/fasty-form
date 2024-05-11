@@ -62,9 +62,9 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
 
   sendMail({
     to: trainer.email as string,
-    subject: 'Pojawiło się nowe zgłoszenie',
+    subject: t('MAIL_TEMPLATE_REQUIREMENTS_SENT_SUBJECT'),
     html: render(
-      <RequirementsSent submissionId={submission.id} trainerName={submission.trainers_details.profile_name} />,
+      <RequirementsSent submissionId={submission.id} t={t} trainerName={submission.trainers_details.profile_name} />,
     ),
   });
 
