@@ -5,8 +5,8 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import actionForgotPassword from '@/app/[locale]/(auth)/forgot-password/_actions/action-forgot-password';
-import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '@/app/[locale]/(auth)/forgot-password/_utils';
+import actionForgotPassword from '@/app/[locale]/(auth)/forgot-password/action-forgot-password';
+import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '@/app/[locale]/(auth)/forgot-password/utils';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -34,7 +34,7 @@ const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
     <form action={handleFormAction} className="flex flex-col gap-5">
       <AppFormState state={state} />
       <AppInputForm control={control} fieldName="email" label="Email" />
-      <AppButtonSubmit isValid={formState.isValid}>Wyślij prośbę o reset hasła</AppButtonSubmit>
+      <AppButtonSubmit isValid={formState.isValid}>{t('FORGOT_FORM_SUBMIT')}</AppButtonSubmit>
     </form>
   );
 };

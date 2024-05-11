@@ -1,4 +1,5 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Constants, { COMPANY_INFO, Locale, LocaleComponents } from '@/utils/constants';
 import TosPL from './translations/pl.mdx';
 
@@ -6,11 +7,11 @@ const components: LocaleComponents = {
   pl: TosPL,
 };
 
-const TermsOfServicePage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+const TermsOfServicePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
   const Component = components[locale];
 
-  const t = await getTranslations();
+  const t = useTranslations();
 
   return (
     <>

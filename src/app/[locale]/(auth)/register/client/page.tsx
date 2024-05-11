@@ -1,15 +1,20 @@
 import { Metadata } from 'next';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import SplitPageWithImage from '@/app/[locale]/(auth)/_components/split-page-with-image';
 import RegisterForm from '@/app/[locale]/(auth)/register/_components/register-form';
 import AuthLink from '@/components/auth-link';
-import Constants, { Locale } from '@/utils/constants';
+import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 
-export const metadata: Metadata = {
-  title: `Rejestracja Klienta - ${Constants.APP_NAME}`,
-  description: `Dołącz do ${Constants.APP_NAME} jako klient. Zarejestruj się, aby mieć dostęp do zakupu personalizowanych analiz techniki od Twojego ulubionego trenera.`,
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: Locale } }): Promise<Metadata> {
+  const t = await getTranslations({ locale });
+
+  return {
+    title: t('REGISTER_CLIENT_PAGE_METADATA_TITLE'),
+    description: t('REGISTER_CLIENT_PAGE_METADATA_DESCRIPTION'),
+  };
+}
 
 const RegisterClientPage = ({
   searchParams,
@@ -20,27 +25,23 @@ const RegisterClientPage = ({
 }) => {
   unstable_setRequestLocale(locale);
 
+  const t = useTranslations();
+
   return (
-    <SplitPageWithImage imageProps={{ alt: 'Ekwipunek na siłowni', src: '/client-register.jpg' }}>
+    <SplitPageWithImage imageProps={{ alt: t('REGISTER_CLIENT_IMAGE_ALT'), src: '/client-register.jpg' }}>
       <div className="flex flex-col gap-2.5 text-center">
-        <span className="font-bold text-zinc-400">Witaj w {Constants.APP_NAME}!</span>
-        <h1 className="text-2xl text-white">
-          Trenuj jak <span className="font-medium text-yellow-400">zawodowiec</span>,
-          <br />z techniką <span className="font-medium text-yellow-400">mistrza</span>
-        </h1>
+        <h1 className="text-2xl text-white">{t.rich('REGISTER_CLIENT_HEADING')}</h1>
       </div>
       <div className="flex flex-col gap-6">
-        <h2 className="text-2xl font-bold text-white">
-          Zarejestruj się jako <span className="text-yellow-400">klient</span>
-        </h2>
+        <h2 className="text-2xl font-bold text-white">{t.rich('REGISTER_CLIENT_TITLE')}</h2>
         <RegisterForm redirectPathParam={searchParams.redirectUrl} userRole="client" />
       </div>
       <div className="flex flex-col gap-2">
         <AuthLink href="/register/trainer" redirectUrlParam={searchParams.redirectUrl}>
-          Zarejestruj się jako <span className="font-bold text-yellow-400">trener</span>
+          {t.rich('REGISTER_CLIENT_TRAINER_REDIRECT')}
         </AuthLink>
         <AuthLink href="/login" redirectUrlParam={searchParams.redirectUrl}>
-          Posiadasz już konto? <span className="font-bold text-yellow-400">Zaloguj się</span>
+          {t.rich('REGISTER_LOGIN_REDIRECT')}
         </AuthLink>
       </div>
     </SplitPageWithImage>

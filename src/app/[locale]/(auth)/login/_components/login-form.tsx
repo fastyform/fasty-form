@@ -32,19 +32,19 @@ const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <AppInputForm control={control} fieldName="email" label="Email" />
-        <AppInputFormPassword control={control} fieldName="password" label="Hasło" />
+        <AppInputFormPassword control={control} fieldName="password" label={t('COMMON_PASSWORD_LABEL')} />
       </div>
       <AuthLink
         className="mb-7 w-fit self-end px-1 py-2.5 text-xs text-zinc-200 transition-opacity hover:opacity-80"
         href="/forgot-password"
         redirectUrlParam={redirectUrlParam}
       >
-        Zapomniałem hasła
+        {t('LOGIN_FORGOT_PASSWORD')}
       </AuthLink>
       <div className="flex flex-col gap-2">
-        <AppButtonSubmit isValid={formState.isValid}>Zaloguj się</AppButtonSubmit>
-        <span className="text-center text-zinc-200">Lub</span>
-        <ButtonGoogle authCallback={() => actionLoginGoogle(redirectUrlParam)}>Zaloguj się</ButtonGoogle>
+        <AppButtonSubmit isValid={formState.isValid}>{t('COMMON_LOGIN_CTA')}</AppButtonSubmit>
+        <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
+        <ButtonGoogle authCallback={() => actionLoginGoogle(redirectUrlParam)}>{t('COMMON_LOGIN_CTA')}</ButtonGoogle>
       </div>
     </form>
   );

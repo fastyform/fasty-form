@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +17,20 @@ import AppInputFormPassword from '@/components/app-input/app-input-form-password
 import { formDefaultState } from '@/utils/form';
 import { Database } from '@/utils/supabase/supabase';
 import { SearchParam } from '@/utils/types';
+
+const TosLink = (chunks: ReactNode) => (
+  <Link className="font-bold" href="/terms-of-service" rel="noopener" target="_blank">
+    {chunks}
+  </Link>
+);
+
+const PolicyLink = (chunks: ReactNode) => (
+  <Link className="font-bold" href="/privacy-policy" rel="noopener" target="_blank">
+    {chunks}
+  </Link>
+);
+
+const NonBreakingSpace = () => <>&nbsp;</>;
 
 interface RegisterFormProps {
   redirectPathParam: SearchParam;
@@ -46,27 +60,28 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
       <div className="flex flex-col gap-4">
         <AppFormState state={state} />
         <AppInputForm control={control} fieldName="email" label="Email" />
-        <AppInputFormPassword autoComplete="new-password" control={control} fieldName="password" label="Hasło" />
+        <AppInputFormPassword
+          autoComplete="new-password"
+          control={control}
+          fieldName="password"
+          label={t('COMMON_PASSWORD_LABEL')}
+        />
       </div>
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid} type="submit">
-          Zarejestruj się
+          {t('REGISTER_CTA')}
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">Lub</span>
         <ButtonGoogle authCallback={() => actionRegisterGoogle(userRole, redirectPathParam)}>
-          Zarejestruj się
+          {t('REGISTER_CTA')}
         </ButtonGoogle>
       </div>
       <span className="text-center text-xs text-zinc-200">
-        Kontynuując rejestrację, akceptujesz{' '}
-        <Link className="font-bold" href="/terms-of-service" rel="noopener" target="_blank">
-          regulamin
-        </Link>{' '}
-        i&nbsp;potwierdzasz, że zapoznałeś się z&nbsp;
-        <Link className="font-bold" href="/privacy-policy" rel="noopener" target="_blank">
-          polityką prywatności
-        </Link>
-        .
+        {t.rich('REGISTER_TOS_ACCEPT', {
+          TosLink,
+          PolicyLink,
+          NonBreakingSpace,
+        })}
       </span>
     </form>
   );

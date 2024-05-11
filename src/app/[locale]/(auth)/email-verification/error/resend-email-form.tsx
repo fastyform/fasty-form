@@ -4,8 +4,8 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import actionResendEmailConfirmation from '@/app/[locale]/(auth)/email-verification/error/_actions/action-resend-email-confirmation';
-import { formSchema } from '@/app/[locale]/(auth)/email-verification/error/_utils';
+import actionResendEmailConfirmation from '@/app/[locale]/(auth)/email-verification/error/action-resend-email-confirmation';
+import { formSchema } from '@/app/[locale]/(auth)/email-verification/error/utils';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -26,7 +26,7 @@ const ResetEmailForm = () => {
       <AppFormState state={state} />
       <AppInputForm className="w-full" control={control} fieldName="email" label="Email" />
       <AppButtonSubmit className="w-full" isValid={formState.isValid}>
-        Wyślij ponownie link aktywacyjny
+        {t('EMAIL_VERIFICATION_ERROR_RESEND')}
       </AppButtonSubmit>
     </form>
   );
