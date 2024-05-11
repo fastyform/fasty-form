@@ -1,8 +1,13 @@
 import Link from 'next/link';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import AppButton from '@/components/app-button';
+import { Locale } from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
 
-const NotFoundPage = async () => {
+const NotFoundPage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  unstable_setRequestLocale(locale);
+
+  const t = await getTranslations();
   const user = await getUserWithNull();
   const isLoggedIn = !!user;
 
@@ -12,10 +17,10 @@ const NotFoundPage = async () => {
         <h1 className="text-9xl font-bold md:text-[200px]">404</h1>
         <div className="flex flex-col gap-2">
           <h2 className="mb-2 text-5xl font-bold">Uuups!</h2>
-          <p className="text-2xl">Strona, której szukasz nie została odnaleziona.</p>
+          <p className="text-2xl">{t('NOT_FOUND_TITLE')}</p>
         </div>
         <AppButton className="self-start" component={Link} href={isLoggedIn ? '/submissions' : '/login'}>
-          {isLoggedIn ? 'Przejdź do swoich zgłoszeń' : 'Przejdź do strony logowania'}
+          {t(`NOT_FOUND_REDIRECT_${isLoggedIn ? 'submissions' : 'login'}`)}
         </AppButton>
       </div>
     </div>
