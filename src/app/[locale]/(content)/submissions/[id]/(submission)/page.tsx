@@ -2,15 +2,15 @@ import { Suspense } from 'react';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { redirect } from 'next/navigation';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/_components/trainer-profile-name-link';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/get-submission-by-id';
+import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/trainer-profile-name-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
-import getSubmissionById from './_utils/get-submission-by-id';
 import { VideoSkeleton } from './loading';
 import 'dayjs/locale/pl';
 
@@ -19,6 +19,7 @@ dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
+  const t = await getTranslations();
 
   const user = await getLoggedInUser();
   const [isTrainerAccount, submission] = await Promise.all([
@@ -38,7 +39,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
       <p className=" text-base text-white lg:hidden">
-        <span className="font-bold">Ostatnia zmiana: </span>
+        <span className="font-bold">{t('SUBMISSION_LAST_CHANGE')} </span>
         <span className="capitalize">{formattedUpdateDate}</span>
       </p>
       {!isTrainerAccount && (
@@ -55,7 +56,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
         {!!submission.client_description && (
           <SubmissionPartWithIcon verticalLine icon="submission">
             <h2 className="text-lg font-bold leading-5 text-white">
-              {isTrainerAccount ? 'Zgłoszenie klienta' : 'Twoje zgłoszenie'}
+              {t(isTrainerAccount ? 'SUBMISSION_TITLE_TRAINER' : 'SUBMISSION_TITLE_CLIENT')}
             </h2>
             <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
           </SubmissionPartWithIcon>
@@ -70,9 +71,9 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
               <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
             </SubmissionPartWithIcon>
             <SubmissionPartWithIcon icon="finished">
-              <h2 className="text-lg font-bold text-yellow-400">Zamówienie zakończone</h2>
+              <h2 className="text-lg font-bold text-yellow-400">{t('SUBMISSION_FINISHED_ORDER')}</h2>
               <span className="whitespace-pre-wrap text-sm text-white">
-                Data wykonania <span className="font-bold capitalize">{formattedFinishDate}</span>
+                {t('SUBMISSION_FINISHED_DATE')} <span className="font-bold capitalize">{formattedFinishDate}</span>
               </span>
             </SubmissionPartWithIcon>
           </>
@@ -83,10 +84,10 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
             <AddTrainerReviewForm submissionId={params.id} />
           ) : (
             <SubmissionPartWithIcon className="opacity-50" icon="submission">
-              <h2 className="text-lg font-bold leading-5 text-white">Oczekiwanie na odpowiedź trenera...</h2>
-              <p className="text-sm text-white">
-                Po tym, jak trener przeanalizuje Twoją technikę, znajdziesz tutaj jego komentarz i sugestie.
-              </p>
+              <h2 className="text-lg font-bold leading-5 text-white">
+                {t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_TITLE')}
+              </h2>
+              <p className="text-sm text-white">{t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_CAPTION')}</p>
             </SubmissionPartWithIcon>
           ))}
       </div>

@@ -1,5 +1,5 @@
 import { ReactNode, Suspense } from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
@@ -11,15 +11,14 @@ import {
   SubmissionUpdateDate,
 } from './_components/submissions-layout-parts';
 
-const SubmissionLayout = async ({
-  children,
-  params,
-}: {
+interface SubmissionLayoutProps {
   children: ReactNode;
   params: { id: string; locale: Locale };
-}) => {
-  unstable_setRequestLocale(params.locale);
+}
 
+const SubmissionLayout = async ({ children, params }: SubmissionLayoutProps) => {
+  unstable_setRequestLocale(params.locale);
+  const t = await getTranslations();
   const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
@@ -27,7 +26,7 @@ const SubmissionLayout = async ({
     <>
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-5">
-          <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
+          <MobileNavbarLink aria-label={t('COMMON_SUBMISSIONS')} href="/submissions" icon="back" />
           <Suspense
             fallback={
               <div className="hidden animate-pulse select-none rounded-full bg-shark text-xl lg:block">

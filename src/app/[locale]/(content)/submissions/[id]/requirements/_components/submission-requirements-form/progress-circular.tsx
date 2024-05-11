@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import CircleIcon from '@/app/[locale]/(content)/submissions/[id]/requirements/circle-icon';
 import AppReactPortalWrapper from '@/components/app-react-portal-wrapper';
 
 const ProgressCircular = ({ progress }: { progress: number }) => {
+  const t = useTranslations();
   const progressCircleRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -31,9 +33,7 @@ const ProgressCircular = ({ progress }: { progress: number }) => {
               {Math.round(progress)} %
             </span>
           </div>
-          <p className="text-center font-bold text-white">
-            Trwa wysyłanie wideo. Pozostaw to okno otwarte do momentu zakończenia. Zamknięcie okna spowoduje przerwanie.
-          </p>
+          <p className="text-center font-bold text-white">{t('SUBMISSION_REQUIREMENTS_VIDEO_DESCRIPTION')}</p>
         </div>
       </div>
     </AppReactPortalWrapper>

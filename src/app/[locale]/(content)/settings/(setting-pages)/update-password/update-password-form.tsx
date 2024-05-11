@@ -10,7 +10,7 @@ import {
   UpdatePasswordFormValues,
   updatePasswordSchema,
 } from '@/app/[locale]/(content)/settings/(setting-pages)/update-password/utils';
-import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/_assets/question-mark-icon';
+import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppDialog from '@/components/app-dialog';

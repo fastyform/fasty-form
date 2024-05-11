@@ -3,31 +3,25 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useTranslations } from 'next-intl';
+import prettyBytes from 'pretty-bytes';
 import { twMerge } from 'tailwind-merge';
 import ErrorIcon from '@/assets/error-icon';
 
-const MAX_FILE_SIZE_IN_BYTES = 104857600 * 2; // 200 MB
+const MAX_FILE_SIZE_IN_BYTES = 1000 * 1000 * 100 * 2; // 200 MB\
+export const ALLOWED_FORMATS = ['.mp4', '.webm', '.qt', '.mov'].join(', ');
+const ERROR_CODES = ['file-invalid-type', 'file-too-large'] as const;
 
-const ERROR_MESSAGES: { [key: string]: string } = {
-  'file-invalid-type': 'Plik musi być plikiem wideo w formacie .mp4, .webm, .qt lub .mov.',
-  'file-too-large': 'Maksymalny rozmiar pliku wideo to 200 MB.',
-};
+const isAllowedErrorCode = (code: string): code is (typeof ERROR_CODES)[number] => ERROR_CODES.includes(code);
 
 interface Props {
   onFileSet: Dispatch<SetStateAction<File | null>>;
 }
 
-const INSTRUCTIONS = [
-  'Na nagraniu powinno być <strong>widoczne całe ciało</strong>.',
-  'Maksymalny rozmiar pliku wideo: <strong>200 MB</strong>.',
-  'Maksymalna długość wideo: <strong>60 sekund</strong>.',
-  'Akceptowane formaty pliku wideo: <strong>.mp4, .webm, .qt, .mov</strong>.',
-  'Preferowana rozdzielczość: <strong>720p</strong> lub <strong>1080p</strong>.',
-] as const;
-
 const MAX_VIDEO_DURATION_IN_SECONDS = 60;
 
 const VideoFileInput = ({ onFileSet }: Props) => {
+  const t = useTranslations();
   const [fileInputErrors, setFileInputErrors] = useState<string[]>([]);
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
     maxSize: MAX_FILE_SIZE_IN_BYTES,
@@ -47,7 +41,7 @@ const VideoFileInput = ({ onFileSet }: Props) => {
       });
 
       if (duration > MAX_VIDEO_DURATION_IN_SECONDS) {
-        setFileInputErrors(['Maksymalna długość wideo to 60 sekund.']);
+        setFileInputErrors([t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_ERROR_VIDEO_DURATION_TOO_LONG')]);
 
         return;
       }
@@ -56,7 +50,17 @@ const VideoFileInput = ({ onFileSet }: Props) => {
     },
     onDrop: () => setFileInputErrors([]),
     onDropRejected: ([rejectedFile]) => {
-      setFileInputErrors(rejectedFile.errors.map((error) => ERROR_MESSAGES[error.code]));
+      const errorMessages = rejectedFile.errors
+        .map((error) =>
+          isAllowedErrorCode(error.code)
+            ? t(`SUBMISSION_REQUIREMENTS_VIDEO_INPUT_ERROR_${error.code}`, {
+                fileSize: prettyBytes(MAX_FILE_SIZE_IN_BYTES),
+                formats: ALLOWED_FORMATS,
+              })
+            : null,
+        )
+        .filter(Boolean);
+      setFileInputErrors(errorMessages);
     },
   });
 
@@ -91,8 +95,8 @@ const VideoFileInput = ({ onFileSet }: Props) => {
               isDragReject && 'text-red-400',
             )}
           >
-            <span className="hidden md:block">Przeciągnij i upuść plik wideo, lub kliknij, aby wybrać.</span>
-            <span className="md:hidden">Kliknij, aby wybrać wideo.</span>
+            <span className="hidden md:block">{t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_TEXT_DESKTOP')}</span>
+            <span className="md:hidden">{t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_TEXT')}</span>
           </span>
         </div>
         {fileInputErrors.map((error) => (
@@ -102,8 +106,16 @@ const VideoFileInput = ({ onFileSet }: Props) => {
         ))}
       </div>
       <ul className="flex list-inside list-disc flex-col gap-2 text-xs text-white">
-        {INSTRUCTIONS.map((instruction) => (
-          <li key={instruction} dangerouslySetInnerHTML={{ __html: instruction }} />
+        {(['0', '1', '2', '3', '4'] as const).map((index) => (
+          <li key={index}>
+            {t.rich(`SUBMISSION_REQUIREMENTS_VIDEO_INPUT_INSTRUCTION_${index}`, {
+              fileSize: prettyBytes(MAX_FILE_SIZE_IN_BYTES),
+              formats: ALLOWED_FORMATS,
+              maxDuration: MAX_VIDEO_DURATION_IN_SECONDS,
+              hd: '720p',
+              fullHd: '1080p',
+            })}
+          </li>
         ))}
       </ul>
     </div>

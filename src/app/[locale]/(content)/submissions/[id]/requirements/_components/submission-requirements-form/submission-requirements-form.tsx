@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
 import { useTranslations } from 'next-intl';
-import VideoFileInput from '@/app/[locale]/(content)/submissions/[id]/requirements/_components/video-file-input';
+import VideoFileInput, {
+  ALLOWED_FORMATS,
+} from '@/app/[locale]/(content)/submissions/[id]/requirements/_components/video-file-input';
 import {
   SubmissionRequirements,
   submissionRequirementsSchema,
@@ -49,7 +51,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
       {/* NOTE: This textarea size is hardcoded because of the jumping form bug on first render */}
       <form className="flex flex-col gap-5 [&_textarea]:!h-[115px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2 flex flex-col gap-2.5">
-          <span className="text-white">Wideo wykonywanego ćwiczenia</span>
+          <span className="text-white">{t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_LABEL')}</span>
           {videoSrc ? (
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2">
@@ -58,14 +60,14 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
                   controls={!isLoading}
                   src={videoSrc}
                 >
-                  Plik wideo nie jest wspierany przez Twoją przeglądarkę. Wspierane pliki to .mp4, .webm, .mov lub .qt.
+                  {t('SUBMISSION_REQUIREMENTS_VIDEO_ERROR_INFO', { formats: ALLOWED_FORMATS })}
                 </video>
                 <AppButton
                   classes={{ root: 'py-2', contained: 'bg-transparent' }}
                   className="self-start text-sm text-white"
                   onClick={() => setVideoFile(null)}
                 >
-                  Usuń wideo
+                  {t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_REMOVE')}
                 </AppButton>
               </div>
             </div>
@@ -79,16 +81,16 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
           control={control}
           disabled={isLoading}
           fieldName="clientDescription"
-          label="Opcjonalna wiadomość dla trenera"
+          label={t('SUBMISSION_REQUIREMENTS_DESCRIPTION_LABEL')}
           minRows={5}
-          placeholder="Wiadomość"
+          placeholder={t('SUBMISSION_REQUIREMENTS_DESCRIPTION_PLACEHOLDER')}
         />
         <AppButton disabled={!videoFile} loading={isLoading} type="submit">
-          Wyślij
+          {t('COMMON_SEND')}
         </AppButton>
         <div className="flex items-center gap-2.5">
           <WifiRoundedIcon classes={{ root: 'text-[2rem] text-yellow-400' }} />
-          <p className="text-sm text-white">Zapewnij stabilne połączenie Wi-Fi w celu szybszego przesyłania wideo.</p>
+          <p className="text-sm text-white">{t('SUBMISSION_REQUIREMENTS_STABLE_CONNECTION_INFO')}</p>
         </div>
       </form>
       {isLoading && <ProgressCircular progress={progress} />}
