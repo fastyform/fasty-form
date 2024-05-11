@@ -2,21 +2,10 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
-import { Locale } from '@/utils/constants';
 
-const ErrorPage = ({
-  error,
-  reset,
-  params: { locale },
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-  params: { locale: Locale };
-}) => {
-  unstable_setRequestLocale(locale);
+const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const t = useTranslations();
 
   return (

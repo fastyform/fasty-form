@@ -1,10 +1,10 @@
 'use server';
 
 import { getTranslations } from 'next-intl/server';
+import { updatePasswordSchema } from '@/app/[locale]/(content)/settings/(setting-pages)/account/utils';
 import { getResponse } from '@/utils';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import { updatePasswordSchema } from './utils';
 
 const actionUpdatePassword = async (prevState: FormState, data: FormData) => {
   const t = await getTranslations();

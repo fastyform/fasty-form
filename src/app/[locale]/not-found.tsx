@@ -1,12 +1,9 @@
 import Link from 'next/link';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import AppButton from '@/components/app-button';
-import { Locale } from '@/utils/constants';
 import getUserWithNull from '@/utils/get-user-with-null';
 
-const NotFoundPage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
-  unstable_setRequestLocale(locale);
-
+const NotFoundPage = async () => {
   const t = await getTranslations();
   const user = await getUserWithNull();
   const isLoggedIn = !!user;
