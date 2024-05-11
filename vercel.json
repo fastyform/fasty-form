@@ -9,6 +9,10 @@
       "schedule": "0 7 * * *"
     },
     {
+      "path": "/api/cron/complete-stripe-onboarding",
+      "schedule": "0 7 * * *"
+    },
+    {
       "path": "/api/cron/invoice",
       "schedule": "0 6 1 * *"
     }

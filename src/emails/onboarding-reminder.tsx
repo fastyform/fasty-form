@@ -1,46 +1,42 @@
+import { Fragment } from 'react';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const OnboardingReminder = ({ title }: { title: string }) => (
-  <MailTemplate title={title}>
+interface OnboardingReminderProps {
+  t: IntlShape;
+}
+
+const OnboardingReminder = ({ t }: OnboardingReminderProps) => (
+  <MailTemplate title={t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions`}>
-      Dokończ rejestrację
+      {t('MAIL_TEMPLATE_ONBOARDING_REMINDER_CTA')}
     </MailTemplate.CallToAction>
+    <MailTemplate.Intro t={t} />
+    {t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_1')}
     <MailTemplate.LineBreak />
-    Cześć!
-    <MailTemplate.LineBreak />
-    Zauważyliśmy, że rozpocząłeś(aś) proces tworzenia konta na platformie <MailTemplate.AppLink /> ale nie został on
-    jeszcze zakończony. Chcielibyśmy upewnić się, że nie napotykasz żadnych przeszkód i że cały proces przebiega
-    bezproblemowo.
-    <MailTemplate.LineBreak />
-    <strong>
-      Aby aktywować swoje konto i zacząć korzystać z wszystkich funkcji <MailTemplate.AppLink />, wystarczy, że wykonasz
-      kilka prostych kroków:
-    </strong>
-    <MailTemplate.LineBreak />
-    1. Przejdź na stronę {Constants.APP_NAME}.
+    <strong>{t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_2')}</strong>
     <br />
-    2. Zaloguj się na swoje konto.
+    {(['1', '2', '3'] as const).map((index) => (
+      <Fragment key={index}>
+        <br />
+        {index}. {t.rich(`MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_3_${index}`)}
+      </Fragment>
+    ))}
+    <MailTemplate.LineBreak />
+    <strong>{t('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_4')}</strong>
     <br />
-    3. Dokończ proces rejestracji.
+    {(['1', '2', '3'] as const).map((index) => (
+      <Fragment key={index}>
+        <br />
+        {index}. {t.rich(`MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_5_${index}`)}
+      </Fragment>
+    ))}
     <MailTemplate.LineBreak />
-    <strong>Kompletując rejestrację, zyskasz:</strong>
+    {t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_6')}
     <MailTemplate.LineBreak />
-    1. <strong>Widoczność Twojego profilu trenera</strong> dla klientów i obserwatorów.
-    <br />
-    2. Możliwość <strong>otrzymywania płatności za weryfikację techniki</strong> od swoich klientów.
-    <br />
-    3. Opcję <strong>skopiowania i udostępnienia linku do Twojego profilu trenera</strong> na platformach
-    społecznościowych.
-    <MailTemplate.LineBreak />
-    Jeśli masz jakiekolwiek pytania lub potrzebujesz pomocy w dokończeniu procesu, jesteśmy tutaj, aby Ci pomóc.
-    Skontaktuj się z nami odpowiadając na ten adres e-mail.
-    <MailTemplate.LineBreak />
-    Dziękujemy za Twoje zainteresowanie naszą aplikacją!.
-    <MailTemplate.LineBreak />
-    Pozdrawiamy,
-    <br />
-    Zespół {Constants.APP_NAME}
+    {t('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_7')}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

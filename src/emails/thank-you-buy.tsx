@@ -1,23 +1,23 @@
 import { Link } from '@react-email/components';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const ThankYouBuy = ({
-  submissionId,
-  trainerProfileName,
-  trainerProfileSlug,
-}: {
+interface ThankYouBuyProps {
   submissionId: string;
   trainerProfileName: string;
   trainerProfileSlug: string;
-}) => (
+  t: IntlShape;
+}
+
+const ThankYouBuy = ({ submissionId, trainerProfileName, trainerProfileSlug, t }: ThankYouBuyProps) => (
   <MailTemplate title="Jesteśmy gotowi na Twoje wideo.">
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions/${submissionId}/requirements`}>
       Dodaj wideo do swojego zgłoszenia
     </MailTemplate.CallToAction>
-    <MailTemplate.LineBreak />
-    Cześć! <MailTemplate.LineBreak /> Dziękujemy za dokonanie zakupu analizy techniki w <MailTemplate.AppLink />, u
-    trenera <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</Link>
+    <MailTemplate.Intro t={t} />
+    Dziękujemy za dokonanie zakupu analizy techniki w <MailTemplate.AppLink />, u trenera{' '}
+    <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{trainerProfileName}.</Link>
     <MailTemplate.LineBreak />
     Wraz z trenerem chcielibyśmy Ci podziękować. Jesteśmy podekscytowani, że możemy pomóc Ci w osiągnięciu nowych celów!
     Teraz wszystko, co musisz zrobić, to przesłać nam swoje wideo. <MailTemplate.LineBreak />{' '}
@@ -39,8 +39,7 @@ const ThankYouBuy = ({
     <MailTemplate.LineBreak /> Masz pytania? Potrzebujesz pomocy?{' '}
     <Link href={`${Constants.ORIGIN_URL}/contact`}>Napisz do nas</Link>, chętnie pomożemy. Do zobaczenia w{' '}
     {Constants.APP_NAME}!
-    <MailTemplate.LineBreak /> Pozdrawiamy,
-    <br /> Zespół {Constants.APP_NAME}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

@@ -20,9 +20,7 @@ const ReportReady = ({ downloadUrl, reportType, startDateTimestamp, endDateTimes
       <MailTemplate.CallToAction href={downloadUrl}>
         {t('MAIL_TEMPLATE_REPORT_READY_DOWNLOAD')}
       </MailTemplate.CallToAction>
-      <MailTemplate.LineBreak />
-      {t('MAIL_TEMPLATE_REPORT_READY_OPENING')}
-      <MailTemplate.LineBreak />
+      <MailTemplate.Intro t={t} />
       {t.rich('MAIL_TEMPLATE_REPORT_READY_CONTENT', { reportType: t(reportTypeToLabel[reportType]), reportName })}
       <MailTemplate.Greetings t={t} />
     </MailTemplate>
