@@ -7,7 +7,6 @@ import { Locale } from '@/utils/constants';
 
 const SettingPagesLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
-
   const t = useTranslations();
 
   return (
@@ -17,7 +16,7 @@ const SettingPagesLayout = ({ children, params: { locale } }: { children: ReactN
         <SettingsMenu />
       </div>
       <div className="flex grow flex-col gap-5">
-        <MobileNavbarLink aria-label="Ustawienia" className="lg:hidden" href="/settings" icon="back" />
+        <MobileNavbarLink aria-label={t('NAV_SETTINGS')} className="lg:hidden" href="/settings" icon="back" />
         {children}
       </div>
     </div>

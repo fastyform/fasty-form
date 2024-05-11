@@ -6,12 +6,14 @@ import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import { Database } from '@/utils/supabase/supabase';
 
 const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements`;
 
 const SuccessPaymentPage = () => {
+  const t = useTranslations();
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -75,15 +77,13 @@ const SuccessPaymentPage = () => {
         <Image alt="Ikonka sukcesu" className="h-[90px] w-[90px]" height={90} src="/success.svg" width={90} />
         <div className="flex flex-col gap-2.5">
           <h2 className="text-center text-base font-bold md:text-xl lg:text-2xl xl:text-3xl">
-            Płatność zakończona pomyślnie
+            {t('PAYMENT_SUCCESS_TITLE')}
           </h2>
-          <p className="text-center text-sm lg:text-base">
-            Nastąpi przekierowanie. Jeżeli to się nie wydarzy kliknij w przycisk poniżej.
-          </p>
+          <p className="text-center text-sm lg:text-base">{t('PAYMENT_SUCCESS_DESCRIPTION')}</p>
         </div>
         <div className="flex flex-wrap gap-5">
           <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href="/submissions">
-            Twoje zgłoszenia
+            {t('PAYMENT_SUCCESS_BUTTON')}
           </AppButton>
         </div>
       </div>
