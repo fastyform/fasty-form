@@ -1,17 +1,19 @@
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const WelcomeMailClient = () => (
-  <MailTemplate title={`Witaj w ${Constants.APP_NAME}! Zadbaj o swoją technikę już dziś.`}>
+const WelcomeMailClient = ({ t }: { t: IntlShape }) => (
+  <MailTemplate title={t.rich('MAIL_TEMPLATE_WELCOME_CLIENT_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions`}>
-      Sprawdź swoje możliwości
+      {t('MAIL_TEMPLATE_WELCOME_CLIENT_CTA')}
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
-    Super, że jesteś z nami.
-    <MailTemplate.LineBreak /> W <MailTemplate.AppLink /> czekają na Ciebie trenerzy gotowi przeanalizować Twoją
-    technikę. Zajrzyj na ich profile, wybierz tego, który najbardziej Ci odpowiada, i zacznij swoją przygodę.
+    {t('MAIL_TEMPLATE_WELCOME_CLIENT_CONTENT_1')}
     <MailTemplate.LineBreak />
-    Będziesz miał jakiekolwiek pytania - jesteśmy tu dla Ciebie. Powodzenia!
+    {t.rich('MAIL_TEMPLATE_WELCOME_CLIENT_CONTENT_2')}
+    <MailTemplate.LineBreak />
+    {t('MAIL_TEMPLATE_WELCOME_CLIENT_CONTENT_3')}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

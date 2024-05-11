@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       const t = await getTranslations({ locale: 'pl' });
       await sendMail({
         to: session.metadata.userEmail,
-        subject: 'Jesteśmy gotowi na Twoje wideo.',
+        subject: t('MAIL_TEMPLATE_THANK_YOU_BUY_SUBJECT'),
         html: render(
           <ThankYouBuy
             submissionId={submission.id}

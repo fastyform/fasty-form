@@ -16,7 +16,6 @@ const OnboardingReminder = ({ t }: OnboardingReminderProps) => (
     {t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_1')}
     <MailTemplate.LineBreak />
     <strong>{t.rich('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_2')}</strong>
-    <br />
     {(['1', '2', '3'] as const).map((index) => (
       <Fragment key={index}>
         <br />
@@ -25,7 +24,6 @@ const OnboardingReminder = ({ t }: OnboardingReminderProps) => (
     ))}
     <MailTemplate.LineBreak />
     <strong>{t('MAIL_TEMPLATE_ONBOARDING_REMINDER_CONTENT_4')}</strong>
-    <br />
     {(['1', '2', '3'] as const).map((index) => (
       <Fragment key={index}>
         <br />
