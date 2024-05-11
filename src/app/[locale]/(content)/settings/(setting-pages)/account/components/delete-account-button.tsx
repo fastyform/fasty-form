@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import actionDeleteAccount from '@/app/[locale]/(content)/settings/(setting-pages)/account/action-delete-account';
+import actionDeleteAccount from '@/app/[locale]/(content)/settings/(setting-pages)/account/actions/action-delete-account';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
 import notify from '@/utils/notify';

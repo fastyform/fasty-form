@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowForwardIos, Gavel, NotificationsActiveRounded, Password, SupportAgent } from '@mui/icons-material';
+import { ArrowForwardIos, Gavel, NotificationsActiveRounded, SupportAgent } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
@@ -10,11 +10,10 @@ import AppButton from '@/components/app-button';
 import SignOutButton from './sign-out-button';
 
 const settingsMenuData = [
-  [Password, 'update-password'],
+  [PersonIcon, 'account'],
   [SupportAgent, 'support'],
   [Gavel, 'legal'],
   [NotificationsActiveRounded, 'notifications'],
-  [PersonIcon, 'account'],
 ] as const;
 
 const SettingsMenu = () => {

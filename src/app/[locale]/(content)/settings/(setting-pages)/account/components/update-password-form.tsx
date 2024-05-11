@@ -6,10 +6,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import actionUpdatePassword from '@/app/[locale]/(content)/settings/(setting-pages)/account/actions/action-update-password';
 import {
   UpdatePasswordFormValues,
   updatePasswordSchema,
-} from '@/app/[locale]/(content)/settings/(setting-pages)/update-password/utils';
+} from '@/app/[locale]/(content)/settings/(setting-pages)/account/utils';
 import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
@@ -18,7 +19,6 @@ import AppFormState from '@/components/app-form-error';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
-import actionUpdatePassword from './action-update-password';
 
 const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchParam }) => {
   const t = useTranslations();

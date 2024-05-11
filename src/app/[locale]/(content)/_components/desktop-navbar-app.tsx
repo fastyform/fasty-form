@@ -28,7 +28,7 @@ const DesktopNavbarApp = async () => {
                   {t('NAV_PAYMENTS')}
                 </NavbarLink>
               )}
-              <NavbarLink href="/settings/update-password" icon="settings">
+              <NavbarLink href="/settings/account" icon="settings">
                 {t('NAV_SETTINGS')}
               </NavbarLink>
               {trainerDetails && trainerDetails.profile_slug && (
