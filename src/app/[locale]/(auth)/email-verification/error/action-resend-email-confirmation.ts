@@ -1,7 +1,7 @@
 'use server';
 
 import { getTranslations } from 'next-intl/server';
-import { formSchema } from '@/app/[locale]/(auth)/email-verification/error/_utils';
+import { formSchema } from '@/app/[locale]/(auth)/email-verification/error/utils';
 import { getResponse } from '@/utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 

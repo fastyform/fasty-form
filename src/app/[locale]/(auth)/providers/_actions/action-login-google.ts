@@ -2,12 +2,13 @@
 
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { SearchParam } from '@/utils/types';
 
 const actionLoginGoogle = async (redirectUrlParam: SearchParam) => {
+  const t = await getTranslations();
   const headersList = headers();
   const supabase = getSupabaseServerClient();
   const redirectUrl = typeof redirectUrlParam === 'string' ? `?redirectUrl=${redirectUrlParam}` : '';
@@ -21,7 +22,7 @@ const actionLoginGoogle = async (redirectUrlParam: SearchParam) => {
     return redirect(response.data.url) as undefined;
   }
 
-  return getResponse(Constants.COMMON_ERROR_MESSAGE);
+  return getResponse(t('COMMON_ERROR'));
 };
 
 export default actionLoginGoogle;

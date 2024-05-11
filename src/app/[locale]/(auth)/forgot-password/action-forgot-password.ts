@@ -1,7 +1,7 @@
 'use server';
 
 import { getTranslations } from 'next-intl/server';
-import { forgotPasswordFormSchema } from '@/app/[locale]/(auth)/forgot-password/_utils';
+import { forgotPasswordFormSchema } from '@/app/[locale]/(auth)/forgot-password/utils';
 import { getResponse } from '@/utils';
 import Constants from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -29,10 +29,9 @@ const actionForgotPassword = async (
     redirectTo: `${Constants.ORIGIN_URL}${redirectPath}`,
   });
 
-  if (!error)
-    return getResponse('Właśnie wysłaliśmy Ci link do resetu hasła. Zerknij na swoją pocztę i zresetuj hasło.', true);
+  if (!error) return getResponse(t('FORGOT_FORM_SUCCESS'), true);
 
-  return getResponse(Constants.COMMON_ERROR_MESSAGE);
+  return getResponse(t('COMMON_ERROR'));
 };
 
 export default actionForgotPassword;

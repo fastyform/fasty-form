@@ -39,20 +39,20 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   });
 
   if (data.user?.identities?.length === 0) {
-    return getResponse('Istnieje już konto o podanym adresie email.');
+    return getResponse(t('REGISTER_ERROR_MAIL_TAKEN'));
   }
 
   if (error?.status === 429) {
-    return getResponse('Zbyt wiele prób rejestracji w krótkim czasie.');
+    return getResponse(t('REGISTER_TOO_MANY_TRIES'));
   }
 
   if (error || !data || !data.user) {
-    return getResponse(Constants.COMMON_ERROR_MESSAGE);
+    return getResponse(t('COMMON_ERROR'));
   }
 
   await supabase.from('roles').update({ role }).eq('user_id', data.user.id);
 
-  return getResponse('Rejestracja zakończona! Sprawdź swój email, aby aktywować konto.', true);
+  return getResponse(t('REGISTER_SUCCESS'), true);
 };
 
 export default actionRegister;

@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { QUERY_PARAM_ERRORS, QueryParamError } from '@/app/[locale]/(auth)/_utils';
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const ButtonGoogle = ({ children, authCallback }: Props) => {
+  const t = useTranslations();
   const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -29,12 +31,12 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
     if (!errorParam) return;
     replace(pathname);
 
-    if (errorParam in QUERY_PARAM_ERRORS) {
-      notify.error(QUERY_PARAM_ERRORS[errorParam as QueryParamError], {
+    if (QUERY_PARAM_ERRORS.includes(errorParam)) {
+      notify.error(t(`QUERY_PARAM_ERROR_${errorParam as QueryParamError}`), {
         toastId: 'google-auth-error',
       });
     }
-  }, [errorParam, replace, pathname]);
+  }, [errorParam, replace, pathname, t]);
 
   const handleAuthAction = async () => {
     setIsLoading(true);
@@ -56,7 +58,7 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
       }}
       onClick={handleAuthAction}
     >
-      {children} z&nbsp;<span className="font-bold">Google</span>
+      {children} {t('OAUTH_WITH_PROVIDER')}&nbsp;<span className="font-bold">Google</span>
     </AppButton>
   );
 };

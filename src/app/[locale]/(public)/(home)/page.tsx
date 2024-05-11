@@ -1,7 +1,8 @@
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { twJoin } from 'tailwind-merge';
 import AuthFooter from '@/app/[locale]/(auth)/_components/auth-footer';
 import PublicContainer from '@/app/[locale]/(public)/_components/public-container';
@@ -14,10 +15,10 @@ import HomeArrow from './_assets/home-arrow';
 import AmbassadorProgramSection from './ambassador-section';
 import { appBenefitsIcons, appBenefitsKeys, heroBenefits, stepsData, stepsDataKeys } from './data';
 
-const HomePage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
 
-  const t = await getTranslations();
+  const t = useTranslations();
 
   return (
     <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden text-white">
