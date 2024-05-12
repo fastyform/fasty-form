@@ -1,7 +1,7 @@
 'use server';
 
 import { getTranslations } from 'next-intl/server';
-import { registerSchema } from '@/app/[locale]/(auth)/_utils';
+import { getConfirmSignupEmailTranslations, registerSchema } from '@/app/[locale]/(auth)/utils';
 import { getResponse } from '@/utils';
 import Constants, { Locale } from '@/utils/constants';
 import { FormState } from '@/utils/form';
@@ -36,7 +36,10 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${Constants.ORIGIN_URL}${redirectPath}` },
+    options: {
+      emailRedirectTo: `${Constants.ORIGIN_URL}${redirectPath}`,
+      data: getConfirmSignupEmailTranslations(t),
+    },
   });
 
   if (data.user?.identities?.length === 0) {

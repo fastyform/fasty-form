@@ -6,10 +6,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { FormValues, registerSchema } from '@/app/[locale]/(auth)/_utils';
 import actionRegisterGoogle from '@/app/[locale]/(auth)/providers/_actions/action-register-google';
 import ButtonGoogle from '@/app/[locale]/(auth)/providers/_components/button-google';
-import actionRegister from '@/app/[locale]/(auth)/register/_actions/action-register';
+import { FormValues, registerSchema } from '@/app/[locale]/(auth)/utils';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
@@ -18,6 +17,7 @@ import { Locale } from '@/utils/constants';
 import { formDefaultState } from '@/utils/form';
 import { Database } from '@/utils/supabase/supabase';
 import { SearchParam } from '@/utils/types';
+import actionRegister from './action-register';
 
 const TosLink = (chunks: ReactNode) => (
   <Link className="font-bold" href="/terms-of-service" rel="noopener" target="_blank">

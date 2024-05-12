@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { QUERY_PARAM_ERRORS, QueryParamError } from '@/app/[locale]/(auth)/_utils';
+import { QUERY_PARAM_ERRORS, QueryParamError } from '@/app/[locale]/(auth)/utils';
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 
