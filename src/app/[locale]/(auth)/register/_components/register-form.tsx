@@ -14,6 +14,7 @@ import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
+import { Locale } from '@/utils/constants';
 import { formDefaultState } from '@/utils/form';
 import { Database } from '@/utils/supabase/supabase';
 import { SearchParam } from '@/utils/types';
@@ -35,9 +36,10 @@ const NonBreakingSpace = () => <>&nbsp;</>;
 interface RegisterFormProps {
   redirectPathParam: SearchParam;
   userRole: Database['public']['Enums']['role'];
+  locale: Locale;
 }
 
-const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
+const RegisterForm = ({ redirectPathParam, userRole, locale }: RegisterFormProps) => {
   const t = useTranslations();
   const [state, formAction] = useFormState(actionRegister, formDefaultState);
   const { control, handleSubmit, formState, reset } = useForm<FormValues>({
@@ -53,7 +55,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
   }, [state, reset]);
 
   const handleFormAction = (data: FormData) =>
-    handleSubmit(() => formAction({ data, role: userRole, redirectPathParam }))();
+    handleSubmit(() => formAction({ data, role: userRole, redirectPathParam, locale }))();
 
   return (
     <form action={handleFormAction} className="flex flex-col gap-10">
@@ -69,11 +71,11 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
       </div>
       <div className="flex flex-col gap-2">
         <AppButtonSubmit isValid={formState.isValid} type="submit">
-          {t('REGISTER_CTA')}
+          {t('COMMON_REGISTER_CTA')}
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
         <ButtonGoogle authCallback={() => actionRegisterGoogle(userRole, redirectPathParam)}>
-          {t('REGISTER_CTA')}
+          {t('COMMON_REGISTER_CTA')}
         </ButtonGoogle>
       </div>
       <span className="text-center text-xs text-zinc-200">

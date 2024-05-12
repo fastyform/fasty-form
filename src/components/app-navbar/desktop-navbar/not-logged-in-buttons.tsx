@@ -2,9 +2,11 @@
 
 import { User } from '@supabase/supabase-js';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import NavbarLink from '@/components/app-navbar/navbar-link';
 
 const NotLoggedInButtons = ({ user, isHomePage }: { user: User | null; isHomePage?: boolean }) => {
+  const t = useTranslations();
   const params = useParams();
   const redirectUrlParam = params.slug ? `?redirectUrl=/trainers/${params.slug}` : '';
 
@@ -13,14 +15,14 @@ const NotLoggedInButtons = ({ user, isHomePage }: { user: User | null; isHomePag
       {!user && (
         <>
           <NavbarLink href={`/login${redirectUrlParam}`} icon={isHomePage ? undefined : 'login'}>
-            Zaloguj się
+            {t('COMMON_LOGIN_CTA')}
           </NavbarLink>
           <NavbarLink
             href={`/register/client${redirectUrlParam}`}
             icon={isHomePage ? undefined : 'register'}
             variant="contained"
           >
-            Zarejestruj się
+            {t('COMMON_REGISTER_CTA')}
           </NavbarLink>
         </>
       )}

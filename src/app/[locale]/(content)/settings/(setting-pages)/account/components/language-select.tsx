@@ -1,29 +1,47 @@
 'use client';
 
 import { useState } from 'react';
-import { MenuItem } from '@mui/material';
+import { CircularProgress, MenuItem } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import AppInput from '@/components/app-input/app-input';
-import { Locale, LOCALES, LOCALES_FULL_NAMES } from '@/utils/constants';
+import actionChangeLanguage from '@/utils/action-change-language';
+import { Locale, LOCALES_FULL_NAMES } from '@/utils/constants';
+import notify from '@/utils/notify';
 
-const LanguageSelect = ({ className }: { className?: string }) => {
-  const [language, setLanguage] = useState<Locale>('pl');
+const LanguageSelect = ({ className, currentLocale }: { className?: string; currentLocale: Locale }) => {
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // TODO: ADD SAVING TO DATABASE
+  const localeChangeMutation = useMutation({
+    mutationFn: (locale: Locale) => actionChangeLanguage(locale),
+    onMutate: () => setIsRedirecting(true),
+    onSuccess: (locale: Locale) => router.replace(`/${locale}${pathname}`),
+    onError: () => {
+      setIsRedirecting(false);
+      notify.error(t('SETTINGS_ACCOUNT_ERROR_LANGUAGE_CHANGE'));
+    },
+  });
+
   return (
     <AppInput
       select
       className={className}
-      value={language}
+      value={currentLocale}
       SelectProps={{
         MenuProps: {
-          classes: { paper: 'bg-shark bg-none rounded-xl ' },
+          classes: { paper: 'bg-shark bg-none rounded-xl' },
         },
+        endAdornment: isRedirecting && <CircularProgress className="absolute right-10" size={20} />,
       }}
-      onChange={(event) => setLanguage(event.target.value as Locale)}
+      onChange={(event) => localeChangeMutation.mutate(event.target.value as Locale)}
     >
-      {LOCALES.map((locale) => (
+      {LOCALES_FULL_NAMES.map(([locale, localeName]) => (
         <MenuItem key={locale} color="inherit" value={locale}>
-          {LOCALES_FULL_NAMES[locale]}
+          {localeName}
         </MenuItem>
       ))}
     </AppInput>
