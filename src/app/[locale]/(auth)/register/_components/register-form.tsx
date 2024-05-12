@@ -71,7 +71,7 @@ const RegisterForm = ({ redirectPathParam, userRole }: RegisterFormProps) => {
         <AppButtonSubmit isValid={formState.isValid} type="submit">
           {t('REGISTER_CTA')}
         </AppButtonSubmit>
-        <span className="text-center text-zinc-200">Lub</span>
+        <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
         <ButtonGoogle authCallback={() => actionRegisterGoogle(userRole, redirectPathParam)}>
           {t('REGISTER_CTA')}
         </ButtonGoogle>
