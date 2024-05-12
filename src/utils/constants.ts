@@ -28,7 +28,7 @@ export const DATE_FORMAT = 'DD.MM.YY';
 
 export const LOCALES = ['pl'] as const;
 
-export const LOCALES_FULL_NAMES = {
+export const LOCALES_FULL_NAMES: { [key in Locale]: string } = {
   pl: 'Polski',
 } as const;
 
