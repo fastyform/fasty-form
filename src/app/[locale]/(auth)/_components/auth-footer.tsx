@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
-import { LOCALES_FULL_NAMES } from '@/utils/constants';
+import FooterLanguageLinks from './footer-language-links';
 
 interface Props {
   className?: string;
@@ -28,14 +28,7 @@ const AuthFooter = ({ className }: Props) => {
           </Link>
         ))}
       </div>
-      {/* TODO: ADD CORRECT LANG CHANGE */}
-      <div className="flex flex-wrap justify-center gap-5 text-xs md:justify-start">
-        {Object.entries(LOCALES_FULL_NAMES).map(([locale, name]) => (
-          <Link key={locale} href={`/${locale}`}>
-            {name}
-          </Link>
-        ))}
-      </div>
+      <FooterLanguageLinks />
     </footer>
   );
 };

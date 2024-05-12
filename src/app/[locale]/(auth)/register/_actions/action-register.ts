@@ -3,7 +3,7 @@
 import { getTranslations } from 'next-intl/server';
 import { registerSchema } from '@/app/[locale]/(auth)/_utils';
 import { getResponse } from '@/utils';
-import Constants from '@/utils/constants';
+import Constants, { Locale } from '@/utils/constants';
 import { FormState } from '@/utils/form';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
@@ -13,9 +13,10 @@ interface Payload {
   data: FormData;
   role: Database['public']['Enums']['role'];
   redirectPathParam: SearchParam;
+  locale: Locale;
 }
 
-const actionRegister = async (prevState: FormState, { data: formData, role, redirectPathParam }: Payload) => {
+const actionRegister = async (prevState: FormState, { data: formData, role, redirectPathParam, locale }: Payload) => {
   const t = await getTranslations();
   const redirectPath = typeof redirectPathParam === 'string' ? redirectPathParam : '';
 
@@ -50,7 +51,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     return getResponse(t('COMMON_ERROR'));
   }
 
-  await supabase.from('roles').update({ role }).eq('user_id', data.user.id);
+  await supabase.from('roles').update({ role, locale }).eq('user_id', data.user.id);
 
   return getResponse(t('REGISTER_SUCCESS'), true);
 };

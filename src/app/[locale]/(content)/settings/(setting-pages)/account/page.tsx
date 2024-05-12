@@ -28,7 +28,7 @@ const AccountManagePage = async ({
         </div>
         <div className="flex flex-col gap-5">
           <h2 className="text-md text-white">{t('SETTINGS_ACCOUNT_LANGUAGE_TITLE')}</h2>
-          <LanguageSelect className="max-w-md" />
+          <LanguageSelect className="max-w-md" currentLocale={locale} />
         </div>
         <div className="flex flex-col gap-5">
           <h2 className="text-md text-white">{t('SETTINGS_ACCOUNT_DELETE_ACCOUNT_TITLE')}</h2>
