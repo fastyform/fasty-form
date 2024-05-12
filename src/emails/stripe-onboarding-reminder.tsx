@@ -14,7 +14,6 @@ const StripeOnboardingReminder = ({ t }: StripeOnboardingReminderProps) => (
     {t.rich('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_1')}
     <MailTemplate.LineBreak />
     <strong>{t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_2')}</strong>
-    <br />
     {(['1', '2', '3'] as const).map((index) => (
       <Fragment key={index}>
         <br />

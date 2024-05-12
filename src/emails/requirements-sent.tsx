@@ -10,10 +10,6 @@ interface RequirementsSentProps {
   t: IntlShape;
 }
 
-const getSubmissionLink = (submissionId: string) => (chunks: ReactNode) => (
-  <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>{chunks}</Link>
-);
-
 const RequirementsSent = ({ trainerName, submissionId, t }: RequirementsSentProps) => (
   <MailTemplate title={t('MAIL_TEMPLATE_REQUIREMENTS_SENT_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>
@@ -25,7 +21,11 @@ const RequirementsSent = ({ trainerName, submissionId, t }: RequirementsSentProp
     {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_1')}
     <MailTemplate.LineBreak />
     <strong>
-      {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_2', { SubmissionLink: getSubmissionLink(submissionId) })}
+      {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_2', {
+        SubmissionLink: (chunks: ReactNode) => (
+          <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>{chunks}</Link>
+        ),
+      })}
     </strong>
     {(['1', '2', '3', '4'] as const).map((index) => (
       <Fragment key={index}>

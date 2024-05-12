@@ -1,6 +1,7 @@
 import { render } from '@react-email/render';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import { getQueryParamError } from '@/app/[locale]/(auth)/_utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
 import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
@@ -55,10 +56,11 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
   }
 
+  const t = await getTranslations({ locale: 'pl' });
   await sendMail({
     to: data.user.email as string,
-    subject: `Witaj w ${Constants.APP_NAME}!`,
-    html: render(parsedRole === 'client' ? <WelcomeMailClient /> : <WelcomeMailTrainer />),
+    subject: t('MAIL_TEMPLATE_WELCOME_SUBJECT', { appName: Constants.APP_NAME }),
+    html: render(parsedRole === 'client' ? <WelcomeMailClient t={t} /> : <WelcomeMailTrainer t={t} />),
   });
 
   return redirect(redirectUrl || '/submissions');

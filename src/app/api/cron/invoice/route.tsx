@@ -3,6 +3,7 @@ import { render } from '@react-email/render';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { NextRequest, NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import FeeInvoiceSent from '@/emails/fee-invoice-sent';
 import Constants from '@/utils/constants';
@@ -93,6 +94,7 @@ export const GET = async (request: NextRequest) => {
 
   let invoicesSent = 0;
 
+  const t = await getTranslations({ locale: 'pl' });
   const sendInvoicesPromises = preparedAccountsInvoicesData.map(async ({ invoiceData, account }) => {
     try {
       const invoicePdfBytes = await generateInvoice(invoiceData);
@@ -116,9 +118,13 @@ export const GET = async (request: NextRequest) => {
       try {
         await sendMail({
           to: account.email as string,
-          subject: `Nowa faktura od ${Constants.APP_NAME}`,
+          subject: t('MAIL_TEMPLATE_INVOICE_SUBJECT', { appName: Constants.APP_NAME }),
           html: render(
-            <FeeInvoiceSent invoiceNumber={invoiceData.invoice_number} invoicePeriod={invoiceData.invoice_period} />,
+            <FeeInvoiceSent
+              invoiceNumber={invoiceData.invoice_number}
+              invoicePeriod={invoiceData.invoice_period}
+              t={t}
+            />,
           ),
           shouldThrow: true,
           attachments: [

@@ -8,6 +8,7 @@
     "reset.d.ts",
     "next.config.mjs",
     "next-env.d.ts",
-    "commitlint.config.mjs"
+    "commitlint.config.mjs",
+    "src/emails/.eslintrc.js"
   ]
 }

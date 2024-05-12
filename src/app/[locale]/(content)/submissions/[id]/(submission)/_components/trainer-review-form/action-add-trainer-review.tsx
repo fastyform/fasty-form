@@ -14,7 +14,7 @@ const actionAddTrainerReview = async (
   payload: { data: FormData; submissionId: string },
 ) => {
   const supabase = getSupabaseServerClient();
-  const t = await getTranslations();
+  const t = await getTranslations({ locale: 'pl' });
   const formSchemaParsed = trainerReviewFormSchema(t).safeParse({ trainerReview: payload.data.get('trainerReview') });
 
   if (!formSchemaParsed.success) {
@@ -41,14 +41,14 @@ const actionAddTrainerReview = async (
     revalidatePath('/submissions');
 
     const user = await getUserAsAdminById(submission.client_id);
-
     sendMail({
       to: user.email as string,
-      subject: `${submission.trainers_details.profile_name} - przeanalizował twoją technikę`,
+      subject: t('MAIL_TEMPLATE_ADDED_REVIEW_SUBJECT', { profileName: submission.trainers_details.profile_name }),
       html: render(
         <AddedReview
           profileName={submission.trainers_details.profile_name}
           submissionId={payload.submissionId}
+          t={t}
           trainerProfileSlug={submission.trainers_details.profile_slug}
         />,
       ),
