@@ -310,6 +310,14 @@ export type Database = {
         Args: Record<PropertyKey, never>;
         Returns: Json;
       };
+      get_user_id_by_email: {
+        Args: {
+          email: string;
+        };
+        Returns: {
+          id: string;
+        }[];
+      };
       is_claims_admin: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;

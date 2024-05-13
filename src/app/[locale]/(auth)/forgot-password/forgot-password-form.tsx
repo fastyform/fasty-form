@@ -1,40 +1,45 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import actionForgotPassword from '@/app/[locale]/(auth)/forgot-password/action-forgot-password';
 import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '@/app/[locale]/(auth)/forgot-password/utils';
-import AppButtonSubmit from '@/components/app-button-submit';
-import AppFormState from '@/components/app-form-error';
+import ErrorIcon from '@/assets/error-icon';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
-import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
 const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchParam }) => {
   const t = useTranslations();
-  const [state, formAction] = useFormState(actionForgotPassword, formDefaultState);
-  const { control, handleSubmit, formState, reset } = useForm<ForgotPasswordFormValues>({
+  const { control, handleSubmit, reset } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordFormSchema(t)),
     defaultValues: { email: '' },
     mode: 'onTouched',
   });
 
-  useEffect(() => {
-    if (state?.isSuccess) {
-      reset();
-    }
-  }, [state, reset]);
-
-  const handleFormAction = (data: FormData) => handleSubmit(() => formAction({ data, redirectPathParam }))();
+  const forgotActionMutation = useMutation({
+    mutationFn: async (email: string) => actionForgotPassword({ email, redirectPathParam }),
+    onSuccess: () => reset(),
+  });
 
   return (
-    <form action={handleFormAction} className="flex flex-col gap-5">
-      <AppFormState state={state} />
+    <form
+      className="flex flex-col gap-5"
+      onSubmit={handleSubmit((values) => forgotActionMutation.mutate(values.email))}
+    >
+      {forgotActionMutation.isSuccess && <span className="text-sm text-green-400">{t('FORGOT_FORM_SUCCESS')}</span>}
+      {forgotActionMutation.isError && (
+        <span className="inline-flex items-center gap-2 text-sm text-red-400">
+          <ErrorIcon className="min-w-[17px]" />
+          {t('COMMON_ERROR')}
+        </span>
+      )}
       <AppInputForm control={control} fieldName="email" label="Email" />
-      <AppButtonSubmit isValid={formState.isValid}>{t('FORGOT_FORM_SUBMIT')}</AppButtonSubmit>
+      <AppButton loading={forgotActionMutation.isPending} type="submit">
+        {t('FORGOT_FORM_SUBMIT')}
+      </AppButton>
     </form>
   );
 };

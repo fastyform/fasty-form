@@ -95,7 +95,7 @@ subject = "{{ .Data.ConfirmSignup.SUBJECT }}"
 content_path = "./supabase/templates/confirmation.html"
 
 [auth.email.template.recovery]
-subject = "FastyForm - Zresetuj hasło"
+subject = "{{ .Data.ResetPassword.SUBJECT }}"
 content_path = "./supabase/templates/reset-password.html"
 
 [auth.sms]

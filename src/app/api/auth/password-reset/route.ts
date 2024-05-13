@@ -18,8 +18,7 @@ export async function GET(request: NextRequest) {
   const supabase = getSupabaseServerClient();
   const { error } = await supabase.auth.verifyOtp({ type: 'recovery', token_hash: tokenHash });
 
-  if (!error)
-    return redirect(`/settings/update-password${redirectUrlPathname ? `?redirectPath=${redirectUrlPathname}` : ''}`);
+  if (!error) return redirect(`/settings/account${redirectUrlPathname ? `?redirectPath=${redirectUrlPathname}` : ''}`);
 
   return redirect('/forgot-password/error');
 }
