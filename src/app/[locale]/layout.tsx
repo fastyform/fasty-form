@@ -46,7 +46,7 @@ const RootLayout = ({ children, params: { locale } }: { children: React.ReactNod
           <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
-              <Providers>
+              <Providers locale={locale}>
                 <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
               </Providers>
             </ThemeProvider>

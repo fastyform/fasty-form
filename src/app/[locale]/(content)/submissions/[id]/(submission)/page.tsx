@@ -15,10 +15,10 @@ import { VideoSkeleton } from './loading';
 import 'dayjs/locale/pl';
 
 dayjs.extend(dayjsUtc);
-dayjs.locale('pl');
 
 const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
+  dayjs.locale(params.locale);
   const t = await getTranslations();
 
   const user = await getLoggedInUser();

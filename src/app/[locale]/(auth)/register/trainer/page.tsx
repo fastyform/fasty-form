@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import SplitPageWithImage from '@/app/[locale]/(auth)/_components/split-page-with-image';
-import RegisterForm from '@/app/[locale]/(auth)/register/_components/register-form';
+import RegisterForm from '@/app/[locale]/(auth)/register/register-form';
 import AuthLink from '@/components/auth-link';
 import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';

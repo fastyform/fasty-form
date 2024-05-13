@@ -8,12 +8,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/pl';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { Locale } from '@/utils/constants';
 
 dayjs.extend(utc);
-dayjs.locale('pl');
 // TODO: Add locales for other languages
 
-const Providers = ({ children }: { children: ReactNode }) => {
+const Providers = ({ children, locale }: { children: ReactNode; locale: Locale }) => {
+  dayjs.locale(locale);
   const queryClient = useRef(new QueryClient());
 
   return (

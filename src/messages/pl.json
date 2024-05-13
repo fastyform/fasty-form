@@ -42,7 +42,7 @@
   "EMAIL_VERIFICATION_CTA_PROFILE_REDIRECT": "Wróć na profil trenera",
   "EMAIL_VERIFICATION_ERROR_DESCRIPTION": "Wyślij ponownie link aktywacyjny na <NewLine></NewLine>adres email podany podczas rejestracji.",
   "EMAIL_VERIFICATION_ERROR_LOGIN_REDIRECT": "Przejdź na stronę logowania",
-  "EMAIL_VERIFICATION_ERROR_PAGE_METADATA_DESCRIPTION": "Napotkałeś problem podczas weryfikacji email? AppName></AppName> pomoże Ci szybko rozwiązać problem. Sprawdź, co możesz zrobić",
+  "EMAIL_VERIFICATION_ERROR_PAGE_METADATA_DESCRIPTION": "Napotkałeś problem podczas weryfikacji email? <AppName></AppName> pomoże Ci szybko rozwiązać problem. Sprawdź, co możesz zrobić",
   "EMAIL_VERIFICATION_ERROR_PAGE_METADATA_TITLE": "Błąd weryfikacji emaila - <AppName></AppName>",
   "EMAIL_VERIFICATION_ERROR_RESEND": "Wyślij ponownie link aktywacyjny",
   "EMAIL_VERIFICATION_ERROR_TITLE": "Link aktywacyjny jest<NewLine></NewLine> niepoprawny lub wygasł",
