@@ -91,7 +91,7 @@ enable_confirmations = true
 
 # Uncomment to customize email template
 [auth.email.template.confirmation]
-subject = "FastyForm - Potwierdź swój adres e-mail"
+subject = "{{ .Data.ConfirmSignup.SUBJECT }}"
 content_path = "./supabase/templates/confirmation.html"
 
 [auth.email.template.recovery]
