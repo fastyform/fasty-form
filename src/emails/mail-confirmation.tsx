@@ -22,13 +22,13 @@ const MailConfirmation = () => (
     {'{{ .Data.ConfirmSignup.CONTENT_8 }}'}
     <MailTemplate.LineBreak />
     <Text className="text-xs text-black/60">{'{{.Data.ConfirmSignup.CONTENT_9}}'}</Text>
-    <Text className="text-xs text-black/60 [word-break:break-word]">
+    <Text className="text-xs text-black/60">
       {'{{ .Data.ConfirmSignup.CONTENT_10 }}'}
       <br />
-      {verifyUrl}
+      <span className="break-all">{verifyUrl}</span>
       <MailTemplate.LineBreak />
       {'{{ .Data.ConfirmSignup.CONTENT_11 }}'}{' '}
-      <Link href={`mailto:${Constants.SUPPORT_MAIL}`}>{Constants.SUPPORT_MAIL}</Link>.
+      <Link href={`mailto:${Constants.SUPPORT_MAIL}`}>{Constants.SUPPORT_MAIL}</Link>
     </Text>
   </MailTemplate>
 );
