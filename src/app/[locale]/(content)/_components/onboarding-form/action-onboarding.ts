@@ -1,5 +1,6 @@
 'use server';
 
+import dayjs from 'dayjs';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { getResponse } from '@/utils';
@@ -36,7 +37,7 @@ const actionOnboarding = async (prevState: FormState, data: FormData) => {
       profile_name: profileName,
       profile_slug: profileSlug,
       is_onboarded: true,
-      onboarded_at: new Date().toISOString(),
+      onboarded_at: dayjs().toISOString(),
     })
     .eq('user_id', userId);
 

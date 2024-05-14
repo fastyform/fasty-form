@@ -6,9 +6,9 @@ import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import {
+  SubmissionCreationDate,
   SubmissionStatusBadge,
   SubmissionTrainerName,
-  SubmissionUpdateDate,
 } from './_components/submissions-layout-parts';
 
 interface SubmissionLayoutProps {
@@ -35,7 +35,7 @@ const SubmissionLayout = async ({ children, params }: SubmissionLayoutProps) => 
               </div>
             }
           >
-            <SubmissionUpdateDate submissionId={params.id} />
+            <SubmissionCreationDate submissionId={params.id} />
           </Suspense>
         </div>
 
