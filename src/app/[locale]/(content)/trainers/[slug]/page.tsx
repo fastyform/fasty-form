@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import 'dayjs/locale/pl';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';

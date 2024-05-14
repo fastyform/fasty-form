@@ -8,7 +8,7 @@ const LoadingSubmissionPage = () => (
   <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
     <div className="w-fit animate-pulse select-none rounded-xl bg-shark text-base lg:hidden">
       <span className="invisible font-bold">Ostatnia zmiana: </span>
-      <span className="invisible capitalize">Sobota 20:42</span>
+      <span className="invisible">Sobota 20:42</span>
     </div>
     <div className="w-fit animate-pulse select-none rounded-xl bg-shark text-base lg:hidden">
       <span className="invisible">Trener: </span>

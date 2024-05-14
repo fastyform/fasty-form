@@ -1,17 +1,13 @@
 import { ReactNode, Suspense } from 'react';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-import 'dayjs/locale/pl';
 import { MessageKey, SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
-
-dayjs.extend(relativeTime);
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
   <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>

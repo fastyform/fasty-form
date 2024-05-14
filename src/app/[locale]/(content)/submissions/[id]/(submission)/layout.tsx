@@ -31,7 +31,7 @@ const SubmissionLayout = async ({ children, params }: SubmissionLayoutProps) => 
             fallback={
               <div className="hidden animate-pulse select-none rounded-full bg-shark text-xl lg:block">
                 <span className="invisible font-bold">Ostatnia zmiana: </span>
-                <span className="invisible capitalize">01.04.2001</span>
+                <span className="invisible">01.04.2001</span>
               </div>
             }
           >

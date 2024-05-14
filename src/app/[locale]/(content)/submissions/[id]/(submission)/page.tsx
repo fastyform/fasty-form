@@ -17,7 +17,6 @@ dayjs.extend(dayjsUtc);
 
 const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
-  dayjs.locale(params.locale);
   const t = await getTranslations();
 
   const user = await getLoggedInUser();
@@ -39,7 +38,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
       <p className=" text-base text-white lg:hidden">
         <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
-        <span className="capitalize"> • {formattedCreationDate}</span>
+        <span> • {formattedCreationDate}</span>
       </p>
       {!isTrainerAccount && (
         <TrainerProfileNameLink
@@ -74,13 +73,12 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
               {submission.reviewed_at && (
                 <span className="whitespace-pre-wrap text-sm text-white">
                   {t('SUBMISSION_FINISHED_DATE')} •{' '}
-                  <span className="font-bold capitalize">{formatDate(submission.reviewed_at)}</span>
+                  <span className="font-bold">{formatDate(submission.reviewed_at)}</span>
                 </span>
               )}
               {submission.paidout_at && (
                 <span className="whitespace-pre-wrap text-sm text-white">
-                  {t('SUBMISSION_PAIDOUT_AT')} •{' '}
-                  <span className="font-bold capitalize">{formatDate(submission.paidout_at)}</span>
+                  {t('SUBMISSION_PAIDOUT_AT')} • <span className="font-bold">{formatDate(submission.paidout_at)}</span>
                 </span>
               )}
             </SubmissionPartWithIcon>
