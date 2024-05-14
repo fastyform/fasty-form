@@ -1,13 +1,10 @@
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { getTranslations } from 'next-intl/server';
 import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/trainer-profile-name-link';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-
-dayjs.extend(relativeTime);
 
 export const SubmissionCreationDate = async ({ submissionId }: { submissionId: string }) => {
   const submission = await getSubmissionById(submissionId);
@@ -17,7 +14,7 @@ export const SubmissionCreationDate = async ({ submissionId }: { submissionId: s
   return (
     <span className="hidden text-xl text-white lg:block">
       <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
-      <span className="capitalize"> • {formattedCreationDate}</span>
+      <span> • {formattedCreationDate}</span>
     </span>
   );
 };

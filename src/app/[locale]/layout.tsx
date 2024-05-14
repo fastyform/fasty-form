@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleTagManager } from '@next/third-parties/google';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
@@ -9,9 +11,10 @@ import { useMessages } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Providers from '@/app/[locale]/providers';
 import Constants, { Locale, LOCALES, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
-import theme from '@/utils/theme';
 import NextIntlProvider from './next-intl-provider';
+import 'dayjs/locale/pl';
 
+dayjs.extend(relativeTime);
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
 export const metadata: Metadata = {
@@ -35,8 +38,9 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children, params: { locale } }: { children: React.ReactNode; params: { locale: Locale } }) => {
+const RootLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
+  dayjs.locale(locale);
   const messages = useMessages();
 
   return (
@@ -45,11 +49,9 @@ const RootLayout = ({ children, params: { locale } }: { children: React.ReactNod
         <NextIntlProvider locale={locale} messages={messages}>
           <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
           <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <Providers locale={locale}>
-                <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
-              </Providers>
-            </ThemeProvider>
+            <Providers locale={locale}>
+              <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
+            </Providers>
           </AppRouterCacheProvider>
         </NextIntlProvider>
       </body>
