@@ -12,7 +12,6 @@ import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import { VideoSkeleton } from './loading';
-import 'dayjs/locale/pl';
 
 dayjs.extend(dayjsUtc);
 
@@ -31,16 +30,16 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
     return redirect(`/submissions/${params.id}/requirements`);
   }
 
-  const formattedUpdateDate = dayjs(submission.updated_at).local().format('dddd HH:mm');
-  const formattedFinishDate = dayjs(submission.updated_at).local().format('D MMMM');
+  const formattedCreationDate = dayjs(submission.created_at).fromNow();
+  const formatDate = (date: string) => dayjs(date).format('D MMMM YYYY');
 
   if (!submission.trainers_details?.profile_name || !submission.trainers_details.profile_slug) throw new Error();
 
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
       <p className=" text-base text-white lg:hidden">
-        <span className="font-bold">{t('SUBMISSION_LAST_CHANGE')} </span>
-        <span className="capitalize">{formattedUpdateDate}</span>
+        <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
+        <span className="capitalize"> • {formattedCreationDate}</span>
       </p>
       {!isTrainerAccount && (
         <TrainerProfileNameLink
@@ -72,9 +71,18 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
             </SubmissionPartWithIcon>
             <SubmissionPartWithIcon icon="finished">
               <h2 className="text-lg font-bold text-yellow-400">{t('SUBMISSION_FINISHED_ORDER')}</h2>
-              <span className="whitespace-pre-wrap text-sm text-white">
-                {t('SUBMISSION_FINISHED_DATE')} <span className="font-bold capitalize">{formattedFinishDate}</span>
-              </span>
+              {submission.reviewed_at && (
+                <span className="whitespace-pre-wrap text-sm text-white">
+                  {t('SUBMISSION_FINISHED_DATE')} •{' '}
+                  <span className="font-bold capitalize">{formatDate(submission.reviewed_at)}</span>
+                </span>
+              )}
+              {submission.paidout_at && (
+                <span className="whitespace-pre-wrap text-sm text-white">
+                  {t('SUBMISSION_PAIDOUT_AT')} •{' '}
+                  <span className="font-bold capitalize">{formatDate(submission.paidout_at)}</span>
+                </span>
+              )}
             </SubmissionPartWithIcon>
           </>
         )}

@@ -31,21 +31,18 @@ export type Database = {
       roles: {
         Row: {
           consent_modal_displayed: boolean;
-          locale: string;
           marketing_consent: boolean;
           role: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Insert: {
           consent_modal_displayed?: boolean;
-          locale?: string;
           marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id: string;
         };
         Update: {
           consent_modal_displayed?: boolean;
-          locale?: string;
           marketing_consent?: boolean;
           role?: Database['public']['Enums']['role'] | null;
           user_id?: string;
@@ -65,7 +62,9 @@ export type Database = {
           client_id: string | null;
           created_at: string;
           id: string;
+          paidout_at: string | null;
           price_in_grosz: number;
+          reviewed_at: string | null;
           status: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -78,7 +77,9 @@ export type Database = {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          paidout_at?: string | null;
           price_in_grosz: number;
+          reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -91,7 +92,9 @@ export type Database = {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          paidout_at?: string | null;
           price_in_grosz?: number;
+          reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id?: string;
           trainer_id?: string;
@@ -309,14 +312,6 @@ export type Database = {
       get_my_claims: {
         Args: Record<PropertyKey, never>;
         Returns: Json;
-      };
-      get_user_id_by_email: {
-        Args: {
-          email: string;
-        };
-        Returns: {
-          id: string;
-        }[];
       };
       is_claims_admin: {
         Args: Record<PropertyKey, never>;

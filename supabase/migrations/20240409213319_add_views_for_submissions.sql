@@ -1,4 +1,6 @@
-create or replace view "public"."ordered_submissions_client" with (security_invoker = on) as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_client" with (security_invoker = on) as
+SELECT
+    submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
@@ -9,18 +11,19 @@ create or replace view "public"."ordered_submissions_client" with (security_invo
     submissions.id,
     submissions.price_in_grosz,
     submissions.video_key
-   FROM submissions
-  ORDER BY
-        CASE submissions.status
-            WHEN 'paid'::status THEN 1
-            WHEN 'reviewed'::status THEN 2
-            WHEN 'paidout'::status THEN 3
-            WHEN 'unreviewed'::status THEN 4
-            ELSE NULL::integer
-        END;
+FROM
+    submissions
+ORDER BY
+    CASE submissions.status
+        WHEN 'paid'::status THEN 1
+        ELSE NULL::integer
+    END,
+    submissions.created_at DESC;
 
 
-create or replace view "public"."ordered_submissions_trainer" with (security_invoker = on) as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_trainer" with (security_invoker = on) as
+SELECT
+    submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
@@ -31,15 +34,13 @@ create or replace view "public"."ordered_submissions_trainer" with (security_inv
     submissions.id,
     submissions.price_in_grosz,
     submissions.video_key
-   FROM submissions
-  WHERE (submissions.status <> 'paid'::status)
-  ORDER BY
-        CASE submissions.status
-            WHEN 'unreviewed'::status THEN 1
-            WHEN 'paidout'::status THEN 2
-            WHEN 'reviewed'::status THEN 3
-            ELSE NULL::integer
-        END;
-
-
-
+FROM
+    submissions
+WHERE
+    (submissions.status <> 'paid'::status)
+ORDER BY
+    CASE submissions.status
+        WHEN 'unreviewed'::status THEN 1
+        ELSE NULL::integer
+    END,
+    submissions.created_at DESC;

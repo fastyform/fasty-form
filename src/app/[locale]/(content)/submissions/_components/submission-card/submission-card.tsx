@@ -1,13 +1,17 @@
 import { ReactNode, Suspense } from 'react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
 import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-
+import 'dayjs/locale/pl';
 import { MessageKey, SubmissionStatus } from '@/utils/types';
 import SubmissionCardImage from './submission-card-image';
+
+dayjs.extend(relativeTime);
 
 export const SubmissionCardContainer = ({ children }: { children: ReactNode }) => (
   <div className="flex flex-col gap-5 rounded-xl border border-gray-600 bg-shark p-2.5 lg:p-5">{children}</div>
@@ -30,6 +34,7 @@ interface SubmissionCardProps {
   trainerProfileName: string | undefined;
   submissionStatus: SubmissionStatus;
   videoKey: string | null;
+  createdAt: string;
 }
 
 const SubmissionCard = async ({
@@ -37,6 +42,7 @@ const SubmissionCard = async ({
   trainerProfileName,
   submissionStatus,
   videoKey,
+  createdAt,
 }: SubmissionCardProps) => {
   const t = await getTranslations();
   const user = await getLoggedInUser();
@@ -58,9 +64,14 @@ const SubmissionCard = async ({
               type={submissionStatus}
             />
           </div>
-          {!isTrainerAccount && trainerProfileName && (
-            <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
-          )}
+          <div className="flex flex-col gap-2.5">
+            {!isTrainerAccount && trainerProfileName && (
+              <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
+            )}
+            <span className="text-xs text-white">
+              {t('SUBMISSION_CREATED_AT')} • {dayjs(createdAt).fromNow()}
+            </span>
+          </div>
         </div>
       </Link>
       <AppButton classes={{ root: 'py-2.5' }} component={Link} href={href}>

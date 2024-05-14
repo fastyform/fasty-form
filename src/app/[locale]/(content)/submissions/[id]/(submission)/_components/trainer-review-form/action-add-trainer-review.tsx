@@ -1,6 +1,7 @@
 'use server';
 
 import { render } from '@react-email/render';
+import dayjs from 'dayjs';
 import { revalidatePath } from 'next/cache';
 import { getTranslations } from 'next-intl/server';
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
@@ -25,7 +26,7 @@ const actionAddTrainerReview = async (
 
   const { data: submission, error } = await supabase
     .from('submissions')
-    .update({ trainer_review: trainerReview, status: 'reviewed' })
+    .update({ trainer_review: trainerReview, status: 'reviewed', reviewed_at: dayjs().toISOString() })
     .eq('id', payload.submissionId)
     .select('trainers_details (profile_name, profile_slug), client_id')
     .single();

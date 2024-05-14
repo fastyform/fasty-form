@@ -73,12 +73,13 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
   return (
     <>
       <SubmissionsGridWrapper>
-        {submissions.data.map(({ id, trainers_details, status, video_key }) => {
-          if (!trainers_details || !trainers_details.profile_name || !id || !status) return;
+        {submissions.data.map(({ id, trainers_details, status, video_key, created_at }) => {
+          if (!trainers_details || !trainers_details.profile_name || !id || !status || !created_at) return;
 
           return (
             <SubmissionCard
               key={id}
+              createdAt={created_at}
               submissionId={id}
               submissionStatus={status}
               trainerProfileName={trainers_details.profile_name}
