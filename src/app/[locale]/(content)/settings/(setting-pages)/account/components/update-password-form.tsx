@@ -51,7 +51,12 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
     <>
       <form ref={passwordFormRef} action={handleFormAction} className="flex max-w-md flex-col items-start gap-5">
         <AppFormState state={state} />
-        <AppInputFormPassword className="w-full" control={control} fieldName="password" label="Hasło" />
+        <AppInputFormPassword
+          className="w-full"
+          control={control}
+          fieldName="password"
+          label={t('COMMON_PASSWORD_LABEL')}
+        />
         <AppButtonSubmit
           classes={{ root: 'py-2.5' }}
           isValid={formState.isValid}

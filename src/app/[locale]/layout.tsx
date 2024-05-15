@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { useMessages } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Providers from '@/app/[locale]/providers';
 import Constants, { Locale, LOCALES, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import NextIntlProvider from './next-intl-provider';
@@ -17,26 +17,30 @@ import 'dayjs/locale/pl';
 dayjs.extend(relativeTime);
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans' });
 
-export const metadata: Metadata = {
-  title: `${Constants.APP_NAME} - sprawdź swoją technikę`,
-  description: `${Constants.APP_NAME} - szybko sprawdź swoją technikę przy pomocy trenera`,
-  applicationName: Constants.APP_NAME,
-  metadataBase: new URL(Constants.ORIGIN_URL),
-  openGraph: {
-    type: 'website',
-    locale: 'pl_PL',
-    url: PRODUCTION_ORIGIN_URL,
-    siteName: Constants.APP_NAME,
-    images: [
-      {
-        url: 'https://veknudpszbrjutmcmrwk.supabase.co/storage/v1/object/public/assets/og-logo',
-        width: 1200,
-        height: 630,
-        alt: Constants.APP_NAME,
-      },
-    ],
-  },
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: Locale } }): Promise<Metadata> {
+  const t = await getTranslations({ locale });
+
+  return {
+    title: `${Constants.APP_NAME} ${t('COMMON_META_TITLE')}`,
+    description: `${Constants.APP_NAME} ${t('COMMON_META_DESCRIPTION')}`,
+    applicationName: Constants.APP_NAME,
+    metadataBase: new URL(Constants.ORIGIN_URL),
+    openGraph: {
+      type: 'website',
+      locale,
+      url: PRODUCTION_ORIGIN_URL,
+      siteName: Constants.APP_NAME,
+      images: [
+        {
+          url: 'https://veknudpszbrjutmcmrwk.supabase.co/storage/v1/object/public/assets/og-logo',
+          width: 1200,
+          height: 630,
+          alt: Constants.APP_NAME,
+        },
+      ],
+    },
+  };
+}
 
 const RootLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
