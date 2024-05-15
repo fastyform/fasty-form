@@ -38,6 +38,8 @@
   "CONTACT_FORM_TEXT": "<Strong>Contact Form:</Strong> Just fill out the form on this page. We will respond as soon as possible!",
   "CONTACT_FORM_TITLE": "Contact Form",
   "CONTACT_TITLE": "Contact us - Your opinion is very important to us!",
+  "COOKIES_EDIT_CONSENTS": "Edit consents",
+  "COOKIES_TITLE": "Cookies",
   "EMAIL_CONFIRMATION_RESPONSE_ERROR": "Oh no! It looks like there have already been several attempts to send the activation link. Let's give the system a break. Try again later.",
   "EMAIL_CONFIRMATION_RESPONSE_SUCCESS": "We have just sent you an activation link. Check your email and activate your account. We are waiting for you!",
   "EMAIL_VERIFICATION_CTA": "Go to your submissions",
