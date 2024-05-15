@@ -5,10 +5,12 @@ import { FieldValues } from 'react-hook-form';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconButton, InputAdornment } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import AppTooltip from '@/components/app-tooltip';
 import AppInputForm, { Props as AppInputFormPasswordProps } from './app-input-form';
 
 const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPasswordProps<T>) => {
+  const t = useTranslations();
   const [isPasswordVisible, toggleIsPasswordVisible] = useReducer((value) => !value, false);
 
   return (
@@ -18,7 +20,7 @@ const AppInputFormPassword = <T extends FieldValues>(props: AppInputFormPassword
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <AppTooltip title={isPasswordVisible ? 'Ukryj hasło' : 'Pokaż hasło'}>
+            <AppTooltip title={t(`${isPasswordVisible ? 'PASSWORD_INPUT_SHOW' : 'PASSWORD_INPUT_HIDE'}`)}>
               <IconButton className="text-white" onClick={toggleIsPasswordVisible}>
                 {isPasswordVisible ? <VisibilityOff /> : <Visibility />}
               </IconButton>

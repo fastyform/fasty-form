@@ -10,7 +10,6 @@ import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-
 import AppButton from '@/components/app-button';
 import Constants, { Locale } from '@/utils/constants';
 import Chevron from './_assets/chevron';
-import ContactStroke from './_assets/contact-stroke';
 import HomeArrow from './_assets/home-arrow';
 import AmbassadorProgramSection from './ambassador-section';
 import { appBenefitsIcons, appBenefitsKeys, heroBenefits, stepsData, stepsDataKeys } from './data';
@@ -198,7 +197,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
           />
         </PublicContainer.Content>
       </PublicContainer>
-      <section className="mb-10 flex flex-col items-center gap-20 py-20 lg:mb-20 xl:mb-32 xl:gap-32">
+      <section className="flex flex-col items-center gap-20 py-20 xl:gap-32">
         <PublicContainer className="lg:self-stretch">
           <PublicContainer.Content className="justify-end">
             <h3 className="max-w-md text-center text-4xl font-bold  lg:max-w-[600px] lg:text-left lg:text-5xl xl:max-w-[700px] xl:text-6xl">
@@ -223,14 +222,15 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
           />
         </div>
       </section>
-      <PublicContainer className="relative bg-yellow-400 pb-20 pt-20 md:pb-0 lg:pt-32">
-        <ContactStroke className="absolute top-0 h-[clamp(75px,10vw,240px)] w-full -translate-y-1/2" />
+      <PublicContainer className="relative bg-yellow-400 pb-10 pt-10 md:pb-0">
         <PublicContainer.Content className="items-center sm:justify-center md:justify-between">
           <div className="hidden h-[300px] overflow-hidden md:block lg:h-[500px]">
             <HomeArrow className="h-auto w-[300px] lg:w-[480px] xl:w-[580px] [&_path]:fill-bunker" />
           </div>
           <div className="max-w-sm text-bunker lg:max-w-[26rem] xl:max-w-[39rem]">
-            <h3 className="mb-2.5 text-4xl font-bold lg:mb-5 lg:text-5xl xl:text-6xl">{t('HOME_CONTACT_TITLE')}</h3>
+            <h3 className="mb-2.5 text-4xl font-bold lg:mb-5 lg:text-5xl xl:text-6xl">
+              {t.rich('HOME_CONTACT_TITLE')}
+            </h3>
             <p className="mb-5 text-sm lg:mb-10 xl:text-base xl:font-semibold">{t('HOME_CONTACT_DESCRIPTION')}</p>
             <AppButton classes={{ root: 'text-white py-2.5', contained: 'bg-shark ' }} component={Link} href="/contact">
               {t('HOME_CONTACT_CTA')}
