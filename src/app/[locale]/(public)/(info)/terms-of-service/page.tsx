@@ -1,11 +1,10 @@
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Constants, { COMPANY_INFO, Locale, LocaleComponents } from '@/utils/constants';
-import TosPL from './translations/pl.mdx';
+import en from './translations/en.mdx';
+import pl from './translations/pl.mdx';
 
-const components: LocaleComponents = {
-  pl: TosPL,
-};
+const components: LocaleComponents = { pl, en };
 
 const TermsOfServicePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);

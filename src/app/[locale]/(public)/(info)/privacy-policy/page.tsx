@@ -1,10 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Constants, { Locale, LocaleComponents } from '@/utils/constants';
-import PrivacyPL from './translations/pl.mdx';
+import en from './translations/en.mdx';
+import pl from './translations/pl.mdx';
 
 const components: LocaleComponents = {
-  pl: PrivacyPL,
+  pl,
+  en,
 };
 
 const PrivacyPolicyPage = ({ params: { locale } }: { params: { locale: Locale } }) => {
