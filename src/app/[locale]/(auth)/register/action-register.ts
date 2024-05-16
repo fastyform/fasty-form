@@ -54,7 +54,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     return getResponse(t('COMMON_ERROR'));
   }
 
-  await supabase.from('roles').update({ role, locale }).eq('user_id', data.user.id);
+  await supabase.from('user_data').update({ role, locale }).eq('user_id', data.user.id);
 
   return getResponse(t('REGISTER_SUCCESS'), true);
 };

@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
   const userId = data.user.id;
 
   // NOTE: Check if user is already registered and have assigned a role
-  const roleResponse = await supabase.from('roles').select('role').eq('user_id', userId).single();
+  const roleResponse = await supabase.from('user_data').select('role').eq('user_id', userId).single();
 
   if (roleResponse.error || !roleResponse.data) {
     await supabase.auth.signOut();
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('ALREADY_REGISTERED')}`);
   }
 
-  const updateRoleResponse = await supabase.from('roles').update({ role: parsedRole }).eq('user_id', userId);
+  const updateRoleResponse = await supabase.from('user_data').update({ role: parsedRole }).eq('user_id', userId);
 
   if (updateRoleResponse.error) {
     await supabase.auth.signOut();

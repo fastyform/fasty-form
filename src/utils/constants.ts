@@ -1,4 +1,5 @@
 import { ComponentType } from 'react';
+import { Database } from './supabase/supabase';
 
 export const PRODUCTION_ORIGIN_URL = 'https://www.fastyform.com';
 
@@ -26,7 +27,7 @@ export const ALLOWED_ROUTES_FOR_INDEXING = [
 export const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 export const DATE_FORMAT = 'DD.MM.YY';
 
-export const LOCALES = ['pl', 'en'] as const;
+export const LOCALES: Array<Locale> = ['pl', 'en'];
 
 export const LOCALES_FULL_NAMES: [Locale, string][] = [
   ['pl', 'Polski'],
@@ -34,7 +35,7 @@ export const LOCALES_FULL_NAMES: [Locale, string][] = [
 ] as const;
 
 export const INTL_TIMEZONE = 'Europe/Warsaw';
-export type Locale = (typeof LOCALES)[number];
+export type Locale = Database['public']['Enums']['locales'];
 export type LocaleComponents = {
   [key in Locale]: ComponentType;
 };

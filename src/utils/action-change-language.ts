@@ -14,7 +14,7 @@ const actionChangeLanguage = async (locale: Locale) => {
     return locale;
   }
 
-  const { error } = await supabase.from('roles').update({ locale }).eq('user_id', user.id);
+  const { error } = await supabase.from('user_data').update({ locale }).eq('user_id', user.id);
   if (error) {
     throw new Error(error.message);
   }

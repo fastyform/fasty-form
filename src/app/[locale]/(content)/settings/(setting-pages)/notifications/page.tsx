@@ -11,7 +11,7 @@ const NotificationsPage = async ({ params: { locale } }: { params: { locale: Loc
   const supabase = getSupabaseServerComponentClient();
 
   const user = await getLoggedInUser();
-  const { data, error } = await supabase.from('roles').select('marketing_consent').eq('user_id', user.id).single();
+  const { data, error } = await supabase.from('user_data').select('marketing_consent').eq('user_id', user.id).single();
 
   if (!data || error) {
     return t('COMMON_ERROR');

@@ -10,7 +10,7 @@ const actionUpdateMarketingConsent = async (marketing_consent: boolean) => {
   const user = await getLoggedInUser();
 
   const { error } = await supabase
-    .from('roles')
+    .from('user_data')
     .update({ marketing_consent, consent_modal_displayed: true })
     .eq('user_id', user.id);
 

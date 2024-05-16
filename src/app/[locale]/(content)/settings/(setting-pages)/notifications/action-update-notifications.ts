@@ -9,7 +9,7 @@ const actionUpdateNotifications = async (marketing_consent: boolean) => {
 
   const user = await getLoggedInUser();
 
-  const { error } = await supabase.from('roles').update({ marketing_consent }).eq('user_id', user.id);
+  const { error } = await supabase.from('user_data').update({ marketing_consent }).eq('user_id', user.id);
 
   if (error) {
     throw new Error(error.message);
