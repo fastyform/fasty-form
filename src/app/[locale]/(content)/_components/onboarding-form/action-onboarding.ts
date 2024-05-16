@@ -42,7 +42,7 @@ const actionOnboarding = async (prevState: FormState, data: FormData) => {
     .eq('user_id', userId);
 
   const { error: errorMarketingConsent } = await supabase
-    .from('roles')
+    .from('user_data')
     .update({ marketing_consent: marketingConsent })
     .eq('user_id', userId);
 

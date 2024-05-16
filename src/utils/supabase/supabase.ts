@@ -28,37 +28,6 @@ export type Database = {
   };
   public: {
     Tables: {
-      roles: {
-        Row: {
-          consent_modal_displayed: boolean;
-          locale: string;
-          marketing_consent: boolean;
-          role: Database['public']['Enums']['role'] | null;
-          user_id: string;
-        };
-        Insert: {
-          consent_modal_displayed?: boolean;
-          locale?: string;
-          marketing_consent?: boolean;
-          role?: Database['public']['Enums']['role'] | null;
-          user_id: string;
-        };
-        Update: {
-          consent_modal_displayed?: boolean;
-          locale?: string;
-          marketing_consent?: boolean;
-          role?: Database['public']['Enums']['role'] | null;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'roles_user_id_fkey';
-            columns: ['user_id'];
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       submissions: {
         Row: {
           client_description: string | null;
@@ -166,6 +135,37 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: 'trainers_details_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_data: {
+        Row: {
+          consent_modal_displayed: boolean;
+          locale: Database['public']['Enums']['locales'];
+          marketing_consent: boolean;
+          role: Database['public']['Enums']['role'] | null;
+          user_id: string;
+        };
+        Insert: {
+          consent_modal_displayed?: boolean;
+          locale?: Database['public']['Enums']['locales'];
+          marketing_consent?: boolean;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id: string;
+        };
+        Update: {
+          consent_modal_displayed?: boolean;
+          locale?: Database['public']['Enums']['locales'];
+          marketing_consent?: boolean;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roles_user_id_fkey';
             columns: ['user_id'];
             referencedRelation: 'users';
             referencedColumns: ['id'];
@@ -338,6 +338,7 @@ export type Database = {
       };
     };
     Enums: {
+      locales: 'pl' | 'en';
       role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
       stripe_onboarding_status_enum: 'verified' | 'unverified' | 'pending_verification';

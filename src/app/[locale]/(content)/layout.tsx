@@ -26,7 +26,7 @@ const ContentLayout = async ({ children, params: { locale } }: { children: React
   let shouldDisplayMarketingConsentModal = false;
   if (user && !isTrainerAccount) {
     const { data: roles, error } = await supabase
-      .from('roles')
+      .from('user_data')
       .select('consent_modal_displayed')
       .eq('user_id', user.id)
       .single();
