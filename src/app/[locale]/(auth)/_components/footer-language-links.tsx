@@ -11,7 +11,10 @@ const FooterLanguageLinks = () => {
   const router = useRouter();
   const localeChangeMutation = useMutation({
     mutationFn: (locale: Locale) => actionChangeLanguage(locale),
-    onSuccess: (locale: Locale) => router.replace(`/${locale}${pathname}`),
+    onSuccess: (locale: Locale) => {
+      router.replace(`/${locale}${pathname}`);
+      router.refresh();
+    },
   });
 
   return (

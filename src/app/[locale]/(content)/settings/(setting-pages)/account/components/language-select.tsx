@@ -19,7 +19,10 @@ const LanguageSelect = ({ className, currentLocale }: { className?: string; curr
   const localeChangeMutation = useMutation({
     mutationFn: (locale: Locale) => actionChangeLanguage(locale),
     onMutate: () => setIsRedirecting(true),
-    onSuccess: (locale: Locale) => router.replace(`/${locale}${pathname}`),
+    onSuccess: (locale: Locale) => {
+      router.replace(`/${locale}${pathname}`);
+      router.refresh();
+    },
     onError: () => {
       setIsRedirecting(false);
       notify.error(t('SETTINGS_ACCOUNT_ERROR_LANGUAGE_CHANGE'));
