@@ -41,7 +41,7 @@
     "axios": "^1.6.2",
     "dayjs": "^1.11.11",
     "googleapis": "^137.1.0",
-    "next": "14.1.4",
+    "next": "^14.2.3",
     "next-intl": "^3.13.0",
     "pdf-lib": "^1.17.1",
     "pretty-bytes": "^6.1.1",
