@@ -134,6 +134,12 @@ export type Database = {
         };
         Relationships: [
           {
+            foreignKeyName: 'public_trainers_details_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'user_data';
+            referencedColumns: ['user_id'];
+          },
+          {
             foreignKeyName: 'trainers_details_user_id_fkey';
             columns: ['user_id'];
             referencedRelation: 'users';
