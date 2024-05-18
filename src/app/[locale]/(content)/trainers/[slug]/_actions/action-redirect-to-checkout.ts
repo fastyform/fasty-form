@@ -3,9 +3,10 @@
 import crypto from 'crypto';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import { getResponse } from '@/utils';
+import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { calculateAppFee, StripeConstants } from '@/utils/stripe';
@@ -57,6 +58,8 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
 
   const newSubmissionIdMetadata = { submissionId: crypto.randomUUID() };
 
+  const locale = await getLocale();
+
   const session = await stripe.checkout.sessions.create(
     {
       line_items: [
@@ -84,7 +87,7 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
       mode: 'payment',
       success_url: `${headersList.get('origin')}/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${headersList.get('origin')}/payment/failure?trainer_profile_slug=${trainerDetails.profile_slug}`,
-      locale: 'pl',
+      locale: locale as Locale,
       currency: StripeConstants.CURRENCY,
     },
     { stripeAccount: trainerDetails.stripe_account_id },
