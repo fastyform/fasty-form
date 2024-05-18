@@ -3,7 +3,7 @@ import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
 const WelcomeMailTrainer = ({ t }: { t: IntlShape }) => (
-  <MailTemplate title="Witamy na pokładzie, Trenerze!">
+  <MailTemplate title={t('MAIL_TEMPLATE_WELCOME_TRAINER_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions`}>
       {t('MAIL_TEMPLATE_WELCOME_TRAINER_CTA')}
     </MailTemplate.CallToAction>
