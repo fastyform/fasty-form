@@ -1,37 +1,45 @@
+import { Fragment, ReactNode } from 'react';
 import { Link } from '@react-email/components';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const RequirementsSent = ({ trainerName, submissionId }: { trainerName: string; submissionId: string }) => (
-  <MailTemplate title="Pojawiło się nowe zgłoszenie">
+interface RequirementsSentProps {
+  trainerName: string;
+  submissionId: string;
+  t: IntlShape;
+}
+
+const RequirementsSent = ({ trainerName, submissionId, t }: RequirementsSentProps) => (
+  <MailTemplate title={t('MAIL_TEMPLATE_REQUIREMENTS_SENT_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>
-      Sprawdź zgłoszenie
+      {t('MAIL_TEMPLATE_REQUIREMENTS_SENT_CTA')}
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
-    Cześć {trainerName}!
-    <MailTemplate.LineBreak /> Mamy świetne wieści -{' '}
-    <strong>
-      pojawiło się nowe zgłoszenie od klienta w <MailTemplate.AppLink />.{' '}
-    </strong>
-    Klient właśnie uzupełnił szczegóły swojego zgłoszenia i jego wideo jest gotowe do analizy.
-    <MailTemplate.LineBreak />{' '}
-    <strong>
-      Oto co musisz zrobić, <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</Link>,
-      albo:
-    </strong>
-    <br /> 1. Zaloguj się do swojego konta na <MailTemplate.AppLink />.
-    <br /> 2. Przejdź do zakładki &apos;Zgłoszenia&apos;.
-    <br /> 3. Wybierz nowe zgłoszenie.
-    <br /> 4. Wyślij informację zwrotną na temat przesłanego wideo.
-    <MailTemplate.LineBreak /> Jesteśmy przekonani, że Twoja wiedza i doświadczenie będą kluczowe w szlifowaniu techniki
-    Twoich klientów.
-    <MailTemplate.LineBreak /> Jeśli masz jakiekolwiek pytania lub potrzebujesz wsparcia, skontaktuj się z nami przez{' '}
-    <Link href={`${Constants.ORIGIN_URL}/contact`}>formularz kontaktowy</Link>.{' '}
-    <strong>Jesteśmy tutaj, aby Ci pomóc.</strong>
+    {t('MAIL_TEMPLATE_REQUIREMENTS_SENT_HEADLINE', { trainerName })}
     <MailTemplate.LineBreak />
-    Dziękujemy za Twoje zaangażowanie i ciężką pracę w {Constants.APP_NAME}.
-    <MailTemplate.LineBreak /> Pozdrawiamy,
-    <br /> Zespół {Constants.APP_NAME}
+    {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_1')}
+    <MailTemplate.LineBreak />
+    <strong>
+      {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_2', {
+        SubmissionLink: (chunks: ReactNode) => (
+          <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>{chunks}</Link>
+        ),
+      })}
+    </strong>
+    {(['1', '2', '3', '4'] as const).map((index) => (
+      <Fragment key={index}>
+        <br />
+        {index}. {t.rich(`MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_3_${index}`)}
+      </Fragment>
+    ))}
+    <MailTemplate.LineBreak />
+    {t('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_4')}
+    <MailTemplate.LineBreak />
+    {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_5')}
+    <MailTemplate.LineBreak />
+    {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_6')}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

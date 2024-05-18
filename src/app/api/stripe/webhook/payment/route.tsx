@@ -1,10 +1,12 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import ThankYouBuy from '@/emails/thank-you-buy';
+import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -74,12 +76,16 @@ export async function POST(req: Request) {
         throw new Error(error?.message);
       }
 
+      const locale = await getUserLocaleAsAdminById(session.metadata.userId);
+      const t = await getTranslations({ locale });
+
       await sendMail({
         to: session.metadata.userEmail,
-        subject: 'Jesteśmy gotowi na Twoje wideo.',
+        subject: t('MAIL_TEMPLATE_THANK_YOU_BUY_SUBJECT'),
         html: render(
           <ThankYouBuy
             submissionId={submission.id}
+            t={t}
             trainerProfileName={submission.trainers_details.profile_name}
             trainerProfileSlug={submission.trainers_details.profile_slug}
           />,

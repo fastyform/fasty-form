@@ -1,38 +1,32 @@
+import { Fragment } from 'react';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const StripeOnboardingReminder = ({ title }: { title: string }) => (
-  <MailTemplate title={title}>
+interface StripeOnboardingReminderProps {
+  t: IntlShape;
+}
+
+const StripeOnboardingReminder = ({ t }: StripeOnboardingReminderProps) => (
+  <MailTemplate title={t.rich('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/payments`}>Aktywuj płatności</MailTemplate.CallToAction>
+    <MailTemplate.Intro t={t} />
+    {t.rich('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_1')}
     <MailTemplate.LineBreak />
-    Cześć!
+    <strong>{t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_2')}</strong>
+    {(['1', '2', '3'] as const).map((index) => (
+      <Fragment key={index}>
+        <br />
+        {index}. {t.rich(`MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_3_${index}`)}
+      </Fragment>
+    ))}
     <MailTemplate.LineBreak />
-    Gratulacje z powodu zakończenia procesu rejestracji Twojego profilu trenera na <MailTemplate.AppLink />! Jesteś o
-    krok od pełnej aktywacji swojego konta i rozpoczęcia przyjmowania płatności od swoich klientów za weryfikację
-    techniki.
+    <strong>{t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_4')}</strong>
     <MailTemplate.LineBreak />
-    <strong>Aby aktywować odbieranie płatności, wystarczą 3 proste kroki:</strong>
+    {t.rich('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_5')}
     <MailTemplate.LineBreak />
-    1. Przejdź na stronę ustawień płatności na {Constants.APP_NAME}.
-    <br />
-    2. Podłącz swoje konto bankowe
-    <br />
-    3. Zatwierdź ustawienia i zacznij odbierać zarobki bezpośrednio na swoje konto.
-    <MailTemplate.LineBreak />
-    <strong>
-      Gotowe! Teraz, gdy ustawienia płatności są aktywne, możesz udostępniać swój profil i zarabiać na weryfikacji
-      techniki.
-    </strong>
-    <MailTemplate.LineBreak />
-    To ostatni etap, dzięki któremu otwierają się przed Tobą możliwości {Constants.APP_NAME}. Czekamy, aby zobaczyć, jak
-    będziesz promować swoje usługi i cieszyć się zasłużonym wynagrodzeniem.
-    <MailTemplate.LineBreak />
-    W razie pytań lub potrzeby wsparcia - jesteśmy do Twojej dyspozycji. Dziękujemy, że dołączyłeś(aś) do naszej
-    społeczności trenerów.
-    <MailTemplate.LineBreak />
-    Pozdrawiamy,
-    <br />
-    Zespół {Constants.APP_NAME}
+    {t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_CONTENT_6')}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

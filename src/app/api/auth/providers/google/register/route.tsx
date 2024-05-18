@@ -1,10 +1,11 @@
 import { render } from '@react-email/render';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
-import { getQueryParamError } from '@/app/(auth)/_utils';
+import { getTranslations } from 'next-intl/server';
+import { getQueryParamError } from '@/app/[locale]/(auth)/utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
 import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
-import Constants from '@/utils/constants';
+import Constants, { DEFAULT_LOCALE } from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
@@ -14,6 +15,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const role = searchParams.get('role');
   const redirectUrl = searchParams.get('redirectUrl');
+  const locale = searchParams.get('locale') || DEFAULT_LOCALE;
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -33,7 +35,7 @@ export async function GET(request: NextRequest) {
   const userId = data.user.id;
 
   // NOTE: Check if user is already registered and have assigned a role
-  const roleResponse = await supabase.from('roles').select('role').eq('user_id', userId).single();
+  const roleResponse = await supabase.from('user_data').select('role').eq('user_id', userId).single();
 
   if (roleResponse.error || !roleResponse.data) {
     await supabase.auth.signOut();
@@ -47,7 +49,7 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('ALREADY_REGISTERED')}`);
   }
 
-  const updateRoleResponse = await supabase.from('roles').update({ role: parsedRole }).eq('user_id', userId);
+  const updateRoleResponse = await supabase.from('user_data').update({ role: parsedRole }).eq('user_id', userId);
 
   if (updateRoleResponse.error) {
     await supabase.auth.signOut();
@@ -55,10 +57,11 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
   }
 
+  const t = await getTranslations({ locale });
   await sendMail({
     to: data.user.email as string,
-    subject: `Witaj w ${Constants.APP_NAME}!`,
-    html: render(parsedRole === 'client' ? <WelcomeMailClient /> : <WelcomeMailTrainer />),
+    subject: t('MAIL_TEMPLATE_WELCOME_SUBJECT', { appName: Constants.APP_NAME }),
+    html: render(parsedRole === 'client' ? <WelcomeMailClient t={t} /> : <WelcomeMailTrainer t={t} />),
   });
 
   return redirect(redirectUrl || '/submissions');

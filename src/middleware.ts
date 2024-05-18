@@ -1,10 +1,17 @@
 import { type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 import { getSupabase } from '@/utils/supabase/client';
-import { PROTECTED_ROUTES, UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS } from './utils/constants';
+import { DEFAULT_LOCALE, LOCALES, PROTECTED_ROUTES, UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS } from './utils/constants';
+
+const handleI18nRouting = createIntlMiddleware({
+  locales: LOCALES,
+  defaultLocale: DEFAULT_LOCALE,
+  localePrefix: 'never',
+});
 
 export const middleware = async (request: NextRequest) => {
-  let response = NextResponse.next({ request: { headers: request.headers } });
+  const response = handleI18nRouting(request);
 
   const supabase = getSupabase({
     cookies: {
@@ -13,19 +20,17 @@ export const middleware = async (request: NextRequest) => {
       },
       set(name: string, value: string, options: CookieOptions) {
         request.cookies.set({ name, value, ...options });
-        response = NextResponse.next({ request: { headers: request.headers } });
         response.cookies.set({ name, value, ...options });
       },
       remove(name: string, options: CookieOptions) {
         request.cookies.set({ name, value: '', ...options });
-        response = NextResponse.next({ request: { headers: request.headers } });
         response.cookies.set({ name, value: '', ...options });
       },
     },
   });
 
   try {
-    const { data } = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getUser();
 
     if (
       data.user &&
@@ -35,6 +40,10 @@ export const middleware = async (request: NextRequest) => {
     }
 
     if (!data.user && PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))) {
+      if (error) {
+        await supabase.auth.signOut();
+      }
+
       return NextResponse.redirect(new URL('/login', request.url));
     }
   } catch (error) {

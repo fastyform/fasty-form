@@ -3,11 +3,13 @@ import { render } from '@react-email/render';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { NextRequest, NextResponse } from 'next/server';
+import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
 import FeeInvoiceSent from '@/emails/fee-invoice-sent';
-import Constants from '@/utils/constants';
+import Constants, { DEFAULT_LOCALE } from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { getGoogleDriveClient, getGoogleDriveMonthFolderId, savePdfToGoogleDrive } from './google-drive-utils';
 import { generateInvoice, getInvoiceData } from './utils';
 
@@ -93,6 +95,7 @@ export const GET = async (request: NextRequest) => {
 
   let invoicesSent = 0;
 
+  const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const sendInvoicesPromises = preparedAccountsInvoicesData.map(async ({ invoiceData, account }) => {
     try {
       const invoicePdfBytes = await generateInvoice(invoiceData);
@@ -114,11 +117,28 @@ export const GET = async (request: NextRequest) => {
       }
 
       try {
+        const trainerDetailsResponse = await supabase
+          .from('trainers_details')
+          .select('user_data (locale)')
+          .eq('stripe_account_id', account.id)
+          .single();
+
+        if (trainerDetailsResponse.error) {
+          throw new Error(trainerDetailsResponse.error.message);
+        }
+
+        const locale = trainerDetailsResponse.data?.user_data?.locale || DEFAULT_LOCALE;
+
+        const t = await getTranslations({ locale });
         await sendMail({
           to: account.email as string,
-          subject: `Nowa faktura od ${Constants.APP_NAME}`,
+          subject: t('MAIL_TEMPLATE_INVOICE_SUBJECT', { appName: Constants.APP_NAME }),
           html: render(
-            <FeeInvoiceSent invoiceNumber={invoiceData.invoice_number} invoicePeriod={invoiceData.invoice_period} />,
+            <FeeInvoiceSent
+              invoiceNumber={invoiceData.invoice_number}
+              invoicePeriod={invoiceData.invoice_period}
+              t={t}
+            />,
           ),
           shouldThrow: true,
           attachments: [

@@ -1,7 +1,7 @@
+import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
-import { groszToPLN } from '@/app/(stripe)/stripe/_utils';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
-import StripeConstants from '@/app/(stripe)/stripe/_utils/stripe-constants';
+import { groszToPLN, StripeConstants } from '@/utils/stripe';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 type Accumulator = {
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
 
         const { error: updateError } = await supabase
           .from('submissions')
-          .update({ status: 'paidout' })
+          .update({ status: 'paidout', paidout_at: dayjs().toISOString() })
           .in('id', payoutData.submissionIds);
 
         if (updateError) throw new Error(`Something went wrong with updating submissions status`);

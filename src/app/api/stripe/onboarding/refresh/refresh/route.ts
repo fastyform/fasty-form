@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation';
-import actionPaymentOnboardingRedirect from '@/app/(content)/payments/@unverified/action-payment-onboarding-redirect';
-import { stripeOnboardingSchema } from '@/app/(content)/payments/utils';
+import { getTranslations } from 'next-intl/server';
+import actionPaymentOnboardingRedirect from '@/app/[locale]/(content)/payments/@unverified/action-payment-onboarding-redirect';
+import { stripeOnboardingSchema } from '@/app/[locale]/(content)/payments/utils';
 
 export async function GET(request: Request) {
   try {
+    const t = await getTranslations();
     const { searchParams } = new URL(request.url);
 
     const payloadString = searchParams.get('payload');
@@ -13,7 +15,7 @@ export async function GET(request: Request) {
     const decodedPayload = decodeURIComponent(payloadString);
     const payload = JSON.parse(decodedPayload);
 
-    const parsedPayload = stripeOnboardingSchema.parse(payload);
+    const parsedPayload = stripeOnboardingSchema(t).parse(payload);
 
     await actionPaymentOnboardingRedirect(parsedPayload);
   } catch {

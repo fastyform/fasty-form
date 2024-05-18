@@ -9,7 +9,6 @@ export const getSupabase = (
   supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 ) => createServerClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, supabaseKey, options);
 
-// NOTE: For routes and server actions
 export const getSupabaseServerClient = (supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!) => {
   const cookieStore = cookies();
 
@@ -20,25 +19,17 @@ export const getSupabaseServerClient = (supabaseKey = process.env.NEXT_PUBLIC_SU
           return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
+          try {
+            cookieStore.set({ name, value, ...options });
+          } catch {}
         },
         remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: '', ...options });
+          try {
+            cookieStore.set({ name, value: '', ...options });
+          } catch {}
         },
       },
     },
     supabaseKey,
   );
-};
-
-export const getSupabaseServerComponentClient = () => {
-  const cookieStore = cookies();
-
-  return getSupabase({
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
-      },
-    },
-  });
 };

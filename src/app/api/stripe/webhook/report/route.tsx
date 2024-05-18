@@ -1,11 +1,13 @@
 import { render } from '@react-email/render';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { ReportType, reportTypeToLabel } from '@/app/(content)/payments/utils';
-import getUserAsAdminById from '@/app/(content)/submissions/_utils/get-user-as-admin-by-id';
-import getStripe from '@/app/(stripe)/stripe/_utils/get-stripe';
+import { getTranslations } from 'next-intl/server';
+import { ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
+import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import ReportReady from '@/emails/report-ready';
+import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
 import { sendMail } from '@/utils/sendgrid';
+import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const secret = process.env.STRIPE_WEBHOOK_INVOICE_SECRET!;
@@ -54,8 +56,6 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const user = await getUserAsAdminById(data.user_id);
-
     const reportFileLink = await stripe.fileLinks.create({
       file: object.result?.id as string,
     });
@@ -70,15 +70,21 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
+    const [user, locale] = await Promise.all([
+      getUserAsAdminById(data.user_id),
+      getUserLocaleAsAdminById(data.user_id),
+    ]);
+    const t = await getTranslations({ locale });
     await sendMail({
       to: user.email as string,
-      subject: `Twój raport - "${reportTypeToLabel[reportType]}" jest gotowy!`,
+      subject: t('MAIL_TEMPLATE_REPORT_READY_SUBJECT', { report: t(reportTypeToLabel[reportType]) }),
       html: render(
         <ReportReady
           downloadUrl={reportFileLink.url}
           endDateTimestamp={object.parameters.interval_end as number}
           reportType={reportType}
           startDateTimestamp={object.parameters.interval_start}
+          t={t}
         />,
       ),
     });

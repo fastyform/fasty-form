@@ -1,11 +1,7 @@
 import { ReactNode } from 'react';
-import { Button, Container, Font, Heading, Img, Link, Tailwind, Text } from '@react-email/components';
+import { Button, Container, Font, Img, Link, Tailwind, Text } from '@react-email/components';
 import Constants, { COMPANY_INFO, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
-
-interface MailTemplateProps {
-  title: string;
-  children: ReactNode;
-}
+import { IntlShape } from '@/utils/types';
 
 const AppLink = () => <Link href={Constants.ORIGIN_URL}>{Constants.APP_NAME}</Link>;
 
@@ -24,6 +20,26 @@ const CallToAction = ({ href, children }: { href: string; children: ReactNode })
     {children}
   </Button>
 );
+
+const Greetings = ({ t }: { t: IntlShape }) => (
+  <>
+    <LineBreak />
+    {t.rich('MAIL_TEMPLATE_GREETINGS')}
+  </>
+);
+
+const Intro = ({ t }: { t: IntlShape }) => (
+  <>
+    <LineBreak />
+    {t('MAIL_TEMPLATE_INTRO')}
+    <LineBreak />
+  </>
+);
+
+interface MailTemplateProps {
+  title: ReactNode;
+  children: ReactNode;
+}
 
 const MailTemplate = ({ title, children }: MailTemplateProps) => (
   <Tailwind>
@@ -47,17 +63,22 @@ const MailTemplate = ({ title, children }: MailTemplateProps) => (
       </Link>
     </Container>
     <Container className="p-5">
-      <Heading as="h2" className="m-0 text-center text-2xl !text-[#1E1E1E]">
-        {title}
-      </Heading>
+      <Text className="m-0 text-center text-2xl font-bold !text-[#1E1E1E]">{title}</Text>
       <Text className="text-base !text-[#1e1e1e]">{children}</Text>
     </Container>
     <Container className="text-center text-xs !text-black/60">{COMPANY_INFO}</Container>
   </Tailwind>
 );
 
+export const mailDefaultTranslationValues = {
+  MailAppLink: () => <MailTemplate.AppLink />,
+  MailContactLink: (chunks: ReactNode) => <Link href={`${Constants.ORIGIN_URL}/contact`}>{chunks}</Link>,
+};
+
+MailTemplate.Greetings = Greetings;
 MailTemplate.AppLink = AppLink;
 MailTemplate.LineBreak = LineBreak;
 MailTemplate.CallToAction = CallToAction;
+MailTemplate.Intro = Intro;
 
 export default MailTemplate;

@@ -1,13 +1,21 @@
+import { ReactNode } from 'react';
 import { Unstable_NumberInput as BaseNumberInput, NumberInputProps } from '@mui/base/Unstable_NumberInput';
 import AddIcon from '@mui/icons-material/Add';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
-import { groszToPLN, PLNToGrosz } from '@/app/(stripe)/stripe/_utils';
-import { calculateStripeFee } from '@/app/(stripe)/stripe/_utils/calculate-fees';
+import { useTranslations } from 'next-intl';
+import { calculateStripeFee, groszToPLN, PLNToGrosz } from '@/utils/stripe';
+
+const TosLink = (chunks: ReactNode) => (
+  <Link className="whitespace-nowrap font-bold text-yellow-400" href="/terms-of-service">
+    {chunks}
+  </Link>
+);
 
 const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) => {
+  const t = useTranslations();
   const priceAfterFee =
     props.value && groszToPLN(PLNToGrosz(props.value) - calculateStripeFee(PLNToGrosz(props.value)));
 
@@ -43,15 +51,10 @@ const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) 
       />
 
       <div className="flex gap-2.5 opacity-75">
-        <HelpOutlineOutlinedIcon className="text-white" fontSize="small" />
+        <InfoOutlinedIcon className="text-white" fontSize="small" />
         <div className="text-xs text-white">
           <span className="whitespace-nowrap font-bold text-yellow-400"> {priceAfterFee?.toFixed(2)} zł </span>
-          <span>
-            - uśredniona kwota, która trafi na twoje konto zależnie od typu płatności. Sprawdź jak{' '}
-            <Link className="whitespace-nowrap font-bold text-yellow-400" href="/terms-of-service">
-              obliczamy prowizję.
-            </Link>
-          </span>
+          <span>{t.rich('APP_INPUT_PRICE_CAPTION', { TosLink })}</span>
         </div>
       </div>
     </div>

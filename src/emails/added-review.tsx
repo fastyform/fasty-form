@@ -1,48 +1,44 @@
+import { Fragment, ReactNode } from 'react';
 import { Link } from '@react-email/components';
 import Constants from '@/utils/constants';
+import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
-const AddedReview = ({
-  profileName,
-  trainerProfileSlug,
-  submissionId,
-}: {
+interface AddedReviewProps {
   profileName: string | null;
   trainerProfileSlug: string;
   submissionId: string;
-}) => (
-  <MailTemplate title="Analiza twojej techniki jest gotowa!">
+  t: IntlShape;
+}
+
+const AddedReview = ({ profileName, trainerProfileSlug, submissionId, t }: AddedReviewProps) => (
+  <MailTemplate title={t('MAIL_TEMPLATE_ADDED_REVIEW_TITLE')}>
     <MailTemplate.CallToAction href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>
-      Sprawdź odpowiedź trenera
+      {t('MAIL_TEMPLATE_ADDED_REVIEW_CTA')}
     </MailTemplate.CallToAction>
     <MailTemplate.LineBreak />
-    Mamy świetne wieści -{' '}
-    <strong>
-      Twoja analiza techniki od{' '}
-      <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</Link> jest już gotowa!
-    </strong>{' '}
-    Trener przyjrzał się dokładnie Twojemu nagraniu i ma kilka cennych wskazówek, które pomogą Ci doskonalić Twoje
-    umiejętności.
+    {t.rich('MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_1', {
+      TrainerLink: () => <Link href={`${Constants.ORIGIN_URL}/trainers/${trainerProfileSlug}`}>{profileName}</Link>,
+    })}
     <MailTemplate.LineBreak />
     <strong>
-      Aby zobaczyć analizę Twojej techniki{' '}
-      <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>kliknij tutaj</Link>, albo wystarczy, że:
+      {t.rich('MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_2', {
+        SubmissionLink: (chunks: ReactNode) => (
+          <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}`}>{chunks}</Link>
+        ),
+      })}
     </strong>
+    {(['1', '2', '3'] as const).map((index) => (
+      <Fragment key={index}>
+        <br />
+        {index}. {t.rich(`MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_3_${index}`)}
+      </Fragment>
+    ))}
     <MailTemplate.LineBreak />
-    1. Zalogujesz się do <MailTemplate.AppLink />
-    <br />
-    2. Przejdź do zakładki &apos;Zgłoszenia&apos;. <br />
-    3. Kliknij w zgłoszenie, aby zobaczyć pełną analizę trenera.
+    {t.rich('MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_4')}
     <MailTemplate.LineBreak />
-    Jesteśmy przekonani, że wskazówki od ekspertów będą dla Ciebie niezwykle wartościowe.
-    <strong> Nie zapomnij podzielić się z nami swoimi wrażeniami!</strong>
-    <MailTemplate.LineBreak />
-    Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowej pomocy, nasz zespół jest tu dla Ciebie.{' '}
-    <Link href={`${Constants.ORIGIN_URL}/contact`}>Napisz do nas</Link>, a z chęcią pomożemy.
-    <MailTemplate.LineBreak />
-    Pozdrawiamy,
-    <br />
-    Zespół {Constants.APP_NAME}
+    {t.rich('MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_5')}
+    <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
 

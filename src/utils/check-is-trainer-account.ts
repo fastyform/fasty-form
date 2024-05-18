@@ -1,9 +1,9 @@
-import { getSupabaseServerComponentClient } from './supabase/client';
+import { getSupabaseServerClient } from './supabase/client';
 
 const checkIsTrainerAccount = async (userId: string) => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
-  const { data, error } = await supabase.from('roles').select('role').eq('user_id', userId).single();
+  const { data, error } = await supabase.from('user_data').select('role').eq('user_id', userId).single();
   if (!data || error) throw new Error();
 
   return data.role === 'trainer';

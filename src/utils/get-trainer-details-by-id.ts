@@ -1,4 +1,4 @@
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from './supabase/supabase';
 
 export type TrainerDetails = Omit<
@@ -7,7 +7,7 @@ export type TrainerDetails = Omit<
 >;
 
 const getTrainerDetailsById = async (trainerId: string): Promise<TrainerDetails> => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
   const { data: trainerDetails, error } = await supabase
     .from('trainers_details')

@@ -1,16 +1,17 @@
 import { z } from 'zod';
+import { IntlShape } from './types';
 
-export const emailValidator = z
-  .string({
-    required_error: 'Proszę wprowadzić email.',
-  })
-  .email({ message: 'Proszę wprowadzić poprawny adres email.' });
+export const emailValidator = (t: IntlShape) =>
+  z
+    .string({
+      required_error: t('COMMON_EMAIL_REQUIRED'),
+    })
+    .email({ message: t('COMMON_EMAIL_INVALID') });
 
-export const passwordValidator = z
-  .string({ required_error: 'Proszę wprowadzić hasło.' })
-  .min(1, 'Proszę wprowadzić hasło.');
+export const passwordValidator = (t: IntlShape) =>
+  z.string({ required_error: t('COMMON_PASSWORD_REQUIRED') }).min(1, t('COMMON_PASSWORD_REQUIRED'));
 
-export const newPasswordValidator = z.string().min(8, 'Hasło musi mieć co najmniej 8 znaków.');
+export const newPasswordValidator = (t: IntlShape) => z.string().min(8, t('COMMON_PASSWORD_MIN_LENGTH'));
 
 export const checkboxCheckedValidator = z.literal<boolean>(true);
 

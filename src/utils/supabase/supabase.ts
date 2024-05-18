@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Database {
+export type Database = {
   graphql_public: {
     Tables: {
       [_ in never]: never;
@@ -28,41 +28,15 @@ export interface Database {
   };
   public: {
     Tables: {
-      roles: {
-        Row: {
-          consent_modal_displayed: boolean;
-          marketing_consent: boolean;
-          role: Database['public']['Enums']['role'] | null;
-          user_id: string;
-        };
-        Insert: {
-          consent_modal_displayed?: boolean;
-          marketing_consent?: boolean;
-          role?: Database['public']['Enums']['role'] | null;
-          user_id: string;
-        };
-        Update: {
-          consent_modal_displayed?: boolean;
-          marketing_consent?: boolean;
-          role?: Database['public']['Enums']['role'] | null;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'roles_user_id_fkey';
-            columns: ['user_id'];
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       submissions: {
         Row: {
           client_description: string | null;
           client_id: string | null;
           created_at: string;
           id: string;
+          paidout_at: string | null;
           price_in_grosz: number;
+          reviewed_at: string | null;
           status: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -75,7 +49,9 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          paidout_at?: string | null;
           price_in_grosz: number;
+          reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id: string;
           trainer_id: string;
@@ -88,7 +64,9 @@ export interface Database {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          paidout_at?: string | null;
           price_in_grosz?: number;
+          reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id?: string;
           trainer_id?: string;
@@ -156,7 +134,44 @@ export interface Database {
         };
         Relationships: [
           {
+            foreignKeyName: 'public_trainers_details_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'user_data';
+            referencedColumns: ['user_id'];
+          },
+          {
             foreignKeyName: 'trainers_details_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_data: {
+        Row: {
+          consent_modal_displayed: boolean;
+          locale: Database['public']['Enums']['locales'];
+          marketing_consent: boolean;
+          role: Database['public']['Enums']['role'] | null;
+          user_id: string;
+        };
+        Insert: {
+          consent_modal_displayed?: boolean;
+          locale?: Database['public']['Enums']['locales'];
+          marketing_consent?: boolean;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id: string;
+        };
+        Update: {
+          consent_modal_displayed?: boolean;
+          locale?: Database['public']['Enums']['locales'];
+          marketing_consent?: boolean;
+          role?: Database['public']['Enums']['role'] | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roles_user_id_fkey';
             columns: ['user_id'];
             referencedRelation: 'users';
             referencedColumns: ['id'];
@@ -165,7 +180,116 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      ordered_submissions_client: {
+        Row: {
+          client_description: string | null;
+          client_id: string | null;
+          created_at: string | null;
+          id: string | null;
+          price_in_grosz: number | null;
+          status: Database['public']['Enums']['status'] | null;
+          stripe_session_id: string | null;
+          trainer_id: string | null;
+          trainer_review: string | null;
+          updated_at: string | null;
+          video_key: string | null;
+        };
+        Insert: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Update: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'submissions_client_id_fkey';
+            columns: ['client_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'submissions_trainer_id_fkey';
+            columns: ['trainer_id'];
+            referencedRelation: 'trainers_details';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      ordered_submissions_trainer: {
+        Row: {
+          client_description: string | null;
+          client_id: string | null;
+          created_at: string | null;
+          id: string | null;
+          price_in_grosz: number | null;
+          status: Database['public']['Enums']['status'] | null;
+          stripe_session_id: string | null;
+          trainer_id: string | null;
+          trainer_review: string | null;
+          updated_at: string | null;
+          video_key: string | null;
+        };
+        Insert: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Update: {
+          client_description?: string | null;
+          client_id?: string | null;
+          created_at?: string | null;
+          id?: string | null;
+          price_in_grosz?: number | null;
+          status?: Database['public']['Enums']['status'] | null;
+          stripe_session_id?: string | null;
+          trainer_id?: string | null;
+          trainer_review?: string | null;
+          updated_at?: string | null;
+          video_key?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'submissions_client_id_fkey';
+            columns: ['client_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'submissions_trainer_id_fkey';
+            columns: ['trainer_id'];
+            referencedRelation: 'trainers_details';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
     };
     Functions: {
       delete_claim: {
@@ -198,6 +322,14 @@ export interface Database {
         Args: Record<PropertyKey, never>;
         Returns: Json;
       };
+      get_user_id_by_email: {
+        Args: {
+          email: string;
+        };
+        Returns: {
+          id: string;
+        }[];
+      };
       is_claims_admin: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
@@ -212,6 +344,7 @@ export interface Database {
       };
     };
     Enums: {
+      locales: 'pl' | 'en';
       role: 'trainer' | 'client';
       status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
       stripe_onboarding_status_enum: 'verified' | 'unverified' | 'pending_verification';
@@ -331,6 +464,98 @@ export interface Database {
           },
         ];
       };
+      s3_multipart_uploads: {
+        Row: {
+          bucket_id: string;
+          created_at: string;
+          id: string;
+          in_progress_size: number;
+          key: string;
+          owner_id: string | null;
+          upload_signature: string;
+          version: string;
+        };
+        Insert: {
+          bucket_id: string;
+          created_at?: string;
+          id: string;
+          in_progress_size?: number;
+          key: string;
+          owner_id?: string | null;
+          upload_signature: string;
+          version: string;
+        };
+        Update: {
+          bucket_id?: string;
+          created_at?: string;
+          id?: string;
+          in_progress_size?: number;
+          key?: string;
+          owner_id?: string | null;
+          upload_signature?: string;
+          version?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 's3_multipart_uploads_bucket_id_fkey';
+            columns: ['bucket_id'];
+            referencedRelation: 'buckets';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      s3_multipart_uploads_parts: {
+        Row: {
+          bucket_id: string;
+          created_at: string;
+          etag: string;
+          id: string;
+          key: string;
+          owner_id: string | null;
+          part_number: number;
+          size: number;
+          upload_id: string;
+          version: string;
+        };
+        Insert: {
+          bucket_id: string;
+          created_at?: string;
+          etag: string;
+          id?: string;
+          key: string;
+          owner_id?: string | null;
+          part_number: number;
+          size?: number;
+          upload_id: string;
+          version: string;
+        };
+        Update: {
+          bucket_id?: string;
+          created_at?: string;
+          etag?: string;
+          id?: string;
+          key?: string;
+          owner_id?: string | null;
+          part_number?: number;
+          size?: number;
+          upload_id?: string;
+          version?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 's3_multipart_uploads_parts_bucket_id_fkey';
+            columns: ['bucket_id'];
+            referencedRelation: 'buckets';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 's3_multipart_uploads_parts_upload_id_fkey';
+            columns: ['upload_id'];
+            referencedRelation: 's3_multipart_uploads';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -361,13 +586,44 @@ export interface Database {
         Args: {
           name: string;
         };
-        Returns: unknown;
+        Returns: string[];
       };
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>;
         Returns: {
           size: number;
           bucket_id: string;
+        }[];
+      };
+      list_multipart_uploads_with_delimiter: {
+        Args: {
+          bucket_id: string;
+          prefix_param: string;
+          delimiter_param: string;
+          max_keys?: number;
+          next_key_token?: string;
+          next_upload_token?: string;
+        };
+        Returns: {
+          key: string;
+          id: string;
+          created_at: string;
+        }[];
+      };
+      list_objects_with_delimiter: {
+        Args: {
+          bucket_id: string;
+          prefix_param: string;
+          delimiter_param: string;
+          max_keys?: number;
+          start_after?: string;
+          next_token?: string;
+        };
+        Returns: {
+          name: string;
+          id: string;
+          metadata: Json;
+          updated_at: string;
         }[];
       };
       search: {
@@ -398,12 +654,12 @@ export interface Database {
       [_ in never]: never;
     };
   };
-}
+};
+
+type PublicSchema = Database[Extract<keyof Database, 'public'>];
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (Database['public']['Tables'] & Database['public']['Views'])
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] & PublicSchema['Views']) | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
         Database[PublicTableNameOrOptions['schema']]['Views'])
@@ -415,8 +671,8 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] & Database['public']['Views'])
-    ? (Database['public']['Tables'] & Database['public']['Views'])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R
@@ -424,7 +680,7 @@ export type Tables<
     : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
@@ -434,8 +690,8 @@ export type TablesInsert<
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
         Insert: infer I;
       }
       ? I
@@ -443,7 +699,7 @@ export type TablesInsert<
     : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
@@ -453,8 +709,8 @@ export type TablesUpdate<
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
         Update: infer U;
       }
       ? U
@@ -462,12 +718,12 @@ export type TablesUpdate<
     : never;
 
 export type Enums<
-  PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof PublicSchema['Enums'] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-    ? Database['public']['Enums'][PublicEnumNameOrOptions]
+  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
+    ? PublicSchema['Enums'][PublicEnumNameOrOptions]
     : never;

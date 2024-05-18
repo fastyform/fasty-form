@@ -9,7 +9,7 @@ const AppDialog = (props: DialogProps) => {
   return (
     <Dialog
       classes={{
-        paper: twMerge('rounded-xl border border-gray-600 bg-shark py-10 px-5 lg:px-10 w-full max-w-xl', paper),
+        paper: twMerge('rounded-xl border border-gray-600 bg-shark py-10 px-5 lg:px-10 w-full max-w-xl bg-none', paper),
         ...classes,
       }}
       {...propsRest}
