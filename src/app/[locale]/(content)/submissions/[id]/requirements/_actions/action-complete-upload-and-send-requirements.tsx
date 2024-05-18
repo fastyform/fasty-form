@@ -9,7 +9,7 @@ import { submissionRequirementsSchema } from '@/app/[locale]/(content)/submissio
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
-import getLoggedInUser from '@/utils/get-logged-in-user';
+import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
 import s3Client, { BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -22,13 +22,30 @@ interface Payload {
   clientDescription: string;
 }
 
+const sendTrainerEmailNotification = async (trainerId: string, profileName: string, submissionId: string) => {
+  const trainer = await getUserAsAdminById(trainerId);
+  const locale = await getUserLocaleAsAdminById(trainer.id);
+  const t = await getTranslations({ locale });
+
+  await sendMail({
+    to: trainer.email as string,
+    subject: t('MAIL_TEMPLATE_REQUIREMENTS_SENT_SUBJECT'),
+    html: render(<RequirementsSent submissionId={submissionId} t={t} trainerName={profileName} />),
+  });
+};
+
 const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
   const { videoKey, uploadId, parts, submissionId, clientDescription } = payload;
   const t = await getTranslations();
 
   submissionRequirementsSchema(t).parse({ clientDescription });
-  const supabase = getSupabaseServerClient();
-  const user = await getLoggedInUser();
+  const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) throw new Error();
 
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
@@ -58,15 +75,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
 
   if (updateSubmissionError || !submission || !submission.trainers_details?.profile_name) throw new Error();
 
-  const trainer = await getUserAsAdminById(submission.trainer_id);
-
-  sendMail({
-    to: trainer.email as string,
-    subject: t('MAIL_TEMPLATE_REQUIREMENTS_SENT_SUBJECT'),
-    html: render(
-      <RequirementsSent submissionId={submission.id} t={t} trainerName={submission.trainers_details.profile_name} />,
-    ),
-  });
+  await sendTrainerEmailNotification(submission.trainer_id, submission.trainers_details.profile_name, submissionId);
 
   revalidatePath('/submissions');
 

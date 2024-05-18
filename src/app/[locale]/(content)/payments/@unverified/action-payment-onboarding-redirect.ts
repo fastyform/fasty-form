@@ -14,11 +14,11 @@ import { getSupabaseServerClient } from '@/utils/supabase/client';
 const STRIPE_MERCHANT_CATEGORY_CODE = '7392';
 
 const actionPaymentOnboardingRedirect = async (payload: StripeOnboardingValues) => {
+  const supabase = getSupabaseServerClient();
   const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
   const t = await getTranslations();
   const stripe = getStripe();
-  const supabase = getSupabaseServerClient();
   const parsedPayload = stripeOnboardingSchema(t).parse(payload);
 
   if (!trainerDetails.service_price_in_grosz || !trainerDetails.profile_slug) throw new Error();

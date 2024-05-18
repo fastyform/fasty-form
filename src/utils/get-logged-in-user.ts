@@ -1,7 +1,7 @@
-import { getSupabaseServerComponentClient } from './supabase/client';
+import { getSupabaseServerClient } from './supabase/client';
 
 const getLoggedInUser = async () => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data.user) throw new Error();
 

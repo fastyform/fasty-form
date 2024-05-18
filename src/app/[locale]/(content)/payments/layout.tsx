@@ -16,7 +16,6 @@ const PaymentsLayout = async ({
   params: { locale: Locale };
 }) => {
   unstable_setRequestLocale(locale);
-
   const user = await getLoggedInUser();
   const trainerDetails = await getTrainerDetailsById(user.id);
 

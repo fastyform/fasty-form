@@ -40,7 +40,9 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
     return (
       <>
         <SubmissionPartWithIcon verticalLine icon="description" verticalLineClassName="mb-20">
-          <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL')}</h2>
+          <h2 className="text-lg font-bold leading-5 text-white">
+            {t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_TRAINER')}
+          </h2>
           <form ref={formRef} action={handleFormAction} className="flex flex-col gap-5">
             {state?.message && (
               <span className="inline-flex items-center gap-2 text-red-400">

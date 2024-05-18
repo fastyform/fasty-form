@@ -1,9 +1,9 @@
 import 'server-only';
 
-import { getSupabaseServerComponentClient } from './supabase/client';
+import { getSupabaseServerClient } from './supabase/client';
 
 const getUserWithNull = async () => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
 
   return data.user;

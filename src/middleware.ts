@@ -2,11 +2,11 @@ import { type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 import { getSupabase } from '@/utils/supabase/client';
-import { LOCALES, PROTECTED_ROUTES, UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS } from './utils/constants';
+import { DEFAULT_LOCALE, LOCALES, PROTECTED_ROUTES, UNAVAILABLE_ROUTES_FOR_LOGGED_IN_USERS } from './utils/constants';
 
 const handleI18nRouting = createIntlMiddleware({
   locales: LOCALES,
-  defaultLocale: 'pl',
+  defaultLocale: DEFAULT_LOCALE,
   localePrefix: 'never',
 });
 

@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const getTrainerIdBySlug = async (trainerProfileSlug: string) => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
   const { data: trainerDetails, error } = await supabase
     .from('trainers_details')

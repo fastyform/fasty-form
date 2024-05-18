@@ -18,7 +18,6 @@ dayjs.extend(dayjsUtc);
 const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations();
-
   const user = await getLoggedInUser();
   const [isTrainerAccount, submission] = await Promise.all([
     checkIsTrainerAccount(user.id),
@@ -64,7 +63,9 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           <>
             <SubmissionPartWithIcon verticalLine icon="description">
               <h2 className="text-lg font-bold leading-5 text-white">
-                {isTrainerAccount ? 'Twoja odpowiedź' : 'Odpowiedź trenera'}
+                {isTrainerAccount
+                  ? t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_TRAINER')
+                  : t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_CLIENT')}
               </h2>
               <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
             </SubmissionPartWithIcon>

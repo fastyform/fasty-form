@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
 import ThankYouBuy from '@/emails/thank-you-buy';
+import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
 import { sendMail } from '@/utils/sendgrid';
 import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -75,7 +76,9 @@ export async function POST(req: Request) {
         throw new Error(error?.message);
       }
 
-      const t = await getTranslations({ locale: 'pl' });
+      const locale = await getUserLocaleAsAdminById(session.metadata.userId);
+      const t = await getTranslations({ locale });
+
       await sendMail({
         to: session.metadata.userEmail,
         subject: t('MAIL_TEMPLATE_THANK_YOU_BUY_SUBJECT'),
