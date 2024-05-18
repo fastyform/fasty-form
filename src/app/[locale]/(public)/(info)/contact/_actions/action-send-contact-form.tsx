@@ -31,12 +31,10 @@ const actionSendContactForm = async (prevState: FormState, data: FormData) => {
       shouldThrow: true,
     });
   } catch {
-    return getResponse(
-      `Ups, wystąpił problem. Spróbuj jeszcze raz lub napisz do nas na adres: ${Constants.SUPPORT_MAIL} - chętnie pomożemy!`,
-    );
+    return getResponse(t('CONTACT_FORM_SEND_ERROR', { supportMail: Constants.SUPPORT_MAIL }));
   }
 
-  return getResponse('Twoja wiadomość została wysłana. Odezwiemy się do Ciebie jak najszybciej. Dziękujemy!', true);
+  return getResponse(t('CONTACT_FORM_SEND_SUCCESS'), true);
 };
 
 export default actionSendContactForm;
