@@ -1,14 +1,14 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 import NotificationsForm from './notifications-form';
 
 const NotificationsPage = async ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations();
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
   const user = await getLoggedInUser();
   const { data, error } = await supabase.from('user_data').select('marketing_consent').eq('user_id', user.id).single();

@@ -6,7 +6,7 @@ import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 import DesktopNavbarApp from './_components/desktop-navbar-app';
 import MarketingConsentDialog from './_components/marketing-consent-dialog';
 import MobileNavbarContent from './_components/mobile-navbar-content';
@@ -17,7 +17,7 @@ import StripeOnboardingInfo from './_components/stripe-onboarding-info';
 const ContentLayout = async ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations();
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
   const user = await getUserWithNull();
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   const trainerDetails = isTrainerAccount && user && (await getTrainerDetailsById(user.id));

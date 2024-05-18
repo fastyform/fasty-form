@@ -1,4 +1,4 @@
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { Database } from '@/utils/supabase/supabase';
 import { SearchParams } from '@/utils/types';
 
@@ -19,7 +19,7 @@ const getSubmissionQueries = (
   range: { start: number; end: number },
   submissionViewName: 'ordered_submissions_trainer' | 'ordered_submissions_client',
 ) => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
   const submissionsQuery = supabase
     .from(submissionViewName)

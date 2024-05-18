@@ -5,8 +5,8 @@ import getLoggedInUser from '@/utils/get-logged-in-user';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const actionDeleteAccount = async (userId: string) => {
-  const { id } = await getLoggedInUser();
   const supabase = getSupabaseServerClient(process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const { id } = await getLoggedInUser();
 
   if (id !== userId) throw new Error('Unauthorized');
 

@@ -16,7 +16,6 @@ const SubmissionsPage = async ({
   params: { locale: Locale };
 }) => {
   unstable_setRequestLocale(locale);
-
   const { id: userId } = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(userId);
   const t = await getTranslations();

@@ -12,7 +12,6 @@ import SubmissionRequirementsForm from './_components/submission-requirements-fo
 const SubmissionRequirementsPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations();
-
   const [user, submission] = await Promise.all([getLoggedInUser(), getSubmissionById(params.id)]);
 
   if (submission.status !== 'paid') {

@@ -1,7 +1,7 @@
-import { getSupabaseServerComponentClient } from '@/utils/supabase/client';
+import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const getSubmissionById = async (submissionId: string) => {
-  const supabase = getSupabaseServerComponentClient();
+  const supabase = getSupabaseServerClient();
 
   const { data: submission, error } = await supabase
     .from('submissions')
