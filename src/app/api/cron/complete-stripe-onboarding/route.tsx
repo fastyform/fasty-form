@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { NextRequest, NextResponse } from 'next/server';
 import { getTranslations } from 'next-intl/server';
 import StripeOnboardingReminder from '@/emails/stripe-onboarding-reminder';
-import Constants from '@/utils/constants';
-import { sendMultipleMails } from '@/utils/sendgrid';
+import Constants, { Locale } from '@/utils/constants';
+import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 
 const DAYS_FROM_COMPLETED_PROFILE_ONBOARDING = [1, 4, 11]; // 1 day from creation, 3 days after first reminder, 7 days after second reminder
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   // Fetch users who have completed onboarding but need Stripe onboarding reminder
   const stripeOnboardingResponse = await supabase
     .from('trainers_details')
-    .select('email, onboarded_at')
+    .select('email, onboarded_at, user_data (locale)')
     .eq('is_onboarded', true)
     .eq('stripe_onboarding_status', 'unverified')
     .not('onboarded_at', 'is', null); // Exclude rows where onboarded_at is null
@@ -37,19 +37,33 @@ export async function GET(request: NextRequest) {
 
       return DAYS_FROM_COMPLETED_PROFILE_ONBOARDING.includes(diffDays);
     })
-    .map(({ email }) => ({ email })) as { email: string }[];
+    .map(({ email, user_data }) => ({ email, locale: user_data?.locale })) as { email: string; locale: Locale }[];
 
   if (stripeReminderEmails.length) {
-    const t = await getTranslations({ locale: 'pl' });
-
-    await sendMultipleMails({
-      mails: stripeReminderEmails,
-      subject: t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_SUBJECT', { appName: Constants.APP_NAME }),
-      html: render(<StripeOnboardingReminder t={t} />),
+    const errors: { email: string; error: string }[] = [];
+    const emailPromises = stripeReminderEmails.map(async ({ email, locale }) => {
+      try {
+        const t = await getTranslations({ locale });
+        await sendMail({
+          to: email,
+          subject: t('MAIL_TEMPLATE_STRIPE_ONBOARDING_REMINDER_SUBJECT', { appName: Constants.APP_NAME }),
+          html: render(<StripeOnboardingReminder t={t} />),
+        });
+      } catch (error: any) {
+        error.push({ email, error: error?.message });
+      }
     });
 
-    return NextResponse.json(`Sent ${stripeReminderEmails.length} Stripe Onboarding emails`, { status: 200 });
+    await Promise.all(emailPromises);
+
+    return NextResponse.json(
+      {
+        message: `Sent ${stripeReminderEmails.length} Stripe Onboarding reminder emails`,
+        errors,
+      },
+      { status: 200 },
+    );
   }
 
-  return NextResponse.json('No Stripe Onboarding emails to send', { status: 200 });
+  return NextResponse.json('No Stripe Onboarding reminder emails reminder to send', { status: 200 });
 }
