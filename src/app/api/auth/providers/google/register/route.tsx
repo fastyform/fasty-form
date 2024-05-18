@@ -5,7 +5,7 @@ import { getTranslations } from 'next-intl/server';
 import { getQueryParamError } from '@/app/[locale]/(auth)/utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
 import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
-import Constants from '@/utils/constants';
+import Constants, { DEFAULT_LOCALE } from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import { roleSchema } from '@/utils/validators';
@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const role = searchParams.get('role');
   const redirectUrl = searchParams.get('redirectUrl');
+  const locale = searchParams.get('locale') || DEFAULT_LOCALE;
 
   const roleSchemaParsed = roleSchema.safeParse(role);
 
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
     return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
   }
 
-  const t = await getTranslations({ locale: 'pl' });
+  const t = await getTranslations({ locale });
   await sendMail({
     to: data.user.email as string,
     subject: t('MAIL_TEMPLATE_WELCOME_SUBJECT', { appName: Constants.APP_NAME }),

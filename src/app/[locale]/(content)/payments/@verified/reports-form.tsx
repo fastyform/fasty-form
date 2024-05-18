@@ -13,7 +13,6 @@ import { ALLOWED_REPORT_TYPES, ReportType, reportTypeToLabel } from '@/app/[loca
 import AppButton from '@/components/app-button';
 import AppDatePicker from '@/components/app-date-picker';
 import AppInput from '@/components/app-input/app-input';
-import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 import { IntlShape } from '@/utils/types';
 import actionGenerateReport from './action-generate-report';
@@ -70,7 +69,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
       notify.success(t('REPORT_SUCCESS_TOAST'));
     },
     onError: () => {
-      notify.error(Constants.COMMON_ERROR_MESSAGE);
+      notify.error(t('COMMON_ERROR'));
     },
   });
 

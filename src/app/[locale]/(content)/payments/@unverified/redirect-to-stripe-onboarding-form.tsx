@@ -9,7 +9,6 @@ import { useTranslations } from 'next-intl';
 import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/[locale]/(content)/payments/utils';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
-import Constants from '@/utils/constants';
 import notify from '@/utils/notify';
 import actionPaymentOnboardingRedirect from './action-payment-onboarding-redirect';
 
@@ -21,7 +20,7 @@ const RedirectToStripeOnboardingForm = () => {
   const actionPaymentOnboardingRedirectMutation = useMutation({
     mutationFn: (values: StripeOnboardingValues) => actionPaymentOnboardingRedirect(values),
     onError: () => {
-      notify.error(Constants.COMMON_ERROR_MESSAGE);
+      notify.error(t('COMMON_ERROR'));
       setIsRedirecting(false);
     },
     onMutate: () => setIsRedirecting(true),
