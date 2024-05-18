@@ -27,7 +27,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
         alt={t('HOME_HERO_IMAGE_ALT')}
         className="absolute right-[-150px] top-[168px] z-[1] hidden xl:block xl:w-[850px] 2xl:w-[1036px]"
         height={722}
-        src="/home/main-section-mock-desktop.png"
+        src={`/home/main-section-mock-desktop-${locale}.png`}
         width={1036}
       />
       <PublicContainer className="z-[1] mb-10 pt-10 xl:mb-0 xl:pt-24 2xl:pt-48">
@@ -63,7 +63,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
         <Image
           alt={`Aplikacja ${Constants.APP_NAME} - screen shot widoku zgłoszenia aplikacji`}
           height={600}
-          src="/home/main-section-mock.png"
+          src={`/home/main-section-mock-${locale}.png`}
           width={637}
         />
       </section>
@@ -121,7 +121,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             className="xl:self-[unset] w-[241px] self-center xl:w-[337px]"
             height={627}
             quality={100}
-            src="/home/iphone-app-onboarding.png"
+            src={`/home/iphone-app-onboarding-${locale}.png`}
             width={337}
           />
         </PublicContainer.Content>
@@ -145,7 +145,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               className="h-[350px] w-full object-cover sm:h-[50vh] xl:h-[450px]"
               height={450}
               quality={100}
-              src="/home/section-edit.jpg"
+              src={`/home/section-edit-${locale}.png`}
               width={750}
             />
             <div className="section-profile-gradient absolute inset-0 xl:left-[-2px] xl:bg-[linear-gradient(90deg,_rgba(13,17,22,1)_0%,rgba(255,255,255,0)_100%)]" />
@@ -164,7 +164,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             className="w-[135vw] max-w-[unset] md:w-full md:pr-5 lg:hidden"
             height={891}
             quality={100}
-            src="/home/section-share.png"
+            src={`/home/section-share-${locale}.png`}
             width={1207}
           />
           <div className="max-w-[350px] px-5 text-shark sm:max-w-md lg:px-0">
@@ -184,7 +184,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             alt={t('HOME_TRAINER_PROFILE_ALT')}
             className="z-[1] hidden max-w-xl lg:block xl:max-w-3xl"
             height={815}
-            src="/home/section-share-desktop.png"
+            src={`/home/section-share-desktop-${locale}.png`}
             width={971}
           />
           <Image
@@ -192,7 +192,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             className="absolute bottom-0 hidden w-64 translate-y-3/4 lg:left-24 lg:block xl:left-0 xl:w-[319px]"
             height={593}
             quality={100}
-            src="/home/iphone-order-details.png"
+            src={`/home/iphone-order-details-${locale}.png`}
             width={319}
           />
         </PublicContainer.Content>
@@ -210,7 +210,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             alt={t('HOME_SUBMISSION_SEND_ALT')}
             className="w-[110vw] max-w-none sm:w-[600px] xl:w-[800px]"
             height={1307}
-            src="/home/section-payout.png"
+            src={`/home/section-payout-${locale}.png`}
             width={1003}
           />
           <Image
