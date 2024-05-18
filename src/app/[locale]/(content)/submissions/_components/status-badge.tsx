@@ -30,7 +30,7 @@ const StatusBadge = ({ type, className, isTrainerAccount }: StatusBadgeProps) =>
       )}
     >
       <p className={twMerge('lg:font-semi-bold text-xs font-medium lg:text-base', textColor)}>
-        {t(`SUBMISSIONS_${type}`)}
+        {t(`SUBMISSIONS_${isTrainerAccount ? type : visibleStatus}`)}
       </p>
     </div>
   );
