@@ -1,9 +1,8 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import UpdatePasswordForm from '@/app/[locale]/(content)/settings/(setting-pages)/account/components/update-password-form';
 import { Locale } from '@/utils/constants';
-import getLoggedInUser from '@/utils/get-logged-in-user';
 import { SearchParams } from '@/utils/types';
-import DeleteAccountButton from './components/delete-account-button';
+
 import LanguageSelect from './components/language-select';
 
 const AccountManagePage = async ({
@@ -14,7 +13,6 @@ const AccountManagePage = async ({
   params: { locale: Locale };
 }) => {
   unstable_setRequestLocale(locale);
-  const user = await getLoggedInUser();
   const t = await getTranslations();
 
   return (
@@ -28,10 +26,6 @@ const AccountManagePage = async ({
         <div className="flex flex-col gap-5">
           <h2 className="text-md text-white">{t('SETTINGS_ACCOUNT_LANGUAGE_TITLE')}</h2>
           <LanguageSelect className="max-w-md" currentLocale={locale} />
-        </div>
-        <div className="flex flex-col gap-5">
-          <h2 className="text-md text-white">{t('SETTINGS_ACCOUNT_DELETE_ACCOUNT_TITLE')}</h2>
-          <DeleteAccountButton userId={user.id} />
         </div>
       </div>
     </>
