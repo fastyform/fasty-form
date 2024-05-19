@@ -67,9 +67,15 @@ const useOnSubmit = (videoFile: File | null, submissionId: string) => {
         submissionId,
         clientDescription,
       });
-    } catch {
+    } catch (error: any) {
       if (abortData) {
         axios.delete('/api/video/upload', { data: abortData }).catch(() => {});
+      }
+
+      if (error.message === 'Trainer ID is missing') {
+        setIsLoading(false);
+
+        return notify.error(t('ERROR_TRAINER_ID_MISSING'));
       }
       notify.error(t('COMMON_ERROR'));
       setIsLoading(false);
