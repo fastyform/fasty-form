@@ -348,8 +348,6 @@
   "REPORT_TYPE_SELECT_LABEL": "Report type",
   "SETTINGS_ACCOUNT_DELETE_ACCOUNT_TITLE": "Delete your account",
   "SETTINGS_ACCOUNT_DELETE_BUTTON": "Delete",
-  "SETTINGS_ACCOUNT_DELETE_DIALOG_TITLE": "Are you sure you want to delete your account?",
-  "SETTINGS_ACCOUNT_DELETE_ERROR": "An error occurred while deleting the account. Try again.",
   "SETTINGS_ACCOUNT_ERROR_LANGUAGE_CHANGE": "An error occurred while changing the language. Try again.",
   "SETTINGS_ACCOUNT_LANGUAGE_TITLE": "Set application language",
   "SETTINGS_ACCOUNT_PASSWORD_TITLE": "Update password",
