@@ -83,6 +83,9 @@ const actionAddTrainerReview = async (
     return { message: '' };
   }
 
+  // NOTE: THIS IS WHEN USER DELETES AN ACCOUNT
+  if (!submission?.client_id) return { message: '' };
+
   return {
     message: t('COMMON_ERROR'),
   };

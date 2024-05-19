@@ -39,7 +39,7 @@ export type Database = {
           reviewed_at: string | null;
           status: Database['public']['Enums']['status'];
           stripe_session_id: string;
-          trainer_id: string;
+          trainer_id: string | null;
           trainer_review: string | null;
           updated_at: string;
           video_key: string | null;
@@ -54,7 +54,7 @@ export type Database = {
           reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id: string;
-          trainer_id: string;
+          trainer_id?: string | null;
           trainer_review?: string | null;
           updated_at?: string;
           video_key?: string | null;
@@ -69,7 +69,7 @@ export type Database = {
           reviewed_at?: string | null;
           status?: Database['public']['Enums']['status'];
           stripe_session_id?: string;
-          trainer_id?: string;
+          trainer_id?: string | null;
           trainer_review?: string | null;
           updated_at?: string;
           video_key?: string | null;

@@ -74,6 +74,7 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
     .single();
 
   if (updateSubmissionError || !submission || !submission.trainers_details?.profile_name) throw new Error();
+  if (!submission.trainer_id) throw new Error('Trainer ID is missing');
 
   await sendTrainerEmailNotification(submission.trainer_id, submission.trainers_details.profile_name, submissionId);
 

@@ -56,6 +56,7 @@
   "ERROR_PAGE_CODE_TITLE": "Kod błędu:",
   "ERROR_PAGE_REFRESH_BUTTON": "Odśwież",
   "ERROR_PAGE_TITLE": "Wystąpił nieoczekiwany błąd",
+  "ERROR_TRAINER_ID_MISSING": "Nie znaleziono konta trenera. Skontaktuj się z nami, aby otrzymać zwrot.",
   "FEEDBACK_FEATURES_0": "Baza trenerów z możliwością wyszukiwania i filtrowania",
   "FEEDBACK_FEATURES_1": "Zaznaczanie błędów na wideo (np. rysowanie po wideo)",
   "FEEDBACK_FEATURES_2": "Większa ilość usług (np. plany treningowe, diety)",
