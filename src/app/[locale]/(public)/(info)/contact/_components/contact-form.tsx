@@ -38,8 +38,8 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
         multiline
         control={control}
         fieldName="message"
+        label={t('CONTACT_FORM_MESSAGE_LABEL')}
         minRows={5}
-        placeholder={t('CONTACT_FORM_MESSAGE_LABEL')}
       />
       <AppButtonSubmit classes={{ root: 'py-2.5' }} isValid={formState.isValid}>
         {t('COMMON_SEND')}

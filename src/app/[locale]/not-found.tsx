@@ -13,8 +13,8 @@ const NotFoundPage = async () => {
       <div className="flex flex-col gap-8">
         <h1 className="text-9xl font-bold md:text-[200px]">404</h1>
         <div className="flex flex-col gap-2">
-          <h2 className="mb-2 text-5xl font-bold">Uuups!</h2>
-          <p className="text-2xl">{t('NOT_FOUND_TITLE')}</p>
+          <h2 className="mb-2 text-5xl font-bold">{t('NOT_FOUND_TITLE')}</h2>
+          <p className="text-2xl">{t('NOT_FOUND_DESCRIPTION')}</p>
         </div>
         <AppButton className="self-start" component={Link} href={isLoggedIn ? '/submissions' : '/login'}>
           {t(`NOT_FOUND_REDIRECT_${isLoggedIn ? 'submissions' : 'login'}`)}
