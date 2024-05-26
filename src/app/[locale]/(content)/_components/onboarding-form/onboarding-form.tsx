@@ -44,7 +44,10 @@ const OnboardingForm = () => {
       <div className="flex flex-col gap-5 text-sm">
         <AppFormState state={state} />
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">{t.rich('ONBOARDING_FORM_SERVICE_PRICE_LABEL')}</span>
+          <span className="text-white">
+            {t.rich('ONBOARDING_FORM_SERVICE_PRICE_LABEL')}{' '}
+            <span className="text-yellow-400">({t('CURRENCY_PLN')})</span>
+          </span>
           <Controller
             control={control}
             name="servicePrice"
