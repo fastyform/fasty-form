@@ -7,12 +7,7 @@ import actionRedirectToCheckout from '@/app/[locale]/(content)/_actions/action-r
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 
-interface BuyButtonProps {
-  trainerId: string;
-  isTrainerAccount: boolean;
-}
-
-const BuyButton = ({ trainerId, isTrainerAccount }: BuyButtonProps) => {
+const BuyAgainButton = ({ trainerId }: { trainerId: string }) => {
   const t = useTranslations();
   const [isRedirecting, setIsRedirecting] = useState(false);
   const redirectToCheckoutMutation = useMutation({
@@ -31,13 +26,13 @@ const BuyButton = ({ trainerId, isTrainerAccount }: BuyButtonProps) => {
 
   return (
     <AppButton
-      disabled={isTrainerAccount}
+      classes={{ root: 'py-2 self-start' }}
       loading={redirectToCheckoutMutation.isPending || isRedirecting}
       onClick={() => redirectToCheckoutMutation.mutate()}
     >
-      {isTrainerAccount ? t('TRAINERS_PAGE_BUY_BUTTON_TRAINER') : t('TRAINERS_PAGE_BUY_BUTTON')}
+      {t('SUBMISSION_BUY_AGAIN_BUTTON')}
     </AppButton>
   );
 };
 
-export default BuyButton;
+export default BuyAgainButton;

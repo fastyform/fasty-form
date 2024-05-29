@@ -1,11 +1,9 @@
 'use server';
 
 import crypto from 'crypto';
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Stripe from 'stripe';
-import { getResponse } from '@/utils';
 import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
@@ -32,12 +30,14 @@ const getReceiptDescription = (trainerStripeAccount: Stripe.Account, t: IntlShap
   return description;
 };
 
-const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerAccount: boolean }) => {
-  const headersList = headers();
-  const t = await getTranslations();
-  const { trainerId, isTrainerAccount } = payload;
-  if (isTrainerAccount) getResponse(t('COMMON_ERROR'));
+interface Payload {
+  trainerId: string;
+  successUrl: string;
+  cancelUrl: string;
+}
 
+const actionRedirectToCheckout = async ({ trainerId, successUrl, cancelUrl }: Payload) => {
+  const t = await getTranslations();
   const trainerDetails = await getTrainerDetailsById(trainerId);
   const stripe = getStripe();
   const user = await getUserWithNull();
@@ -85,8 +85,8 @@ const actionRedirectToCheckout = async (payload: { trainerId: string; isTrainerA
       },
       customer_email: user.email,
       mode: 'payment',
-      success_url: `${headersList.get('origin')}/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headersList.get('origin')}/payment/failure?trainer_profile_slug=${trainerDetails.profile_slug}`,
+      success_url: successUrl,
+      cancel_url: cancelUrl,
       locale: locale as Locale,
       currency: StripeConstants.CURRENCY,
     },

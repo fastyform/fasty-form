@@ -1,0 +1,58 @@
+{
+  "tasks": [
+    {
+      "command": "stripe listen --forward-to localhost:3000/api/stripe/webhook/onboarding",
+      "isBackground": true,
+      "label": "Stripe Onboarding Webhook",
+      "type": "shell",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "command": "stripe listen --forward-to localhost:3000/api/stripe/webhook/payment",
+      "isBackground": true,
+      "label": "Stripe Payment Webhook",
+      "type": "shell",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Stripe Report Webhook",
+      "command": "stripe listen --forward-to localhost:3000/api/stripe/webhook/report",
+      "type": "shell",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "dependsOn": ["Stripe Onboarding Webhook", "Stripe Payment Webhook", "Stripe Report Webhook"],
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "Run All Stripe Webhooks",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    }
+  ],
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0"
+}
