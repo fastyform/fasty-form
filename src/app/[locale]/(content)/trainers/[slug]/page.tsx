@@ -44,7 +44,9 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
           </h1>
           <span className="text-base text-white lg:text-xl">
             {t('TRAINERS_PAGE_SERVICE_NAME')}
-            <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
+            <span className="font-bold">
+              {groszToPLN(trainerDetails.service_price_in_grosz)} {t('CURRENCY_PLN')}
+            </span>
           </span>
         </div>
         <BuyButton isTrainerAccount={isTrainerAccount} trainerId={trainerId} />

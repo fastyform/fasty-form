@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
 
       if (totalAccountPayout < MINIMAL_PAYOUT_IN_GROSZ) {
         throw new Error(
-          `Minimal payout is 5 zł, account: ${stripeAccountId} has currently ${groszToPLN(totalAccountPayout)} zł`,
+          `Minimal payout is 5 PLN, account: ${stripeAccountId} has currently ${groszToPLN(totalAccountPayout)} PLN`,
         );
       }
 
