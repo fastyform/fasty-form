@@ -41,11 +41,6 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
           <span> • {formattedCreationDate}</span>
         </p>
-        <TrainerProfileNameLink
-          className="lg:hidden"
-          profileName={submission.trainers_details.profile_name}
-          trainerProfileSlug={submission.trainers_details.profile_slug}
-        />
         <Suspense fallback={<VideoSkeleton />}>
           <SubmissionVideo submissionId={params.id} />
         </Suspense>
@@ -95,6 +90,11 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
         <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
         <span> • {formattedCreationDate}</span>
       </p>
+      <TrainerProfileNameLink
+        className="lg:hidden"
+        profileName={submission.trainers_details.profile_name}
+        trainerProfileSlug={submission.trainers_details.profile_slug}
+      />
       <Suspense fallback={<VideoSkeleton />}>
         <SubmissionVideo submissionId={params.id} />
       </Suspense>
