@@ -53,7 +53,10 @@ const AppInputPrice = ({ name, ...props }: NumberInputProps & { name: string }) 
       <div className="flex gap-2.5 opacity-75">
         <InfoOutlinedIcon className="text-white" fontSize="small" />
         <div className="text-xs text-white">
-          <span className="whitespace-nowrap font-bold text-yellow-400"> {priceAfterFee?.toFixed(2)} zł </span>
+          <span className="whitespace-nowrap font-bold text-yellow-400">
+            {' '}
+            {priceAfterFee?.toFixed(2)} {t('CURRENCY_PLN')}{' '}
+          </span>
           <span>{t.rich('APP_INPUT_PRICE_CAPTION', { TosLink })}</span>
         </div>
       </div>

@@ -23,7 +23,7 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   const t = await getTranslations();
 
-  if (!trainerDetails.is_onboarded || stripeOnboardingRedirect) return notFound();
+  if (!trainerDetails.is_onboarded || stripeOnboardingRedirect || !trainerDetails.profile_slug) return notFound();
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
 
   return (
@@ -44,7 +44,9 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
           </h1>
           <span className="text-base text-white lg:text-xl">
             {t('TRAINERS_PAGE_SERVICE_NAME')}
-            <span className="font-bold">{groszToPLN(trainerDetails.service_price_in_grosz)} zł</span>
+            <span className="font-bold">
+              {groszToPLN(trainerDetails.service_price_in_grosz)} {t('CURRENCY_PLN')}
+            </span>
           </span>
         </div>
         <BuyButton isTrainerAccount={isTrainerAccount} trainerId={trainerId} />

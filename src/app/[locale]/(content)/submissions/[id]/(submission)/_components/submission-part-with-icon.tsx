@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { twMerge } from 'tailwind-merge';
 import DescriptionIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_assets/description-icon';
 import FinishedIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_assets/finished-icon';
@@ -8,6 +9,7 @@ const submissionIcons = {
   submission: SubmissionIcon,
   description: DescriptionIcon,
   finished: FinishedIcon,
+  buyAgain: AutorenewIcon,
 };
 
 interface SubmissionPartWithIconProps {
@@ -16,6 +18,7 @@ interface SubmissionPartWithIconProps {
   verticalLine?: boolean;
   className?: string;
   verticalLineClassName?: string;
+  iconClassName?: string;
 }
 
 const SubmissionPartWithIcon = ({
@@ -23,6 +26,7 @@ const SubmissionPartWithIcon = ({
   icon,
   verticalLine,
   className,
+  iconClassName,
   verticalLineClassName,
 }: SubmissionPartWithIconProps) => {
   const SubmissionPartIcon = submissionIcons[icon];
@@ -30,8 +34,8 @@ const SubmissionPartWithIcon = ({
   return (
     <div className={twMerge('flex gap-2.5', className)}>
       <div className="flex flex-shrink-0 flex-grow-0 basis-5 flex-col items-center gap-5">
-        <SubmissionPartIcon />
-        {verticalLine && <div className={twMerge('rounder-full w-[2px] grow bg-zinc-700', verticalLineClassName)} />}
+        <SubmissionPartIcon className={twMerge('text-[28px]', iconClassName)} />
+        {verticalLine && <div className={twMerge('w-[2px] grow rounded-full bg-zinc-700', verticalLineClassName)} />}
       </div>
       <div className="flex grow flex-col gap-2.5">{children}</div>
     </div>

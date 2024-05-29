@@ -8,6 +8,7 @@ import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/tr
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
+import BuyAgainButton from './_components/buy-again-button';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
@@ -33,28 +34,74 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
 
   if (!submission.trainers_details?.profile_name || !submission.trainers_details.profile_slug) throw new Error();
 
+  if (isTrainerAccount) {
+    return (
+      <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
+        <p className=" text-base text-white lg:hidden">
+          <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
+          <span> • {formattedCreationDate}</span>
+        </p>
+        <TrainerProfileNameLink
+          className="lg:hidden"
+          profileName={submission.trainers_details.profile_name}
+          trainerProfileSlug={submission.trainers_details.profile_slug}
+        />
+        <Suspense fallback={<VideoSkeleton />}>
+          <SubmissionVideo submissionId={params.id} />
+        </Suspense>
+        <div className="flex flex-col gap-5 lg:order-1 lg:grow">
+          {!!submission.client_description && (
+            <SubmissionPartWithIcon verticalLine icon="submission">
+              <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TITLE_TRAINER')}</h2>
+              <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
+            </SubmissionPartWithIcon>
+          )}
+
+          {(submission.status === 'reviewed' || submission.status === 'paidout') && (
+            <>
+              <SubmissionPartWithIcon verticalLine icon="description">
+                <h2 className="text-lg font-bold leading-5 text-white">
+                  {t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_TRAINER')}
+                </h2>
+                <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
+              </SubmissionPartWithIcon>
+              <SubmissionPartWithIcon icon="finished">
+                <h2 className="text-lg font-bold text-yellow-400">{t('SUBMISSION_FINISHED_ORDER')}</h2>
+                {submission.reviewed_at && (
+                  <span className="whitespace-pre-wrap text-sm text-white">
+                    {t('SUBMISSION_FINISHED_DATE')} •{' '}
+                    <span className="font-bold">{formatDate(submission.reviewed_at)}</span>
+                  </span>
+                )}
+                {submission.paidout_at && (
+                  <span className="whitespace-pre-wrap text-sm text-white">
+                    {t('SUBMISSION_PAIDOUT_AT')} •{' '}
+                    <span className="font-bold">{formatDate(submission.paidout_at)}</span>
+                  </span>
+                )}
+              </SubmissionPartWithIcon>
+            </>
+          )}
+
+          {submission.status === 'unreviewed' && <AddTrainerReviewForm submissionId={params.id} />}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-40">
       <p className=" text-base text-white lg:hidden">
         <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
         <span> • {formattedCreationDate}</span>
       </p>
-      {!isTrainerAccount && (
-        <TrainerProfileNameLink
-          className="lg:hidden"
-          profileName={submission.trainers_details.profile_name}
-          trainerProfileSlug={submission.trainers_details.profile_slug}
-        />
-      )}
       <Suspense fallback={<VideoSkeleton />}>
         <SubmissionVideo submissionId={params.id} />
       </Suspense>
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         {!!submission.client_description && (
           <SubmissionPartWithIcon verticalLine icon="submission">
-            <h2 className="text-lg font-bold leading-5 text-white">
-              {t(isTrainerAccount ? 'SUBMISSION_TITLE_TRAINER' : 'SUBMISSION_TITLE_CLIENT')}
-            </h2>
+            <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TITLE_CLIENT')}</h2>
             <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
           </SubmissionPartWithIcon>
         )}
@@ -63,13 +110,11 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           <>
             <SubmissionPartWithIcon verticalLine icon="description">
               <h2 className="text-lg font-bold leading-5 text-white">
-                {isTrainerAccount
-                  ? t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_TRAINER')
-                  : t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_CLIENT')}
+                {t('SUBMISSION_TRAINER_REVIEW_FORM_REPLY_LABEL_CLIENT')}
               </h2>
               <p className="whitespace-pre-wrap text-sm text-white">{submission.trainer_review}</p>
             </SubmissionPartWithIcon>
-            <SubmissionPartWithIcon icon="finished">
+            <SubmissionPartWithIcon verticalLine icon="finished">
               <h2 className="text-lg font-bold text-yellow-400">{t('SUBMISSION_FINISHED_ORDER')}</h2>
               {submission.reviewed_at && (
                 <span className="whitespace-pre-wrap text-sm text-white">
@@ -77,26 +122,22 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
                   <span className="font-bold">{formatDate(submission.reviewed_at)}</span>
                 </span>
               )}
-              {submission.paidout_at && (
-                <span className="whitespace-pre-wrap text-sm text-white">
-                  {t('SUBMISSION_PAIDOUT_AT')} • <span className="font-bold">{formatDate(submission.paidout_at)}</span>
-                </span>
-              )}
+            </SubmissionPartWithIcon>
+            <SubmissionPartWithIcon icon="buyAgain" iconClassName="text-white">
+              <span className="text-white">{t('SUBMISSION_BUY_AGAIN_TITLE')}</span>
+              <BuyAgainButton trainerId={submission.trainer_id} />
             </SubmissionPartWithIcon>
           </>
         )}
 
-        {submission.status === 'unreviewed' &&
-          (isTrainerAccount ? (
-            <AddTrainerReviewForm submissionId={params.id} />
-          ) : (
-            <SubmissionPartWithIcon className="opacity-50" icon="submission">
-              <h2 className="text-lg font-bold leading-5 text-white">
-                {t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_TITLE')}
-              </h2>
-              <p className="text-sm text-white">{t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_CAPTION')}</p>
-            </SubmissionPartWithIcon>
-          ))}
+        {submission.status === 'unreviewed' && (
+          <SubmissionPartWithIcon className="opacity-50" icon="submission">
+            <h2 className="text-lg font-bold leading-5 text-white">
+              {t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_TITLE')}
+            </h2>
+            <p className="text-sm text-white">{t('SUBMISSION_WAITING_FOR_TRAINER_REVIEW_CAPTION')}</p>
+          </SubmissionPartWithIcon>
+        )}
       </div>
     </div>
   );

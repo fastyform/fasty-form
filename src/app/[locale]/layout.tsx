@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import './globals.css';
 import { useMessages } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Providers from '@/app/[locale]/providers';
@@ -42,7 +41,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-const RootLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
+const AppLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
   dayjs.locale(locale);
   const messages = useMessages();
@@ -68,4 +67,4 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
-export default RootLayout;
+export default AppLayout;
