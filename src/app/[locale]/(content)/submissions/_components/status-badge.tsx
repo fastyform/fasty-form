@@ -2,10 +2,10 @@ import { useTranslations } from 'next-intl';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
 
 const statusBadgeData = {
-  reviewed: ['bg-yellow-400/75', 'text-black'],
-  unreviewed: ['bg-slate-700/75', 'text-white'],
-  paid: ['bg-bunker border border-gray-600', 'text-white'],
-  paidout: ['bg-gray-600', 'text-white'],
+  reviewed: ['bg-[#007bff]/60 border-[#007bff]', 'text-white'],
+  unreviewed: ['bg-[#17a2b8 ]/60 border-[#17a2b8]', 'text-white'],
+  paid: ['bg-[#28a745]/60 border-[#28a745]', 'text-white'],
+  paidout: ['bg-[#6f42c1]/60 border-[#6f42c1]', 'text-white'],
   skeleton: ['bg-shark animate-pulse', 'text-shark'],
 } as const;
 
@@ -24,12 +24,12 @@ const StatusBadge = ({ type, className, isTrainerAccount }: StatusBadgeProps) =>
   return (
     <div
       className={twMerge(
-        'flex items-center justify-center rounded-full px-5 py-2.5 backdrop-blur',
+        'flex items-center justify-center rounded-lg border border-solid px-2.5 py-1 backdrop-blur',
         containerClasses,
         className,
       )}
     >
-      <p className={twMerge('lg:font-semi-bold text-xs font-medium lg:text-base', textColor)}>
+      <p className={twMerge('rounded-full text-[10px] font-semibold uppercase tracking-widest', textColor)}>
         {t(`SUBMISSIONS_${isTrainerAccount ? type : visibleStatus}`)}
       </p>
     </div>
