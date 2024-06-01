@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import prettyBytes from 'pretty-bytes';
 import { twMerge } from 'tailwind-merge';
-import readFile from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/_utils/read-files';
+import readFile from '@/app/[locale]/(content)/trainers/[slug]/_components/edit-profile/_utils/read-files';
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 import CropperDialog from './cropper-dialog';

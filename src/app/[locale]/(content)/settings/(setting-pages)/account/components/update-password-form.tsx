@@ -14,9 +14,9 @@ import {
 import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
-import AppDialog from '@/components/app-dialog';
 import AppFormState from '@/components/app-form-error';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
+import AppModal from '@/components/app-modal';
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
@@ -66,7 +66,7 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
           {t('SETTINGS_PASSWORD_CHANGE')}
         </AppButtonSubmit>
       </form>
-      <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
+      <AppModal open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
         <div className="flex flex-col items-center gap-5">
           <QuestionMarkIcon />
           <div className="flex flex-col gap-2.5">
@@ -91,7 +91,7 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
             </AppButton>
           </div>
         </div>
-      </AppDialog>
+      </AppModal>
     </>
   );
 };
