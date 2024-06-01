@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Cropper, { Area, Point } from 'react-easy-crop';
 import { useTranslations } from 'next-intl';
-import getCroppedImg from '@/app/[locale]/(content)/trainers/[slug]/@modal/edit-profile/_utils/get-cropped-img';
+import getCroppedImg from '@/app/[locale]/(content)/trainers/[slug]/_components/edit-profile/_utils/get-cropped-img';
 import AppButton from '@/components/app-button';
 import AppDialog from '@/components/app-dialog';
 import FileUploadSlider from './file-upload-slider';

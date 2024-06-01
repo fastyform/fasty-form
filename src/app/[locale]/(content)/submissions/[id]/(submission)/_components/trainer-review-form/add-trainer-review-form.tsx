@@ -10,8 +10,8 @@ import SubmissionPartWithIcon from '@/app/[locale]/(content)/submissions/[id]/(s
 import ErrorIcon from '@/assets/error-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
-import AppDialog from '@/components/app-dialog';
 import AppInputForm from '@/components/app-input/app-input-form';
+import AppModal from '@/components/app-modal';
 import actionAddTrainerReview from './action-add-trainer-review';
 import QuestionMarkIcon from './question-mark-icon';
 import { trainerReviewFormSchema, TrainerReviewValues } from './utils';
@@ -61,7 +61,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
             </AppButtonSubmit>
           </form>
         </SubmissionPartWithIcon>
-        <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
+        <AppModal open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
           <div className="flex flex-col items-center gap-5">
             <QuestionMarkIcon />
             <div>
@@ -83,7 +83,7 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               </AppButton>
             </div>
           </div>
-        </AppDialog>
+        </AppModal>
       </>
     );
   }

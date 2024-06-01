@@ -8,11 +8,9 @@ import ActionButtonsProfile from './action-buttons-profile';
 
 const TrainerPageLayout = async ({
   children,
-  modal,
   params,
 }: {
   children: ReactNode;
-  modal: ReactNode;
   params: { slug: string; locale: Locale };
 }) => {
   unstable_setRequestLocale(params.locale);
@@ -59,7 +57,6 @@ const TrainerPageLayout = async ({
       >
         {children}
       </Suspense>
-      {modal}
     </section>
   );
 };
