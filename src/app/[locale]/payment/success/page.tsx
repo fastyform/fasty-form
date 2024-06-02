@@ -5,22 +5,22 @@ import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import { Database } from '@/utils/supabase/supabase';
+import { SearchParams } from '@/utils/types';
 
 const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements`;
 
-const SuccessPaymentPage = () => {
+const SuccessPaymentPage = ({ searchParams }: { searchParams: SearchParams }) => {
   const t = useTranslations();
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
-  const searchParam = useSearchParams();
   const router = useRouter();
-  const stripeSessionId = searchParam.get('stripe_session_id');
+  const stripeSessionId = searchParams.stripe_session_id;
 
   if (!stripeSessionId) router.push('/submissions');
 
