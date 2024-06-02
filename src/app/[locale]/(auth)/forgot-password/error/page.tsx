@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import AuthFooter from '@/app/[locale]/(auth)/_components/auth-footer';
 import ErrorIcon from '@/assets/error-icon';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import { Locale } from '@/utils/constants';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: Locale } }): Promise<Metadata> {
@@ -25,9 +25,9 @@ const ForgotPasswordErrorPage = ({ params: { locale } }: { params: { locale: Loc
       <div className="my-auto flex w-full max-w-[400px] flex-col items-center justify-center gap-5">
         <ErrorIcon className="text-[60px]" height={100} width={100} />
         <h1 className="text-2xl font-bold text-white md:text-3xl">{t('FORGOT_ERROR_TITLE')}</h1>
-        <AppButton href="/forgot-password" LinkComponent={Link}>
+        <AppButtonNew href="/forgot-password" LinkComponent={Link} size="large">
           {t('FORGOT_ERROR_REDIRECT_CTA')}
-        </AppButton>
+        </AppButtonNew>
       </div>
       <AuthFooter className="pt-10" />
     </div>

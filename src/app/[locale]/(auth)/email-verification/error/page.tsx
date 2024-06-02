@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import AuthFooter from '@/app/[locale]/(auth)/_components/auth-footer';
 import ErrorIcon from '@/assets/error-icon';
+import AppButtonNew from '@/components/app-button-new';
 import { Locale } from '@/utils/constants';
 import ResendEmailForm from './resend-email-form';
 
@@ -26,9 +26,9 @@ const EmailVerificationErrorPage = ({ params: { locale } }: { params: { locale: 
         <h1 className="text-2xl font-bold text-white md:text-3xl">{t.rich('EMAIL_VERIFICATION_ERROR_TITLE')}</h1>
         <p className="text-white">{t.rich('EMAIL_VERIFICATION_ERROR_DESCRIPTION')}</p>
         <ResendEmailForm />
-        <Link className="w-fit self-center text-white transition-opacity hover:opacity-80" href="/login">
+        <AppButtonNew fullWidth color="secondary" href="/login" size="large" variant="text">
           {t('EMAIL_VERIFICATION_ERROR_LOGIN_REDIRECT')}
-        </Link>
+        </AppButtonNew>
       </div>
       <AuthFooter className="pt-10" />
     </div>

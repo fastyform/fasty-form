@@ -1,4 +1,5 @@
 {
+  "exclude": ["./.next"],
   "extends": "./tsconfig.json",
   "include": [
     "src",

@@ -7,14 +7,14 @@ import EditProfile from './_components/edit-profile/edit-profile';
 const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
   const user = await getUserWithNull();
   const trainerDetails = await getTrainerDetailsById(trainerId);
-  const isTrainerOwner = await checkIsTrainerProfileOwner(user, trainerId);
+  const isTrainerOwner = checkIsTrainerProfileOwner(user, trainerId);
 
   if (!isTrainerOwner || !trainerDetails.profile_slug) return;
 
   return (
     <>
       <EditProfile trainerDetails={trainerDetails} />
-      <ShareProfileButton trainerDetails={trainerDetails} />
+      <ShareProfileButton isIconOnMobile trainerDetails={trainerDetails} />
     </>
   );
 };

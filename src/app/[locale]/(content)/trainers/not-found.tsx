@@ -1,7 +1,7 @@
 import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const NotFoundTrainerError = async () => {
@@ -19,11 +19,11 @@ const NotFoundTrainerError = async () => {
       <div className="flex flex-col gap-4">
         <p className="text-xl">{t('TRAINERS_NOT_FOUND_DESCRIPTION_2')}</p>
         <span className="text-xl">{t('COMMON_OR')}</span>
-        <AppButton className="self-center" component={Link} href={isLoggedIn ? '/submissions' : '/login'}>
+        <AppButtonNew component={Link} href={isLoggedIn ? '/submissions' : '/login'} size="large">
           {isLoggedIn
             ? t('TRAINERS_NOT_FOUND_BUTTON_TEXT_LOGGED_IN')
             : t('TRAINERS_NOT_FOUND_BUTTON_TEXT_NOT_LOGGED_IN')}
-        </AppButton>
+        </AppButtonNew>
       </div>
     </div>
   );

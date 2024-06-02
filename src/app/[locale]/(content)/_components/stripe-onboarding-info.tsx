@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import actionRevalidateRootLayout from '@/app/[locale]/(content)/_actions/action-revalidate-root-layout';
 import ErrorIcon from '@/assets/error-icon';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import createQueryString from '@/utils/create-query-string';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
 import { Database } from '@/utils/supabase/supabase';
@@ -67,9 +67,7 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
       )}
       <div className="flex flex-wrap items-center gap-2.5">
         <span>{t(`PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_${trainerDetails.stripe_onboarding_status}`)}</span>
-        <AppButton classes={{ root: 'py-2.5 text-sm' }}>
-          {t('PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_BUTTON')}
-        </AppButton>
+        <AppButtonNew>{t('PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_BUTTON')}</AppButtonNew>
       </div>
     </Link>
   );

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import actionRedirectToCheckout from '@/app/[locale]/(content)/_actions/action-redirect-to-checkout';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import notify from '@/utils/notify';
 
 const BuyAgainButton = ({ trainerId }: { trainerId: string }) => {
@@ -25,13 +25,13 @@ const BuyAgainButton = ({ trainerId }: { trainerId: string }) => {
   });
 
   return (
-    <AppButton
-      classes={{ root: 'py-2 self-start' }}
+    <AppButtonNew
+      className="self-start"
       loading={redirectToCheckoutMutation.isPending || isRedirecting}
       onClick={() => redirectToCheckoutMutation.mutate()}
     >
       {t('SUBMISSION_BUY_AGAIN_BUTTON')}
-    </AppButton>
+    </AppButtonNew>
   );
 };
 

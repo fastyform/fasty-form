@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { QUERY_PARAM_ERRORS, QueryParamError } from '@/app/[locale]/(auth)/utils';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import notify from '@/utils/notify';
 
 interface Props {
@@ -50,16 +50,15 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
   };
 
   return (
-    <AppButton
+    <AppButtonNew
+      color="secondary"
       loading={isLoading}
+      size="large"
       startIcon={isLoading ? undefined : <Image alt="google" height={19} src="/google.svg" width={19} />}
-      classes={{
-        contained: 'bg-shark text-white font-normal border border-gray-600 border-solid',
-      }}
       onClick={handleAuthAction}
     >
       {children} {t('OAUTH_WITH_PROVIDER')}&nbsp;<span className="font-bold">Google</span>
-    </AppButton>
+    </AppButtonNew>
   );
 };
 
