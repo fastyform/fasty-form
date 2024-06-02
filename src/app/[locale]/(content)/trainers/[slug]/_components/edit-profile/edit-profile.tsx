@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { twJoin } from 'tailwind-merge';
 import EditIcon from '@/app/[locale]/(content)/trainers/[slug]/_assets/edit-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppModal from '@/components/app-modal';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
 import { groszToPLN } from '@/utils/stripe';
@@ -29,10 +29,10 @@ const EditProfile = ({ trainerDetails }: { trainerDetails: TrainerDetails }) => 
 
   return (
     <>
-      <AppButtonNew className={twJoin('hidden gap-2 lg:flex')} color="secondary" onClick={handleModalOpen}>
+      <AppButton className={twJoin('hidden gap-2 lg:flex')} color="secondary" onClick={handleModalOpen}>
         <EditIcon />
         <span>{t('TRAINERS_PAGE_EDIT_PROFILE')}</span>
-      </AppButtonNew>
+      </AppButton>
       <IconButton
         className="size-[50px] border border-solid border-gray-600 bg-shark lg:hidden"
         onClick={handleModalOpen}

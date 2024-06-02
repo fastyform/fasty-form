@@ -1,41 +1,33 @@
-'use client';
+import { LoadingButton, type LoadingButtonProps, LoadingButtonTypeMap } from '@mui/lab';
+import { ButtonBaseProps } from '@mui/material';
+import { twJoin, twMerge } from 'tailwind-merge';
 
-import { ElementType } from 'react';
-import { LoadingButton, LoadingButtonProps } from '@mui/lab';
-import { createTheme, ThemeProvider } from '@mui/material';
-import { twMerge } from 'tailwind-merge';
+type AppButtonProps = LoadingButtonProps<
+  LoadingButtonTypeMap['defaultComponent'],
+  { component?: ButtonBaseProps['component'] }
+>;
 
-const AppButton = <C extends ElementType>(props: LoadingButtonProps<C, { component?: C }>) => {
-  const {
-    classes: { disabled, contained, outlined, root, ...classes } = {},
-    variant = 'contained',
-    ...propsRest
-  } = props;
-  const theme = createTheme({ palette: { action: { disabled: undefined, disabledBackground: undefined } } });
+const AppButton = (props: AppButtonProps) => {
+  const { classes, variant = 'contained', ...propsRest } = props;
 
   return (
-    <ThemeProvider theme={theme}>
-      <LoadingButton
-        disableElevation
-        color="inherit"
-        variant={variant}
-        classes={{
-          disabled: twMerge(
-            '[&_.MuiCircularProgress-root]:!h-6 [&_.MuiCircularProgress-root]:!w-6 [&_.MuiLoadingButton-loadingIndicator]:text-bunker opacity-40',
-            disabled,
-          ),
-          loading: '!text-transparent',
-          root: twMerge(
-            'py-[18px] text-base font-bold rounded-full tracking-normal normal-case transition-opacity hover:opacity-80 px-[30px] transition-colors',
-            root,
-          ),
-          contained: twMerge('bg-yellow-400 text-bunker', contained),
-          outlined: twMerge('border border-yellow-400 text-yellow-400', outlined),
-          ...classes,
-        }}
-        {...propsRest}
-      />
-    </ThemeProvider>
+    <LoadingButton
+      disableElevation
+      variant={variant}
+      classes={{
+        root: twMerge('text-base rounded-full px-[30px] tracking-normal normal-case font-bold', classes?.root),
+        sizeMedium: 'py-2.5 [&_.MuiCircularProgress-root]:!size-5',
+        sizeLarge: 'py-[18px] [&_.MuiCircularProgress-root]:!size-6',
+        sizeSmall: 'py-2 text-sm',
+        containedSecondary: twJoin(
+          !propsRest.disabled && 'border border-solid border-gray-600 text-white bg-shark hover:bg-[#2d3339]',
+        ),
+        textSecondary: twJoin(!propsRest.disabled && 'text-white hover:bg-white/10'),
+        disabled: '[&_svg]:fill-white/30',
+      }}
+      {...propsRest}
+    />
   );
 };
+
 export default AppButton;

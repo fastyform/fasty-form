@@ -25,7 +25,7 @@ const ResetEmailForm = () => {
     <form action={handleFormAction} className="flex w-full flex-col items-center gap-8">
       <AppFormState state={state} />
       <AppInputForm className="w-full" control={control} fieldName="email" label="Email" />
-      <AppButtonSubmit className="w-full" isValid={formState.isValid}>
+      <AppButtonSubmit fullWidth isValid={formState.isValid} size="large">
         {t('EMAIL_VERIFICATION_ERROR_RESEND')}
       </AppButtonSubmit>
     </form>

@@ -12,7 +12,7 @@ import {
   SubmissionRequirements,
   submissionRequirementsSchema,
 } from '@/app/[locale]/(content)/submissions/[id]/requirements/utils';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import ProgressCircular from './progress-circular';
 import useOnSubmit from './use-on-submit';
@@ -62,7 +62,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
                 >
                   {t('SUBMISSION_REQUIREMENTS_VIDEO_ERROR_INFO', { formats: ALLOWED_FORMATS })}
                 </video>
-                <AppButtonNew
+                <AppButton
                   className="self-start"
                   color="secondary"
                   size="small"
@@ -70,7 +70,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
                   onClick={() => setVideoFile(null)}
                 >
                   {t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_REMOVE')}
-                </AppButtonNew>
+                </AppButton>
               </div>
             </div>
           ) : (
@@ -87,9 +87,9 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
           minRows={5}
           placeholder={t('SUBMISSION_REQUIREMENTS_DESCRIPTION_PLACEHOLDER')}
         />
-        <AppButtonNew disabled={!videoFile} loading={isLoading} size="large" type="submit">
+        <AppButton disabled={!videoFile} loading={isLoading} size="large" type="submit">
           {t('COMMON_SEND')}
-        </AppButtonNew>
+        </AppButton>
         <div className="flex items-center gap-2.5">
           <WifiRoundedIcon classes={{ root: 'text-[2rem] text-yellow-400' }} />
           <p className="text-sm text-white">{t('SUBMISSION_REQUIREMENTS_STABLE_CONNECTION_INFO')}</p>

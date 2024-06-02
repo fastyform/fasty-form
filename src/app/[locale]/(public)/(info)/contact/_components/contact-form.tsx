@@ -41,9 +41,7 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
         label={t('CONTACT_FORM_MESSAGE_LABEL')}
         minRows={5}
       />
-      <AppButtonSubmit classes={{ root: 'py-2.5' }} isValid={formState.isValid}>
-        {t('COMMON_SEND')}
-      </AppButtonSubmit>
+      <AppButtonSubmit isValid={formState.isValid}>{t('COMMON_SEND')}</AppButtonSubmit>
     </form>
   );
 };

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import actionRedirectToCheckout from '@/app/[locale]/(content)/_actions/action-redirect-to-checkout';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 
 interface BuyButtonProps {
@@ -30,14 +30,14 @@ const BuyButton = ({ trainerId, isTrainerAccount }: BuyButtonProps) => {
   });
 
   return (
-    <AppButtonNew
+    <AppButton
       disabled={isTrainerAccount}
       loading={redirectToCheckoutMutation.isPending || isRedirecting}
       size="large"
       onClick={() => redirectToCheckoutMutation.mutate()}
     >
       {isTrainerAccount ? t('TRAINERS_PAGE_BUY_BUTTON_TRAINER') : t('TRAINERS_PAGE_BUY_BUTTON')}
-    </AppButtonNew>
+    </AppButton>
   );
 };
 

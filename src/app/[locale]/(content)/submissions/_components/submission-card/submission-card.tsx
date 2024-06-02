@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import { MessageKey, SubmissionStatus } from '@/utils/types';
@@ -70,9 +70,9 @@ const SubmissionCard = async ({
           </div>
         </div>
       </Link>
-      <AppButtonNew component={Link} href={href}>
+      <AppButton component={Link} href={href}>
         {t(getButtonText(submissionStatus, isTrainerAccount))}
-      </AppButtonNew>
+      </AppButton>
     </SubmissionCardContainer>
   );
 };

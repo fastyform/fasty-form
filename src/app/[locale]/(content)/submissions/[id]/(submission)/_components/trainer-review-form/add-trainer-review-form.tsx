@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import SubmissionPartWithIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/submission-part-with-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppModal from '@/components/app-modal';
 import notify from '@/utils/notify';
@@ -42,13 +42,13 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
           <form className="flex flex-col gap-5">
             <p className="text-sm text-white">{t('SUBMISSION_TRAINER_REVIEW_FORM_WARNING')}</p>
             <AppInputForm multiline className="w-full" control={form.control} fieldName="trainerReview" minRows={10} />
-            <AppButtonNew
+            <AppButton
               loading={addTrainerReviewMutation.isPending}
               size="large"
               onClick={form.handleSubmit(() => setIsConfirmModalOpen(true))}
             >
               {t('SUBMISSION_TRAINER_REVIEW_FORM_ADD_REVIEW')}
-            </AppButtonNew>
+            </AppButton>
           </form>
         </SubmissionPartWithIcon>
         <AppModal open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
@@ -61,12 +61,12 @@ const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
               <p className="text-center text-sm text-white">{t('SUBMISSION_TRAINER_REVIEW_FORM_WARNING')}</p>
             </div>
             <div className="flex flex-wrap gap-5">
-              <AppButtonNew onClick={() => addTrainerReviewMutation.mutate()}>
+              <AppButton onClick={() => addTrainerReviewMutation.mutate()}>
                 {t('SUBMISSION_TRAINER_REVIEW_FORM_DIALOG_CONFIRM')}
-              </AppButtonNew>
-              <AppButtonNew color="secondary" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
+              </AppButton>
+              <AppButton color="secondary" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
                 {t('COMMON_CANCEL')}
-              </AppButtonNew>
+              </AppButton>
             </div>
           </div>
         </AppModal>

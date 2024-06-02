@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppModal from '@/components/app-modal';
 
 const paramToIconPath = {
@@ -42,9 +42,9 @@ const OnboardingStripeStatusDialog = () => {
           <p className="text-center text-sm">{t(`PAYMENTS_ONBOARDING_STATUS_DIALOG_DESCRIPTION_${successParam}`)}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonNew color="secondary" size="small" variant="text" onClick={handleModalClose}>
+          <AppButton color="secondary" size="small" variant="text" onClick={handleModalClose}>
             {t('COMMON_CLOSE')}
-          </AppButtonNew>
+          </AppButton>
         </div>
       </div>
     </AppModal>

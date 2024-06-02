@@ -84,12 +84,13 @@ const FileUploadInput = ({
       {!shouldInputBeVisible && (
         <>
           <div className="flex flex-wrap">
-            <AppButton classes={{ root: 'py-2' }} className="text-sm" onClick={open}>
+            <AppButton size="small" onClick={open}>
               {t('COMMON_CHANGE')}
             </AppButton>
             <AppButton
-              classes={{ contained: 'bg-transparent', root: 'py-2' }}
-              className="text-sm text-white"
+              color="secondary"
+              size="small"
+              variant="text"
               onClick={() => {
                 setIsDeleting(true);
                 setFile('');

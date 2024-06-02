@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import actionForgotPassword from '@/app/[locale]/(auth)/forgot-password/action-forgot-password';
 import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '@/app/[locale]/(auth)/forgot-password/utils';
 import ErrorIcon from '@/assets/error-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import { SearchParam } from '@/utils/types';
 
@@ -37,9 +37,9 @@ const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
         </span>
       )}
       <AppInputForm control={control} fieldName="email" label="Email" />
-      <AppButtonNew loading={forgotActionMutation.isPending} size="large" type="submit">
+      <AppButton loading={forgotActionMutation.isPending} size="large" type="submit">
         {t('FORGOT_FORM_SUBMIT')}
-      </AppButtonNew>
+      </AppButton>
     </form>
   );
 };
