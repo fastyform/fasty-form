@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import SettingsMenu from '@/app/[locale]/(content)/settings/_components/settings-menu';
-import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
+import MobileNavigationIconLink from '@/components/mobile-navigation-icon-link';
 import { Locale } from '@/utils/constants';
 
 const SettingPagesLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
@@ -16,7 +16,7 @@ const SettingPagesLayout = ({ children, params: { locale } }: { children: ReactN
         <SettingsMenu />
       </div>
       <div className="flex grow flex-col gap-5">
-        <MobileNavbarLink aria-label={t('NAV_SETTINGS')} className="lg:hidden" href="/settings" icon="back" />
+        <MobileNavigationIconLink aria-label={t('NAV_SETTINGS')} className="lg:hidden" href="/settings" icon="back" />
         {children}
       </div>
     </div>

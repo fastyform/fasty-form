@@ -7,8 +7,8 @@ type AppButtonProps = LoadingButtonProps<
   { component?: ButtonBaseProps['component'] }
 >;
 
-const AppButtonNew = ({ ...props }: AppButtonProps) => {
-  const { classes, variant = 'contained' } = props;
+const AppButtonNew = (props: AppButtonProps) => {
+  const { classes, variant = 'contained', ...propsRest } = props;
 
   return (
     <LoadingButton
@@ -20,12 +20,12 @@ const AppButtonNew = ({ ...props }: AppButtonProps) => {
         sizeLarge: 'py-[18px] [&_.MuiCircularProgress-root]:!size-6',
         sizeSmall: 'py-2 text-sm',
         containedSecondary: twJoin(
-          !props.disabled && 'border border-solid border-gray-600 text-white bg-shark hover:bg-[#2d3339]',
+          !propsRest.disabled && 'border border-solid border-gray-600 text-white bg-shark hover:bg-[#2d3339]',
         ),
-        textSecondary: twJoin(!props.disabled && 'text-white hover:bg-white/10'),
+        textSecondary: twJoin(!propsRest.disabled && 'text-white hover:bg-white/10'),
         disabled: '[&_svg]:fill-white/30',
       }}
-      {...props}
+      {...propsRest}
     />
   );
 };
