@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { FormControlLabel, Switch } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 import actionUpdateNotifications from './action-update-notifications';
 
@@ -48,14 +48,14 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
         />
         {children}
       </div>
-      <AppButtonNew
+      <AppButton
         className="self-start"
         disabled={!form.formState.isDirty}
         loading={updateNotificationsMutation.isPending}
         onClick={form.handleSubmit((values) => updateNotificationsMutation.mutate(values.marketing_consent))}
       >
         {t('COMMON_SAVE')}
-      </AppButtonNew>
+      </AppButton>
     </>
   );
 };

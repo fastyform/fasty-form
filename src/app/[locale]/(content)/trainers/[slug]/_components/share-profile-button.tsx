@@ -5,7 +5,7 @@ import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 import ShareIcon from '@/app/[locale]/(content)/trainers/[slug]/_assets/share-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppTooltip from '@/components/app-tooltip';
 import Constants from '@/utils/constants';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
@@ -49,7 +49,7 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile }: Props) => {
   return (
     <AppTooltip title={isDisabled ? t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_DISABLED_TEXT') : undefined}>
       <div>
-        <AppButtonNew
+        <AppButton
           className={twMerge('flex gap-2', isIconOnMobile && 'hidden lg:flex')}
           color="secondary"
           disabled={isDisabled}
@@ -57,7 +57,7 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile }: Props) => {
         >
           <ShareIcon className="fill-white" />
           <span>{t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT')}</span>
-        </AppButtonNew>
+        </AppButton>
         {isIconOnMobile && (
           <IconButton
             disabled={isDisabled}

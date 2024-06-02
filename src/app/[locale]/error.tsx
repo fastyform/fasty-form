@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import ErrorIcon from '@/assets/error-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 
 const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const t = useTranslations();
@@ -19,12 +19,12 @@ const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset
           </p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonNew size="large" onClick={reset}>
+          <AppButton size="large" onClick={reset}>
             {t('ERROR_PAGE_REFRESH_BUTTON')}
-          </AppButtonNew>
-          <AppButtonNew color="secondary" component={Link} href="/" size="large">
+          </AppButton>
+          <AppButton color="secondary" component={Link} href="/" size="large">
             {t('COMMON_HOME_PAGE')}
-          </AppButtonNew>
+          </AppButton>
         </div>
       </div>
     </div>

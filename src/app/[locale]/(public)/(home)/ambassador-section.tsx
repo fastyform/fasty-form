@@ -53,11 +53,11 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
           <div className="flex max-w-md flex-col gap-4">
             <AppInputForm control={form.control} fieldName="email" label="Email" />
             <AppButton
-              classes={{ root: 'px-12 self-start text-lg py-2.5' }}
+              className="w-[150px] self-start"
               loading={joinAmbassadorProgramMutation.isPending}
               onClick={form.handleSubmit(({ email }) => joinAmbassadorProgramMutation.mutate(email))}
             >
-              Wyślij
+              {t('COMMON_SEND')}
             </AppButton>
             <p className="text-xs">
               {t('HOME_AMBASSADOR_ACCEPT_TERMS')}{' '}

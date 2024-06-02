@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import { Locale } from '@/utils/constants';
 import { SearchParams } from '@/utils/types';
 
@@ -24,13 +24,13 @@ const EmailVerificationSuccessPage = ({
         <h1 className="text-2xl font-bold text-white md:text-3xl">{t.rich('EMAIL_VERIFICATION_SUCCESS_TITLE')}</h1>
         <p className="text-white">{t.rich('EMAIL_VERIFICATION_SUCCESS_DESCRIPTION')}</p>
       </div>
-      <AppButtonNew
+      <AppButton
         component={Link}
         href={hasRedirectPathParam ? (searchParams.redirectPath as string) : '/submissions'}
         size="large"
       >
         {t(hasRedirectPathParam ? 'EMAIL_VERIFICATION_CTA_PROFILE_REDIRECT' : 'EMAIL_VERIFICATION_CTA')}
-      </AppButtonNew>
+      </AppButton>
     </div>
   );
 };

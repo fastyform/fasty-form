@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import getUserWithNull from '@/utils/get-user-with-null';
 
 const NotFoundPage = async () => {
@@ -16,14 +16,9 @@ const NotFoundPage = async () => {
           <h2 className="mb-2 text-5xl font-bold">{t('NOT_FOUND_TITLE')}</h2>
           <p className="text-2xl">{t('NOT_FOUND_DESCRIPTION')}</p>
         </div>
-        <AppButtonNew
-          className="self-start"
-          component={Link}
-          href={isLoggedIn ? '/submissions' : '/login'}
-          size="large"
-        >
+        <AppButton className="self-start" component={Link} href={isLoggedIn ? '/submissions' : '/login'} size="large">
           {t(`NOT_FOUND_REDIRECT_${isLoggedIn ? 'submissions' : 'login'}`)}
-        </AppButtonNew>
+        </AppButton>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { FormControlLabel, InputAdornment, Radio, RadioGroup, RadioProps } from 
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { stripeOnboardingSchema, StripeOnboardingValues } from '@/app/[locale]/(content)/payments/utils';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import notify from '@/utils/notify';
 import actionPaymentOnboardingRedirect from './action-payment-onboarding-redirect';
@@ -90,9 +90,9 @@ const RedirectToStripeOnboardingForm = () => {
           />
         )}
       </div>
-      <AppButtonNew loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting} type="submit">
+      <AppButton loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting} type="submit">
         {t('PAYMENTS_ACTIVATE_FORM_BUTTON')}
-      </AppButtonNew>
+      </AppButton>
     </form>
   );
 };

@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { ALLOWED_REPORT_TYPES, ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppDatePicker from '@/components/app-date-picker';
 import AppInput from '@/components/app-input/app-input';
 import notify from '@/utils/notify';
@@ -134,13 +134,13 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
           )}
         />
       </div>
-      <AppButtonNew
+      <AppButton
         className="self-start"
         loading={generateReportMutation.isPending}
         onClick={form.handleSubmit((values) => generateReportMutation.mutate(values))}
       >
         {t('REPORT_GENERATE')}
-      </AppButtonNew>
+      </AppButton>
       <p>{t.rich('REPORT_CAPTION')}</p>
     </div>
   );

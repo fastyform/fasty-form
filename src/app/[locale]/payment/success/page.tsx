@@ -82,7 +82,7 @@ const SuccessPaymentPage = () => {
           <p className="text-center text-sm lg:text-base">{t('PAYMENT_SUCCESS_DESCRIPTION')}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href="/submissions">
+          <AppButton component={Link} href="/submissions">
             {t('PAYMENT_SUCCESS_BUTTON')}
           </AppButton>
         </div>

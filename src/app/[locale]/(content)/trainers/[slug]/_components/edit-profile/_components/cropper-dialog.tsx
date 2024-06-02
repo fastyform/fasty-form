@@ -71,7 +71,7 @@ const CropperDialog = ({ setImageBlob, file, setFile, setIsDeleting }: CropperDi
               onChange={(e, value) => setRotation(value as number)}
             />
           </div>
-          <AppButton className="w-full" onClick={handleImageCrop}>
+          <AppButton fullWidth size="large" onClick={handleImageCrop}>
             {t('TRAINERS_EDIT_PROFILE_CROPPER_CROP_IMAGE')}
           </AppButton>
         </div>

@@ -114,7 +114,9 @@ const OnboardingForm = () => {
           )}
         />
       </div>
-      <AppButtonSubmit isValid={formState.isValid}>{t('ONBOARDING_BUTTON_SUBMIT')}</AppButtonSubmit>
+      <AppButtonSubmit isValid={formState.isValid} size="large">
+        {t('ONBOARDING_BUTTON_SUBMIT')}
+      </AppButtonSubmit>
     </form>
   );
 };

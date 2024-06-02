@@ -19,9 +19,10 @@ const NavbarLink = ({ icon, children, variant = 'text', className, ...props }: P
   return (
     <AppButton
       disableElevation
-      classes={{ root: 'py-2 text-sm px-5 gap-1' }}
+      classes={{ root: 'px-5 gap-1' }}
       color="inherit"
       LinkComponent={Link}
+      size="small"
       variant={variant}
       className={twJoin(
         variant === 'contained'

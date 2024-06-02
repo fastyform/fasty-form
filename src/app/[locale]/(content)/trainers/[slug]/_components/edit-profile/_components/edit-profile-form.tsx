@@ -87,17 +87,14 @@ const EditProfileForm = ({
         </div>
       </div>
       <div className="mt-auto flex flex-wrap gap-5">
-        <AppButton
-          classes={{ contained: 'bg-inherit grow', root: 'py-2.5' }}
-          className="text-sm text-white"
-          onClick={handleModalClose}
-        >
+        <AppButton className="grow" color="secondary" size="large" variant="text" onClick={handleModalClose}>
           {t('COMMON_CANCEL')}
         </AppButton>
         <AppButton
-          classes={{ root: 'grow' }}
+          className="grow"
           disabled={!(formState.isDirty || imageBlob || isDeleting)}
           loading={editProfileMutation.isPending}
+          size="large"
           type="submit"
         >
           {t('COMMON_SAVE')}

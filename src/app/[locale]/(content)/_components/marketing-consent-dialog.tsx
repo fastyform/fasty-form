@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import actionUpdateMarketingConsent from '@/app/[locale]/(content)/_actions/action-update-marketing-consent';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppModal from '@/components/app-modal';
 
 const MarketingConsentDialog = ({
@@ -30,12 +30,12 @@ const MarketingConsentDialog = ({
           <p className="text-sm font-light opacity-85">{t('MARKETING_CONSENT_DIALOG_DESCRIPTION')}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButtonNew color="secondary" variant="text" onClick={() => updateNotificationsMutation.mutate(false)}>
+          <AppButton color="secondary" variant="text" onClick={() => updateNotificationsMutation.mutate(false)}>
             {t('MARKETING_CONSENT_DIALOG_DECLINE_BUTTON')}
-          </AppButtonNew>
-          <AppButtonNew onClick={() => updateNotificationsMutation.mutate(true)}>
+          </AppButton>
+          <AppButton onClick={() => updateNotificationsMutation.mutate(true)}>
             {t('MARKETING_CONSENT_DIALOG_ACCEPT_BUTTON')}
-          </AppButtonNew>
+          </AppButton>
         </div>
       </div>
     </AppModal>

@@ -12,7 +12,7 @@ import {
   updatePasswordSchema,
 } from '@/app/[locale]/(content)/settings/(setting-pages)/account/utils';
 import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
@@ -58,7 +58,6 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
           label={t('COMMON_PASSWORD_LABEL')}
         />
         <AppButtonSubmit
-          classes={{ root: 'py-2.5' }}
           isValid={formState.isValid}
           type="button"
           onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
@@ -79,12 +78,12 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
             )}
           </div>
           <div className="flex flex-wrap gap-5">
-            <AppButtonNew size="small" onClick={handlePasswordUpdate}>
+            <AppButton size="small" onClick={handlePasswordUpdate}>
               {t('SETTINGS_PASSWORD_CHANGE')}
-            </AppButtonNew>
-            <AppButtonNew color="secondary" size="small" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
+            </AppButton>
+            <AppButton color="secondary" size="small" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
               {t('COMMON_CANCEL')}
-            </AppButtonNew>
+            </AppButton>
           </div>
         </div>
       </AppModal>

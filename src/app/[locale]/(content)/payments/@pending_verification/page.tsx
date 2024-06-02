@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import AppButtonNew from '@/components/app-button-new';
+import AppButton from '@/components/app-button';
 import { Locale } from '@/utils/constants';
 
 const PaymentsPendingVerification = ({ params: { locale } }: { params: { locale: Locale } }) => {
@@ -14,9 +14,9 @@ const PaymentsPendingVerification = ({ params: { locale } }: { params: { locale:
         <h1 className="text-2xl">{t('PAYMENTS_UNVERIFIED_TITLE')}</h1>
         <p className="max-w-lg">{t('PAYMENTS_PENDING_DESCRIPTION')}</p>
       </div>
-      <AppButtonNew disabled className="self-start">
+      <AppButton disabled className="self-start">
         {t('PAYMENTS_PENDING_BUTTON')}
-      </AppButtonNew>
+      </AppButton>
     </div>
   );
 };
