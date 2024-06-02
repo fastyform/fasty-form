@@ -49,7 +49,7 @@ const NotificationsForm = ({ defaultValue, children }: NotificationsFormProps) =
         {children}
       </div>
       <AppButton
-        classes={{ root: 'py-2.5 self-start' }}
+        className="self-start"
         disabled={!form.formState.isDirty}
         loading={updateNotificationsMutation.isPending}
         onClick={form.handleSubmit((values) => updateNotificationsMutation.mutate(values.marketing_consent))}

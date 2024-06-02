@@ -42,7 +42,9 @@ const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
         {t('LOGIN_FORGOT_PASSWORD')}
       </AuthLink>
       <div className="flex flex-col gap-2">
-        <AppButtonSubmit isValid={formState.isValid}>{t('COMMON_LOGIN_CTA')}</AppButtonSubmit>
+        <AppButtonSubmit isValid={formState.isValid} size="large">
+          {t('COMMON_LOGIN_CTA')}
+        </AppButtonSubmit>
         <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
         <ButtonGoogle authCallback={() => actionLoginGoogle(redirectUrlParam)}>{t('COMMON_LOGIN_CTA')}</ButtonGoogle>
       </div>

@@ -31,7 +31,6 @@ const CookiesDeclaration = ({ locale }: { locale: Locale }) => {
   return (
     <div className="flex flex-col items-start gap-4">
       <AppButton
-        classes={{ root: 'py-2.5' }}
         onClick={() => {
           window.Cookiebot?.renew();
         }}

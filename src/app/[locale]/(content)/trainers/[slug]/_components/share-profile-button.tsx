@@ -1,8 +1,9 @@
 'use client';
 
+import { IconButton } from '@mui/material';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useTranslations } from 'next-intl';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import ShareIcon from '@/app/[locale]/(content)/trainers/[slug]/_assets/share-icon';
 import AppButton from '@/components/app-button';
 import AppTooltip from '@/components/app-tooltip';
@@ -12,10 +13,10 @@ import notify from '@/utils/notify';
 
 interface Props {
   trainerDetails: TrainerDetails;
-  isIconOnMobile?: boolean;
+  isIconOnMobile: boolean;
 }
 
-const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) => {
+const ShareProfileButton = ({ trainerDetails, isIconOnMobile }: Props) => {
   const t = useTranslations();
   const [, copyToClipboard] = useCopyToClipboard();
   if (!trainerDetails.profile_slug || !trainerDetails.profile_name || !trainerDetails.is_onboarded) return null;
@@ -49,21 +50,28 @@ const ShareProfileButton = ({ trainerDetails, isIconOnMobile = true }: Props) =>
     <AppTooltip title={isDisabled ? t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_DISABLED_TEXT') : undefined}>
       <div>
         <AppButton
+          className={twMerge('flex gap-2', isIconOnMobile && 'hidden lg:flex')}
+          color="secondary"
           disabled={isDisabled}
-          classes={{
-            root: twMerge(
-              'rounded-xl gap-2 border px-5 py-2.5 text-sm font-normal',
-              isIconOnMobile && 'h-11 w-11 min-w-0 p-0 lg:h-[unset]t lg:w-[unset] lg:px-5 py-2.5',
-            ),
-            contained: 'border-solid border-gray-600 bg-shark text-white',
-          }}
           onClick={handleShare}
         >
           <ShareIcon className="fill-white" />
-          <span className={twJoin(isIconOnMobile && 'hidden lg:block')}>
-            {t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT')}
-          </span>
+          <span>{t('TRAINERS_PAGE_SHARE_PROFILE_BUTTON_TEXT')}</span>
         </AppButton>
+        {isIconOnMobile && (
+          <IconButton
+            disabled={isDisabled}
+            className={twMerge(
+              'size-[50px]  lg:hidden',
+              isDisabled
+                ? 'bg-white/10 [&_svg]:fill-white/30'
+                : 'border border-solid border-gray-600 bg-shark [&_svg]:fill-white',
+            )}
+            onClick={handleShare}
+          >
+            <ShareIcon />
+          </IconButton>
+        )}
       </div>
     </AppTooltip>
   );

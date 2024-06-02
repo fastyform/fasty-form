@@ -70,7 +70,7 @@ const SubmissionCard = async ({
           </div>
         </div>
       </Link>
-      <AppButton classes={{ root: 'py-2.5' }} component={Link} href={href}>
+      <AppButton component={Link} href={href}>
         {t(getButtonText(submissionStatus, isTrainerAccount))}
       </AppButton>
     </SubmissionCardContainer>

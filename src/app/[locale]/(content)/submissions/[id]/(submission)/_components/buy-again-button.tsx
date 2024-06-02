@@ -26,7 +26,7 @@ const BuyAgainButton = ({ trainerId }: { trainerId: string }) => {
 
   return (
     <AppButton
-      classes={{ root: 'py-2 self-start' }}
+      className="self-start"
       loading={redirectToCheckoutMutation.isPending || isRedirecting}
       onClick={() => redirectToCheckoutMutation.mutate()}
     >

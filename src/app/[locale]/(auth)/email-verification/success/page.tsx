@@ -24,7 +24,11 @@ const EmailVerificationSuccessPage = ({
         <h1 className="text-2xl font-bold text-white md:text-3xl">{t.rich('EMAIL_VERIFICATION_SUCCESS_TITLE')}</h1>
         <p className="text-white">{t.rich('EMAIL_VERIFICATION_SUCCESS_DESCRIPTION')}</p>
       </div>
-      <AppButton component={Link} href={hasRedirectPathParam ? (searchParams.redirectPath as string) : '/submissions'}>
+      <AppButton
+        component={Link}
+        href={hasRedirectPathParam ? (searchParams.redirectPath as string) : '/submissions'}
+        size="large"
+      >
         {t(hasRedirectPathParam ? 'EMAIL_VERIFICATION_CTA_PROFILE_REDIRECT' : 'EMAIL_VERIFICATION_CTA')}
       </AppButton>
     </div>

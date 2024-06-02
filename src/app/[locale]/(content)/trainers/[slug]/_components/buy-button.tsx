@@ -33,6 +33,7 @@ const BuyButton = ({ trainerId, isTrainerAccount }: BuyButtonProps) => {
     <AppButton
       disabled={isTrainerAccount}
       loading={redirectToCheckoutMutation.isPending || isRedirecting}
+      size="large"
       onClick={() => redirectToCheckoutMutation.mutate()}
     >
       {isTrainerAccount ? t('TRAINERS_PAGE_BUY_BUTTON_TRAINER') : t('TRAINERS_PAGE_BUY_BUTTON')}

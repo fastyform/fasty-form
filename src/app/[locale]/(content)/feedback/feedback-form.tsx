@@ -130,7 +130,7 @@ const FeedbackForm = () => {
           )}
         />
       </div>
-      <AppButton classes={{ root: 'w-fit py-2.5' }} loading={sendFeedbackMutation.isPending} type="submit">
+      <AppButton className="self-start" loading={sendFeedbackMutation.isPending} type="submit">
         {t('FEEDBACK_SEND')}
       </AppButton>
     </form>

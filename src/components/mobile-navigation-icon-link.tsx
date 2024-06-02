@@ -9,7 +9,7 @@ interface Props extends ButtonProps {
   icon: Exclude<keyof typeof navbarIcons, 'submissions'>;
 }
 
-const MobileNavbarLink = ({ icon, className, ...props }: Props) => {
+const MobileNavigationIconLink = ({ icon, className, ...props }: Props) => {
   const NavbarIcon = navbarIcons[icon];
 
   return (
@@ -23,4 +23,4 @@ const MobileNavbarLink = ({ icon, className, ...props }: Props) => {
   );
 };
 
-export default MobileNavbarLink;
+export default MobileNavigationIconLink;

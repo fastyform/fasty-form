@@ -135,7 +135,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
         />
       </div>
       <AppButton
-        classes={{ root: 'py-2.5 self-start' }}
+        className="self-start"
         loading={generateReportMutation.isPending}
         onClick={form.handleSubmit((values) => generateReportMutation.mutate(values))}
       >

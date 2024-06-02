@@ -19,7 +19,7 @@ const NotFoundTrainerError = async () => {
       <div className="flex flex-col gap-4">
         <p className="text-xl">{t('TRAINERS_NOT_FOUND_DESCRIPTION_2')}</p>
         <span className="text-xl">{t('COMMON_OR')}</span>
-        <AppButton className="self-center" component={Link} href={isLoggedIn ? '/submissions' : '/login'}>
+        <AppButton component={Link} href={isLoggedIn ? '/submissions' : '/login'} size="large">
           {isLoggedIn
             ? t('TRAINERS_NOT_FOUND_BUTTON_TEXT_LOGGED_IN')
             : t('TRAINERS_NOT_FOUND_BUTTON_TEXT_NOT_LOGGED_IN')}

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import actionUpdateMarketingConsent from '@/app/[locale]/(content)/_actions/action-update-marketing-consent';
 import AppButton from '@/components/app-button';
-import AppDialog from '@/components/app-dialog';
+import AppModal from '@/components/app-modal';
 
 const MarketingConsentDialog = ({
   shouldDisplayMarketingConsentModal,
@@ -18,31 +18,27 @@ const MarketingConsentDialog = ({
   });
 
   return (
-    <AppDialog classes={{ paper: 'max-w-sm' }} open={shouldDisplayMarketingConsentModal}>
+    <AppModal
+      DialogProps={{ classes: { paper: 'max-w-sm' } }}
+      open={shouldDisplayMarketingConsentModal}
+      onClose={() => updateNotificationsMutation.mutate(false)}
+    >
       <div className="flex flex-col items-center gap-5 text-white">
-        <Image alt="Ikonka sukcesu" className="h-[90px] w-[90px]" height={90} src="/mail.svg" width={90} />
-        <div className="flex flex-col items-center justify-center gap-2.5">
+        <Image alt="" className="h-[90px] w-[90px]" height={90} src="/mail.svg" width={90} />
+        <div className="flex flex-col items-center justify-center gap-2.5 text-center">
           <h3 className="text-2xl font-semibold">{t('MARKETING_CONSENT_DIALOG_TITLE')}</h3>
           <p className="text-sm font-light opacity-85">{t('MARKETING_CONSENT_DIALOG_DESCRIPTION')}</p>
         </div>
-        <div className="flex w-full flex-wrap gap-5">
-          <AppButton
-            classes={{ contained: 'bg-inherit text-white', root: 'py-2.5 grow' }}
-            className="text-sm"
-            onClick={() => updateNotificationsMutation.mutate(false)}
-          >
+        <div className="flex flex-wrap gap-5">
+          <AppButton color="secondary" variant="text" onClick={() => updateNotificationsMutation.mutate(false)}>
             {t('MARKETING_CONSENT_DIALOG_DECLINE_BUTTON')}
           </AppButton>
-          <AppButton
-            classes={{ root: 'py-2.5 grow' }}
-            className="text-sm"
-            onClick={() => updateNotificationsMutation.mutate(true)}
-          >
+          <AppButton onClick={() => updateNotificationsMutation.mutate(true)}>
             {t('MARKETING_CONSENT_DIALOG_ACCEPT_BUTTON')}
           </AppButton>
         </div>
       </div>
-    </AppDialog>
+    </AppModal>
   );
 };
 

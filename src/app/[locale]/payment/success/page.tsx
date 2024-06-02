@@ -5,22 +5,22 @@ import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresInsertPayload } from '@supabase/supabase-js';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import { Database } from '@/utils/supabase/supabase';
+import { SearchParams } from '@/utils/types';
 
 const getSubmissionRequirementsLink = (id: string) => `/submissions/${id}/requirements`;
 
-const SuccessPaymentPage = () => {
+const SuccessPaymentPage = ({ searchParams }: { searchParams: SearchParams }) => {
   const t = useTranslations();
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
-  const searchParam = useSearchParams();
   const router = useRouter();
-  const stripeSessionId = searchParam.get('stripe_session_id');
+  const stripeSessionId = searchParams.stripe_session_id;
 
   if (!stripeSessionId) router.push('/submissions');
 
@@ -74,7 +74,7 @@ const SuccessPaymentPage = () => {
   return (
     <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">
       <div className="flex flex-col items-center gap-5">
-        <Image alt="Ikonka sukcesu" className="h-[90px] w-[90px]" height={90} src="/success.svg" width={90} />
+        <Image alt="" className="h-[90px] w-[90px]" height={90} src="/success.svg" width={90} />
         <div className="flex flex-col gap-2.5">
           <h2 className="text-center text-base font-bold md:text-xl lg:text-2xl xl:text-3xl">
             {t('PAYMENT_SUCCESS_TITLE')}
@@ -82,7 +82,7 @@ const SuccessPaymentPage = () => {
           <p className="text-center text-sm lg:text-base">{t('PAYMENT_SUCCESS_DESCRIPTION')}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButton classes={{ root: 'py-2.5 text-sm' }} component={Link} href="/submissions">
+          <AppButton component={Link} href="/submissions">
             {t('PAYMENT_SUCCESS_BUTTON')}
           </AppButton>
         </div>

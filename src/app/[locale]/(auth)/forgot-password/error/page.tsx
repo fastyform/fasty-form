@@ -25,7 +25,7 @@ const ForgotPasswordErrorPage = ({ params: { locale } }: { params: { locale: Loc
       <div className="my-auto flex w-full max-w-[400px] flex-col items-center justify-center gap-5">
         <ErrorIcon className="text-[60px]" height={100} width={100} />
         <h1 className="text-2xl font-bold text-white md:text-3xl">{t('FORGOT_ERROR_TITLE')}</h1>
-        <AppButton href="/forgot-password" LinkComponent={Link}>
+        <AppButton href="/forgot-password" LinkComponent={Link} size="large">
           {t('FORGOT_ERROR_REDIRECT_CTA')}
         </AppButton>
       </div>

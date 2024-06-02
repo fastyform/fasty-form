@@ -1,8 +1,8 @@
+@import url('react-toastify/dist/ReactToastify.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('react-toastify/dist/ReactToastify.css');
 
 html,
 body {
@@ -86,5 +86,5 @@ body {
 /* TODO: Remove these variables after next.js fixes scroll to top with sticky header  */
 :root {
   --public-desktop-navbar-height: 68px;
-  --public-mobile-navbar-height: 50px;
+  --public-mobile-navbar-height: 60px;
 }

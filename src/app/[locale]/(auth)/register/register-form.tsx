@@ -70,7 +70,7 @@ const RegisterForm = ({ redirectPathParam, userRole, locale }: RegisterFormProps
         />
       </div>
       <div className="flex flex-col gap-2">
-        <AppButtonSubmit isValid={formState.isValid} type="submit">
+        <AppButtonSubmit isValid={formState.isValid} size="large" type="submit">
           {t('COMMON_REGISTER_CTA')}
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>

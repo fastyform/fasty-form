@@ -19,8 +19,10 @@ const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset
           </p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <AppButton onClick={reset}>{t('ERROR_PAGE_REFRESH_BUTTON')}</AppButton>
-          <AppButton classes={{ contained: 'bg-shark text-white' }} component={Link} href="/">
+          <AppButton size="large" onClick={reset}>
+            {t('ERROR_PAGE_REFRESH_BUTTON')}
+          </AppButton>
+          <AppButton color="secondary" component={Link} href="/" size="large">
             {t('COMMON_HOME_PAGE')}
           </AppButton>
         </div>

@@ -172,11 +172,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               {t.rich('HOME_PROFILE_TITLE')}
             </h3>
             <p className="mb-5 text-sm md:text-base lg:mb-10 lg:font-semibold">{t('HOME_PROFILE_DESCRIPTION')}</p>
-            <AppButton
-              classes={{ root: 'text-white py-2.5', contained: 'bg-shark' }}
-              component={Link}
-              href="/register/trainer"
-            >
+            <AppButton color="secondary" component={Link} href="/register/trainer">
               {t('HOME_REGISTER_TRAINER_CTA')}
             </AppButton>
           </div>
@@ -232,7 +228,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               {t.rich('HOME_CONTACT_TITLE')}
             </h3>
             <p className="mb-5 text-sm lg:mb-10 xl:text-base xl:font-semibold">{t('HOME_CONTACT_DESCRIPTION')}</p>
-            <AppButton classes={{ root: 'text-white py-2.5', contained: 'bg-shark ' }} component={Link} href="/contact">
+            <AppButton color="secondary" component={Link} href="/contact">
               {t('HOME_CONTACT_CTA')}
             </AppButton>
           </div>

@@ -14,9 +14,9 @@ import {
 import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
-import AppDialog from '@/components/app-dialog';
 import AppFormState from '@/components/app-form-error';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
+import AppModal from '@/components/app-modal';
 import { formDefaultState } from '@/utils/form';
 import { SearchParam } from '@/utils/types';
 
@@ -58,7 +58,6 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
           label={t('COMMON_PASSWORD_LABEL')}
         />
         <AppButtonSubmit
-          classes={{ root: 'py-2.5' }}
           isValid={formState.isValid}
           type="button"
           onClick={() => formState.isValid && setIsConfirmModalOpen(true)}
@@ -66,7 +65,7 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
           {t('SETTINGS_PASSWORD_CHANGE')}
         </AppButtonSubmit>
       </form>
-      <AppDialog open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
+      <AppModal open={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)}>
         <div className="flex flex-col items-center gap-5">
           <QuestionMarkIcon />
           <div className="flex flex-col gap-2.5">
@@ -79,19 +78,15 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
             )}
           </div>
           <div className="flex flex-wrap gap-5">
-            <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handlePasswordUpdate}>
+            <AppButton size="small" onClick={handlePasswordUpdate}>
               {t('SETTINGS_PASSWORD_CHANGE')}
             </AppButton>
-            <AppButton
-              classes={{ root: 'py-2.5', contained: 'bg-inherit' }}
-              className="text-sm text-white"
-              onClick={() => setIsConfirmModalOpen(false)}
-            >
+            <AppButton color="secondary" size="small" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
               {t('COMMON_CANCEL')}
             </AppButton>
           </div>
         </div>
-      </AppDialog>
+      </AppModal>
     </>
   );
 };

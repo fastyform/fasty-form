@@ -90,11 +90,7 @@ const RedirectToStripeOnboardingForm = () => {
           />
         )}
       </div>
-      <AppButton
-        classes={{ root: 'py-2.5' }}
-        loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting}
-        type="submit"
-      >
+      <AppButton loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting} type="submit">
         {t('PAYMENTS_ACTIVATE_FORM_BUTTON')}
       </AppButton>
     </form>

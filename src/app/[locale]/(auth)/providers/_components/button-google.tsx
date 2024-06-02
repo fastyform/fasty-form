@@ -51,11 +51,10 @@ const ButtonGoogle = ({ children, authCallback }: Props) => {
 
   return (
     <AppButton
+      color="secondary"
       loading={isLoading}
+      size="large"
       startIcon={isLoading ? undefined : <Image alt="google" height={19} src="/google.svg" width={19} />}
-      classes={{
-        contained: 'bg-shark text-white font-normal border border-gray-600 border-solid',
-      }}
       onClick={handleAuthAction}
     >
       {children} {t('OAUTH_WITH_PROVIDER')}&nbsp;<span className="font-bold">Google</span>

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { twJoin } from 'tailwind-merge';
-import MobileNavbar from '@/components/app-navbar/mobile-navbar/mobile-navbar';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
@@ -9,7 +8,7 @@ import getUserWithNull from '@/utils/get-user-with-null';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
 import DesktopNavbarApp from './_components/desktop-navbar-app';
 import MarketingConsentDialog from './_components/marketing-consent-dialog';
-import MobileNavbarContent from './_components/mobile-navbar-content';
+import MobileNavbarApp from './_components/mobile-navbar-app';
 import OnboardingForm from './_components/onboarding-form/onboarding-form';
 import OnboardingStripeStatusDialog from './_components/onboarding-stripe-status-dialog';
 import StripeOnboardingInfo from './_components/stripe-onboarding-info';
@@ -41,16 +40,14 @@ const ContentLayout = async ({ children, params: { locale } }: { children: React
         {isOnboarded && (
           <>
             <DesktopNavbarApp />
-            <MobileNavbar className="h-[50px]">
-              <MobileNavbarContent trainerDetails={trainerDetails} user={user} />
-            </MobileNavbar>
+            <MobileNavbarApp />
           </>
         )}
 
         <div
           className={twJoin(
-            'z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 pb-8 lg:pb-12 lg:pt-28',
-            isOnboarded ? 'pt-20' : 'pt-4',
+            'z-0 mx-auto flex w-full max-w-screen-2xl flex-col px-5 lg:pb-12 lg:pt-28',
+            isOnboarded ? 'pb-24 pt-24' : 'pb-8 pt-4',
           )}
         >
           <main className="flex grow">

@@ -1,7 +1,7 @@
 import { ReactNode, Suspense } from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(content)/submissions/_components/status-badge';
-import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
+import MobileNavigationIconLink from '@/components/mobile-navigation-icon-link';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
@@ -26,7 +26,7 @@ const SubmissionLayout = async ({ children, params }: SubmissionLayoutProps) => 
     <>
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-5">
-          <MobileNavbarLink aria-label={t('COMMON_SUBMISSIONS')} href="/submissions" icon="back" />
+          <MobileNavigationIconLink aria-label={t('COMMON_SUBMISSIONS')} href="/submissions" icon="back" />
           <Suspense
             fallback={
               <div className="hidden animate-pulse select-none rounded-full bg-shark text-xl lg:block">

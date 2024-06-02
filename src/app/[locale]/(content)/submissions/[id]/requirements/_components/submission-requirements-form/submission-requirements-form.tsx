@@ -63,8 +63,10 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
                   {t('SUBMISSION_REQUIREMENTS_VIDEO_ERROR_INFO', { formats: ALLOWED_FORMATS })}
                 </video>
                 <AppButton
-                  classes={{ root: 'py-2', contained: 'bg-transparent' }}
-                  className="self-start text-sm text-white"
+                  className="self-start"
+                  color="secondary"
+                  size="small"
+                  variant="text"
                   onClick={() => setVideoFile(null)}
                 >
                   {t('SUBMISSION_REQUIREMENTS_VIDEO_INPUT_REMOVE')}
@@ -85,7 +87,7 @@ const SubmissionRequirementsForm = ({ submissionId }: Props) => {
           minRows={5}
           placeholder={t('SUBMISSION_REQUIREMENTS_DESCRIPTION_PLACEHOLDER')}
         />
-        <AppButton disabled={!videoFile} loading={isLoading} type="submit">
+        <AppButton disabled={!videoFile} loading={isLoading} size="large" type="submit">
           {t('COMMON_SEND')}
         </AppButton>
         <div className="flex items-center gap-2.5">

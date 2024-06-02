@@ -14,7 +14,7 @@ const PaymentsPendingVerification = ({ params: { locale } }: { params: { locale:
         <h1 className="text-2xl">{t('PAYMENTS_UNVERIFIED_TITLE')}</h1>
         <p className="max-w-lg">{t('PAYMENTS_PENDING_DESCRIPTION')}</p>
       </div>
-      <AppButton disabled classes={{ root: 'py-2.5 w-fit' }}>
+      <AppButton disabled className="self-start">
         {t('PAYMENTS_PENDING_BUTTON')}
       </AppButton>
     </div>

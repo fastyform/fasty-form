@@ -37,7 +37,7 @@ const ForgotPasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
         </span>
       )}
       <AppInputForm control={control} fieldName="email" label="Email" />
-      <AppButton loading={forgotActionMutation.isPending} type="submit">
+      <AppButton loading={forgotActionMutation.isPending} size="large" type="submit">
         {t('FORGOT_FORM_SUBMIT')}
       </AppButton>
     </form>
