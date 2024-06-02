@@ -3,6 +3,8 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import AppSkeletonButton from '@/components/app-skeleton/app-skeleton-button';
 import AppSkeletonWrapper from '@/components/app-skeleton/app-skeleton-wrapper';
 import { Locale } from '@/utils/constants';
+import getUserWithNull from '@/utils/get-user-with-null';
+import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 import ActionButtonsProfile from './action-buttons-profile';
 
@@ -14,24 +16,20 @@ const TrainerPageLayout = async ({
   params: { slug: string; locale: Locale };
 }) => {
   unstable_setRequestLocale(params.locale);
-
+  const user = await getUserWithNull();
   const t = await getTranslations();
   const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
+  const isTrainerOwner = checkIsTrainerProfileOwner(user, trainerId);
 
   return (
-    <section className="relative flex w-full flex-col justify-between lg:h-auto">
-      <Suspense>
-        <div className="absolute left-0 top-0 hidden gap-2.5 lg:flex">
-          <ActionButtonsProfile trainerId={trainerId} />
-        </div>
-      </Suspense>
-      <div className="relative z-30 flex justify-end lg:hidden">
+    <section className="flex w-full flex-col justify-between lg:h-auto">
+      {isTrainerOwner && (
         <Suspense>
-          <div className="flex-gap flex gap-2.5 lg:hidden">
+          <div className="flex-gap flex gap-2.5 self-end lg:self-start">
             <ActionButtonsProfile trainerId={trainerId} />
           </div>
         </Suspense>
-      </div>
+      )}
       <Suspense
         fallback={
           <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">

@@ -1,8 +1,8 @@
 'use client';
 
+import { Button } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
-import AppButton from '@/components/app-button';
 import actionChangeLanguage from '@/utils/action-change-language';
 import { Locale, LOCALES_FULL_NAMES } from '@/utils/constants';
 
@@ -20,15 +20,14 @@ const FooterLanguageLinks = () => {
   return (
     <div className="flex flex-wrap justify-center gap-5 text-xs md:justify-start">
       {LOCALES_FULL_NAMES.map(([locale, name]) => (
-        <AppButton
+        <Button
           key={locale}
           disableRipple
-          classes={{ text: 'text-xs font-normal min-w-0', root: 'p-0' }}
-          variant="text"
+          classes={{ root: 'p-0 text-xs normal-case font-normal min-w-0 text-white tracking-normal' }}
           onClick={() => localeChangeMutation.mutate(locale)}
         >
           {name}
-        </AppButton>
+        </Button>
       ))}
     </div>
   );

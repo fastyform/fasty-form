@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import actionSendFeedback from '@/app/[locale]/(content)/feedback/action-send-feedback';
 import { feedbackFormSchema, FeedbackValues } from '@/app/[locale]/(content)/feedback/utils';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import AppFormState from '@/components/app-form-error';
 import AppInputForm from '@/components/app-input/app-input-form';
 import notify from '@/utils/notify';
@@ -130,9 +130,9 @@ const FeedbackForm = () => {
           )}
         />
       </div>
-      <AppButton classes={{ root: 'w-fit py-2.5' }} loading={sendFeedbackMutation.isPending} type="submit">
+      <AppButtonNew className="self-start" loading={sendFeedbackMutation.isPending} type="submit">
         {t('FEEDBACK_SEND')}
-      </AppButton>
+      </AppButtonNew>
     </form>
   );
 };

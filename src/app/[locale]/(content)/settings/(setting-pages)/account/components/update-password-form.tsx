@@ -12,7 +12,7 @@ import {
   updatePasswordSchema,
 } from '@/app/[locale]/(content)/settings/(setting-pages)/account/utils';
 import QuestionMarkIcon from '@/app/[locale]/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
-import AppButton from '@/components/app-button';
+import AppButtonNew from '@/components/app-button-new';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
 import AppInputFormPassword from '@/components/app-input/app-input-form-password';
@@ -79,16 +79,12 @@ const UpdatePasswordForm = ({ redirectPathParam }: { redirectPathParam: SearchPa
             )}
           </div>
           <div className="flex flex-wrap gap-5">
-            <AppButton classes={{ root: 'py-2.5' }} className="text-sm" onClick={handlePasswordUpdate}>
+            <AppButtonNew size="small" onClick={handlePasswordUpdate}>
               {t('SETTINGS_PASSWORD_CHANGE')}
-            </AppButton>
-            <AppButton
-              classes={{ root: 'py-2.5', contained: 'bg-inherit' }}
-              className="text-sm text-white"
-              onClick={() => setIsConfirmModalOpen(false)}
-            >
+            </AppButtonNew>
+            <AppButtonNew color="secondary" size="small" variant="text" onClick={() => setIsConfirmModalOpen(false)}>
               {t('COMMON_CANCEL')}
-            </AppButton>
+            </AppButtonNew>
           </div>
         </div>
       </AppModal>

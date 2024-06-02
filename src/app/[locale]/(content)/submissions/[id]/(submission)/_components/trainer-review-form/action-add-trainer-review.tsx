@@ -42,24 +42,20 @@ const sendAddedReviewNotificationToClient = async ({
   });
 };
 
-const actionAddTrainerReview = async (
-  prevState: { message: string },
-  payload: { data: FormData; submissionId: string },
-) => {
+interface Payload {
+  trainerReview: string;
+  submissionId: string;
+}
+
+const actionAddTrainerReview = async ({ trainerReview, submissionId }: Payload) => {
   const supabase = getSupabaseServerClient();
   const t = await getTranslations();
-  const formSchemaParsed = trainerReviewFormSchema(t).safeParse({ trainerReview: payload.data.get('trainerReview') });
-
-  if (!formSchemaParsed.success) {
-    return { message: 'Bad request.' };
-  }
-
-  const { trainerReview } = formSchemaParsed.data;
+  trainerReviewFormSchema(t).parse({ trainerReview });
 
   const { data: submission, error } = await supabase
     .from('submissions')
     .update({ trainer_review: trainerReview, status: 'reviewed', reviewed_at: dayjs().toISOString() })
-    .eq('id', payload.submissionId)
+    .eq('id', submissionId)
     .select('trainers_details (profile_name, profile_slug), client_id')
     .single();
 
@@ -70,22 +66,20 @@ const actionAddTrainerReview = async (
     submission.client_id &&
     submission.trainers_details.profile_slug
   ) {
-    revalidatePath(`/submissions/${payload.submissionId}`);
+    revalidatePath(`/submissions/${submissionId}`);
     revalidatePath('/submissions');
 
     await sendAddedReviewNotificationToClient({
       clientId: submission.client_id,
-      submissionId: payload.submissionId,
+      submissionId,
       trainerProfileName: submission.trainers_details.profile_name,
       trainerProfileSlug: submission.trainers_details.profile_slug,
     });
 
-    return { message: '' };
+    return;
   }
 
-  return {
-    message: t('COMMON_ERROR'),
-  };
+  throw new Error();
 };
 
 export default actionAddTrainerReview;
