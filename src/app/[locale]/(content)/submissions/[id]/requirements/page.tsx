@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import getSubmissionById from '@/app/[locale]/(content)/submissions/[id]/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/[locale]/(content)/submissions/[id]/trainer-profile-name-link';
-import MobileNavbarLink from '@/components/app-navbar/mobile-navbar/mobile-navbar-link';
+import MobileNavigationIconLink from '@/components/mobile-navigation-icon-link';
 import { triggerRootNotFound } from '@/utils';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
@@ -31,7 +31,7 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string; lo
   return (
     <div className="flex w-full max-w-[500px] flex-col gap-8 self-center">
       <div className="flex flex-col gap-5">
-        <MobileNavbarLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
+        <MobileNavigationIconLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
         <h1 className="text-2xl font-bold text-white">{t('SUBMISSION_REQUIREMENTS_TITLE')}</h1>
         <span className="text-white">
           {t('SUBMISSION_REQUIREMENTS_FORM_CHECK')} -{' '}
