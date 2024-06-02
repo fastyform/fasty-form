@@ -12,7 +12,7 @@ const MobileNavbarApp = async () => {
     <>
       <header className="fixed left-0 top-0 z-30 flex h-[--public-mobile-navbar-height] w-full items-center justify-between gap-4 border-b border-solid border-gray-600 bg-shark px-5 lg:hidden">
         <AppLogo className="w-[100px]" href="/submissions" />
-        <NavbarLink href="/submissions" variant="contained">
+        <NavbarLink href="/feedback" variant="contained">
           <FeedbackIcon />
           {t('NAV_FEEDBACK')}
         </NavbarLink>
