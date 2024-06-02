@@ -67,7 +67,9 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
       )}
       <div className="flex flex-wrap items-center gap-2.5">
         <span>{t(`PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_${trainerDetails.stripe_onboarding_status}`)}</span>
-        <AppButton>{t('PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_BUTTON')}</AppButton>
+        {trainerDetails.stripe_onboarding_status === 'unverified' && (
+          <AppButton>{t('PAYMENTS_STRIPE_ONBOARDING_INFO_CONTENT_BUTTON')}</AppButton>
+        )}
       </div>
     </Link>
   );
