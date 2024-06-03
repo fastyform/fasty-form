@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
 
 const statusBadgeData = {
-  reviewed: ['bg-[#007bff]/60 border-[#007bff]', 'text-white'],
-  unreviewed: ['bg-[#17a2b8]/60 border-[#17a2b8]', 'text-white'],
-  paid: ['bg-[#28a745]/60 border-[#28a745]', 'text-white'],
+  reviewed: ['bg-[#28a745]/60 border-[#28a745]', 'text-white'],
+  unreviewed: ['bg-[#007bff]/60 border-[#007bff]', 'text-white'],
+  paid: ['bg-[#17a2b8]/60 border-[#17a2b8]', 'text-white'],
   paidout: ['bg-[#6f42c1]/60 border-[#6f42c1]', 'text-white'],
   skeleton: ['bg-shark animate-pulse', 'text-shark'],
 } as const;
