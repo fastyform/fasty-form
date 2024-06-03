@@ -6,6 +6,8 @@ import { revalidatePath } from 'next/cache';
 import { getTranslations } from 'next-intl/server';
 import getUserAsAdminById from '@/app/[locale]/(content)/submissions/_utils/get-user-as-admin-by-id';
 import AddedReview from '@/emails/added-review';
+import ClientServiceReview from '@/emails/client-service-review';
+import Constants, { Locale } from '@/utils/constants';
 import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
@@ -18,6 +20,11 @@ interface SubmissionData {
   trainerProfileSlug: string;
 }
 
+const LOCALE_TO_FORM_LINK: Record<Locale, string> = {
+  pl: 'https://forms.gle/7Jq4uDsGnzFU6QNp6',
+  en: 'https://forms.gle/xZRAF1uYvxdbEBD87',
+};
+
 const sendAddedReviewNotificationToClient = async ({
   clientId,
   trainerProfileName,
@@ -28,7 +35,7 @@ const sendAddedReviewNotificationToClient = async ({
 
   const t = await getTranslations({ locale });
 
-  await sendMail({
+  const addedReviewPromise = sendMail({
     to: user.email as string,
     subject: t('MAIL_TEMPLATE_ADDED_REVIEW_SUBJECT', { profileName: trainerProfileName }),
     html: render(
@@ -40,6 +47,15 @@ const sendAddedReviewNotificationToClient = async ({
       />,
     ),
   });
+
+  const clientServiceReviewPromise = sendMail({
+    to: user.email as string,
+    subject: t('MAIL_TEMPLATE_CLIENT_SERVICE_REVIEW_SUBJECT', { appName: Constants.APP_NAME }),
+    html: render(<ClientServiceReview formLink={LOCALE_TO_FORM_LINK[locale]} profileName={trainerProfileName} t={t} />),
+    sendAt: dayjs().add(1, 'day').unix(),
+  });
+
+  await Promise.allSettled([addedReviewPromise, clientServiceReviewPromise]);
 };
 
 interface Payload {
