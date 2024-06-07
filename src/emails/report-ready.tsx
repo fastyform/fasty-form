@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { ReportType, reportTypeToLabel } from '@/app/[locale]/(content)/payments/utils';
+import { ReportType, reportTypeToLabel } from '@/app/[locale]/(app)/(content)/payments/utils';
 import { DATE_FORMAT } from '@/utils/constants';
 import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
