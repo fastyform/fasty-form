@@ -10,7 +10,7 @@ import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
 import { Database } from '@/utils/supabase/supabase';
-import BuyButton from './_components/buy-button';
+import BuyButton from './_components/edit-profile/_components/buy-button';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
 import ActionButtonsProfile from './action-buttons-profile';
