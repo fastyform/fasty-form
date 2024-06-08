@@ -2,6 +2,7 @@
   "exclude": ["./.next"],
   "extends": "./tsconfig.json",
   "include": [
+    "./supabase/seed",
     "src",
     ".eslintrc.js",
     "postcss.config.js",

@@ -23,6 +23,9 @@ const nextConfig = {
         hostname: 'localhost',
       },
       {
+        hostname: 'picsum.photos',
+      },
+      {
         hostname: '127.0.0.1',
       },
     ],
