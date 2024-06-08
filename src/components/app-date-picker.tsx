@@ -1,6 +1,6 @@
 'use client';
 
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
+import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
 import AppDialog from './app-dialog';
 import AppInput from './app-input/app-input';
