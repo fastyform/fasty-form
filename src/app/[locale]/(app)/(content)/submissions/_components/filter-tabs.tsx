@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { TabContext, TabList } from '@mui/lab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
 import { Tab, TabProps } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
