@@ -1,13 +1,16 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import prettyBytes from 'pretty-bytes';
 import { twMerge } from 'tailwind-merge';
-import readFile from '@/app/[locale]/(app)/trainers/[slug]/_components/edit-profile/_utils/read-files';
+import { FormContainer } from '@/app/[locale]/(app)/trainers/[slug]/_components/edit-profile-form-components';
+import readFile from '@/app/[locale]/(app)/trainers/[slug]/_utils/read-files';
+import { actionEditProfilePicture } from '@/app/[locale]/(app)/trainers/[slug]/actions';
 import AppButton from '@/components/app-button';
 import notify from '@/utils/notify';
 import CropperDialog from './cropper-dialog';
@@ -16,22 +19,30 @@ const MAX_FILE_SIZE = 20000000;
 const ERROR_MESSAGES = ['file-invalid-type', 'file-too-large', 'too-many-files'] as const;
 const ACCEPTED_FILE_EXTENSIONS = '.jgp, .jpeg, .png, .webp';
 
-interface FileUploadInputProps {
-  setImageBlob: Dispatch<SetStateAction<Blob | null>>;
-  imageBlob: Blob | null;
+interface EditUserProfileImageProps {
   profileImageUrl: string | null;
-  setIsDeleting: Dispatch<SetStateAction<boolean>>;
-  isDeleting: boolean;
+  trainerProfileSlug: string;
 }
 
-const FileUploadInput = ({
-  setImageBlob,
-  imageBlob,
-  profileImageUrl,
-  setIsDeleting,
-  isDeleting,
-}: FileUploadInputProps) => {
+const EditUserProfilePictureForm = ({ trainerProfileSlug, profileImageUrl }: EditUserProfileImageProps) => {
   const t = useTranslations();
+
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+
+  const editProfilePictureMutation = useMutation({
+    mutationFn: async () => {
+      let imageBlobFormData = null;
+      if (imageBlob) {
+        imageBlobFormData = new FormData();
+        imageBlobFormData.set('image', imageBlob);
+      }
+      await actionEditProfilePicture({ imageBlobData: imageBlobFormData, isDeleting, trainerProfileSlug });
+    },
+    onSuccess: () => notify.success(t('COMMON_CHANGES_SAVED')),
+    onError: () => notify.error(t('TRAINERS_EDIT_PROFILE_ERROR_SAVE')),
+  });
+
   const [file, setFile] = useState<string>('');
   const { getRootProps, getInputProps, open } = useDropzone({
     maxSize: MAX_FILE_SIZE,
@@ -63,7 +74,8 @@ const FileUploadInput = ({
   const shouldInputBeVisible = (!imageBlob && !profileImageUrl) || isDeleting;
 
   return (
-    <>
+    <FormContainer className="items-center">
+      <span className="mr-auto text-white">{t('TRAINERS_EDIT_PROFILE_IMAGE_LABEL')}</span>
       <CropperDialog file={file} setFile={setFile} setImageBlob={setImageBlob} setIsDeleting={setIsDeleting} />
       <div
         {...getRootProps({
@@ -110,8 +122,16 @@ const FileUploadInput = ({
           </div>
         </>
       )}
-    </>
+      <AppButton
+        className="self-end"
+        loading={editProfilePictureMutation.isPending}
+        variant="text"
+        onClick={() => editProfilePictureMutation.mutate()}
+      >
+        {t('COMMON_SAVE')}
+      </AppButton>
+    </FormContainer>
   );
 };
 
-export default FileUploadInput;
+export default EditUserProfilePictureForm;

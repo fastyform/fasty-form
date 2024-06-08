@@ -57,7 +57,7 @@ const StripeOnboardingInfo = ({ trainerDetails, userId }: { trainerDetails: Trai
 
   return (
     <Link
-      className="sticky bottom-[--public-mobile-navbar-height] right-0 mt-auto flex w-full items-center gap-2.5 border border-gray-600 bg-shark p-5 text-sm text-white shadow-xl lg:bottom-0"
+      className="flex items-center gap-2.5 border-t border-gray-600 bg-shark p-5 text-sm text-white shadow-xl"
       href="/payments"
     >
       {trainerDetails.stripe_onboarding_status === 'pending_verification' ? (

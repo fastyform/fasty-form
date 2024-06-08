@@ -11,14 +11,15 @@ import getUserWithNull from '@/utils/get-user-with-null';
 import { groszToPLN } from '@/utils/stripe';
 import { Database } from '@/utils/supabase/supabase';
 import BuyButton from './_components/buy-button';
+import ProfileActionButtons from './_components/profile-action-buttons';
+import ProfileSocialIcons from './_components/profile-social-icons';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
-import getTrainerIdBySlug from './_utils/get-trainer-id-by-slug';
-import ActionButtonsProfile from './action-buttons-profile';
+import getTrainerDetailsBySlug from './_utils/get-trainer-details-by-slug';
 
 const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
 
-  const trainerId = (await getTrainerIdBySlug(params.slug)).user_id;
+  const trainerId = (await getTrainerDetailsBySlug(params.slug)).user_id;
   const [trainerDetails, user] = await Promise.all([getTrainerDetailsById(trainerId), getUserWithNull()]);
   const isUserOwner = checkIsTrainerProfileOwner(user, trainerId);
   const stripeOnboardingRedirect = trainerDetails.stripe_onboarding_status !== 'verified' && !isUserOwner;
@@ -28,8 +29,8 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
 
   return (
-    <div className="flex grow flex-col items-center justify-between gap-10 lg:justify-start">
-      <div className="relative flex w-full flex-col items-center justify-center p-10 ">
+    <div className="flex grow flex-col items-center gap-5 lg:justify-start">
+      <div className="relative flex w-full flex-col items-center justify-center px-5">
         <Image
           fill
           alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
@@ -39,7 +40,7 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
         {isUserOwner && (
           <Suspense>
             <div className="flex-gap flex gap-2.5 self-end lg:self-start">
-              <ActionButtonsProfile trainerId={trainerId} />
+              <ProfileActionButtons trainerId={trainerId} />
             </div>
           </Suspense>
         )}
@@ -52,20 +53,21 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
           />
         </div>
       </div>
-
-      <div className="flex w-full flex-col items-center gap-10">
-        <div className="flex flex-col items-center sm:gap-2.5">
-          <h1 className="text-center text-2xl font-bold text-white sm:text-4xl md:text-6xl">
-            {trainerDetails.profile_name}
-          </h1>
-          <span className="text-base text-white lg:text-xl">
-            {t('TRAINERS_PAGE_SERVICE_NAME')}
-            <span className="font-bold">
-              {groszToPLN(trainerDetails.service_price_in_grosz)} {t('CURRENCY_PLN')}
-            </span>
-          </span>
+      <div className="flex max-w-[500px] flex-col gap-5 ">
+        <ProfileSocialIcons socialLinks={trainerDetails.social_links} />
+        <div className="flex flex-col gap-2.5">
+          <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-5xl">{trainerDetails.profile_name}</h1>
+          <p className="text-base text-white">{trainerDetails.bio}</p>
         </div>
-        <BuyButton isTrainerAccount={isTrainerAccount} trainerId={trainerId} />
+        <BuyButton className="hidden w-full lg:flex" disabled={isTrainerAccount} size="large" trainerId={trainerId}>
+          {isTrainerAccount ? (
+            t('TRAINERS_PAGE_BUY_BUTTON_TRAINER')
+          ) : (
+            <span>
+              {t('TRAINERS_PAGE_BUY_BUTTON')} - {groszToPLN(trainerDetails.service_price_in_grosz)} {t('CURRENCY_PLN')}
+            </span>
+          )}
+        </BuyButton>
       </div>
     </div>
   );

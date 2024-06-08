@@ -7,10 +7,10 @@ const PublicLayout = ({ children, params: { locale } }: { children: ReactNode; p
   unstable_setRequestLocale(locale);
 
   return (
-    <>
+    <div className="min-h-screen-responsive w-full">
       <PublicNavbar />
       {children}
-    </>
+    </div>
   );
 };
 

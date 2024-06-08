@@ -1,5 +1,5 @@
 import { useFormStatus } from 'react-dom';
-import { LoadingButtonProps } from '@mui/lab';
+import { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import AppButton from './app-button';
 
 interface Props extends LoadingButtonProps {

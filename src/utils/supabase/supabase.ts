@@ -91,6 +91,7 @@ export type Database = {
       };
       trainers_details: {
         Row: {
+          bio: string;
           created_at: string;
           email: string | null;
           is_onboarded: boolean;
@@ -99,12 +100,14 @@ export type Database = {
           profile_name: string | null;
           profile_slug: string | null;
           service_price_in_grosz: number | null;
+          social_links: Json;
           stripe_account_id: string | null;
           stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id: string | null;
           user_id: string;
         };
         Insert: {
+          bio?: string;
           created_at?: string;
           email?: string | null;
           is_onboarded?: boolean;
@@ -113,12 +116,14 @@ export type Database = {
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
+          social_links?: Json;
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
           user_id: string;
         };
         Update: {
+          bio?: string;
           created_at?: string;
           email?: string | null;
           is_onboarded?: boolean;
@@ -127,6 +132,7 @@ export type Database = {
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
+          social_links?: Json;
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;

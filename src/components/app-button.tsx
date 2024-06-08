@@ -1,8 +1,8 @@
-import { LoadingButton, type LoadingButtonProps, LoadingButtonTypeMap } from '@mui/lab';
+import LoadingButton, { LoadingButtonProps, LoadingButtonTypeMap } from '@mui/lab/LoadingButton';
 import { ButtonBaseProps } from '@mui/material';
 import { twJoin, twMerge } from 'tailwind-merge';
 
-type AppButtonProps = LoadingButtonProps<
+export type AppButtonProps = LoadingButtonProps<
   LoadingButtonTypeMap['defaultComponent'],
   { component?: ButtonBaseProps['component'] }
 >;
