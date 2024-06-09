@@ -1,17 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/**
- * ! Executing this script will delete all data in your database and seed it with 10 users.
- * ! Make sure to adjust the script to your needs.
- * Use any TypeScript runner to run this script, for example: `npx tsx seed.ts`
- * Learn more about the Seed Client by following our guide: https://docs.snaplet.dev/seed/getting-started
- */
+
 import { copycat } from '@snaplet/copycat';
 import { createSeedClient } from '@snaplet/seed';
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 
 dotenv.config({ path: `${__dirname}/../../.env.local` });
-// import postgres from 'postgres';
+
 const main = async () => {
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const seed = await createSeedClient({
@@ -21,7 +16,8 @@ const main = async () => {
           profile_name: (ctx) => copycat.word(ctx.seed),
           profile_slug: (ctx) => copycat.word(ctx.seed),
           stripe_account_id: (ctx) => copycat.uuid(ctx.seed),
-          is_onboarded: () => true,
+          is_onboarded: true,
+          stripe_onboarding_status: 'verified',
         },
       },
       users: {

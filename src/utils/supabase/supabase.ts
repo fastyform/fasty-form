@@ -299,6 +299,23 @@ export type Database = {
         };
         Returns: string;
       };
+      fetch_trainers: {
+        Args: {
+          start: number;
+          stop: number;
+          seed: string;
+          filters?: Json;
+          order_by?: string;
+          order_dir?: string;
+        };
+        Returns: {
+          user_id: string;
+          service_price_in_grosz: number;
+          profile_name: string;
+          profile_image_url: string;
+          profile_slug: string;
+        }[];
+      };
       get_claim: {
         Args: {
           uid: string;

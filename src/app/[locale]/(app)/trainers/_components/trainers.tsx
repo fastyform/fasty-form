@@ -1,23 +1,26 @@
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import TrainerCard, { TrainerCardContainer } from './trainer-card';
+import { SearchParams } from '@/utils/types';
+import InfiniteTrainers from './infinite-trainers';
 
-const Trainers = async () => {
+const generateRandomSeed = () => Math.random().toString(36).substring(2, 15);
+
+const Trainers = async ({ searchParams }: { searchParams: SearchParams }) => {
   const supabase = getSupabaseServerClient();
-  const { data, error } = await supabase
-    .from('trainers_details')
-    .select('service_price_in_grosz, profile_name, profile_image_url, profile_slug, user_id')
-    .limit(20)
-    .filter('is_onboarded', 'eq', true);
+  const seed = generateRandomSeed();
 
+  const { data, error } = await supabase.rpc('fetch_trainers', {
+    start: 0,
+    stop: 17,
+    seed,
+    order_by:
+      typeof searchParams.sort === 'string' && searchParams.sort !== 'null' ? 'service_price_in_grosz' : undefined,
+    order_dir: typeof searchParams.sort === 'string' && searchParams.sort !== 'null' ? searchParams.sort : undefined,
+  });
+
+  console.log(error);
   if (error) throw new Error();
 
-  return (
-    <TrainerCardContainer>
-      {data.map((trainer) => (
-        <TrainerCard key={trainer.user_id} trainer={trainer} />
-      ))}
-    </TrainerCardContainer>
-  );
+  return <InfiniteTrainers seed={seed} trainers={data} />;
 };
 
 export default Trainers;

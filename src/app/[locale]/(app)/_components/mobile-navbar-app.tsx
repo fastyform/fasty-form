@@ -18,7 +18,7 @@ const MobileNavbarApp = async () => {
           {t('NAV_FEEDBACK')}
         </NavbarLink>
       </header>
-      <nav className="fixed bottom-0 left-0 z-30 flex h-[--public-mobile-navbar-height] w-full items-center justify-around gap-5 border-t border-solid border-gray-600 bg-shark px-5 lg:hidden">
+      <nav className="fixed bottom-0 left-0 z-30 flex h-[--public-mobile-navbar-height] w-full items-center justify-around gap-2.5 border-t border-solid border-gray-600 bg-shark px-5 lg:hidden">
         <NavbarContent />
       </nav>
     </>

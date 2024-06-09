@@ -16,31 +16,31 @@ export const TrainerCardContainer = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-export const TrainerCardsSkeleton = ({ length }: { length: number }) => (
-  <TrainerCardContainer>
-    {Array.from({ length }).map((_, index) => (
-      <div
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        className=" flex animate-pulse flex-col gap-5 rounded-xl bg-shark p-5"
-      >
-        <div className="flex items-center justify-center">
-          <div className="aspect-square w-full max-w-40">
-            <div className="h-full w-full animate-pulse rounded-full bg-bunker" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-5">
-          <div className="h-6 w-full animate-pulse rounded-xl bg-bunker" />
-          <div className="h-10 w-full animate-pulse rounded-xl bg-bunker" />
-        </div>
+export const TrainerCardsSkeleton = () => (
+  <div className=" flex animate-pulse flex-col gap-5 rounded-xl bg-shark p-5">
+    <div className="flex items-center justify-center">
+      <div className="aspect-square w-full max-w-40">
+        <div className="h-full w-full animate-pulse rounded-full bg-bunker" />
       </div>
+    </div>
+    <div className="flex flex-col gap-5">
+      <div className="h-6 w-full animate-pulse rounded-xl bg-bunker" />
+      <div className="h-10 w-full animate-pulse rounded-xl bg-bunker" />
+    </div>
+  </div>
+);
+
+export const TrainerCardsSkeletons = ({ length }: { length: number }) => (
+  <TrainerCardContainer>
+    {[...Array(length).keys()].map((key) => (
+      <TrainerCardsSkeleton key={key} />
     ))}
   </TrainerCardContainer>
 );
 
 const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
   const t = useTranslations();
-  if (!trainer.service_price_in_grosz) throw new Error('Trainer has no service price set');
+  if (!trainer.service_price_in_grosz) return null;
 
   return (
     <Link
@@ -49,12 +49,7 @@ const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
       href={`/trainers/${trainer.profile_slug}`}
     >
       <div className="relative flex items-center justify-center">
-        <Image
-          fill
-          alt=""
-          className="rounded-xl opacity-40 blur-3xl"
-          src={trainer.profile_image_url || '/default-trainer.jpg'}
-        />
+        <Image fill alt="" className="opacity-60 blur-xl" src={trainer.profile_image_url || '/default-trainer.jpg'} />
         <div className="relative aspect-square w-full max-w-40">
           <Image
             fill
@@ -64,11 +59,15 @@ const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-1 text-sm">
-        <h4>{trainer.profile_name}</h4>
-        <span>
-          {groszToPLN(trainer.service_price_in_grosz)} {t('CURRENCY_PLN')}
-        </span>
+      <div className="flex flex-col gap-2.5">
+        <h4 className="text-base">{trainer.profile_name}</h4>
+        <div className="flex flex-col">
+          <span className="text-[10px] uppercase tracking-widest ">{t('TRAINERS_DATABASE_PRICE_TITLE')}</span>
+          <span className="text-sm font-bold">
+            {groszToPLN(trainer.service_price_in_grosz)}&nbsp;
+            {t('CURRENCY_PLN')}
+          </span>
+        </div>
       </div>
     </Link>
   );
