@@ -5,10 +5,10 @@ import { redirect } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import getSubmissionById from '@/app/[locale]/(app)/(content)/submissions/[id]/get-submission-by-id';
 import TrainerProfileNameLink from '@/app/[locale]/(app)/(content)/submissions/[id]/trainer-profile-name-link';
+import BuyButton from '@/app/[locale]/(app)/trainers/[slug]/_components/buy-button';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
-import BuyAgainButton from './_components/buy-again-button';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
@@ -125,7 +125,9 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
             </SubmissionPartWithIcon>
             <SubmissionPartWithIcon icon="buyAgain" iconClassName="text-white">
               <span className="text-white">{t('SUBMISSION_BUY_AGAIN_TITLE')}</span>
-              <BuyAgainButton trainerId={submission.trainer_id} />
+              <BuyButton className="self-start" trainerId={submission.trainer_id}>
+                {t('SUBMISSION_BUY_AGAIN_BUTTON')}
+              </BuyButton>
             </SubmissionPartWithIcon>
           </>
         )}

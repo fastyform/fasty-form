@@ -2,9 +2,9 @@ import ShareProfileButton from '@/app/[locale]/(app)/trainers/[slug]/_components
 import checkIsTrainerProfileOwner from '@/app/[locale]/(app)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
-import EditProfile from './_components/edit-profile/edit-profile';
+import EditProfile from './edit-profile';
 
-const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
+const ProfileActionButtons = async ({ trainerId }: { trainerId: string }) => {
   const user = await getUserWithNull();
   const trainerDetails = await getTrainerDetailsById(trainerId);
   const isTrainerOwner = checkIsTrainerProfileOwner(user, trainerId);
@@ -19,4 +19,4 @@ const ActionButtonsProfile = async ({ trainerId }: { trainerId: string }) => {
   );
 };
 
-export default ActionButtonsProfile;
+export default ProfileActionButtons;

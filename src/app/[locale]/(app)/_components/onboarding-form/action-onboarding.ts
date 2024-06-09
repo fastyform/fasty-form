@@ -3,33 +3,28 @@
 import dayjs from 'dayjs';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { getResponse } from '@/utils';
-import { FormState } from '@/utils/form';
 import { PLNToGrosz } from '@/utils/stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import { onboardingFormSchema } from './utils';
+import { onboardingFormSchema, OnboardingFormValues } from './utils';
 
-const actionOnboarding = async (prevState: FormState, data: FormData) => {
+const actionOnboarding = async (data: OnboardingFormValues) => {
   const t = await getTranslations();
-  const formSchemaParsed = onboardingFormSchema(t).safeParse({
-    servicePrice: parseInt(`${data.get('servicePrice')}`, 10),
-    profileName: data.get('profileName'),
-    profileSlug: data.get('profileSlug'),
-    marketingConsent: data.get('marketingConsent') === 'true',
-  });
+
+  const formSchemaParsed = onboardingFormSchema(t).safeParse(data);
+
   if (!formSchemaParsed.success) {
-    return getResponse('Bad request.');
+    return { isSuccess: false, messageKey: 'COMMON_ERROR' } as const;
   }
 
   const supabase = getSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) {
-    return getResponse(t('COMMON_ERROR'));
+    return { isSuccess: false, messageKey: 'ONBOARDING_ERROR_LINK_EXISTS' } as const;
   }
 
   const userId = userData.user.id;
 
-  const { servicePrice, profileName, profileSlug, marketingConsent } = formSchemaParsed.data;
+  const { servicePrice, profileName, profileSlug, marketingConsent, socialLinks, bio } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
     .update({
@@ -37,22 +32,23 @@ const actionOnboarding = async (prevState: FormState, data: FormData) => {
       profile_name: profileName,
       profile_slug: profileSlug,
       is_onboarded: true,
+      social_links: socialLinks,
+      bio,
       onboarded_at: dayjs().toISOString(),
     })
     .eq('user_id', userId);
 
-  const { error: errorMarketingConsent } = await supabase
-    .from('user_data')
-    .update({ marketing_consent: marketingConsent })
-    .eq('user_id', userId);
+  await supabase.from('user_data').update({ marketing_consent: marketingConsent }).eq('user_id', userId);
 
-  if (!error && !errorMarketingConsent) {
+  if (!error) {
     return redirect(`/trainers/${profileSlug}`);
   }
 
-  if (error && error.code === '23505') return getResponse(t('ONBOARDING_ERROR_LINK_EXISTS'));
+  if (error && error.code === '23505') {
+    return { isSuccess: false, messageKey: 'ONBOARDING_ERROR_LINK_EXISTS' } as const;
+  }
 
-  return getResponse(t('COMMON_ERROR'));
+  return { isSuccess: false, messageKey: 'COMMON_ERROR' } as const;
 };
 
 export default actionOnboarding;

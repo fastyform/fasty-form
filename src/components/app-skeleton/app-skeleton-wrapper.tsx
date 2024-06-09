@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-const AppSkeletonWrapper = ({ children }: { children: ReactNode }) => (
-  <div className="w-fit animate-pulse rounded-xl bg-shark">{children}</div>
+const AppSkeletonWrapper = ({ children, className }: { children?: ReactNode; className?: string }) => (
+  <div className={twMerge('w-fit animate-pulse rounded-xl bg-shark', className)}>{children}</div>
 );
 
 export default AppSkeletonWrapper;
