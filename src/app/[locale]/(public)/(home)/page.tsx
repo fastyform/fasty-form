@@ -50,10 +50,10 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             <AppButton
               classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }}
               component={Link}
-              href="/register/client"
+              href="/trainers"
               variant="outlined"
             >
-              {t('HOME_HERO_REGISTER_CLIENT_CTA')}
+              {t('HOME_HERO_FIND_TRAINER_CTA')}
             </AppButton>
           </div>
         </PublicContainer.Content>

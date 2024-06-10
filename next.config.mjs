@@ -20,10 +20,13 @@ const nextConfig = {
         port: '',
       },
       {
-        hostname: 'localhost',
+        hostname: process.env.NODE_ENV === 'development' ? 'localhost' : '',
       },
       {
-        hostname: '127.0.0.1',
+        hostname: process.env.NODE_ENV === 'development' ? '127.0.0.1' : '',
+      },
+      {
+        hostname: process.env.NODE_ENV === 'development' ? 'picsum.photos' : '',
       },
     ],
   },
