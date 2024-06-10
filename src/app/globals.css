@@ -85,6 +85,5 @@ body {
 
 /* TODO: Remove placeholder AppNavbarPlaceholder */
 :root {
-  --public-desktop-navbar-height: 68px;
-  --public-mobile-navbar-height: 60px;
+  --public-navbar-height: 60px;
 }

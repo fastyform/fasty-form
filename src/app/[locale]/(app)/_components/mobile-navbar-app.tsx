@@ -9,7 +9,7 @@ const MobileNavbarApp = async () => {
   const FeedbackIcon = navbarIcons.feedback;
 
   return (
-    <header className="z-30 flex h-[--public-mobile-navbar-height] w-full shrink-0 items-center justify-between gap-4 border-b border-solid border-gray-600 bg-shark px-5 lg:hidden">
+    <header className="z-30 flex h-[60px] w-full shrink-0 items-center justify-between gap-4 border-b border-solid border-gray-600 bg-shark px-5 lg:hidden">
       <AppLogo className="w-[100px]" href="/submissions" />
       <NavbarLink href="/feedback" variant="contained">
         <FeedbackIcon />
