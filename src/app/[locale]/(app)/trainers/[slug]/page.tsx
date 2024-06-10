@@ -26,11 +26,14 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
   const stripeOnboardingRedirect = trainerDetails.stripe_onboarding_status !== 'verified' && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   const t = await getTranslations();
+
+  const isProfileHiddenAndUserNotOwner = trainerDetails.hide_profile && !isUserOwner;
+
   if (
     !trainerDetails.is_onboarded ||
     stripeOnboardingRedirect ||
     !trainerDetails.profile_slug ||
-    trainerDetails.hide_profile
+    isProfileHiddenAndUserNotOwner
   )
     return notFound();
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
@@ -45,7 +48,7 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
             <Image
               fill
               alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
-              className="opacity-40 blur-3xl"
+              className="opacity-40 blur-3xl [transform:translate3d(0,0,0)]"
               src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
             />
             {isUserOwner && (
