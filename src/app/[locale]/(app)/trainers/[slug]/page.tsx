@@ -67,7 +67,9 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
           <div className="flex max-w-[500px] flex-col gap-5 ">
             <ProfileSocialIcons socialLinks={trainerDetails.social_links} />
             <div className="flex flex-col gap-2.5">
-              <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-5xl">{trainerDetails.profile_name}</h1>
+              <h1 className="text-2xl font-bold text-white [word-break:break-word] sm:text-4xl md:text-5xl">
+                {trainerDetails.profile_name}
+              </h1>
               <p className="text-base text-white [word-break:break-word]">{trainerDetails.bio}</p>
             </div>
             {isBuyButtonVisible && (
