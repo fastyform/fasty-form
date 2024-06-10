@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import actionPaymentOnboardingRedirect from '@/app/[locale]/(content)/payments/@unverified/action-payment-onboarding-redirect';
-import { stripeOnboardingSchema } from '@/app/[locale]/(content)/payments/utils';
+import actionPaymentOnboardingRedirect from '@/app/[locale]/(app)/(content)/payments/@unverified/action-payment-onboarding-redirect';
+import { stripeOnboardingSchema } from '@/app/[locale]/(app)/(content)/payments/utils';
 
 export async function GET(request: Request) {
   try {

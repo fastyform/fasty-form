@@ -91,42 +91,51 @@ export type Database = {
       };
       trainers_details: {
         Row: {
+          bio: string;
           created_at: string;
           email: string | null;
+          hide_profile: boolean;
           is_onboarded: boolean;
           onboarded_at: string | null;
           profile_image_url: string | null;
           profile_name: string | null;
           profile_slug: string | null;
           service_price_in_grosz: number | null;
+          social_links: Json;
           stripe_account_id: string | null;
           stripe_onboarding_status: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id: string | null;
           user_id: string;
         };
         Insert: {
+          bio?: string;
           created_at?: string;
           email?: string | null;
+          hide_profile?: boolean;
           is_onboarded?: boolean;
           onboarded_at?: string | null;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
+          social_links?: Json;
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
           user_id: string;
         };
         Update: {
+          bio?: string;
           created_at?: string;
           email?: string | null;
+          hide_profile?: boolean;
           is_onboarded?: boolean;
           onboarded_at?: string | null;
           profile_image_url?: string | null;
           profile_name?: string | null;
           profile_slug?: string | null;
           service_price_in_grosz?: number | null;
+          social_links?: Json;
           stripe_account_id?: string | null;
           stripe_onboarding_status?: Database['public']['Enums']['stripe_onboarding_status_enum'];
           stripe_price_id?: string | null;
@@ -298,6 +307,23 @@ export type Database = {
           claim: string;
         };
         Returns: string;
+      };
+      fetch_trainers: {
+        Args: {
+          start: number;
+          stop: number;
+          seed: string;
+          filters?: Json;
+          order_by?: string;
+          order_dir?: string;
+        };
+        Returns: {
+          user_id: string;
+          service_price_in_grosz: number;
+          profile_name: string;
+          profile_image_url: string;
+          profile_slug: string;
+        }[];
       };
       get_claim: {
         Args: {

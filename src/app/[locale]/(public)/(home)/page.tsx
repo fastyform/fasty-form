@@ -53,7 +53,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               href="/register/client"
               variant="outlined"
             >
-              {t('HOME_HERO_REGISTER_CLIENT_CTA')}
+              {t('HOME_HERO_CLIENT_CTA')}
             </AppButton>
           </div>
         </PublicContainer.Content>

@@ -52,9 +52,7 @@ const AppLayout = ({ children, params: { locale } }: { children: ReactNode; para
         <NextIntlProvider locale={locale} messages={messages}>
           <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
           <AppRouterCacheProvider>
-            <Providers locale={locale}>
-              <div className="min-h-screen-responsive w-full bg-bunker">{children}</div>
-            </Providers>
+            <Providers locale={locale}>{children}</Providers>
           </AppRouterCacheProvider>
         </NextIntlProvider>
       </body>
