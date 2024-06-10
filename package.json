@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "email": "email dev --dir ./src/emails"
+    "email": "email dev --dir ./src/emails",
+    "db:seed": "tsx ./supabase/seed/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.574.0",
@@ -74,6 +75,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.8.0",
     "autoprefixer": "^10",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",

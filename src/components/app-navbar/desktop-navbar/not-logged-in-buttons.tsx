@@ -14,9 +14,9 @@ const NotLoggedInButtons = ({ user }: { user: User | null }) => {
     <>
       {!user && (
         <>
-          <NavbarLink href="/trainers" icon="trainers">
+          {/* <NavbarLink href="/trainers" icon="trainers">
             {t('COMMON_TRAINER_DATABASE')}
-          </NavbarLink>
+          </NavbarLink> */}
           <NavbarLink href={`/login${redirectUrlParam}`} icon="login">
             {t('COMMON_LOGIN_CTA')}
           </NavbarLink>

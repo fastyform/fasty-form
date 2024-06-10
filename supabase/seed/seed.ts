@@ -18,7 +18,7 @@ const main = async () => {
           stripe_account_id: (ctx) => copycat.uuid(ctx.seed),
           is_onboarded: true,
           stripe_onboarding_status: 'verified',
-          hide_profile: true,
+          hide_profile: false,
         },
       },
       users: {
