@@ -60,7 +60,7 @@ const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
         </div>
       </div>
       <div className="flex flex-col gap-2.5">
-        <h4 className="text-base">{trainer.profile_name}</h4>
+        <h4 className="truncate text-base">{trainer.profile_name}</h4>
         <div className="flex flex-col">
           <span className="text-[10px] uppercase tracking-widest ">{t('TRAINERS_DATABASE_PRICE_TITLE')}</span>
           <span className="text-sm font-bold">

@@ -24,7 +24,7 @@
   "COMMON_PROFILE_BIO": "Bio",
   "COMMON_PROFILE_NAME": "Profile name",
   "COMMON_PROFILE_NAME_ERROR_EMPTY": "Please enter a profile name.",
-  "COMMON_PROFILE_NAME_ERROR_MAX_LENGTH": "Profile name can be up to 50 characters long.",
+  "COMMON_PROFILE_NAME_ERROR_MAX_LENGTH": "Profile name can be up to {count} characters long.",
   "COMMON_REGISTER_CTA": "Register",
   "COMMON_REQUIRED_FIELD": "This field is required.",
   "COMMON_SAVE": "Save",

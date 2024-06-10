@@ -24,7 +24,7 @@
   "COMMON_PROFILE_BIO": "Bio",
   "COMMON_PROFILE_NAME": "Nazwa profilu",
   "COMMON_PROFILE_NAME_ERROR_EMPTY": "Wprowadź nazwę profilu.",
-  "COMMON_PROFILE_NAME_ERROR_MAX_LENGTH": "Nazwa profilu może zawierać maksymalnie 50 znaków.",
+  "COMMON_PROFILE_NAME_ERROR_MAX_LENGTH": "Nazwa profilu może zawierać maksymalnie {count} znaków.",
   "COMMON_REGISTER_CTA": "Zarejestruj się",
   "COMMON_REQUIRED_FIELD": "To pole jest wymagane.",
   "COMMON_SAVE": "Zapisz",
