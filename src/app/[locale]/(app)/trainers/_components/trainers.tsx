@@ -17,7 +17,6 @@ const Trainers = async ({ searchParams }: { searchParams: SearchParams }) => {
     order_dir: typeof searchParams.sort === 'string' && searchParams.sort !== 'null' ? searchParams.sort : undefined,
   });
 
-  console.log(error);
   if (error) throw new Error();
 
   return <InfiniteTrainers seed={seed} trainers={data} />;
