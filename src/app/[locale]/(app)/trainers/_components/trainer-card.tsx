@@ -49,7 +49,12 @@ const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
       href={`/trainers/${trainer.profile_slug}`}
     >
       <div className="relative flex items-center justify-center">
-        <Image fill alt="" className="opacity-60 blur-xl" src={trainer.profile_image_url || '/default-trainer.jpg'} />
+        <Image
+          fill
+          alt=""
+          className="opacity-60 blur-xl [transform:translate3d(0,0,0)]"
+          src={trainer.profile_image_url || '/default-trainer.jpg'}
+        />
         <div className="relative aspect-square w-full max-w-40">
           <Image
             fill

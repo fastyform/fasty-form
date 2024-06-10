@@ -17,7 +17,7 @@ const AppSwipeableDrawer = ({
     anchor="bottom"
     swipeAreaWidth={20}
     classes={{
-      paper: twMerge('max-h-[100dvh] max-h-[100vh] overflow-visible bg-shark bg-none px-5 overflow-auto', paper),
+      paper: twMerge('max-h-screen-responsive overflow-visible bg-shark bg-none px-5 overflow-auto', paper),
       ...classes,
     }}
     onOpen={() => {}}
