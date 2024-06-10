@@ -26,7 +26,13 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
   const stripeOnboardingRedirect = trainerDetails.stripe_onboarding_status !== 'verified' && !isUserOwner;
   const isTrainerAccount = user ? await checkIsTrainerAccount(user.id) : false;
   const t = await getTranslations();
-  if (!trainerDetails.is_onboarded || stripeOnboardingRedirect || !trainerDetails.profile_slug) return notFound();
+  if (
+    !trainerDetails.is_onboarded ||
+    stripeOnboardingRedirect ||
+    !trainerDetails.profile_slug ||
+    trainerDetails.hide_profile
+  )
+    return notFound();
   if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
 
   const isBuyButtonVisible = !(isUserOwner && trainerDetails.stripe_onboarding_status !== 'verified');

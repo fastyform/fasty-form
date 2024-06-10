@@ -1,3 +1,5 @@
+alter table "public"."trainers_details" add column "hide_profile" boolean not null default false;
+
 set check_function_bodies = off;
 
 CREATE OR REPLACE FUNCTION public.fetch_trainers(start integer, stop integer, seed text, filters jsonb DEFAULT '{}'::jsonb, order_by text DEFAULT ''::text, order_dir text DEFAULT 'ASC'::text)
@@ -11,7 +13,7 @@ BEGIN
     query_text := 'WITH unique_trainers AS (
                       SELECT DISTINCT ON (user_id) user_id, service_price_in_grosz, profile_name, profile_image_url, profile_slug
                       FROM trainers_details
-                      WHERE stripe_onboarding_status = ''verified''';
+                      WHERE stripe_onboarding_status = ''verified'' AND hide_profile = FALSE';
 
     -- Apply additional filters if provided
     IF filters <> '{}' THEN
