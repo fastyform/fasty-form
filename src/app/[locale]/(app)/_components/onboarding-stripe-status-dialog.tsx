@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import AppButton from '@/components/app-button';
 import AppModal from '@/components/app-modal';
@@ -20,7 +20,6 @@ const isFinishedOnboardingParam = (param: string): param is FinishedOnboardingPa
 const OnboardingStripeStatusDialog = () => {
   const t = useTranslations();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const successParam = searchParams.get('stripe_onboarding_status');
 
   if (!successParam || !isFinishedOnboardingParam(successParam)) return null;
@@ -28,7 +27,7 @@ const OnboardingStripeStatusDialog = () => {
   const icon = paramToIconPath[successParam];
 
   const handleModalClose = () => {
-    router.replace('/payments');
+    window.history.replaceState(null, '', window.location.pathname);
   };
 
   return (

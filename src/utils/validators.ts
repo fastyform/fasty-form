@@ -16,3 +16,10 @@ export const newPasswordValidator = (t: IntlShape) => z.string().min(8, t('COMMO
 export const checkboxCheckedValidator = z.literal<boolean>(true);
 
 export const roleSchema = z.enum(['client', 'trainer']);
+
+export const profileNameValidator = (t: IntlShape) =>
+  z.string().min(1, t('COMMON_PROFILE_NAME_ERROR_EMPTY')).max(50, t('COMMON_PROFILE_NAME_ERROR_MAX_LENGTH'));
+
+const MAX_BIO_CHAR = 200;
+export const bioValidator = (t: IntlShape) =>
+  z.string().max(MAX_BIO_CHAR, t('ERROR_MAX_CHARACTERS', { max: MAX_BIO_CHAR }));

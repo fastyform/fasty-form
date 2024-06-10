@@ -1,17 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import slugify from 'slugify';
-import AppButtonSubmit from '@/components/app-button-submit';
-import AppFormState from '@/components/app-form-error';
+import { socialToIconMap } from '@/app/[locale]/(app)/trainers/[slug]/_components/edit-profile-form-components';
+import { SOCIAL_LINKS } from '@/app/[locale]/(app)/trainers/[slug]/_utils/utils';
+import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
-import { formDefaultState } from '@/utils/form';
+import notify from '@/utils/notify';
 import actionOnboarding from './action-onboarding';
 import { onboardingFormSchema, OnboardingFormValues } from './utils';
 
@@ -19,37 +20,56 @@ export const NOT_ALLOWED_SLUG_CHARS_REGEX = /[*+~.()'"!:@#^`=[{\]}\\]/g;
 const slugifyWithOptions = (text: string) =>
   slugify(text, { replacement: '-', lower: true, remove: NOT_ALLOWED_SLUG_CHARS_REGEX });
 
+const RequiredMark = () => <span className="pr-0.5 text-red-400">*</span>;
+
 const OnboardingForm = () => {
   const t = useTranslations();
-  const [state, formAction] = useFormState(actionOnboarding, formDefaultState);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [shouldSlugify, setShouldSlugify] = useState(true);
-  const { control, handleSubmit, formState, watch, setValue, setError, resetField } = useForm<OnboardingFormValues>({
+  const form = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingFormSchema(t)),
-    defaultValues: { servicePrice: 20, profileName: '', profileSlug: '', marketingConsent: false },
-    mode: 'onTouched',
+    defaultValues: {
+      servicePrice: 20,
+      profileName: '',
+      profileSlug: '',
+      bio: '',
+      socialLinks: { instagram: '', facebook: '', youtube: '', tiktok: '' },
+      marketingConsent: false,
+    },
   });
 
-  const profileNameInputValue = watch('profileName');
+  const onboardingMutation = useMutation({
+    mutationFn: () => actionOnboarding(form.getValues()),
+    onMutate: () => setIsRedirecting(true),
+    onSuccess: (data) => {
+      if (data.isSuccess) {
+        return;
+      }
 
-  const handleFormAction = (data: FormData) => handleSubmit(async () => formAction(data))();
+      setIsRedirecting(false);
+      if (data.messageKey === 'ONBOARDING_ERROR_LINK_EXISTS') {
+        form.setError('profileSlug', { message: t('ONBOARDING_ERROR_LINK_EXISTS') }, { shouldFocus: true });
+        
+return;
+      }
 
-  useEffect(() => {
-    if (state.message === t('ONBOARDING_ERROR_LINK_EXISTS')) {
-      setError('profileSlug', {}, { shouldFocus: true });
-    }
-  }, [setError, state.message, t]);
+      notify.error(t('COMMON_ERROR'));
+    },
+  });
+
+  const profileNameInputValue = form.watch('profileName');
 
   return (
-    <form action={handleFormAction} className="flex w-full flex-col gap-5">
+    <form className="flex w-full flex-col gap-5" onSubmit={form.handleSubmit(() => onboardingMutation.mutate())}>
       <div className="flex flex-col gap-5 text-sm">
-        <AppFormState state={state} />
-        <div className="flex flex-col gap-2.5 ">
+        <div className="flex flex-col gap-2.5">
           <span className="text-white">
+            <RequiredMark />
             {t.rich('ONBOARDING_FORM_SERVICE_PRICE_LABEL')}{' '}
             <span className="text-yellow-400">({t('CURRENCY_PLN')})</span>
           </span>
           <Controller
-            control={control}
+            control={form.control}
             name="servicePrice"
             render={({ field }) => (
               <AppInputPrice name="servicePrice" value={field.value} onChange={(_, value) => field.onChange(value)} />
@@ -57,22 +77,28 @@ const OnboardingForm = () => {
           />
         </div>
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">{t('COMMON_PROFILE_NAME')}</span>
+          <span className="text-white">
+            <RequiredMark />
+            {t('COMMON_PROFILE_NAME')}
+          </span>
           <AppInputForm
-            control={control}
+            control={form.control}
             fieldName="profileName"
             onBlur={(e) => {
               if (shouldSlugify) {
-                setValue('profileSlug', slugifyWithOptions(e.target.value), { shouldValidate: true });
+                form.setValue('profileSlug', slugifyWithOptions(e.target.value), { shouldValidate: true });
               }
             }}
           />
         </div>
         <div className="flex flex-col gap-2.5 ">
-          <span className="text-white">{t('ONBOARDING_LINK_LABEL')}</span>
+          <span className="text-white">
+            <RequiredMark />
+            {t('ONBOARDING_LINK_LABEL')}
+          </span>
           <span className="text-xs text-white">{t('ONBOARDING_LINK_CAPTION')}</span>
           <AppInputForm
-            control={control}
+            control={form.control}
             fieldName="profileSlug"
             InputProps={{
               startAdornment: (
@@ -84,7 +110,7 @@ const OnboardingForm = () => {
             onBlur={(e) => {
               if (!e.target.value) {
                 setShouldSlugify(true);
-                resetField('profileSlug', { keepError: true });
+                form.resetField('profileSlug', { keepError: true });
 
                 return;
               }
@@ -94,8 +120,32 @@ const OnboardingForm = () => {
             }}
           />
         </div>
+        <div className="flex flex-col gap-2.5 ">
+          <span className="text-white">{t('COMMON_PROFILE_BIO')}</span>
+          <AppInputForm multiline control={form.control} fieldName="bio" rows={5} />
+        </div>
+        <div className="flex flex-col gap-2.5 ">
+          <span className="text-white">{t('TRAINERS_EDIT_PROFILE_SOCIAL_LINKS')}</span>
+          <div className="flex flex-col gap-2.5">
+            {SOCIAL_LINKS.map((type) => {
+              const Icon = socialToIconMap[type];
+
+              return (
+                <div key={type} className="flex items-center gap-2.5">
+                  <Icon className="size-10 text-white" />
+                  <AppInputForm
+                    className="grow"
+                    control={form.control}
+                    fieldName={`socialLinks.${type}`}
+                    placeholder={`https://www.${type}.com`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <Controller
-          control={control}
+          control={form.control}
           name="marketingConsent"
           render={({ field }) => (
             <FormControlLabel
@@ -114,9 +164,9 @@ const OnboardingForm = () => {
           )}
         />
       </div>
-      <AppButtonSubmit isValid={formState.isValid} size="large">
+      <AppButton loading={onboardingMutation.isPending || isRedirecting} size="large" type="submit">
         {t('ONBOARDING_BUTTON_SUBMIT')}
-      </AppButtonSubmit>
+      </AppButton>
     </form>
   );
 };
