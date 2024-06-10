@@ -9,6 +9,7 @@ const NewTrainers = async () => {
     .select('service_price_in_grosz, profile_name, profile_image_url, profile_slug, user_id')
     .order('created_at', { ascending: false })
     .filter('stripe_onboarding_status', 'eq', 'verified')
+    .filter('hide_profile', 'eq', false)
     .limit(6);
 
   if (error) throw new Error();

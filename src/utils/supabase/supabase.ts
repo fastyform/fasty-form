@@ -94,6 +94,7 @@ export type Database = {
           bio: string;
           created_at: string;
           email: string | null;
+          hide_profile: boolean;
           is_onboarded: boolean;
           onboarded_at: string | null;
           profile_image_url: string | null;
@@ -110,6 +111,7 @@ export type Database = {
           bio?: string;
           created_at?: string;
           email?: string | null;
+          hide_profile?: boolean;
           is_onboarded?: boolean;
           onboarded_at?: string | null;
           profile_image_url?: string | null;
@@ -126,6 +128,7 @@ export type Database = {
           bio?: string;
           created_at?: string;
           email?: string | null;
+          hide_profile?: boolean;
           is_onboarded?: boolean;
           onboarded_at?: string | null;
           profile_image_url?: string | null;
