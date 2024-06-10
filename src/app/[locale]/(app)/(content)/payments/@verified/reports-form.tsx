@@ -124,7 +124,7 @@ const ReportsForm = ({ dataAvailableStart, dataAvailableEnd, stripeAccountId }: 
           render={({ field }) => (
             <AppDatePicker
               disableFuture
-              label={t('REPORT_DATE_SELECT_START')}
+              label={t('REPORT_DATE_SELECT_END')}
               maxDate={reportDataEnd}
               minDate={reportDataStart}
               name={field.name}
