@@ -54,6 +54,7 @@ const InfiniteTrainers = ({ trainers, seed }: { trainers: TrainerCardDetails[]; 
       hasMore={hasNextPage}
       loader={null}
       next={fetchNextPage}
+      scrollableTarget="scrollable"
     >
       {allTrainers.map((trainer) => (
         <TrainerCard key={trainer.user_id} trainer={trainer} />

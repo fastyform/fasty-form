@@ -29,8 +29,7 @@ const NavbarLink = ({ icon, children, variant = 'text', className, ...props }: P
           ? 'fade bg-yellow-400 bg-[length:600%] font-bold text-bunker'
           : 'font-medium text-zinc-400 hover:text-yellow-100',
         isActive && variant === 'text' && '!text-yellow-400',
-        variant === 'text' &&
-          'min-w-0 flex-1 flex-col rounded-none !text-[10px] lg:flex-row lg:rounded-full lg:!text-sm',
+        variant === 'text' && 'min-w-0 flex-col rounded-none !text-[10px] lg:flex-row lg:rounded-full lg:!text-sm',
         className,
       )}
       {...props}
