@@ -30,21 +30,19 @@ const TrainersFilters = () => {
   return (
     <div className="flex flex-wrap gap-2.5">
       <AppButton
-        className="w-fit"
         color={sort === 'ASC' ? 'primary' : 'secondary'}
         size="small"
+        startIcon={<ArrowUpwardOutlinedIcon />}
         onClick={() => handleSort('ASC')}
       >
-        <ArrowUpwardOutlinedIcon />
         {t('TRAINERS_DATABASE_FILTERS_PRICE')}
       </AppButton>
       <AppButton
-        className="w-fit"
         color={sort === 'DESC' ? 'primary' : 'secondary'}
         size="small"
+        startIcon={<ArrowDownwardOutlinedIcon />}
         onClick={() => handleSort('DESC')}
       >
-        <ArrowDownwardOutlinedIcon />
         {t('TRAINERS_DATABASE_FILTERS_PRICE')}
       </AppButton>
     </div>
