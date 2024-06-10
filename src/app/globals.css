@@ -24,6 +24,11 @@ body {
   min-height: 100dvh;
 }
 
+.max-h-screen-responsive {
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
 .webkit-fill-white {
   -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
 }
