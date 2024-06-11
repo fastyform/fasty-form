@@ -8,13 +8,7 @@ import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import { PLNToGrosz, StripeConstants } from '@/utils/stripe';
 import getStripe from '@/utils/stripe/get-stripe';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import {
-  editPriceFormSchema,
-  getProfileBioFormSchema,
-  getProfileNameFormSchema,
-  getSocialLinksSchema,
-  SocialLinks,
-} from './_utils/utils';
+import { editPriceFormSchema, getProfileBioFormSchema, getProfileNameFormSchema } from './_utils/utils';
 
 interface EditProfilePayload {
   profileName: string;
@@ -138,27 +132,6 @@ export const actionEditProfilePicture = async ({
     .update({
       ...(imageUrl !== undefined && { profile_image_url: imageUrl }),
     })
-    .eq('user_id', user.id);
-
-  if (error) throw new Error();
-
-  revalidatePath(`/trainers/${trainerProfileSlug}`);
-};
-
-interface EditSocialLinksPayload {
-  socialLinks: SocialLinks;
-  trainerProfileSlug: string;
-}
-
-export const actionEditSocialLinks = async ({ socialLinks, trainerProfileSlug }: EditSocialLinksPayload) => {
-  const t = await getTranslations();
-  getSocialLinksSchema(t).parse(socialLinks);
-  const supabase = getSupabaseServerClient();
-  const user = await getLoggedInUser();
-
-  const { error } = await supabase
-    .from('trainers_details')
-    .update({ social_links: socialLinks })
     .eq('user_id', user.id);
 
   if (error) throw new Error();
