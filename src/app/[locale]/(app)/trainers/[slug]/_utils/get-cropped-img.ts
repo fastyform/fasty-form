@@ -64,12 +64,38 @@ const getCroppedImg = async (imageSrc: string, pixelCrop: Area, rotation: number
     pixelCrop.height,
   );
 
+  const maxDimension = 1080;
+  let resizeWidth = croppedCanvas.width;
+  let resizeHeight = croppedCanvas.height;
+
+  if (resizeWidth > maxDimension || resizeHeight > maxDimension) {
+    const aspectRatio = resizeWidth / resizeHeight;
+    if (resizeWidth > resizeHeight) {
+      resizeWidth = maxDimension;
+      resizeHeight = maxDimension / aspectRatio;
+    } else {
+      resizeHeight = maxDimension;
+      resizeWidth = maxDimension * aspectRatio;
+    }
+  }
+
+  const resizedCanvas = document.createElement('canvas');
+  resizedCanvas.width = resizeWidth;
+  resizedCanvas.height = resizeHeight;
+  const resizedCtx = resizedCanvas.getContext('2d');
+
+  if (!resizedCtx) {
+    return null;
+  }
+
+  resizedCtx.drawImage(croppedCanvas, 0, 0, resizeWidth, resizeHeight);
+
   return new Promise((resolve, reject) => {
-    croppedCanvas.toBlob((blob) => {
+    resizedCanvas.toBlob((blob) => {
       if (blob) {
         resolve(blob);
       } else {
-        reject(new Error('Unable to create blob from the cropped canvas.'));
+        reject(new Error('Unable to create blob from the resized canvas.'));
       }
     }, 'image/jpeg');
   });
