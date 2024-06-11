@@ -48,7 +48,7 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
             <Image
               fill
               alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
-              className="opacity-40 blur-3xl [transform:translate3d(0,0,0)]"
+              className="opacity-60 blur-xl [transform:translate3d(0,0,0)]"
               src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
             />
             {isUserOwner && (
