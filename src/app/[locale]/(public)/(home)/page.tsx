@@ -140,9 +140,14 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               />
               <div className="section-profile-gradient absolute inset-0 xl:hidden" />
             </div>
-            <div className="sm:-mt-18 z-[1] -mt-10 flex max-w-sm flex-col gap-2.5	lg:gap-5 lg:text-left xl:max-w-md">
-              <h3 className="text-4xl font-bold md:text-5xl xl:text-6xl">{t.rich('HOME_REPORTS_TITLE')}</h3>
-              <p className="text-sm md:text-base">{t('HOME_REPORTS_DESCRIPTION')}</p>
+            <div className="sm:-mt-18 z-[1] -mt-10 flex max-w-sm flex-col items-start	lg:text-left xl:max-w-md">
+              <h3 className="mb-2.5 text-4xl font-bold md:text-5xl lg:mb-5 xl:text-6xl">
+                {t.rich('HOME_REPORTS_TITLE')}
+              </h3>
+              <p className="mb-5 text-sm md:text-base lg:mb-10">{t('HOME_REPORTS_DESCRIPTION')}</p>
+              <AppButton component={Link} href="/how-it-works">
+                {t.rich('HOME_HOW_IT_WORKS')}
+              </AppButton>
             </div>
           </PublicContainer.Content>
         </PublicContainer>
