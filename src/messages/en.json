@@ -138,6 +138,8 @@
   "HOME_SUBMISSION_SEND_ALT": "View of sending a submission analysis",
   "HOME_TRAINER_PROFILE_ALT": "Trainer profile",
   "HOW_IT_WORKS_DESCRIPTION": "<AppName></AppName> is very simple! Create a trainer account, share your profile on social media and earn money from your technique analysis. It only takes 3 minutes!",
+  "HOW_IT_WORKS_METADATA_DESCRIPTION": "{appName} is very simple! Create a trainer account, share your profile on social media and earn money from your technique analysis. It only takes 3 minutes!",
+  "HOW_IT_WORKS_METADATA_TITLE": "{appName} - How does it work?",
   "HOW_IT_WORKS_ONBOARDING_MOBILE_ALT": "onboarding view on iPhone",
   "HOW_IT_WORKS_REGISTER_CTA": "Create a trainer account",
   "HOW_IT_WORKS_STEPS_DESCRIPTION_one": "Creating an account on <AppName></AppName> is completely free. We only charge a small commission on each payment.",

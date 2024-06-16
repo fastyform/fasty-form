@@ -11,7 +11,7 @@ const PublicNavbar = ({ className }: { className?: string }) => {
   return (
     <header
       className={twMerge(
-        'fixed top-0 z-50 flex h-[--public-navbar-height] w-full items-center justify-center border-b border-gray-600 bg-shark px-5',
+        'fixed left-0 right-0 top-0 z-50 flex h-[--public-navbar-height] items-center justify-center border-b border-gray-600 bg-shark px-5',
         className,
       )}
     >

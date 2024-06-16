@@ -138,6 +138,8 @@
   "HOME_SUBMISSION_SEND_ALT": "Widok wysyłania analizy zgłoszenia",
   "HOME_TRAINER_PROFILE_ALT": "Profil trenera",
   "HOW_IT_WORKS_DESCRIPTION": "<AppName></AppName> jest bardzo proste! Załóż konto trenera, udostępnij swój profil na social media i zarabiaj na analizie techniki. To zajmie tylko 3 minuty!",
+  "HOW_IT_WORKS_METADATA_DESCRIPTION": "{appName} jest bardzo proste! Załóż konto trenera, udostępnij swój profil na social media i zarabiaj na analizie techniki. To zajmie tylko 3 minuty!",
+  "HOW_IT_WORKS_METADATA_TITLE": "{appName} - Jak to działa?",
   "HOW_IT_WORKS_ONBOARDING_MOBILE_ALT": "widok onboardingu na iphone",
   "HOW_IT_WORKS_REGISTER_CTA": "Załóż konto trenera",
   "HOW_IT_WORKS_STEPS_DESCRIPTION_one": "Założenie konta w <AppName></AppName> jest w pełni darmowe. Pobieramy jedynie niewielką prowizję od każdej płatności.",
