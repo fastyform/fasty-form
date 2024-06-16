@@ -21,6 +21,7 @@ export const ALLOWED_ROUTES_FOR_INDEXING = [
   '/cookies',
   '/login',
   '/forgot-password',
+  '/client',
 ];
 
 export const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
