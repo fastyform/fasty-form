@@ -41,7 +41,7 @@ const AmbassadorProgramSection = ({ className }: AmbassadorProgramSectionProps) 
       <Image fill alt="Zdjęcie siłowni z hantlami" className="object-cover" src="/home/ambassador-program-bg.png" />
       <PublicContainer className="relative z-[1]">
         <PublicContainer.Content className="flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex max-w-md flex-col gap-2.5 lg:text-center">
+          <div className="flex max-w-md flex-col gap-2.5">
             <h2 className="text-2xl font-bold lg:text-3xl">{t('HOME_AMBASSADOR_TITLE')}</h2>
             <p>
               {t('HOME_AMBASSADOR_DESCRIPTION')}{' '}

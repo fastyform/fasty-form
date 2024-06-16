@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import PublicNavbar from '@/app/[locale]/(public)/_components/public-desktop-navbar';
 import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-navbar-placeholder';
 import { Locale } from '@/utils/constants';
 
@@ -23,6 +24,7 @@ const ClintPage = ({ params: { locale } }: { params: { locale: Locale } }) => {
 
   return (
     <div className="min-h-screen-responsive relative z-0 flex flex-col justify-center overflow-x-hidden px-5 py-10 text-white">
+      <PublicNavbar />
       <PublicNavbarPlaceholder />
       <Image fill alt="" className="-z-10 object-cover object-left opacity-5" src="/client/client-background.png" />
       <div className="mx-auto flex w-full max-w-xl flex-col gap-10 xl:max-w-screen-xl xl:gap-20">

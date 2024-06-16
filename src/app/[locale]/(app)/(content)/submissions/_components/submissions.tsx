@@ -56,6 +56,7 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
       <div className="flex w-full flex-col items-center gap-5">
         <Image
           alt="Ikony popularnych serwisów społecznościowych Facebook, Instagram, Linkedin, X, TikTok, YouTube"
+          className="w-[300px] lg:w-[409px]"
           height={355}
           quality={100}
           src="/no-submissions-trainer-fallback.png"
