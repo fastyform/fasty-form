@@ -13,6 +13,7 @@ import PublicNavbar from '@/app/[locale]/(public)/_components/public-desktop-nav
 import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-navbar-placeholder';
 import AppButton from '@/components/app-button';
 import Constants, { Locale } from '@/utils/constants';
+import FaqAccordion from './faq-accordion';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: Locale } }): Promise<Metadata> {
   const t = await getTranslations({ locale });
@@ -35,10 +36,10 @@ const HowItWorksPage = ({ params: { locale } }: { params: { locale: Locale } }) 
   const t = useTranslations();
 
   return (
-    <div className="flex flex-col text-white">
+    <div className="flex flex-col gap-10 text-white xl:gap-20">
       <PublicNavbar />
       <PublicNavbarPlaceholder />
-      <PublicContainer className="my-10">
+      <PublicContainer>
         <PublicContainer.Content className="flex-col gap-10 xl:flex-row xl:gap-0">
           <div className="flex grow flex-col gap-10">
             <div className="flex max-w-md flex-col items-start gap-5 xl:max-w-xl">
@@ -67,12 +68,18 @@ const HowItWorksPage = ({ params: { locale } }: { params: { locale: Locale } }) 
           </div>
           <Image
             alt={`${Constants.APP_NAME} - ${t('HOW_IT_WORKS_ONBOARDING_MOBILE_ALT')}`}
-            className="w-[241px] self-center xl:sticky xl:top-32 xl:w-[337px] xl:self-start"
+            className="w-[241px] self-center xl:sticky xl:top-36 xl:w-[337px] xl:self-start"
             height={1520 * 0.5}
             quality={100}
             src={`/home/iphone-app-onboarding-${locale}.png`}
             width={817 * 0.5}
           />
+        </PublicContainer.Content>
+      </PublicContainer>
+      <PublicContainer>
+        <PublicContainer.Content className="flex-wrap gap-10">
+          <h1 className="text-5xl font-bold xl:text-5xl">{t('HOW_IT_WORKS_FAQ_TITLE')}</h1>
+          <FaqAccordion />
         </PublicContainer.Content>
       </PublicContainer>
       <PublicContainer>
