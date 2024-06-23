@@ -78,7 +78,7 @@ const HowItWorksPage = ({ params: { locale } }: { params: { locale: Locale } }) 
       </PublicContainer>
       <PublicContainer>
         <PublicContainer.Content className="flex-wrap gap-10">
-          <h1 className="text-5xl font-bold xl:text-5xl">{t('HOW_IT_WORKS_FAQ_TITLE')}</h1>
+          <h2 className="text-4xl font-bold xl:text-5xl">{t('HOW_IT_WORKS_FAQ_TITLE')}</h2>
           <FaqAccordion />
         </PublicContainer.Content>
       </PublicContainer>
