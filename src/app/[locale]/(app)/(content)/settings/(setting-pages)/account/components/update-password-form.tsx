@@ -11,7 +11,7 @@ import {
   UpdatePasswordFormValues,
   updatePasswordSchema,
 } from '@/app/[locale]/(app)/(content)/settings/(setting-pages)/account/utils';
-import QuestionMarkIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_components/trainer-review-form/question-mark-icon';
+import QuestionMarkIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/question-mark-icon';
 import AppButton from '@/components/app-button';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
