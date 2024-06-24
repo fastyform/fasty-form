@@ -13,7 +13,7 @@ import PublicNavbar from '@/app/[locale]/(public)/_components/public-desktop-nav
 import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-navbar-placeholder';
 import AppButton from '@/components/app-button';
 import Constants, { Locale } from '@/utils/constants';
-import FaqAccordion from './faq-accordion';
+import FAQ from './faq';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: Locale } }): Promise<Metadata> {
   const t = await getTranslations({ locale });
@@ -79,7 +79,7 @@ const HowItWorksPage = ({ params: { locale } }: { params: { locale: Locale } }) 
       <PublicContainer>
         <PublicContainer.Content className="flex-wrap gap-10">
           <h2 className="text-4xl font-bold xl:text-5xl">{t('HOW_IT_WORKS_FAQ_TITLE')}</h2>
-          <FaqAccordion />
+          <FAQ />
         </PublicContainer.Content>
       </PublicContainer>
       <PublicContainer>
