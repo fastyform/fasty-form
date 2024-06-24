@@ -6,14 +6,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
+import QuestionMarkIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/question-mark-icon';
 import SubmissionPartWithIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_components/submission-part-with-icon';
+import {
+  trainerReviewFormSchema,
+  TrainerReviewValues,
+} from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_utils/schema';
+import actionAddTrainerReview from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/action-add-trainer-review';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppModal from '@/components/app-modal';
 import notify from '@/utils/notify';
-import actionAddTrainerReview from './action-add-trainer-review';
-import QuestionMarkIcon from './question-mark-icon';
-import { trainerReviewFormSchema, TrainerReviewValues } from './utils';
 
 const AddTrainerReviewForm = ({ submissionId }: { submissionId: string }) => {
   const t = useTranslations();

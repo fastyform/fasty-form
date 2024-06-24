@@ -9,9 +9,9 @@ import BuyButton from '@/app/[locale]/(app)/trainers/[slug]/_components/buy-butt
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
+import AddTrainerReviewForm from './_components/add-trainer-review-form';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
-import AddTrainerReviewForm from './_components/trainer-review-form/add-trainer-review-form';
 import { VideoSkeleton } from './loading';
 
 dayjs.extend(dayjsUtc);
