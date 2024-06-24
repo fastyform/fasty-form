@@ -158,6 +158,7 @@ export type Database = {
       };
       user_data: {
         Row: {
+          client_review_sent_at: string | null;
           consent_modal_displayed: boolean;
           locale: Database['public']['Enums']['locales'];
           marketing_consent: boolean;
@@ -165,6 +166,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          client_review_sent_at?: string | null;
           consent_modal_displayed?: boolean;
           locale?: Database['public']['Enums']['locales'];
           marketing_consent?: boolean;
@@ -172,6 +174,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          client_review_sent_at?: string | null;
           consent_modal_displayed?: boolean;
           locale?: Database['public']['Enums']['locales'];
           marketing_consent?: boolean;

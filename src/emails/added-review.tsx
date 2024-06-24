@@ -5,7 +5,7 @@ import { IntlShape } from '@/utils/types';
 import MailTemplate from './mail-template';
 
 interface AddedReviewProps {
-  profileName: string | null;
+  profileName: string;
   trainerProfileSlug: string;
   submissionId: string;
   t: IntlShape;
