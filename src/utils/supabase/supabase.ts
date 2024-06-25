@@ -91,6 +91,7 @@ export type Database = {
       };
       trainers_details: {
         Row: {
+          app_review_sent_at: string | null;
           bio: string;
           created_at: string;
           email: string | null;
@@ -108,6 +109,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          app_review_sent_at?: string | null;
           bio?: string;
           created_at?: string;
           email?: string | null;
@@ -125,6 +127,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          app_review_sent_at?: string | null;
           bio?: string;
           created_at?: string;
           email?: string | null;
