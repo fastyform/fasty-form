@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/invoice",
       "schedule": "0 6 1 * *"
+    },
+    {
+      "path": "/api/cron/trainer-app-review",
+      "schedule": "0 9 * * *"
     }
   ],
   "functions": {
