@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
           html: render(<StripeOnboardingReminder t={t} />),
         });
       } catch (error: any) {
-        error.push({ email, error: error?.message });
+        errors.push({ email, error: error?.message });
       }
     });
 
