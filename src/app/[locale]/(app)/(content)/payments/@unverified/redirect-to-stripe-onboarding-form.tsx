@@ -90,6 +90,11 @@ const RedirectToStripeOnboardingForm = () => {
           />
         )}
       </div>
+      <span className="text-sm text-white">
+        {watch('businessType') === 'individual'
+          ? t('PAYMENTS_ACTIVATE_FORM_INDIVIDUAL_RECEIPT_INFO')
+          : t('PAYMENTS_ACTIVATE_FORM_COMPANY_RECEIPT_INFO')}
+      </span>
       <AppButton loading={actionPaymentOnboardingRedirectMutation.isPending || isRedirecting} type="submit">
         {t('PAYMENTS_ACTIVATE_FORM_BUTTON')}
       </AppButton>
