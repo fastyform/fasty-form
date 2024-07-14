@@ -70,8 +70,12 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
           <p className="mb-5">{t('SUBMISSIONS_EMPTY_TRAINER_DESCRIPTION')}</p>
           <div className="flex flex-col items-center gap-2.5">
             <ShareProfileButton isIconOnMobile={false} trainerDetails={trainerDetails} />
-            <AppButton className="gap-2" color="secondary" href="/how-it-works" LinkComponent={Link}>
-              <VideoCameraBackOutlinedIcon />
+            <AppButton
+              color="secondary"
+              href="/how-it-works"
+              LinkComponent={Link}
+              startIcon={<VideoCameraBackOutlinedIcon />}
+            >
               {t.rich('SUBMISSIONS_HOW_IT_WORKS')}
             </AppButton>
           </div>

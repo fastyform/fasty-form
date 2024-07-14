@@ -38,7 +38,7 @@ const actionRegister = async (prevState: FormState, { data: formData, role, redi
     password,
     options: {
       emailRedirectTo: `${Constants.ORIGIN_URL}${redirectPath}`,
-      data: getConfirmSignupEmailTranslations(t),
+      data: { ...getConfirmSignupEmailTranslations(t), role },
     },
   });
 

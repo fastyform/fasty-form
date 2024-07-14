@@ -170,6 +170,7 @@
   "LOGIN_PAGE_METADATA_TITLE": "Login - <AppName></AppName>",
   "LOGIN_PAGE_TITLE": "Log in",
   "LOGIN_REGISTER_REDIRECT": "Don't have an account? <Yellow>Register</Yellow>",
+  "MAIL_HOW_IT_WORKS_CTA": "How <AppName></AppName> works?",
   "MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_1": "Great news - <Strong>Your technique analysis by <TrainerLink></TrainerLink> is ready!</Strong> The trainer has thoroughly reviewed your recording and has some valuable tips to help you improve your skills.",
   "MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_2": "To view your technique analysis <SubmissionLink>click here</SubmissionLink>, or simply:",
   "MAIL_TEMPLATE_ADDED_REVIEW_CONTENT_3_1": "Log in to <MailAppLink></MailAppLink>.",
