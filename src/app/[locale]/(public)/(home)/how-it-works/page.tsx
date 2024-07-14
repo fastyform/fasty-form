@@ -12,6 +12,7 @@ import PublicContainer from '@/app/[locale]/(public)/_components/public-containe
 import PublicNavbar from '@/app/[locale]/(public)/_components/public-desktop-navbar';
 import PublicNavbarPlaceholder from '@/app/[locale]/(public)/_components/public-navbar-placeholder';
 import AppButton from '@/components/app-button';
+import HowItWorksVideo from '@/components/how-it-works-video';
 import Constants, { Locale } from '@/utils/constants';
 import FAQ from './faq';
 
@@ -48,6 +49,7 @@ const HowItWorksPage = ({ params: { locale } }: { params: { locale: Locale } }) 
               <AppButton component={Link} href="/register/trainer">
                 {t('HOW_IT_WORKS_REGISTER_CTA')}
               </AppButton>
+              <HowItWorksVideo />
             </div>
             {stepsDataKeys.map((key) => {
               const [Number, className] = stepsData[key];

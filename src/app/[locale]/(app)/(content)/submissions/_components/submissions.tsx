@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+import VideoCameraBackOutlinedIcon from '@mui/icons-material/VideoCameraBackOutlined';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import NotFoundIcon from '@/app/[locale]/(app)/(content)/submissions/_assets/not-found-icon';
 import {
@@ -8,6 +10,7 @@ import {
   SUBMISSIONS_PAGE_SIZE,
 } from '@/app/[locale]/(app)/(content)/submissions/_utils/get-submissions';
 import ShareProfileButton from '@/app/[locale]/(app)/trainers/[slug]/_components/share-profile-button';
+import AppButton from '@/components/app-button';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
@@ -65,7 +68,13 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
         <div className="flex max-w-md flex-col items-center justify-center text-center text-white">
           <h2 className="mb-2.5 text-xl font-bold md:text-2xl">{t('SUBMISSIONS_EMPTY_TRAINER_TITLE')}</h2>
           <p className="mb-5">{t('SUBMISSIONS_EMPTY_TRAINER_DESCRIPTION')}</p>
-          <ShareProfileButton isIconOnMobile={false} trainerDetails={trainerDetails} />
+          <div className="flex flex-col items-center gap-2.5">
+            <ShareProfileButton isIconOnMobile={false} trainerDetails={trainerDetails} />
+            <AppButton className="gap-2" color="secondary" href="/how-it-works" LinkComponent={Link}>
+              <VideoCameraBackOutlinedIcon />
+              {t.rich('SUBMISSIONS_HOW_IT_WORKS')}
+            </AppButton>
+          </div>
         </div>
       </div>
     );
