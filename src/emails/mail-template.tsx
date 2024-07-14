@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Button, Container, Font, Img, Link, Tailwind, Text } from '@react-email/components';
+import { twJoin } from 'tailwind-merge';
 import Constants, { COMPANY_INFO, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import { IntlShape } from '@/utils/types';
 
@@ -12,10 +13,22 @@ const LineBreak = () => (
   </>
 );
 
-const CallToAction = ({ href, children }: { href: string; children: ReactNode }) => (
+const CallToAction = ({
+  href,
+  children,
+  variant = 'primary',
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: 'primary' | 'secondary';
+}) => (
   <Button
-    className="m-auto block w-fit rounded-full bg-yellow-400 px-[30px] py-[18px] text-center text-base font-bold !text-[#0D1116]"
     href={href}
+    className={twJoin(
+      variant === 'primary' && 'bg-yellow-400 !text-[#0D1116]',
+      variant === 'secondary' && 'border border-solid border-gray-600 bg-[#1E2226] !text-white',
+      'm-auto block w-fit rounded-full px-[30px] py-[18px] text-center text-base font-bold',
+    )}
   >
     {children}
   </Button>

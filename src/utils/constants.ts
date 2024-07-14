@@ -25,6 +25,7 @@ export const ALLOWED_ROUTES_FOR_INDEXING = [
   '/how-it-works',
 ];
 
+export const HOW_IT_WORKS_VIDEO_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley';
 export const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 export const DATE_FORMAT = 'DD.MM.YY';
 
