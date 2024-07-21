@@ -11,9 +11,7 @@ export type TrainerCardDetails = Pick<
 >;
 
 export const TrainerCardContainer = ({ children }: { children: ReactNode }) => (
-  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-    {children}
-  </div>
+  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 ">{children}</div>
 );
 
 export const TrainerCardsSkeleton = () => (
