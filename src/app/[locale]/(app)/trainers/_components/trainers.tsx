@@ -8,7 +8,8 @@ const Trainers = async () => {
     .from('trainers_details')
     .select('service_price_in_grosz, profile_name, profile_image_url, profile_slug, user_id')
     .filter('stripe_onboarding_status', 'eq', 'verified')
-    .filter('hide_profile', 'eq', false);
+    .filter('hide_profile', 'eq', false)
+    .filter('service_price_in_grosz', 'eq', 1000);
 
   if (error) throw new Error();
 
