@@ -1,41 +1,34 @@
 import { Suspense } from 'react';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import ContentLayoutContainer from '@/app/[locale]/(app)/_components/content-layout-container';
 import { Locale } from '@/utils/constants';
-import { SearchParams } from '@/utils/types';
-import NewTrainers from './_components/new-trainers';
-
 import { TrainerCardsSkeletons } from './_components/trainer-card';
 import Trainers from './_components/trainers';
-import TrainersFilters from './_components/trainers-filters';
 
-const TrainersPage = async ({
-  params,
-  searchParams,
-}: {
-  params: { slug: string; locale: Locale };
-  searchParams: SearchParams;
-}) => {
+const heroBenefits = ['professional', 'improve', 'injury', 'price'] as const;
+
+const TrainersPage = async ({ params }: { params: { slug: string; locale: Locale } }) => {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations();
-
-  const key = JSON.stringify(searchParams);
 
   return (
     <ContentLayoutContainer>
       <div className="flex flex-col gap-10 text-white">
-        <h1 className="text-2xl font-bold">{t.rich('TRAINERS_DATABASE_TITLE')}</h1>
-        <div className="flex flex-col gap-5">
-          <h2 className="text-xl">{t('TRAINERS_DATABASE_TITLE_NEW')}</h2>
-          <Suspense fallback={<TrainerCardsSkeletons length={6} />}>
-            <NewTrainers />
-          </Suspense>
+        <div className="flex max-w-2xl flex-col gap-5">
+          <h1 className="text-2xl font-bold lg:text-4xl">{t.rich('TRAINERS_DATABASE_TITLE')}</h1>
+          <div className="flex flex-col gap-1">
+            {heroBenefits.map((benefit) => (
+              <div key={benefit} className="flex items-center gap-3 font-medium">
+                <CheckCircleOutlineRoundedIcon className="text-yellow-400" />
+                <p>{t(`TRAINERS_DATABASE_${benefit}`)}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="flex flex-col gap-5">
-          <h2 className="text-xl">{t('TRAINERS_DATABASE_TITLE_ALL')}</h2>
-          <Suspense key={key} fallback={<TrainerCardsSkeletons length={6} />}>
-            <TrainersFilters />
-            <Trainers searchParams={searchParams} />
+          <Suspense fallback={<TrainerCardsSkeletons length={6} />}>
+            <Trainers />
           </Suspense>
         </div>
       </div>

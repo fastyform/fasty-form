@@ -487,8 +487,11 @@
   "TRAINERS_DATABASE_FILTERS_PRICE": "Cena",
   "TRAINERS_DATABASE_PRICE_TITLE": "Analiza techniki",
   "TRAINERS_DATABASE_TITLE": "Znajdź <Yellow>trenera</Yellow> idealnego dla Ciebie i skorzystaj z <Yellow>analizy techniki</Yellow>!",
-  "TRAINERS_DATABASE_TITLE_ALL": "Trenerzy - wybierz swojego eksperta",
-  "TRAINERS_DATABASE_TITLE_NEW": "Odkryj naszych nowych trenerów",
+  "TRAINERS_DATABASE_improve": "Poprawa wyników",
+
+  "TRAINERS_DATABASE_injury": "Zapobieganie kontuzjom",
+  "TRAINERS_DATABASE_price": "Niska cena",
+  "TRAINERS_DATABASE_professional": "Profesjonalni i zweryfikowani trenerzy",
   "TRAINERS_EDIT_PROFILE_CROPPER_CROP_IMAGE": "Przytnij zdjęcie",
   "TRAINERS_EDIT_PROFILE_CROPPER_ROTATION": "Rotacja",
   "TRAINERS_EDIT_PROFILE_CROPPER_ZOOM": "Przybliżenie",
