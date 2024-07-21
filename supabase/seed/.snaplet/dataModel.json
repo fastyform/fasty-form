@@ -459,6 +459,20 @@
           "maxLength": null
         },
         {
+          "id": "realtime.broadcasts.check",
+          "name": "check",
+          "columnName": "check",
+          "type": "bool",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "id": "realtime.broadcasts.inserted_at",
           "name": "inserted_at",
           "columnName": "inserted_at",
@@ -502,11 +516,6 @@
         }
       ],
       "uniqueConstraints": [
-        {
-          "name": "broadcasts_pkey",
-          "fields": ["id"],
-          "nullNotDistinct": false
-        },
         {
           "name": "broadcasts_channel_id_index",
           "fields": ["channel_id"],
@@ -781,6 +790,20 @@
           "maxLength": null
         },
         {
+          "id": "realtime.channels.check",
+          "name": "check",
+          "columnName": "check",
+          "type": "bool",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "name": "broadcasts",
           "type": "broadcasts",
           "isRequired": false,
@@ -810,11 +833,6 @@
         }
       ],
       "uniqueConstraints": [
-        {
-          "name": "channels_pkey",
-          "fields": ["id"],
-          "nullNotDistinct": false
-        },
         {
           "name": "channels_name_index",
           "fields": ["name"],
@@ -2413,6 +2431,20 @@
           "maxLength": null
         },
         {
+          "id": "realtime.presences.check",
+          "name": "check",
+          "columnName": "check",
+          "type": "bool",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "id": "realtime.presences.inserted_at",
           "name": "inserted_at",
           "columnName": "inserted_at",
@@ -2456,11 +2488,6 @@
         }
       ],
       "uniqueConstraints": [
-        {
-          "name": "presences_pkey",
-          "fields": ["id"],
-          "nullNotDistinct": false
-        },
         {
           "name": "presences_channel_id_index",
           "fields": ["channel_id"],
@@ -4526,6 +4553,20 @@
           "maxLength": null
         },
         {
+          "id": "public.trainers_details.app_review_sent_at",
+          "name": "app_review_sent_at",
+          "columnName": "app_review_sent_at",
+          "type": "timestamptz",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "name": "users",
           "type": "users",
           "isRequired": true,
@@ -4668,6 +4709,20 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "public.user_data.client_review_sent_at",
+          "name": "client_review_sent_at",
+          "columnName": "client_review_sent_at",
+          "type": "timestamptz",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
           "isId": false,
           "maxLength": null
         },

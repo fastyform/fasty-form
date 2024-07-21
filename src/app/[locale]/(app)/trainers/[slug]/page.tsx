@@ -13,6 +13,7 @@ import { groszToPLN } from '@/utils/stripe';
 import { Database } from '@/utils/supabase/supabase';
 import BuyButton from './_components/buy-button';
 import ProfileActionButtons from './_components/profile-action-buttons';
+import ProfileSocialIcons from './_components/profile-social-icons';
 import checkIsTrainerProfileOwner from './_utils/check-is-trainer-profile-owner';
 import getTrainerIdBySlug from './_utils/get-trainer-details-by-slug';
 
@@ -67,6 +68,7 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
             </div>
           </div>
           <div className="flex max-w-[500px] flex-col gap-5 ">
+            <ProfileSocialIcons socialLinks={trainerDetails.social_links} />
             <div className="flex flex-col gap-2.5">
               <h1 className="text-2xl font-bold text-white [word-break:break-word] sm:text-4xl md:text-5xl">
                 {trainerDetails.profile_name}
