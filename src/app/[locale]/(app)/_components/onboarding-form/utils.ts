@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { getSocialLinksSchema } from '@/app/[locale]/(app)/trainers/[slug]/_utils/utils';
 import { IntlShape } from '@/utils/types';
 import { bioValidator, profileNameValidator } from '@/utils/validators';
 
@@ -14,6 +15,7 @@ export const onboardingFormSchema = (t: IntlShape) =>
       .regex(ALLOWED_SLUG_CHARS_REGEX, t('ONBOARDING_ERROR_LINK_INCORRECT'))
       .min(1, t('ONBOARDING_ERROR_LINK_EMPTY'))
       .max(50, t('ONBOARDING_ERROR_LINK_MAX_LENGTH')),
+    socialLinks: getSocialLinksSchema(t),
     marketingConsent: z.boolean(),
   });
 

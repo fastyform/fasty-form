@@ -7,6 +7,8 @@ import { Checkbox, FormControlLabel, InputAdornment } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import slugify from 'slugify';
+import { socialToIconMap } from '@/app/[locale]/(app)/trainers/[slug]/_components/edit-profile-form-components';
+import { SOCIAL_LINKS } from '@/app/[locale]/(app)/trainers/[slug]/_utils/utils';
 import AppButton from '@/components/app-button';
 import AppInputForm from '@/components/app-input/app-input-form';
 import AppInputPrice from '@/components/app-input/app-input-price';
@@ -31,6 +33,7 @@ const OnboardingForm = () => {
       profileName: '',
       profileSlug: '',
       bio: '',
+      socialLinks: { instagram: '', facebook: '', youtube: '', tiktok: '' },
       marketingConsent: false,
     },
   });
@@ -120,6 +123,26 @@ const OnboardingForm = () => {
         <div className="flex flex-col gap-2.5 ">
           <span className="text-white">{t('COMMON_PROFILE_BIO')}</span>
           <AppInputForm multiline control={form.control} fieldName="bio" rows={5} />
+        </div>
+        <div className="flex flex-col gap-2.5 ">
+          <span className="text-white">{t('TRAINERS_EDIT_PROFILE_SOCIAL_LINKS')}</span>
+          <div className="flex flex-col gap-2.5">
+            {SOCIAL_LINKS.map((type) => {
+              const Icon = socialToIconMap[type];
+
+              return (
+                <div key={type} className="flex items-center gap-2.5">
+                  <Icon className="size-10 text-white" />
+                  <AppInputForm
+                    className="grow"
+                    control={form.control}
+                    fieldName={`socialLinks.${type}`}
+                    placeholder={`https://www.${type}.com`}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <Controller
           control={form.control}

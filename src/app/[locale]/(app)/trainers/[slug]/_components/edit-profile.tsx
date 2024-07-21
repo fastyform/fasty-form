@@ -9,7 +9,7 @@ import AppButton from '@/components/app-button';
 import AppModal from '@/components/app-modal';
 import { TrainerDetails } from '@/utils/get-trainer-details-by-id';
 import { groszToPLN } from '@/utils/stripe';
-import { EditBioForm, EditPriceForm, EditProfileNameForm } from './edit-profile-form-components';
+import { EditBioForm, EditPriceForm, EditProfileNameForm, EditSocialLinksForm } from './edit-profile-form-components';
 import EditUserProfilePictureForm from './edit-user-profile-picture-form';
 
 const FormDivider = () => <div className="border-b border-gray-600" />;
@@ -59,6 +59,11 @@ const EditProfile = ({ trainerDetails }: { trainerDetails: TrainerDetails }) => 
             <FormDivider />
             <EditUserProfilePictureForm
               profileImageUrl={trainerDetails.profile_image_url}
+              trainerProfileSlug={trainerDetails.profile_slug}
+            />
+            <FormDivider />
+            <EditSocialLinksForm
+              socialLinks={trainerDetails.social_links}
               trainerProfileSlug={trainerDetails.profile_slug}
             />
           </div>

@@ -24,7 +24,7 @@ const actionOnboarding = async (data: OnboardingFormValues) => {
 
   const userId = userData.user.id;
 
-  const { servicePrice, profileName, profileSlug, marketingConsent, bio } = formSchemaParsed.data;
+  const { servicePrice, profileName, profileSlug, marketingConsent, socialLinks, bio } = formSchemaParsed.data;
   const { error } = await supabase
     .from('trainers_details')
     .update({
@@ -32,6 +32,7 @@ const actionOnboarding = async (data: OnboardingFormValues) => {
       profile_name: profileName,
       profile_slug: profileSlug,
       is_onboarded: true,
+      social_links: socialLinks,
       bio,
       onboarded_at: dayjs().toISOString(),
     })
