@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import ContentLayoutContainer from '@/app/[locale]/(app)/_components/content-layout-container';
+import { TrainerCardsSkeletons } from '@/components/trainer-card';
+import Trainers from '@/components/trainers';
 import { Locale } from '@/utils/constants';
-import { TrainerCardsSkeletons } from './_components/trainer-card';
-import Trainers from './_components/trainers';
 
 const heroBenefits = ['professional', 'improve', 'injury', 'price'] as const;
 

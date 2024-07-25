@@ -56,14 +56,3 @@ export const sendMultipleMails = async ({ mails, subject, html }: SendMultipleDa
     console.error(error);
   }
 };
-
-export const addContactToList = async (email: string) => {
-  await requestClient.request({
-    url: '/v3/marketing/contacts',
-    method: 'PUT',
-    body: {
-      list_ids: [process.env.SENDGRID_AMBASSADOR_LIST_ID!],
-      contacts: [{ email }],
-    },
-  });
-};
