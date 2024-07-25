@@ -14,7 +14,7 @@ const FOOTER_LINKS = [
   ['/cookies', 'COOKIES'],
   ['/ambassador-program', 'AMBASSADOR'],
   ['/', 'HOME_PAGE'],
-  ['/client', 'CLIENT'],
+  ['/trainers', 'CLIENT'],
   ['/how-it-works', 'HOW_IT_WORKS'],
 ] as const;
 

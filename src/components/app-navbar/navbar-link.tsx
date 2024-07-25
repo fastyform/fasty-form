@@ -9,11 +9,17 @@ import navbarIcons from '@/components/app-navbar/assets/navbar-icons';
 
 interface Props extends ButtonProps {
   icon?: keyof typeof navbarIcons;
+  trainerSlug?: string;
 }
 
-const NavbarLink = ({ icon, children, variant = 'text', className, ...props }: Props) => {
+const NavbarLink = ({ icon, children, variant = 'text', className, trainerSlug, ...props }: Props) => {
   const pathname = usePathname();
-  const isActive = pathname.includes(props.href as string);
+
+  const isActive =
+    props.href === '/trainers'
+      ? !pathname.includes(trainerSlug || '') && pathname.includes('/trainers')
+      : pathname.includes(props.href as string);
+
   const NavbarIcon = icon ? navbarIcons[icon] : navbarIcons.submissions;
 
   return (

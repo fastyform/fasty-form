@@ -25,9 +25,13 @@ const NavbarContent = async () => {
               {t('NAV_PAYMENTS')}
             </NavbarLink>
           )}
-          {/* <NavbarLink href="/trainers" icon="trainers">
+          <NavbarLink
+            href="/trainers"
+            icon="trainers"
+            trainerSlug={trainerDetails && trainerDetails.profile_slug ? trainerDetails.profile_slug : undefined}
+          >
             {t('COMMON_TRAINER_DATABASE')}
-          </NavbarLink> */}
+          </NavbarLink>
           <NavbarLink className="hidden lg:flex" href="/settings/account" icon="settings">
             {t('NAV_SETTINGS')}
           </NavbarLink>
