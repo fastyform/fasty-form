@@ -1,4 +1,3 @@
-import ShareProfileButton from '@/app/[locale]/(app)/trainers/[slug]/_components/share-profile-button';
 import checkIsTrainerProfileOwner from '@/app/[locale]/(app)/trainers/[slug]/_utils/check-is-trainer-profile-owner';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import getUserWithNull from '@/utils/get-user-with-null';
@@ -11,12 +10,7 @@ const ProfileActionButtons = async ({ trainerId }: { trainerId: string }) => {
 
   if (!isTrainerOwner || !trainerDetails.profile_slug) return;
 
-  return (
-    <>
-      <EditProfile trainerDetails={trainerDetails} />
-      <ShareProfileButton isIconOnMobile trainerDetails={trainerDetails} />
-    </>
-  );
+  return <EditProfile trainerDetails={trainerDetails} />;
 };
 
 export default ProfileActionButtons;

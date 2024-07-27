@@ -100,7 +100,7 @@ const FeedbackForm = () => {
                 <AppFormState state={{ isSuccess: false, message: fieldState.error.message }} />
               )}
               <RadioGroup value={field.value} onChange={(_, value) => field.onChange(value)}>
-                {(['0', '1', '2', '3'] as const).map((value) => (
+                {(['1', '2', '3'] as const).map((value) => (
                   <FormControlLabel
                     key={value}
                     classes={{ label: 'font-light text-sm' }}

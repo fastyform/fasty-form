@@ -12,7 +12,6 @@ const FOOTER_LINKS = [
   ['/privacy-policy', 'PRIVACY_POLICY'],
   ['/contact', 'CONTACT'],
   ['/cookies', 'COOKIES'],
-  ['/ambassador-program', 'AMBASSADOR'],
   ['/', 'HOME_PAGE'],
   ['/client', 'CLIENT'],
   ['/how-it-works', 'HOW_IT_WORKS'],

@@ -27,7 +27,7 @@ const SubmissionsPage = async ({
       <div className="flex flex-col gap-8">
         <FilterTabs defaultFilterParam={searchParams?.filter} isTrainerAccount={isTrainerAccount} />
         <Suspense key={key} fallback={<SubmissionCardSkeleton />}>
-          <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} userId={userId} />
+          <Submissions isTrainerAccount={isTrainerAccount} searchParams={searchParams} />
         </Suspense>
       </div>
     </>
