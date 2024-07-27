@@ -13,7 +13,7 @@ import { TrainerCardsSkeletons } from '@/components/trainer-card';
 import Trainers from '@/components/trainers';
 import Constants, { Locale } from '@/utils/constants';
 import HomeArrow from './_assets/home-arrow';
-import { appBenefitsIcons, appBenefitsKeys, heroBenefits } from './data';
+import { appBenefitsIcons, appBenefitsKeys } from './data';
 
 const Navbar = () => {
   const t = useTranslations();
@@ -46,6 +46,8 @@ const Navbar = () => {
   );
 };
 
+const benefits = ['0', '1', '2', '3'] as const;
+
 const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
 
@@ -68,7 +70,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
               <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">{t.rich('HOME_HERO_TITLE')}</h1>
               <div className="flex flex-col gap-1 text-sm lg:text-base xl:text-xl">
-                {heroBenefits.map((benefit) => (
+                {benefits.map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3 font-medium">
                     <CheckCircleOutlineRoundedIcon className="text-yellow-400" />
                     <p>{t(`HOME_HERO_BENEFITS_${benefit}`)}</p>
@@ -78,7 +80,15 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             </div>
             <div className="flex flex-wrap gap-3">
               <AppButton classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }} component={Link} href="/trainers">
-                {t('HOME_HERO_CHECK_TRAINERS_CTA')}
+                {t('HOME_HERO_CTA_1')}
+              </AppButton>
+              <AppButton
+                classes={{ root: 'py-3 xl:px-[40px] xl:text-xl' }}
+                component={Link}
+                href="/register/client"
+                variant="outlined"
+              >
+                {t('HOME_HERO_CTA_2')}
               </AppButton>
             </div>
           </PublicContainer.Content>
@@ -95,20 +105,20 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
 
         <PublicContainer>
           <PublicContainer.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px] xl:pt-60">
-            <h3 className="text-center text-3xl font-bold lg:text-4xl">
-              {t('HOME_BENEFITS_TITLE')} <span className="font-bold text-yellow-400">{Constants.APP_NAME}</span>?
-            </h3>
+            <h3 className="text-center text-3xl font-bold lg:text-4xl">{t.rich('HOME_BENEFITS_TITLE')}</h3>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
               {appBenefitsKeys.map((key) => {
                 const Icon = appBenefitsIcons[key];
 
                 return (
                   <div key={key} className="flex flex-col items-center gap-2.5">
-                    <div className="flex size-[184px] flex-col items-center  justify-center gap-2.5 rounded-full border border-yellow-400 bg-shark p-2 text-base lg:size-60 lg:p-8 lg:text-xl">
+                    <div className="flex size-[184px] flex-col items-center  justify-center gap-2.5 rounded-full border border-yellow-400 bg-shark p-3 text-base lg:size-60 lg:p-8 lg:text-xl">
                       <Icon className="size-12 text-xl lg:size-[70px]" />
                       <span className="text-center font-bold">{t(`HOME_BENEFITS_TITLE_${key}`)}</span>
                     </div>
-                    <p className="max-w-80 text-center">{t.rich(`HOME_BENEFITS_DESCRIPTION_${key}`)}</p>
+                    <p className="max-w-80 text-center text-sm md:text-base">
+                      {t.rich(`HOME_BENEFITS_DESCRIPTION_${key}`)}
+                    </p>
                   </div>
                 );
               })}
@@ -118,7 +128,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
 
         <PublicContainer>
           <PublicContainer.Content className="flex flex-col gap-10 pt-10 lg:gap-14 lg:py-20">
-            <h3 className="text-center text-3xl font-bold lg:text-4xl">{t('HOME_TRAINERS_TITLE')}</h3>
+            <h3 className="text-center text-3xl font-bold lg:text-4xl">{t.rich('HOME_TRAINERS_TITLE')}</h3>
             <Suspense fallback={<TrainerCardsSkeletons length={6} />}>
               <Trainers />
             </Suspense>
@@ -144,7 +154,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
               </h3>
               <p className="mb-5 text-sm md:text-base lg:mb-10">{t('HOME_REPORTS_DESCRIPTION')}</p>
               <AppButton component={Link} href="/how-it-works">
-                {t.rich('HOME_HOW_IT_WORKS')}
+                {t.rich('HOME_HOW_IT_WORKS_CTA')}
               </AppButton>
             </div>
           </PublicContainer.Content>
