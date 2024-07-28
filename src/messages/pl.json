@@ -32,6 +32,7 @@
   "COMMON_SUBMISSIONS": "Zgłoszenia",
   "COMMON_TOS": "Regulamin",
   "COMMON_TRAINER_DATABASE": "Trenerzy",
+  "COMMON_TRAINER_PROFILE_ALT": "Zdjęcie profilowe",
   "COMMON_YES": "Tak",
   "CONTACT_DESCRIPTION": "Cześć!<NewLine></NewLine><NewLine></NewLine>W <AppName></AppName> ciągle dążymy do doskonałości i wiemy, że zawsze istnieje przestrzeń na rozwój i ulepszenia. Dlatego też Twoje spostrzeżenia i opinie są dla nas niezwykle cenne!<NewLine></NewLine><NewLine></NewLine>Jeśli napotkałeś jakiekolwiek błędy, problemy techniczne, czy masz jakiekolwiek sugestie, jak możemy poprawić naszą stronę lub usługi, prosimy o kontakt. Każda uwaga jest dla nas ważna i każdą traktujemy bardzo poważnie.<NewLine></NewLine><NewLine></NewLine><Strong>Jak możesz się z nami skontaktować?</Strong>",
   "CONTACT_DESCRIPTION_THANK_YOU": "Każdy zgłoszony problem jest dla nas okazją do ulepszenia, a każda sugestia może być iskrą potrzebną do stworzenia czegoś wyjątkowego. Pamiętaj, że Twoja opinia jest dla nas cenna i stanowi ważną część naszej społeczności.<NewLine></NewLine><NewLine></NewLine>Z góry dziękujemy za każdy kontakt i każdą uwagę. Razem tworzymy lepsze miejsce w sieci!<NewLine></NewLine> <NewLine></NewLine>Serdecznie pozdrawiamy,<NewLine></NewLine>Zespół <AppName></AppName>",
@@ -424,7 +425,6 @@
   "SUBMISSION_PAIDOUT_AT": "Wypłacono",
   "SUBMISSION_REQUIREMENTS_DESCRIPTION_LABEL": "Opcjonalna wiadomość dla trenera",
   "SUBMISSION_REQUIREMENTS_DESCRIPTION_PLACEHOLDER": "Wiadomość",
-  "SUBMISSION_REQUIREMENTS_FORM_CHECK": "Analiza techniki",
   "SUBMISSION_REQUIREMENTS_STABLE_CONNECTION_INFO": "Zapewnij stabilne połączenie Wi-Fi w celu szybszego przesyłania wideo.",
   "SUBMISSION_REQUIREMENTS_TITLE": "Szczegóły zamówienia",
   "SUBMISSION_REQUIREMENTS_VIDEO_DESCRIPTION": "Trwa wysyłanie wideo. Pozostaw to okno otwarte do momentu zakończenia. Zamknięcie okna spowoduje przerwanie.",
@@ -490,6 +490,5 @@
   "TRAINERS_PAGE_EDIT_PROFILE": "Edytuj profil",
   "TRAINERS_PAGE_METADATA_DESCRIPTION": "Zakup analizę techniki u trenera {profileName} w <AppName></AppName>.",
   "TRAINERS_PAGE_METADATA_TITLE": "Profil Trenera {profileName} - <AppName></AppName>",
-  "TRAINERS_PAGE_PROFILE_IMAGE": "Zdjęcie profilowe",
   "TRAINERS_PAGE_SERVICE_NAME": "Analiza techniki (jedno wideo) - "
 }

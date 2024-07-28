@@ -34,8 +34,8 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string; lo
         <MobileNavigationIconLink aria-label="Zgłoszenia" href="/submissions" icon="back" />
         <h1 className="text-2xl font-bold text-white">{t('SUBMISSION_REQUIREMENTS_TITLE')}</h1>
         <span className="text-white">
-          {t('SUBMISSION_REQUIREMENTS_FORM_CHECK')} -{' '}
           <TrainerProfileNameLink
+            profileImageUrl={submission.trainers_details.profile_image_url}
             profileName={submission.trainers_details.profile_name}
             trainerProfileSlug={submission.trainers_details.profile_slug}
           />

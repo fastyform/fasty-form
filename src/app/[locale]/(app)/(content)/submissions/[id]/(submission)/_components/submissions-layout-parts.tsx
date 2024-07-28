@@ -25,7 +25,8 @@ export const SubmissionTrainerName = async ({ submissionId }: { submissionId: st
 
   return (
     <TrainerProfileNameLink
-      className="hidden text-xl lg:block"
+      className="hidden text-xl lg:flex"
+      profileImageUrl={submission.trainers_details.profile_image_url}
       profileName={submission.trainers_details.profile_name}
       trainerProfileSlug={submission.trainers_details.profile_slug}
     />

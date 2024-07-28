@@ -77,6 +77,7 @@ const Submissions = async ({ searchParams, isTrainerAccount }: SubmissionsProps)
               createdAt={created_at}
               submissionId={id}
               submissionStatus={status}
+              trainerProfileImageUrl={trainers_details.profile_image_url}
               trainerProfileName={trainers_details.profile_name}
               videoKey={video_key}
             />
