@@ -92,6 +92,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
       </p>
       <TrainerProfileNameLink
         className="lg:hidden"
+        profileImageUrl={submission.trainers_details.profile_image_url}
         profileName={submission.trainers_details.profile_name}
         trainerProfileSlug={submission.trainers_details.profile_slug}
       />

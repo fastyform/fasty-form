@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { groszToPLN } from '@/utils/stripe';
 import { Database } from '@/utils/supabase/supabase';
+import TrainerImage from './trainer-image';
 
 export type TrainerCardDetails = Pick<
   Database['public']['Tables']['trainers_details']['Row'],
@@ -38,7 +38,7 @@ export const TrainerCardsSkeletons = ({ length }: { length: number }) => (
 
 const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
   const t = useTranslations();
-  if (!trainer.service_price_in_grosz) return null;
+  if (!trainer.service_price_in_grosz || !trainer.profile_name) return null;
 
   return (
     <Link
@@ -47,18 +47,18 @@ const TrainerCard = ({ trainer }: { trainer: TrainerCardDetails }) => {
       href={`/trainers/${trainer.profile_slug}`}
     >
       <div className="relative flex items-center justify-center">
-        <Image
+        <TrainerImage
           fill
-          alt=""
           className="opacity-60 blur-xl [transform:translate3d(0,0,0)]"
-          src={trainer.profile_image_url || '/default-trainer.jpg'}
+          trainerProfileImageUrl={trainer.profile_image_url}
+          trainerProfileName={trainer.profile_name}
         />
         <div className="relative aspect-square w-full max-w-40">
-          <Image
+          <TrainerImage
             fill
-            alt={`${trainer.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
             className="rounded-full border border-gray-600 shadow-[0_4px_60px_0_#0000002b]"
-            src={trainer.profile_image_url || '/default-trainer.jpg'}
+            trainerProfileImageUrl={trainer.profile_image_url}
+            trainerProfileName={trainer.profile_name}
           />
         </div>
       </div>

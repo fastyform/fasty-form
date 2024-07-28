@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import StatusBadge from '@/app/[locale]/(app)/(content)/submissions/_components/status-badge';
 import AppButton from '@/components/app-button';
+import TrainerImage from '@/components/trainer-image';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import { MessageKey, SubmissionStatus } from '@/utils/types';
@@ -31,6 +32,7 @@ interface SubmissionCardProps {
   submissionStatus: SubmissionStatus;
   videoKey: string | null;
   createdAt: string;
+  trainerProfileImageUrl: string | null;
 }
 
 const SubmissionCard = async ({
@@ -39,6 +41,7 @@ const SubmissionCard = async ({
   submissionStatus,
   videoKey,
   createdAt,
+  trainerProfileImageUrl,
 }: SubmissionCardProps) => {
   const t = await getTranslations();
   const user = await getLoggedInUser();
@@ -62,7 +65,15 @@ const SubmissionCard = async ({
           </div>
           <div className="flex flex-col gap-2.5">
             {!isTrainerAccount && trainerProfileName && (
-              <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
+              <div className="flex items-center gap-2.5">
+                <TrainerImage
+                  height={32}
+                  trainerProfileImageUrl={trainerProfileImageUrl}
+                  trainerProfileName={trainerProfileName}
+                  width={32}
+                />
+                <h5 className="text-sm font-bold text-white lg:text-xl">{trainerProfileName}</h5>
+              </div>
             )}
             <span className="text-xs text-white">
               {t('SUBMISSION_CREATED_AT')} • {dayjs(createdAt).fromNow()}
