@@ -37,9 +37,6 @@ const RegisterClientPage = ({
         <RegisterForm locale={locale} redirectPathParam={searchParams.redirectUrl} userRole="client" />
       </div>
       <div className="flex flex-col gap-2">
-        <AuthLink href="/register/trainer" redirectUrlParam={searchParams.redirectUrl}>
-          {t.rich('REGISTER_CLIENT_TRAINER_REDIRECT')}
-        </AuthLink>
         <AuthLink href="/login" redirectUrlParam={searchParams.redirectUrl}>
           {t.rich('REGISTER_LOGIN_REDIRECT')}
         </AuthLink>
