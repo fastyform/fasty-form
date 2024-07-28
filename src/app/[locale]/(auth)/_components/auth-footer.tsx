@@ -13,8 +13,7 @@ const FOOTER_LINKS = [
   ['/contact', 'CONTACT'],
   ['/cookies', 'COOKIES'],
   ['/', 'HOME_PAGE'],
-  ['/trainers', 'CLIENT'],
-  ['/how-it-works', 'HOW_IT_WORKS'],
+  ['/trainers', 'TRAINERS'],
 ] as const;
 
 const AuthFooter = ({ className }: Props) => {
