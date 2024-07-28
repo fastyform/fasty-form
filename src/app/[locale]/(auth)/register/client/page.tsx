@@ -27,17 +27,21 @@ const RegisterClientPage = ({
 
   const t = useTranslations();
 
+  const isPurchaseFlow = searchParams.purchase === 'true';
+
   return (
     <SplitPageWithImage imageProps={{ alt: t('REGISTER_CLIENT_IMAGE_ALT'), src: '/client-register.jpg' }}>
       <div className="flex flex-col gap-2.5 text-center">
         <h1 className="text-2xl text-white">{t.rich('REGISTER_CLIENT_HEADING')}</h1>
       </div>
       <div className="flex flex-col gap-6">
-        <h2 className="text-2xl font-bold text-white">{t.rich('REGISTER_CLIENT_TITLE')}</h2>
+        <h2 className="text-2xl font-bold text-white">
+          {t.rich(isPurchaseFlow ? 'REGISTER_CLIENT_TITLE_PURCHASE_FLOW' : 'REGISTER_CLIENT_TITLE')}
+        </h2>
         <RegisterForm locale={locale} redirectPathParam={searchParams.redirectUrl} userRole="client" />
       </div>
       <div className="flex flex-col gap-2">
-        <AuthLink href="/login" redirectUrlParam={searchParams.redirectUrl}>
+        <AuthLink href="/login" isPurchaseFlow={isPurchaseFlow} redirectUrlParam={searchParams.redirectUrl}>
           {t.rich('REGISTER_LOGIN_REDIRECT')}
         </AuthLink>
       </div>

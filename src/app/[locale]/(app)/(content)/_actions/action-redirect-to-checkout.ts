@@ -50,7 +50,8 @@ const actionRedirectToCheckout = async ({ trainerId, successUrl, cancelUrl }: Pa
   )
     throw new Error();
 
-  if (!user || !user.email) return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}`);
+  if (!user || !user.email)
+    return redirect(`/login?redirectUrl=/trainers/${trainerDetails.profile_slug}&purchase=true`);
 
   const appFee = calculateAppFee(trainerDetails.service_price_in_grosz);
 
