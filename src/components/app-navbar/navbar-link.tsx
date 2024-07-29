@@ -16,8 +16,8 @@ const NavbarLink = ({ icon, children, variant = 'text', className, trainerSlug, 
   const pathname = usePathname();
 
   const isActive =
-    props.href === '/trainers'
-      ? !pathname.includes(trainerSlug || '') && pathname.includes('/trainers')
+    props.href === '/trainers' && !!trainerSlug
+      ? !pathname.includes(trainerSlug) && pathname.includes('/trainers')
       : pathname.includes(props.href as string);
 
   const NavbarIcon = icon ? navbarIcons[icon] : navbarIcons.submissions;

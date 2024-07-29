@@ -171,7 +171,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
           </div>
           <Image
             alt={`${Constants.APP_NAME} - ${t('HOW_IT_WORKS_ONBOARDING_MOBILE_ALT')}`}
-            className="w-[241px] self-center xl:sticky xl:top-36 xl:w-[337px] xl:self-start"
+            className="w-[241px] self-center xl:w-[337px]"
             height={1520 * 0.5}
             quality={100}
             src={`/home/iphone-app-onboarding-${locale}.png`}
