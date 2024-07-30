@@ -4,32 +4,30 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getTranslations } from 'next-intl/server';
 import { getQueryParamError } from '@/app/[locale]/(auth)/utils';
 import WelcomeMailClient from '@/emails/welcome-email-client';
-import WelcomeMailTrainer from '@/emails/welcome-email-trainer';
 import Constants, { DEFAULT_LOCALE } from '@/utils/constants';
 import { sendMail } from '@/utils/sendgrid';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import { roleSchema } from '@/utils/validators';
+
+// NOTE: in this flow
+// if there is no account - creates a new account with client role
+// if there is account - log in
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
-  const role = searchParams.get('role');
+
   const redirectUrl = searchParams.get('redirectUrl');
   const locale = searchParams.get('locale') || DEFAULT_LOCALE;
 
-  const roleSchemaParsed = roleSchema.safeParse(role);
-
-  if (!code || !roleSchemaParsed.success) {
+  if (!code) {
     return NextResponse.json({ error: 'Bad request' }, { status: 400 });
   }
-
-  const { data: parsedRole } = roleSchemaParsed;
 
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
-    return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
+    return redirect(`/register/client?${getQueryParamError('UNEXPECTED')}`);
   }
 
   const userId = data.user.id;
@@ -37,31 +35,29 @@ export async function GET(request: NextRequest) {
   // NOTE: Check if user is already registered and have assigned a role
   const roleResponse = await supabase.from('user_data').select('role').eq('user_id', userId).single();
 
-  if (roleResponse.error || !roleResponse.data) {
+  if (roleResponse.error) {
     await supabase.auth.signOut();
 
-    return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
+    return redirect(`/register/client?${getQueryParamError('UNEXPECTED')}`);
   }
 
   if (roleResponse.data.role !== null) {
-    await supabase.auth.signOut();
-
-    return redirect(`/register/${parsedRole}?${getQueryParamError('ALREADY_REGISTERED')}`);
+    return redirect(redirectUrl || '/submissions');
   }
 
-  const updateRoleResponse = await supabase.from('user_data').update({ role: parsedRole }).eq('user_id', userId);
+  const updateRoleResponse = await supabase.from('user_data').update({ role: 'client' }).eq('user_id', userId);
 
   if (updateRoleResponse.error) {
     await supabase.auth.signOut();
 
-    return redirect(`/register/${parsedRole}?${getQueryParamError('UNEXPECTED')}`);
+    return redirect(`/register/client?${getQueryParamError('UNEXPECTED')}`);
   }
 
   const t = await getTranslations({ locale });
   await sendMail({
     to: data.user.email as string,
     subject: t('MAIL_TEMPLATE_WELCOME_SUBJECT', { appName: Constants.APP_NAME }),
-    html: render(parsedRole === 'client' ? <WelcomeMailClient t={t} /> : <WelcomeMailTrainer t={t} />),
+    html: render(<WelcomeMailClient t={t} />),
   });
 
   return redirect(redirectUrl || '/submissions');

@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import actionRegisterGoogle from '@/app/[locale]/(auth)/providers/_actions/action-register-google';
+import actionRegisterTrainerGoogle from '@/app/[locale]/(auth)/providers/_actions/action-register-trainer-google';
+import actionSignInGoogle from '@/app/[locale]/(auth)/providers/_actions/action-sign-in-google';
 import ButtonGoogle from '@/app/[locale]/(auth)/providers/_components/button-google';
 import { FormValues, registerSchema } from '@/app/[locale]/(auth)/utils';
 import AppButtonSubmit from '@/components/app-button-submit';
@@ -74,8 +75,14 @@ const RegisterForm = ({ redirectPathParam, userRole, locale }: RegisterFormProps
           {t('COMMON_REGISTER_CTA')}
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
-        <ButtonGoogle authCallback={() => actionRegisterGoogle(userRole, redirectPathParam)}>
-          {t('COMMON_REGISTER_CTA')}
+        <ButtonGoogle
+          authCallback={() =>
+            userRole === 'client'
+              ? actionSignInGoogle(redirectPathParam)
+              : actionRegisterTrainerGoogle(redirectPathParam)
+          }
+        >
+          {t(userRole === 'client' ? 'COMMON_CONTINUE' : 'COMMON_REGISTER_CTA')}
         </ButtonGoogle>
       </div>
       <span className="text-center text-xs text-zinc-200">

@@ -5,17 +5,16 @@ import { redirect } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { getResponse } from '@/utils';
 import { getSupabaseServerClient } from '@/utils/supabase/client';
-import { Database } from '@/utils/supabase/supabase';
 import { SearchParam } from '@/utils/types';
 
-const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], redirectUrlParam: SearchParam) => {
+// NOTE: in this flow
+// if there is no account - creates a new account with client role
+// if there is account - log in
+
+const actionSignInGoogle = async (redirectUrlParam: SearchParam) => {
   const t = await getTranslations();
   const redirectUrl = typeof redirectUrlParam === 'string' ? `&redirectUrl=${redirectUrlParam}` : '';
   const locale = await getLocale();
-
-  if (!role) {
-    return getResponse(t('COMMON_ERROR'));
-  }
 
   const headersList = headers();
 
@@ -24,7 +23,7 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
   const response = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${headersList.get('origin')}/api/auth/providers/google/register?role=${role}&locale=${locale}${redirectUrl}`,
+      redirectTo: `${headersList.get('origin')}/api/auth/providers/google/sign-in?locale=${locale}${redirectUrl}`,
     },
   });
 
@@ -35,4 +34,4 @@ const actionRegisterGoogle = async (role: Database['public']['Enums']['role'], r
   return getResponse(t('COMMON_ERROR'));
 };
 
-export default actionRegisterGoogle;
+export default actionSignInGoogle;
