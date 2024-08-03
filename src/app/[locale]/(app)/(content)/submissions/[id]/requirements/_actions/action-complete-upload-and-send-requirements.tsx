@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { submissionRequirementsSchema } from '@/app/[locale]/(app)/(content)/submissions/[id]/requirements/utils';
 import getUserAsAdminById from '@/app/[locale]/(app)/(content)/submissions/_utils/get-user-as-admin-by-id';
+import NewRequirementsSent from '@/emails/new-requirement-sent';
 import RequirementsSent from '@/emails/requirements-sent';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import getUserLocaleAsAdminById from '@/utils/get-user-locale-by-id';
@@ -22,10 +23,25 @@ interface Payload {
   clientDescription: string;
 }
 
-const sendTrainerEmailNotification = async (trainerId: string, profileName: string, submissionId: string) => {
+const sendTrainerEmailNotification = async (
+  trainerId: string,
+  profileName: string,
+  submissionId: string,
+  isNewVideoRequest: boolean,
+) => {
   const trainer = await getUserAsAdminById(trainerId);
   const locale = await getUserLocaleAsAdminById(trainer.id);
   const t = await getTranslations({ locale });
+
+  if (isNewVideoRequest) {
+    await sendMail({
+      to: trainer.email as string,
+      subject: t('MAIL_TEMPLATE_NEW_REQUIREMENTS_SENT_SUBJECT'),
+      html: render(<NewRequirementsSent submissionId={submissionId} t={t} trainerName={profileName} />),
+    });
+
+    return;
+  }
 
   await sendMail({
     to: trainer.email as string,
@@ -70,12 +86,17 @@ const actionCompleteUploadAndSendRequirements = async (payload: Payload) => {
       status: 'unreviewed',
     })
     .eq('id', submissionId)
-    .select('id, trainer_id, trainers_details (profile_name)')
+    .select('id, trainer_id, trainers_details (profile_name), new_video_request_description')
     .single();
 
   if (updateSubmissionError || !submission || !submission.trainers_details?.profile_name) throw new Error();
 
-  await sendTrainerEmailNotification(submission.trainer_id, submission.trainers_details.profile_name, submissionId);
+  await sendTrainerEmailNotification(
+    submission.trainer_id,
+    submission.trainers_details.profile_name,
+    submissionId,
+    !!submission.new_video_request_description,
+  );
 
   revalidatePath('/submissions');
 
