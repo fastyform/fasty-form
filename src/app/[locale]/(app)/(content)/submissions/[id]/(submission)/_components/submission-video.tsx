@@ -34,13 +34,7 @@ const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
     },
   );
 
-  return (
-    <video
-      controls
-      className="aspect-video rounded-xl border border-gray-600 lg:order-2 lg:h-80 xl:h-96"
-      src={videoUrl}
-    />
-  );
+  return <video controls className="aspect-video rounded-xl border border-gray-600 lg:h-80 xl:h-96" src={videoUrl} />;
 };
 
 export default SubmissionVideo;
