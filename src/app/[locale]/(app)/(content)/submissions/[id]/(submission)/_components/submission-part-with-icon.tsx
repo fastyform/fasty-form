@@ -3,6 +3,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { twMerge } from 'tailwind-merge';
 import DescriptionIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/description-icon';
 import FinishedIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/finished-icon';
+import RequestSentIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/request-sent-icon';
 import SubmissionIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/submission-icon';
 
 const submissionIcons = {
@@ -10,6 +11,7 @@ const submissionIcons = {
   description: DescriptionIcon,
   finished: FinishedIcon,
   buyAgain: AutorenewIcon,
+  requestedVideo: RequestSentIcon,
 };
 
 interface SubmissionPartWithIconProps {

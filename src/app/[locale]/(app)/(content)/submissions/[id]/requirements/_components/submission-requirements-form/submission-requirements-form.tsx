@@ -19,13 +19,14 @@ import useOnSubmit from './use-on-submit';
 
 interface Props {
   submissionId: string;
+  clientDescription: string | null;
 }
 
-const SubmissionRequirementsForm = ({ submissionId }: Props) => {
+const SubmissionRequirementsForm = ({ submissionId, clientDescription }: Props) => {
   const t = useTranslations();
   const { control, handleSubmit } = useForm({
     resolver: zodResolver(submissionRequirementsSchema(t)),
-    defaultValues: { clientDescription: '' },
+    defaultValues: { clientDescription: clientDescription || '' },
     mode: 'onTouched',
   });
   const [videoFile, setVideoFile] = useState<File | null>(null);

@@ -13,6 +13,7 @@ import AddTrainerReviewForm from './_components/add-trainer-review-form';
 import RequestNewVideo from './_components/request-new-video';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
+import VideoRequestSent from './_components/video-request-sent';
 import { VideoSkeleton } from './loading';
 
 dayjs.extend(dayjsUtc);
@@ -26,7 +27,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
     getSubmissionById(params.id),
   ]);
 
-  if (submission.status === 'paid') {
+  if (submission.status === 'paid' || (submission.status === 'video_request' && !isTrainerAccount)) {
     return redirect(`/submissions/${params.id}/requirements`);
   }
 
@@ -43,16 +44,27 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           <span> • {formattedCreationDate}</span>
         </p>
         <div className="flex shrink-0 flex-col gap-5 lg:order-2">
-          <Suspense fallback={<VideoSkeleton />}>
-            <SubmissionVideo submissionId={params.id} />
-          </Suspense>
-          {submission.status === 'unreviewed' && <RequestNewVideo />}
+          {submission.video_key && (
+            <Suspense fallback={<VideoSkeleton />}>
+              <SubmissionVideo submissionId={params.id} />
+            </Suspense>
+          )}
+          {submission.status === 'unreviewed' && submission.video_key && (
+            <RequestNewVideo submissionId={params.id} videoKey={submission.video_key} />
+          )}
+          {submission.status === 'video_request' && !submission.video_key && <VideoRequestSent />}
         </div>
         <div className="flex flex-col gap-5 lg:order-1 lg:grow">
           {!!submission.client_description && (
             <SubmissionPartWithIcon verticalLine icon="submission">
               <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TITLE_TRAINER')}</h2>
               <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
+            </SubmissionPartWithIcon>
+          )}
+          {!!submission.new_video_request_description && (
+            <SubmissionPartWithIcon verticalLine icon="requestedVideo">
+              <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TITLE_REQUESTED_VIDEO')}</h2>
+              <p className="whitespace-pre-wrap text-sm text-white">{submission.new_video_request_description}</p>
             </SubmissionPartWithIcon>
           )}
 
@@ -101,7 +113,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
         trainerProfileSlug={submission.trainers_details.profile_slug}
       />
       <Suspense fallback={<VideoSkeleton />}>
-        <SubmissionVideo submissionId={params.id} />
+        <SubmissionVideo className="lg:order-2" submissionId={params.id} />
       </Suspense>
       <div className="flex flex-col gap-5 lg:order-1 lg:grow">
         {!!submission.client_description && (
@@ -110,7 +122,12 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
             <p className="whitespace-pre-wrap text-sm text-white">{submission.client_description}</p>
           </SubmissionPartWithIcon>
         )}
-
+        {!!submission.new_video_request_description && (
+          <SubmissionPartWithIcon verticalLine icon="requestedVideo">
+            <h2 className="text-lg font-bold leading-5 text-white">{t('SUBMISSION_TITLE_REQUESTED_VIDEO')}</h2>
+            <p className="whitespace-pre-wrap text-sm text-white">{submission.new_video_request_description}</p>
+          </SubmissionPartWithIcon>
+        )}
         {(submission.status === 'reviewed' || submission.status === 'paidout') && (
           <>
             <SubmissionPartWithIcon verticalLine icon="description">

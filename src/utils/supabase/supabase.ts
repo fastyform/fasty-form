@@ -34,6 +34,7 @@ export type Database = {
           client_id: string | null;
           created_at: string;
           id: string;
+          new_video_request_description: string | null;
           paidout_at: string | null;
           price_in_grosz: number;
           reviewed_at: string | null;
@@ -49,6 +50,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          new_video_request_description?: string | null;
           paidout_at?: string | null;
           price_in_grosz: number;
           reviewed_at?: string | null;
@@ -64,6 +66,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string;
           id?: string;
+          new_video_request_description?: string | null;
           paidout_at?: string | null;
           price_in_grosz?: number;
           reviewed_at?: string | null;
@@ -378,7 +381,7 @@ export type Database = {
     Enums: {
       locales: 'pl' | 'en';
       role: 'trainer' | 'client';
-      status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout';
+      status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout' | 'video_request';
       stripe_onboarding_status_enum: 'verified' | 'unverified' | 'pending_verification';
     };
     CompositeTypes: {

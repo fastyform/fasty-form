@@ -47,7 +47,9 @@ const SubmissionCard = async ({
   const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
-  const href = `/submissions/${submissionId}${submissionStatus === 'paid' ? '/requirements' : ''}`;
+  const isNewVideoRequest = submissionStatus === 'video_request' && !isTrainerAccount;
+
+  const href = `/submissions/${submissionId}${submissionStatus === 'paid' || isNewVideoRequest ? '/requirements' : ''}`;
 
   return (
     <SubmissionCardContainer>
@@ -55,7 +57,11 @@ const SubmissionCard = async ({
         <div className="flex w-full flex-col items-start gap-5 rounded-xl">
           <div className="relative h-60 w-full rounded-xl bg-bunker min-[450px]:h-40 lg:h-60">
             <Suspense>
-              <SubmissionCardImage submissionStatus={submissionStatus} videoKey={videoKey} />
+              <SubmissionCardImage
+                isTrainerAccount={isTrainerAccount}
+                submissionStatus={submissionStatus}
+                videoKey={videoKey}
+              />
             </Suspense>
             <StatusBadge
               className="absolute right-[5px] top-[5px] lg:right-2.5 lg:top-2.5"

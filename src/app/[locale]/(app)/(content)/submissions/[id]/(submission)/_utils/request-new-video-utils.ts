@@ -6,7 +6,7 @@ const MAX_CHAR = 500;
 
 export const requestNewVideoSchema = (t: IntlShape) =>
   z.object({
-    trainerReview: z
+    newVideoRequirements: z
       .string()
       .min(MIN_CHAR, t('COMMON_REQUIRED_FIELD'))
       .max(MAX_CHAR, t('ERROR_MAX_CHARACTERS', { max: MAX_CHAR })),
