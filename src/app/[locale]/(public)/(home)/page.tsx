@@ -62,17 +62,17 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
   return (
     <div className="min-h-screen-responsive relative z-0 flex flex-col overflow-x-hidden text-white">
       <Navbar />
-      <HomeArrow className="absolute right-0 z-0 hidden h-auto translate-x-[10%] translate-y-[-10%] xl:block xl:w-[800px]" />
+      <HomeArrow className="absolute right-0 z-0 hidden h-auto translate-x-[10%] translate-y-[-10%] xl:block xl:w-[700px] 2xl:w-[800px]" />
       <Image
         alt={t('HOME_HERO_IMAGE_ALT')}
-        className="absolute right-[20px] top-[120px] z-[1] hidden xl:block xl:w-[850px]"
+        className="absolute right-[20px] top-[120px] z-[1] hidden w-[50vw] max-w-[850px] xl:block"
         height={1083}
         src={`/home/main-section-mock-desktop-${locale}.png`}
         width={1148}
       />
       <PublicContainer className="z-[1] mb-10 pt-10 xl:mb-0 xl:pt-24 2xl:pt-48">
         <PublicContainer.Content className="grow flex-col md:grow-0 xl:grow xl:items-start">
-          <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:max-w-[750px] xl:text-start">
+          <div className="mb-10 flex max-w-[360px] flex-col gap-5 lg:max-w-[600px] xl:mb-10 xl:text-start 2xl:max-w-[680px]">
             <h1 className="text-3xl font-bold lg:text-5xl xl:text-6xl">{t.rich('HOME_HERO_TITLE')}</h1>
             <div className="flex flex-col gap-1 text-sm lg:text-base xl:text-xl">
               {benefits.map((benefit) => (
@@ -99,7 +99,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
         </PublicContainer.Content>
       </PublicContainer>
 
-      <section className="px-5 xl:hidden">
+      <section className="flex px-5 md:justify-center xl:hidden">
         <Image
           alt={t('HOME_HERO_IMAGE_ALT')}
           height={600}
@@ -109,7 +109,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
       </section>
 
       <PublicContainer>
-        <PublicContainer.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px] xl:pt-60">
+        <PublicContainer.Content className="flex-col gap-10 py-10 lg:gap-14 xl:py-[60px] xl:pt-60 2xl:pt-64">
           <h3 className="text-center text-3xl font-bold lg:text-4xl">{t.rich('HOME_BENEFITS_TITLE')}</h3>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             {appBenefitsKeys.map((key) => {
