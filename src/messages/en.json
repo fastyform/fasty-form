@@ -362,6 +362,12 @@
   "SUBMISSIONS_reviewed": "Reviewed",
   "SUBMISSIONS_skeleton": "Pending",
   "SUBMISSIONS_unreviewed": "Pending",
+  "SUBMISSION_ASK_RESEND_VIDEO_CTA": "Send request",
+  "SUBMISSION_ASK_RESEND_VIDEO_DESCRIPTION": "If the video submitted by the client is not appropriate, you can ask for a new recording. Provide a description so the client understands what needs to be improved.",
+  "SUBMISSION_ASK_RESEND_VIDEO_MODAL_DESCRIPTION": "If the video submitted by the client does not meet the requirements, you can ask for a new recording. Include detailed guidelines in the message about what should be included in the new video so that the client clearly understands the expectations.",
+  "SUBMISSION_ASK_RESEND_VIDEO_MODAL_MESSAGE_LABEL": "Requirements for new video",
+
+  "SUBMISSION_ASK_RESEND_VIDEO_MODAL_TITLE": "Send request for a new video",
   "SUBMISSION_ASSES": "Assess technique",
   "SUBMISSION_BUY_AGAIN_BUTTON": "Buy again",
   "SUBMISSION_BUY_AGAIN_TITLE": "Need another technique verification?",

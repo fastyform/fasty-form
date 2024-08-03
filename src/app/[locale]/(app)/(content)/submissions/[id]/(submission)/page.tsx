@@ -10,6 +10,7 @@ import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getLoggedInUser from '@/utils/get-logged-in-user';
 import AddTrainerReviewForm from './_components/add-trainer-review-form';
+import RequestNewVideo from './_components/request-new-video';
 import SubmissionPartWithIcon from './_components/submission-part-with-icon';
 import SubmissionVideo from './_components/submission-video';
 import { VideoSkeleton } from './loading';
@@ -41,9 +42,12 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           <span className="font-bold">{t('SUBMISSION_CREATED_AT')}</span>
           <span> • {formattedCreationDate}</span>
         </p>
-        <Suspense fallback={<VideoSkeleton />}>
-          <SubmissionVideo submissionId={params.id} />
-        </Suspense>
+        <div className="flex shrink-0 flex-col gap-5 lg:order-2">
+          <Suspense fallback={<VideoSkeleton />}>
+            <SubmissionVideo submissionId={params.id} />
+          </Suspense>
+          {submission.status === 'unreviewed' && <RequestNewVideo />}
+        </div>
         <div className="flex flex-col gap-5 lg:order-1 lg:grow">
           {!!submission.client_description && (
             <SubmissionPartWithIcon verticalLine icon="submission">
