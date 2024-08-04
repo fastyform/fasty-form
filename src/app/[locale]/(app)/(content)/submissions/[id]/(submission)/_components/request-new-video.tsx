@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 
@@ -53,15 +52,9 @@ const RequestNewVideo = ({ submissionId, videoKey }: { submissionId: string; vid
 
   return (
     <>
-      <div className="flex max-w-2xl flex-col items-center justify-between gap-2.5 md:flex-row">
-        <div className="flex gap-1.5 text-white">
-          <InfoOutlinedIcon className="w-6 shrink-0" />
-          <span className="text-xs">{t('SUBMISSION_REQUEST_NEW_VIDEO_DESCRIPTION')}</span>
-        </div>
-        <AppButton className="ml-auto shrink-0" size="small" variant="outlined" onClick={() => setOpen(true)}>
-          {t('SUBMISSION_REQUEST_NEW_VIDEO_CTA')}
-        </AppButton>
-      </div>
+      <AppButton className="mr-auto" size="small" variant="outlined" onClick={() => setOpen(true)}>
+        {t('SUBMISSION_REQUEST_NEW_VIDEO_CTA')}
+      </AppButton>
       <AppModal open={open} onClose={handleClose}>
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2.5">
@@ -87,7 +80,7 @@ const RequestNewVideo = ({ submissionId, videoKey }: { submissionId: string; vid
                 requestNewVideoMutation.mutate(data);
               })}
             >
-              {t('SUBMISSION_REQUEST_NEW_VIDEO_CTA')}
+              {t('SUBMISSION_REQUEST_NEW_VIDEO_MODAL_SUBMIT')}
             </AppButton>
           </form>
         </div>
