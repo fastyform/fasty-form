@@ -26,7 +26,7 @@ const NewVideoRequest = ({ trainerName, submissionId, t }: Props) => (
           <Link href={`${Constants.ORIGIN_URL}/submissions/${submissionId}/requirements`}>{chunks}</Link>
         ),
       })}
-      <MailTemplate.LineBreak />
+      <br />
     </strong>
     {(['1', '2', '3', '4'] as const).map((index) => (
       <Fragment key={index}>
