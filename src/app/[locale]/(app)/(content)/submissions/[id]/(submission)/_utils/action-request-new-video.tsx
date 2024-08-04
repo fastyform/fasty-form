@@ -44,7 +44,7 @@ const actionRequestNewVideo = async (payload: Payload) => {
     .from('submissions')
     .update({
       video_key: null,
-      status: 'video_request',
+      status: 'new_video_request',
       new_video_request_description: newVideoRequirements,
     })
     .eq('id', submissionId)

@@ -29,9 +29,9 @@ const SubmissionCardImage = async ({ submissionStatus, videoKey, isTrainerAccoun
     );
   }
 
-  if (submissionStatus === 'video_request' && !isTrainerAccount) {
+  if (submissionStatus === 'new_video_request' && !isTrainerAccount) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-2.5 rounded-xl bg-red-400/15">
+      <div className="flex h-full flex-col items-center justify-center gap-2.5 rounded-xl">
         <FileUploadOutlinedIcon className="fill-yellow-400 text-5xl" />
         <span className=" text-center text-yellow-400">{t.rich('SUBMISSION_UPLOAD_NEW_VIDEO')}</span>
       </div>

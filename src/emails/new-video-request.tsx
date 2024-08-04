@@ -36,8 +36,6 @@ const NewVideoRequest = ({ trainerName, submissionId, t }: Props) => (
     ))}
     <MailTemplate.LineBreak />
     {t.rich('MAIL_TEMPLATE_NEW_VIDEO_REQUEST_CONTENT_4')}
-    <MailTemplate.LineBreak />
-    {t.rich('MAIL_TEMPLATE_REQUIREMENTS_SENT_CONTENT_6')}
     <MailTemplate.Greetings t={t} />
   </MailTemplate>
 );
