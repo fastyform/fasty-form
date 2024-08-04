@@ -27,6 +27,7 @@ const NewRequirementsSent = ({ trainerName, submissionId, t }: Props) => (
         ),
       })}
     </strong>
+    <br />
     {(['1', '2', '3', '4'] as const).map((index) => (
       <Fragment key={index}>
         <br />
