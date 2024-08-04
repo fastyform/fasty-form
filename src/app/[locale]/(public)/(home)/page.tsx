@@ -174,7 +174,7 @@ const HomePage = ({ params: { locale } }: { params: { locale: Locale } }) => {
             className="w-[241px] self-center xl:w-[337px]"
             height={1520 * 0.5}
             quality={100}
-            src={`/home/iphone-app-onboarding-${locale}.png`}
+            src={`/home/how-it-works-${locale}.png`}
             width={817 * 0.5}
           />
         </PublicContainer.Content>
