@@ -36,7 +36,7 @@ const SubmissionPartWithIcon = ({
   return (
     <div className={twMerge('flex gap-2.5', className)}>
       <div className="flex flex-shrink-0 flex-grow-0 basis-5 flex-col items-center gap-5">
-        <SubmissionPartIcon className={twMerge('text-[28px]', iconClassName)} />
+        <SubmissionPartIcon className={twMerge('w-[1em] text-[28px]', iconClassName)} />
         {verticalLine && <div className={twMerge('w-[2px] grow rounded-full bg-zinc-700', verticalLineClassName)} />}
       </div>
       <div className="flex grow flex-col gap-2.5">{children}</div>
