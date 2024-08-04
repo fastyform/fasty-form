@@ -204,6 +204,7 @@ export type Database = {
           client_id: string | null;
           created_at: string | null;
           id: string | null;
+          new_video_request_description: string | null;
           price_in_grosz: number | null;
           status: Database['public']['Enums']['status'] | null;
           stripe_session_id: string | null;
@@ -217,6 +218,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string | null;
           id?: string | null;
+          new_video_request_description?: string | null;
           price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'] | null;
           stripe_session_id?: string | null;
@@ -230,6 +232,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string | null;
           id?: string | null;
+          new_video_request_description?: string | null;
           price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'] | null;
           stripe_session_id?: string | null;
@@ -259,6 +262,7 @@ export type Database = {
           client_id: string | null;
           created_at: string | null;
           id: string | null;
+          new_video_request_description: string | null;
           price_in_grosz: number | null;
           status: Database['public']['Enums']['status'] | null;
           stripe_session_id: string | null;
@@ -272,6 +276,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string | null;
           id?: string | null;
+          new_video_request_description?: string | null;
           price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'] | null;
           stripe_session_id?: string | null;
@@ -285,6 +290,7 @@ export type Database = {
           client_id?: string | null;
           created_at?: string | null;
           id?: string | null;
+          new_video_request_description?: string | null;
           price_in_grosz?: number | null;
           status?: Database['public']['Enums']['status'] | null;
           stripe_session_id?: string | null;
@@ -381,7 +387,7 @@ export type Database = {
     Enums: {
       locales: 'pl' | 'en';
       role: 'trainer' | 'client';
-      status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout' | 'video_request';
+      status: 'reviewed' | 'unreviewed' | 'paid' | 'paidout' | 'new_video_request';
       stripe_onboarding_status_enum: 'verified' | 'unverified' | 'pending_verification';
     };
     CompositeTypes: {

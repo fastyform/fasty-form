@@ -82,7 +82,6 @@ const RequestNewVideo = ({ submissionId, videoKey }: { submissionId: string; vid
             />
             <AppButton
               loading={requestNewVideoMutation.isPending}
-              size="small"
               type="submit"
               onClick={form.handleSubmit((data) => {
                 requestNewVideoMutation.mutate(data);

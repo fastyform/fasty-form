@@ -14,7 +14,7 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string; lo
   const t = await getTranslations();
   const [user, submission] = await Promise.all([getLoggedInUser(), getSubmissionById(params.id)]);
 
-  if (submission.status !== 'paid' && submission.status !== 'video_request') {
+  if (submission.status !== 'paid' && submission.status !== 'new_video_request') {
     return redirect(`/submissions/${params.id}`);
   }
 
@@ -43,7 +43,7 @@ const SubmissionRequirementsPage = async ({ params }: { params: { id: string; lo
             trainerProfileSlug={submission.trainers_details.profile_slug}
           />
         </span>
-        {submission.status === 'video_request' && (
+        {submission.status === 'new_video_request' && (
           <>
             <p>{t('SUBMISSION_REQUIREMENTS_VIDEO_REQUEST_DESCRIPTION')}: </p>
             <p className="py-2.5 italic text-yellow-400">&quot;{submission.new_video_request_description}&quot;</p>

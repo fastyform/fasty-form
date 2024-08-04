@@ -47,7 +47,7 @@ const SubmissionCard = async ({
   const user = await getLoggedInUser();
   const isTrainerAccount = await checkIsTrainerAccount(user.id);
 
-  const isNewVideoRequest = submissionStatus === 'video_request' && !isTrainerAccount;
+  const isNewVideoRequest = submissionStatus === 'new_video_request' && !isTrainerAccount;
 
   const href = `/submissions/${submissionId}${submissionStatus === 'paid' || isNewVideoRequest ? '/requirements' : ''}`;
 

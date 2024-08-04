@@ -27,7 +27,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
     getSubmissionById(params.id),
   ]);
 
-  if (submission.status === 'paid' || (submission.status === 'video_request' && !isTrainerAccount)) {
+  if (submission.status === 'paid' || (submission.status === 'new_video_request' && !isTrainerAccount)) {
     return redirect(`/submissions/${params.id}/requirements`);
   }
 
@@ -52,7 +52,7 @@ const SubmissionPage = async ({ params }: { params: { id: string; locale: Locale
           {submission.status === 'unreviewed' && submission.video_key && (
             <RequestNewVideo submissionId={params.id} videoKey={submission.video_key} />
           )}
-          {submission.status === 'video_request' && !submission.video_key && <VideoRequestSent />}
+          {submission.status === 'new_video_request' && !submission.video_key && <VideoRequestSent />}
         </div>
         <div className="flex flex-col gap-5 lg:order-1 lg:grow">
           {!!submission.client_description && (

@@ -6,7 +6,7 @@ alter table "public"."submissions" alter column "status" drop default;
 
 alter type "public"."status" rename to "status__old_version_to_be_dropped";
 
-create type "public"."status" as enum ('reviewed', 'unreviewed', 'paid', 'paidout', 'video_request');
+create type "public"."status" as enum ('reviewed', 'unreviewed', 'paid', 'paidout', 'new_video_request');
 
 alter table "public"."submissions" alter column status type "public"."status" using status::text::"public"."status";
 
@@ -16,7 +16,8 @@ drop type "public"."status__old_version_to_be_dropped";
 
 alter table "public"."submissions" add column "new_video_request_description" text;
 
-create or replace view "public"."ordered_submissions_client" as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_client" with (security_invoker = on) as
+SELECT submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
@@ -26,17 +27,19 @@ create or replace view "public"."ordered_submissions_client" as  SELECT submissi
     submissions.status,
     submissions.id,
     submissions.price_in_grosz,
-    submissions.video_key
+    submissions.video_key,
+    submissions.new_video_request_description
    FROM submissions
   ORDER BY
         CASE submissions.status
-            WHEN 'video_request'::status THEN 1
+            WHEN 'new_video_request'::status THEN 1
             WHEN 'paid'::status THEN 2
             ELSE NULL::integer
         END, submissions.created_at DESC;
 
 
-create or replace view "public"."ordered_submissions_trainer" as  SELECT submissions.created_at,
+create or replace view "public"."ordered_submissions_trainer" with (security_invoker = on) as
+SELECT submissions.created_at,
     submissions.updated_at,
     submissions.stripe_session_id,
     submissions.client_id,
@@ -46,7 +49,8 @@ create or replace view "public"."ordered_submissions_trainer" as  SELECT submiss
     submissions.status,
     submissions.id,
     submissions.price_in_grosz,
-    submissions.video_key
+    submissions.video_key,
+    submissions.new_video_request_description
    FROM submissions
   WHERE (submissions.status <> 'paid'::status)
   ORDER BY
