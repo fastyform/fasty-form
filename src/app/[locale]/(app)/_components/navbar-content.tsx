@@ -26,7 +26,7 @@ const NavbarContent = async () => {
             </NavbarLink>
           )}
           <NavbarLink
-            href="/trainers"
+            href={user.id === '6920c449-b311-42d5-a476-3ec927db9481' ? '/trainers-video' : '/trainers'}
             icon="trainers"
             trainerSlug={trainerDetails && trainerDetails.profile_slug ? trainerDetails.profile_slug : undefined}
           >
