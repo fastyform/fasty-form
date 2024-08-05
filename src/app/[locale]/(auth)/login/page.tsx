@@ -26,14 +26,20 @@ const LoginPage = ({
   unstable_setRequestLocale(locale);
   const t = useTranslations();
 
+  const isPurchaseFlow = searchParams.purchase === 'true';
+
   return (
     <SplitPageWithImage imageProps={{ alt: t('LOGIN_IMAGE_ALT'), src: '/login.jpg', className: 'opacity-60' }}>
-      <h1 className="text-2xl font-bold text-white">{t('LOGIN_PAGE_TITLE')}</h1>
-      <div className="flex flex-col gap-4">
-        <LoginForm redirectUrlParam={searchParams.redirectUrl} />
-        <AuthLink href="/register/client" redirectUrlParam={searchParams.redirectUrl}>
-          {t.rich('LOGIN_REGISTER_REDIRECT')}
-        </AuthLink>
+      <div className="flex flex-col gap-6">
+        <h1 className="text-2xl font-bold text-white">
+          {t(isPurchaseFlow ? 'LOGIN_PAGE_PURCHASE_FLOW_TITLE' : 'LOGIN_PAGE_TITLE')}
+        </h1>
+        <div className="flex flex-col gap-4">
+          <LoginForm redirectUrlParam={searchParams.redirectUrl} />
+          <AuthLink href="/register/client" isPurchaseFlow={isPurchaseFlow} redirectUrlParam={searchParams.redirectUrl}>
+            {t.rich('LOGIN_REGISTER_REDIRECT')}
+          </AuthLink>
+        </div>
       </div>
     </SplitPageWithImage>
   );

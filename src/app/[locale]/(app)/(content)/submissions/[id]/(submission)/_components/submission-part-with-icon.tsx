@@ -3,6 +3,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { twMerge } from 'tailwind-merge';
 import DescriptionIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/description-icon';
 import FinishedIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/finished-icon';
+import RequestSentIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/request-sent-icon';
 import SubmissionIcon from '@/app/[locale]/(app)/(content)/submissions/[id]/(submission)/_assets/submission-icon';
 
 const submissionIcons = {
@@ -10,6 +11,7 @@ const submissionIcons = {
   description: DescriptionIcon,
   finished: FinishedIcon,
   buyAgain: AutorenewIcon,
+  requestedVideo: RequestSentIcon,
 };
 
 interface SubmissionPartWithIconProps {
@@ -34,7 +36,7 @@ const SubmissionPartWithIcon = ({
   return (
     <div className={twMerge('flex gap-2.5', className)}>
       <div className="flex flex-shrink-0 flex-grow-0 basis-5 flex-col items-center gap-5">
-        <SubmissionPartIcon className={twMerge('text-[28px]', iconClassName)} />
+        <SubmissionPartIcon className={twMerge('w-[1em] text-[28px]', iconClassName)} />
         {verticalLine && <div className={twMerge('w-[2px] grow rounded-full bg-zinc-700', verticalLineClassName)} />}
       </div>
       <div className="flex grow flex-col gap-2.5">{children}</div>

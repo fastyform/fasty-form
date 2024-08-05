@@ -1,5 +1,6 @@
 import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { ClassNameValue, twMerge } from 'tailwind-merge';
 import getSubmissionById from '@/app/[locale]/(app)/(content)/submissions/[id]/get-submission-by-id';
 import { removeFileExtension } from '@/utils';
 import s3Client, { BUCKET_NAME_PROCESSED, BUCKET_NAME_UNPROCESSED } from '@/utils/s3';
@@ -7,7 +8,7 @@ import s3Client, { BUCKET_NAME_PROCESSED, BUCKET_NAME_UNPROCESSED } from '@/util
 const UNPROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 10; // 10 minutes
 const PROCESSED_VIDEO_URL_EXPIRATION_TIME_IN_SECONDS = 60 * 60 * 2; // 2 hours
 
-const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
+const SubmissionVideo = async ({ submissionId, className }: { submissionId: string; className?: ClassNameValue }) => {
   const submission = await getSubmissionById(submissionId);
 
   if (!submission.video_key) throw new Error('No video key');
@@ -37,7 +38,7 @@ const SubmissionVideo = async ({ submissionId }: { submissionId: string }) => {
   return (
     <video
       controls
-      className="aspect-video rounded-xl border border-gray-600 lg:order-2 lg:h-80 xl:h-96"
+      className={twMerge('aspect-video rounded-xl border border-gray-600 lg:h-80 xl:h-96', className)}
       src={videoUrl}
     />
   );

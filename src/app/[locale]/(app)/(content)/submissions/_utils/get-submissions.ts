@@ -23,7 +23,7 @@ const getSubmissionQueries = (
 
   const submissionsQuery = supabase
     .from(submissionViewName)
-    .select('id, status, video_key, trainers_details (profile_name), created_at')
+    .select('id, status, video_key, trainers_details (profile_name, profile_image_url), created_at')
     .range(range.start, range.end);
 
   const submissionsCountQuery = supabase.from(submissionViewName).select('*', { count: 'exact', head: true });

@@ -8,14 +8,12 @@ interface Props {
 }
 
 const FOOTER_LINKS = [
+  ['/', 'HOME_PAGE'],
+  ['/trainers', 'TRAINERS'],
+  ['/contact', 'CONTACT'],
   ['/terms-of-service', 'TOS'],
   ['/privacy-policy', 'PRIVACY_POLICY'],
-  ['/contact', 'CONTACT'],
   ['/cookies', 'COOKIES'],
-  ['/ambassador-program', 'AMBASSADOR'],
-  ['/', 'HOME_PAGE'],
-  ['/client', 'CLIENT'],
-  ['/how-it-works', 'HOW_IT_WORKS'],
 ] as const;
 
 const AuthFooter = ({ className }: Props) => {

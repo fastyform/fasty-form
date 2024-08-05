@@ -7,6 +7,7 @@ const statusBadgeData = {
   paid: ['bg-[#17a2b8]/60 border-[#17a2b8]', 'text-white'],
   paidout: ['bg-[#6f42c1]/60 border-[#6f42c1]', 'text-white'],
   skeleton: ['bg-shark animate-pulse', 'text-shark'],
+  new_video_request: ['bg-[#ff9800]/60 border-[#ff9800]', 'text-white'],
 } as const;
 
 interface StatusBadgeProps {

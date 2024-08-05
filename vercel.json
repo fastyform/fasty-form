@@ -5,20 +5,8 @@
       "schedule": "0 5 * * *"
     },
     {
-      "path": "/api/cron/complete-onboarding",
-      "schedule": "0 7 * * *"
-    },
-    {
-      "path": "/api/cron/complete-stripe-onboarding",
-      "schedule": "0 7 * * *"
-    },
-    {
       "path": "/api/cron/invoice",
       "schedule": "0 6 1 * *"
-    },
-    {
-      "path": "/api/cron/trainer-app-review",
-      "schedule": "0 9 * * *"
     }
   ],
   "functions": {

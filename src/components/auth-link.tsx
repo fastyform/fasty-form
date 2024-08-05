@@ -6,16 +6,17 @@ type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
   LinkProps & {
     children?: ReactNode;
     redirectUrlParam: SearchParam;
+    isPurchaseFlow?: boolean;
   };
 
 const AuthLink = (props: Props) => {
-  const { href, redirectUrlParam, ...rest } = props;
+  const { href, redirectUrlParam, isPurchaseFlow, ...rest } = props;
   const redirectUrl = typeof redirectUrlParam === 'string' ? `?redirectUrl=${redirectUrlParam}` : '';
 
   return (
     <Link
       className="w-fit self-center text-white transition-opacity hover:opacity-80"
-      href={`${href}${redirectUrl}`}
+      href={`${href}${redirectUrl}${isPurchaseFlow ? '&purchase=true' : ''}`}
       {...rest}
     />
   );

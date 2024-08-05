@@ -7,8 +7,6 @@ import {
   getTrainerSubmissions,
   SUBMISSIONS_PAGE_SIZE,
 } from '@/app/[locale]/(app)/(content)/submissions/_utils/get-submissions';
-import ShareProfileButton from '@/app/[locale]/(app)/trainers/[slug]/_components/share-profile-button';
-import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
 import { SearchParams } from '@/utils/types';
 import SubmissionCard from './submission-card/submission-card';
 import SubmissionsPagination from './submissions-pagination';
@@ -22,10 +20,9 @@ export const SubmissionsGridWrapper = ({ children }: { children: ReactNode }) =>
 interface SubmissionsProps {
   searchParams: SearchParams;
   isTrainerAccount: boolean;
-  userId: string;
 }
 
-const Submissions = async ({ searchParams, isTrainerAccount, userId }: SubmissionsProps) => {
+const Submissions = async ({ searchParams, isTrainerAccount }: SubmissionsProps) => {
   const t = await getTranslations();
   const { submissions, submissionsCount } = isTrainerAccount
     ? await getTrainerSubmissions(searchParams)
@@ -50,8 +47,6 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
     );
 
   if (!hasSubmissions && isTrainerAccount) {
-    const trainerDetails = await getTrainerDetailsById(userId);
-
     return (
       <div className="flex w-full flex-col items-center gap-5">
         <Image
@@ -65,7 +60,6 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
         <div className="flex max-w-md flex-col items-center justify-center text-center text-white">
           <h2 className="mb-2.5 text-xl font-bold md:text-2xl">{t('SUBMISSIONS_EMPTY_TRAINER_TITLE')}</h2>
           <p className="mb-5">{t('SUBMISSIONS_EMPTY_TRAINER_DESCRIPTION')}</p>
-          <ShareProfileButton isIconOnMobile={false} trainerDetails={trainerDetails} />
         </div>
       </div>
     );
@@ -83,6 +77,7 @@ const Submissions = async ({ searchParams, isTrainerAccount, userId }: Submissio
               createdAt={created_at}
               submissionId={id}
               submissionStatus={status}
+              trainerProfileImageUrl={trainers_details.profile_image_url}
               trainerProfileName={trainers_details.profile_name}
               videoKey={video_key}
             />

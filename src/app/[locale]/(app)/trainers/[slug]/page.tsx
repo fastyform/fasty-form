@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import ContentLayoutContainer from '@/app/[locale]/(app)/_components/content-layout-container';
+import TrainerImage from '@/components/trainer-image';
 import checkIsTrainerAccount from '@/utils/check-is-trainer-account';
 import { Locale } from '@/utils/constants';
 import getTrainerDetailsById from '@/utils/get-trainer-details-by-id';
@@ -28,7 +28,8 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
   const t = await getTranslations();
 
   if (!trainerDetails.is_onboarded || stripeOnboardingRedirect || !trainerDetails.profile_slug) return notFound();
-  if (!trainerDetails.service_price_in_grosz) throw new Error('Trainer has no service price set');
+  if (!trainerDetails.service_price_in_grosz || !trainerDetails.profile_name)
+    throw new Error('Trainer has no service price set or no profile name');
 
   const isBuyButtonVisible = !(isUserOwner && trainerDetails.stripe_onboarding_status !== 'verified');
 
@@ -37,11 +38,11 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
       <ContentLayoutContainer>
         <div className="flex grow flex-col items-center gap-5 lg:justify-start">
           <div className="relative flex w-full flex-col items-center justify-center">
-            <Image
+            <TrainerImage
               fill
-              alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
               className="opacity-60 blur-xl [transform:translate3d(0,0,0)]  lg:blur-3xl"
-              src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
+              trainerProfileImageUrl={trainerDetails.profile_image_url}
+              trainerProfileName={trainerDetails.profile_name}
             />
             {isUserOwner && (
               <Suspense>
@@ -50,12 +51,11 @@ const TrainerPage = async ({ params }: { params: { slug: string; locale: Locale 
                 </div>
               </Suspense>
             )}
-            <div className="relative aspect-square w-full max-w-sm rounded-full border border-gray-600 object-cover">
-              <Image
+            <div className="relative aspect-square w-full max-w-sm rounded-full object-cover">
+              <TrainerImage
                 fill
-                alt={`${trainerDetails.profile_name} ${t('TRAINERS_PAGE_PROFILE_IMAGE')}`}
-                className="rounded-full"
-                src={trainerDetails.profile_image_url || '/default-trainer.jpg'}
+                trainerProfileImageUrl={trainerDetails.profile_image_url}
+                trainerProfileName={trainerDetails.profile_name}
               />
             </div>
           </div>

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import actionLogin from '@/app/[locale]/(auth)/login/_actions/action-login';
 import { formSchema, FormValues } from '@/app/[locale]/(auth)/login/_utils';
-import actionLoginGoogle from '@/app/[locale]/(auth)/providers/_actions/action-login-google';
+import actionSignInGoogle from '@/app/[locale]/(auth)/providers/_actions/action-sign-in-google';
 import ButtonGoogle from '@/app/[locale]/(auth)/providers/_components/button-google';
 import AppButtonSubmit from '@/components/app-button-submit';
 import AppFormState from '@/components/app-form-error';
@@ -46,7 +46,7 @@ const LoginForm = ({ redirectUrlParam }: { redirectUrlParam: SearchParam }) => {
           {t('COMMON_LOGIN_CTA')}
         </AppButtonSubmit>
         <span className="text-center text-zinc-200">{t('COMMON_OR')}</span>
-        <ButtonGoogle authCallback={() => actionLoginGoogle(redirectUrlParam)}>{t('COMMON_LOGIN_CTA')}</ButtonGoogle>
+        <ButtonGoogle authCallback={() => actionSignInGoogle(redirectUrlParam)}>{t('COMMON_CONTINUE')}</ButtonGoogle>
       </div>
     </form>
   );
