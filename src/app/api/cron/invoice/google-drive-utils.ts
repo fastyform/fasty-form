@@ -8,9 +8,9 @@ const GOOGLE_SERVICE_AUTH_CREDENTIALS = JSON.parse(
 );
 
 export const getGoogleDriveMonthFolderId = async (drive: drive_v3.Drive) => {
-  const now = dayjs().utc();
+  const monthAgo = dayjs().utc().subtract(1, 'month');
   const yearFoldersQueryResponse = await drive.files.list({
-    q: `mimeType='application/vnd.google-apps.folder' and name='${now.format(
+    q: `mimeType='application/vnd.google-apps.folder' and name='${monthAgo.format(
       'YYYY',
     )}' and '${DOCUMENTS_FOLDER_ID}' in parents and trashed=false`,
     fields: 'files(id, name)',
@@ -24,7 +24,7 @@ export const getGoogleDriveMonthFolderId = async (drive: drive_v3.Drive) => {
   const yearFolderId = yearFoldersQueryResponse.data.files[0].id;
 
   const montFoldersQueryResponse = await drive.files.list({
-    q: `mimeType='application/vnd.google-apps.folder' and name='${now.format(
+    q: `mimeType='application/vnd.google-apps.folder' and name='${monthAgo.format(
       'MM',
     )}' and '${yearFolderId}' in parents and trashed=false`,
     fields: 'files(id, name)',
