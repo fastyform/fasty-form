@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -9,6 +8,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import { useMessages } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Providers from '@/app/[locale]/providers';
+import AppLogo from '@/components/app-logo';
 import Constants, { Locale, LOCALES, PRODUCTION_ORIGIN_URL } from '@/utils/constants';
 import NextIntlProvider from './next-intl-provider';
 import 'dayjs/locale/pl';
@@ -41,7 +41,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-const AppLayout = ({ children, params: { locale } }: { children: ReactNode; params: { locale: Locale } }) => {
+const AppLayout = ({ params: { locale } }: { params: { locale: Locale } }) => {
   unstable_setRequestLocale(locale);
   dayjs.locale(locale);
   const messages = useMessages();
@@ -52,7 +52,23 @@ const AppLayout = ({ children, params: { locale } }: { children: ReactNode; para
         <NextIntlProvider locale={locale} messages={messages}>
           <ToastContainer toastClassName="bg-bunker border-gray-600 border rounded-lg" />
           <AppRouterCacheProvider>
-            <Providers locale={locale}>{children}</Providers>
+            <Providers locale={locale}>
+              <div className="bg-custom-radial min-h-screen-responsive flex items-center justify-center p-5 text-white">
+                <div className="flex flex-col items-center gap-8">
+                  <AppLogo />
+                  <div className="flex flex-col gap-4 text-center">
+                    <h1 className="text-2xl font-bold">FastyForm jest niedostępne</h1>
+                    <p className="text-base">
+                      Możemy wrócić z nową wersją na urządzenia mobilne, jeśli będzie dużo chętnych. <br /> Chcesz być
+                      powiadomiony? Daj nam znać i napisz na nasz adres e-mail.
+                    </p>
+                    <a className="font-bold underline" href="mailto:support@fastyform.com">
+                      support@fastyform.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Providers>
           </AppRouterCacheProvider>
         </NextIntlProvider>
       </body>
